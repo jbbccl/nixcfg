@@ -1,0 +1,98 @@
+{ pkgs, username, ... }: 
+let
+fontName ="Maple Mono NF CN";
+fontSize = 12;
+
+gtkThemeName = "catppuccin-macchiato-blue-standard";
+gtkThemePkg = pkgs.catppuccin-gtk.override {
+	accents = [ "blue" ];
+	size = "standard";
+	variant = "macchiato";
+};
+
+iconThemeName = "Papirus-Dark";
+iconThemePkg = pkgs.catppuccin-papirus-folders.override {
+	flavor = "macchiato";
+	accent = "blue";
+};
+
+cursorsThemeName = "breeze_cursors";#"catppuccin-macchiato-dark-cursors";
+cursorsThemePkg = pkgs.kdePackages.breeze;#pkgs.catppuccin-cursors.macchiatoDark;
+
+cursorSize = 16;
+
+
+in
+{
+home-manager.users.${username} = {
+	# home.packages = with pkgs; [
+	# (catppuccin-kvantum.override {
+	# 	accent = "blue";
+	# 	variant = "macchiato";
+	# })
+	# libsForQt5.qtstyleplugin-kvantum
+	# libsForQt5.qt5ct
+	# papirus-folders
+	# ];
+
+	home.pointerCursor = {
+		gtk.enable = true;
+		name = cursorsThemeName;
+		package = pkgs.catppuccin-cursors.macchiatoDark;
+		size = cursorSize;
+	};
+	home.sessionVariables = {
+		XCURSOR_THEME = cursorsThemeName;
+		XCURSOR_SIZE = toString cursorSize;
+	};
+		
+	gtk = {
+		enable = true;
+		font = {
+			name = fontName;
+			size = fontSize;
+ 		};
+		theme = {
+			name = gtkThemeName;
+			package = gtkThemePkg;
+		};
+		iconTheme = {
+			name = iconThemeName;
+			package = iconThemePkg;
+		};
+		cursorTheme = {
+			name = cursorsThemeName;
+			package = cursorsThemePkg;
+		};
+
+		gtk3 = {
+			extraConfig.gtk-application-prefer-dark-theme = true;
+		};
+		gtk4 = {
+			extraConfig.gtk-application-prefer-dark-theme = true;
+		};
+	};
+
+	dconf.settings = {
+		"org/gnome/desktop/interface" = {
+			gtk-theme = gtkThemeName;
+			color-scheme = "prefer-dark";
+		};
+
+		# For Gnome shell
+		"org/gnome/shell/extensions/user-theme" = {
+			name = gtkThemeName;
+		};
+	};
+	
+	qt = {
+		enable = true;
+		platformTheme.name = "gtk"; 
+		style = {
+		name = gtkThemeName;
+		package = pkgs.kdePackages.breeze;
+		};
+	};
+
+};
+}

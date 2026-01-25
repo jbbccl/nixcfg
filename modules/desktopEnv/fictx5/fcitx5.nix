@@ -1,0 +1,98 @@
+{ pkgs, username, ... }:
+
+let
+rime-ice = pkgs.stdenvNoCC.mkDerivation {
+	pname = "rime-ice";
+	version = "2024.12.12";
+
+	src = builtins.fetchGit {
+	url = "https://github.com/iDvel/rime-ice.git";
+	ref = "main";  # 分支
+	rev = "c02c83c9e91f3e081052441330df00667abc64a8";  # commit hash
+
+	# rev = "refs/heads/main";  # 分支引用
+	# rev = "refs/tags/2024.12.12";  # 标签引用
+	};
+
+	installPhase = ''
+	mkdir -p $out/share/rime-data
+	rm -rf ./others
+	rm -f README.md LICENSE
+	rm -rf ./.github
+	rm squirrel.yaml weasel.yaml double_pinyin* melt_eng* radical_pinyin*
+	rm default.yaml custom_phrase.txt
+	cp -r ./* $out/share/rime-data
+	'';
+};
+in
+{
+home-manager.users.${username} = {
+
+	xdg.configFile = {
+	"fcitx5/" = {
+		force = true;
+		recursive = true;
+		source = ./config;
+	};
+	};
+
+	home.file = {
+	".local/share/fcitx5/rime" = {
+		source = "${rime-ice}/share/rime-data";
+		force = true;
+		recursive = true;
+		onChange = ''
+		mkdir -p ~/.local/share/fcitx5/rime
+		chmod -R u+w ~/.local/share/fcitx5/rime
+		rm -f ~/.local/share/fcitx5/rime/*.bin
+		# rm -f ~/.local/share/fcitx5/rime/build/*
+		'';
+	};
+
+	".local/share/fcitx5/themes" = {
+		source = ./share/themes;
+		force = true;
+		recursive = true;
+	};
+
+
+	".local/share/fcitx5/rime/default.yaml" = {
+		source = ./share/rime/default.yaml;
+		force = true;
+	};
+	};
+
+	home.sessionVariables = {
+	XMODIFIERS = "@im=fcitx";
+	QT_IM_MODULE = "fcitx";
+	QT_IM_MODULES = "fcitx;ibus;wayland";
+	GTK_IM_MODULE = "fcitx";
+	SDL_IM_MODULE = "fcitx";
+	GLFW_IM_MODULE = "fcitx";
+	};
+};
+
+i18n = {
+	inputMethod = {
+	type = "fcitx5";
+	enable = true;
+	fcitx5 = {
+		waylandFrontend = true;
+		addons = with pkgs; [
+#           qt6Packages.fcitx5-configtool
+		fcitx5-gtk
+		libsForQt5.fcitx5-qt
+		kdePackages.fcitx5-qt
+		fcitx5-lua
+		fcitx5-fluent
+		libime
+		librime-lua
+		fcitx5-rime
+		rime-ice
+		];
+
+		};
+	};
+	};
+
+}
