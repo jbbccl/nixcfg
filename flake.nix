@@ -1,6 +1,6 @@
 {
 inputs = {
-	nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+	nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 	nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
 	nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
@@ -28,7 +28,9 @@ outputs = inputs@{
 # sudo -E NIX_CONFIG="substituters = https://cache.nixos.org" nixos-rebuild switch --flake ~/nixrc#lap
 # 测试
 # nix flake check ~/nixos-config
-# 
+# 更新
+# nix flake update
+# 清理
 # sudo nix-collect-garbage -d
 
 nixosConfigurations.lap = nixpkgs.lib.nixosSystem {
