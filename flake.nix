@@ -8,9 +8,11 @@
 # nix flake check ~/nixrc
 # 更新
 # nix flake update
+# nix flake lock --update-input noctalia
 # 清理
 # sudo nix-collect-garbage -d
 {
+
 inputs = {
 	nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 	nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -34,39 +36,71 @@ outputs = inputs@{
 	nixpkgs,
 	home-manager,
 	... }: {
-nixosConfigurations.lap = nixpkgs.lib.nixosSystem {
-system = "x86_64-linux";
-modules = [
-	./host/lap/configuration.nix
-	{
-	nixpkgs.overlays = [
-		(final: prev: {
-		stable = import inputs.nixpkgs-stable {
-			system = prev.stdenv.hostPlatform.system;
-			config.allowUnfree = true;
+
+	nixosConfigurations.lap = nixpkgs.lib.nixosSystem {
+		system = "x86_64-linux";
+		modules = [
+			./host/lap/configuration.nix
+			{
+				nixpkgs.overlays = [
+					(final: prev: {
+						stable = import inputs.nixpkgs-stable {
+							system = prev.stdenv.hostPlatform.system;
+							config.allowUnfree = true;
+						};
+						unstable = import inputs.nixpkgs-unstable {
+							system = prev.stdenv.hostPlatform.system;
+							config.allowUnfree = true;
+						};
+						master = import inputs.nixpkgs-master {
+							system = prev.stdenv.hostPlatform.system;
+							config.allowUnfree = true;
+						};
+					})
+				];
+			}
+			home-manager.nixosModules.home-manager
+		];
+		specialArgs = {
+			_config_ = "lap";
+			username = "e";
+			inherit self inputs;
 		};
-		unstable = import inputs.nixpkgs-unstable {
-			system = prev.stdenv.hostPlatform.system;
-			config.allowUnfree = true;
-		};
-		master = import inputs.nixpkgs-master {
-			system = prev.stdenv.hostPlatform.system;
-			config.allowUnfree = true;
-		};
-		})
-	];
-	}
-	home-manager.nixosModules.home-manager
-];
-specialArgs = {
-	username = "e";
-	inherit self inputs;
 	};
+
+	# ========pc========
+
+	nixosConfigurations.pc = nixpkgs.lib.nixosSystem {
+		system = "x86_64-linux";
+		modules = [
+			./host/pc/configuration.nix
+			{
+			nixpkgs.overlays = [
+				(final: prev: {
+					stable = import inputs.nixpkgs-stable {
+						system = prev.stdenv.hostPlatform.system;
+						config.allowUnfree = true;
+					};
+					unstable = import inputs.nixpkgs-unstable {
+						system = prev.stdenv.hostPlatform.system;
+						config.allowUnfree = true;
+					};
+					master = import inputs.nixpkgs-master {
+						system = prev.stdenv.hostPlatform.system;
+						config.allowUnfree = true;
+					};
+				})
+			];
+			}
+			home-manager.nixosModules.home-manager
+		];
+		specialArgs = {
+			_config_ = "pc";
+			username = "e";
+			inherit self inputs;
+		};
+	};
+
 };
-# 可以定义多个配置
-#     nixosConfigurations.my-laptop = nixpkgs.lib.nixosSystem {
-#       system = "x86_64-linux";
-#       modules = [ ... ];
-#     };
-};
+
 }

@@ -8,35 +8,27 @@
 
 	boot.kernelPackages = pkgs.stable.linuxPackages_zen;
 
+	boot.kernel.sysctl = {
+		"kernel.perf_event_paranoid" = 1;
+	};
+
 	boot.loader = {
 		systemd-boot.enable = true;
 		efi = {
 			canTouchEfiVariables = true;
 			efiSysMountPoint = "/boot/efi"; # ← use the same mount point here.
 		};
-# 		grub = {
-# 			efiSupport = true;
-# 			#efiInstallAsRemovable = true; # 如果 canTouchEfiVariables不能用
-# 			device = "nodev";
-# 		};
+		# grub = {
+		# 	efiSupport = true;
+		# 	#efiInstallAsRemovable = true; # 如果 canTouchEfiVariables不能用
+		# 	device = "nodev";
+		# };
 	};
 
 	console = {
 		font = "Lat2-Terminus16";
 		keyMap = "us";
-# 		useXkbConfig = true; # use xkb.options in tty.
 	};
-
-
-	users.groups.test = {};
-	users.users.${username} = {
-		# uid = 1001;
-		isNormalUser = true;
-		ignoreShellProgramCheck = true;
-		extraGroups = [ "wheel" ];
-# 		packages = with pkgs; [tree];
-	};
-
 
 	system.stateVersion = "25.11";
 	home-manager.users.${username}.home.stateVersion = "25.11";
@@ -57,5 +49,3 @@
 # 此值低于当前 NixOS 版本并不意味着您的系统 已过时、不受支持或易受攻击。
 # 除非您已手动检查了它将给您的配置带来的所有更改，并相应地迁移了您的数据，否则请勿更改此值。
 # 更多信息，请参阅 `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-
-

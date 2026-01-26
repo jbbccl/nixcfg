@@ -1,13 +1,14 @@
 { pkgs, ... }: {
 environment.systemPackages = with pkgs; [
-	fzf
 	vim
 	git
+	pciutils
 	wget
 	curl
-	tree
 	ripgrep
+	fzf
 	fd
+	tree
 	btop
 	yazi
 ];

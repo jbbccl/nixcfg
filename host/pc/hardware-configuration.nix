@@ -9,10 +9,10 @@
 		];
 
 	boot={
-		initrd.availableKernelModules = [
-		"xhci_pci" "thunderbolt"
-		"nvme" "usbhid" "usb_storage"
-		"sd_mod" "sdhci_pci"
+		initrd.availableKernelModules = [ 
+		"xhci_pci" "thunderbolt" 
+		"nvme" "usbhid" "usb_storage" 
+		"sd_mod" "sdhci_pci" 
 		];
 		initrd.kernelModules = [ ];
 		kernelModules = [ "kvm-intel" ];
@@ -63,13 +63,5 @@
 	hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
 	hardware.bluetooth.enable = true;
-
-	hardware.graphics = {
-		enable = true;
-		extraPackages = with pkgs; [
-			intel-media-driver
-			intel-gpu-tools
-			# intel-vaapi-driver # 旧款 CPU 可能需要这个
-		];
-	};
 }
+
