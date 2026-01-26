@@ -1,8 +1,22 @@
+# ！sudo会重置环境变量, 导致不走代理, 第一次构建使用sudo -E
+# sudo nixos-rebuild switch --flake ~/nixrc#lap
+# 使用缓存
+# sudo nixos-rebuild switch --flake ~/nixrc#lap --option substituters ""
+# 使用官方源sudo NIX_CONFIG="substituters = https://cache.nixos.org" nixos-..
+# sudo nixos-rebuild switch --flake ~/nixrc#lap --option substituters "https://cache.nixos.org"
+# 测试
+# nix flake check ~/nixrc
+# 更新
+# nix flake update
+# 清理
+# sudo nix-collect-garbage -d
 {
 inputs = {
-	nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+	nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 	nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
 	nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+
+	nixpkgs.follows = "nixpkgs-unstable";
 
 	noctalia = {
 		url = "github:noctalia-dev/noctalia-shell";
@@ -20,19 +34,6 @@ outputs = inputs@{
 	nixpkgs,
 	home-manager,
 	... }: {
-# 注意sudo会重置环境变量，导致不走代理！
-# sudo -E nixos-rebuild switch --flake ~/nixrc#lap
-# 使用缓存
-# sudo  nixos-rebuild switch --flake ~/nixrc#lap --option substituters ""
-# 使用官方源
-# sudo -E NIX_CONFIG="substituters = https://cache.nixos.org" nixos-rebuild switch --flake ~/nixrc#lap
-# 测试
-# nix flake check ~/nixos-config
-# 更新
-# nix flake update
-# 清理
-# sudo nix-collect-garbage -d
-
 nixosConfigurations.lap = nixpkgs.lib.nixosSystem {
 system = "x86_64-linux";
 modules = [

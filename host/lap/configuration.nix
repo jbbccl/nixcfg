@@ -6,7 +6,7 @@
 		./subFileList.nix
 	];
 
-	boot.kernelPackages = pkgs.linuxPackages_zen;
+	boot.kernelPackages = pkgs.stable.linuxPackages_zen;
 
 	boot.loader = {
 		systemd-boot.enable = true;

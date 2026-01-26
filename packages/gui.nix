@@ -2,11 +2,14 @@
 home-manager.users.${username} = {
 	home.packages = with pkgs; [
 		clash-verge-rev
+
 		kdePackages.filelight
-		localsend
-		# obsidian
 		gparted
+
+		localsend
+
 		zed-editor
+		obsidian
 		# libreoffice-qt
 		# hunspell
 		# wpsoffice-cn
