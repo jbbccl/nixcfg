@@ -16,14 +16,14 @@
 inputs = {
 	nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 	nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
-	nixpkgs-master.url = "git+ssh://git@github.com/NixOS/nixpkgs?ref=master";#"github:NixOS/nixpkgs/master";#
+	nixpkgs-master.url = "github:NixOS/nixpkgs/master";#"git+ssh://git@github.com/NixOS/nixpkgs?ref=master";#
 
 	nixpkgs.follows = "nixpkgs-unstable";
 	home-manager = {
 		url = "github:nix-community/home-manager";
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
-
+	#edit:
 	noctalia = {
 		url = "github:noctalia-dev/noctalia-shell";
 		inputs.nixpkgs.follows = "nixpkgs";
@@ -36,6 +36,8 @@ outputs = inputs@{
 	self,
 	nixpkgs,
 	home-manager,
+	agenix,
+	catppuccin,
 	... }: {
 
 	nixosConfigurations.lap = nixpkgs.lib.nixosSystem {
@@ -43,7 +45,7 @@ outputs = inputs@{
 		modules = [
 			# edit: 
 			catppuccin.nixosModules.catppuccin
-
+			agenix.nixosModules.default
 			# stable: 
 			./host/lap/configuration.nix
 			home-manager.nixosModules.home-manager
