@@ -64,12 +64,10 @@
 
 	hardware.bluetooth.enable = true;
 
-	hardware.graphics = {
-		enable = true;
-		extraPackages = with pkgs; [
-			intel-media-driver
-			intel-gpu-tools
-			# intel-vaapi-driver # 旧款 CPU 可能需要这个
-		];
-	};
+	# hardware.graphics = {
+	# 	enable = true;
+	# 	extraPackages = with pkgs; [
+	# 		intel-media-driver
+	# 	];
+	# };
 }

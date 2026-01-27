@@ -16,19 +16,20 @@
 inputs = {
 	nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 	nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
-	nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+	nixpkgs-master.url = "git+ssh://git@github.com/NixOS/nixpkgs?ref=master";#"github:NixOS/nixpkgs/master";#
 
 	nixpkgs.follows = "nixpkgs-unstable";
+	home-manager = {
+		url = "github:nix-community/home-manager";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
 
 	noctalia = {
 		url = "github:noctalia-dev/noctalia-shell";
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
-
-	home-manager = {
-		url = "github:nix-community/home-manager";
-		inputs.nixpkgs.follows = "nixpkgs";
-	};
+	agenix.url = "github:ryantm/agenix";
+	catppuccin.url = "github:catppuccin/nix/release-25.11";
 };
 
 outputs = inputs@{ 
@@ -40,7 +41,12 @@ outputs = inputs@{
 	nixosConfigurations.lap = nixpkgs.lib.nixosSystem {
 		system = "x86_64-linux";
 		modules = [
+			# edit: 
+			catppuccin.nixosModules.catppuccin
+
+			# stable: 
 			./host/lap/configuration.nix
+			home-manager.nixosModules.home-manager
 			{
 				nixpkgs.overlays = [
 					(final: prev: {
@@ -59,7 +65,6 @@ outputs = inputs@{
 					})
 				];
 			}
-			home-manager.nixosModules.home-manager
 		];
 		specialArgs = {
 			_config_ = "lap";

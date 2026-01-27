@@ -10,7 +10,7 @@ home-manager.users.${username} = {
 
 		zed-editor
 		obsidian
-		# libreoffice-qt
+		libreoffice-qt
 		# hunspell
 		# wpsoffice-cn
 		# hunspellDicts.zh_CN

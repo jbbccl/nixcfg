@@ -9,7 +9,7 @@
 	boot.kernelPackages = pkgs.stable.linuxPackages_zen;
 
 	boot.kernel.sysctl = {
-		"kernel.perf_event_paranoid" = 1;
+		"kernel.perf_event_paranoid" = 0;
 	};
 
 	boot.loader = {

@@ -7,6 +7,7 @@ environment.systemPackages = with pkgs; [
 	gcc         # 编译器
 	gnumake     # Make 工具
 	cmake       # CMake
+	gdb
 	pkg-config  # 查找库的工具 (非常重要)
 
 	# 安装库本身

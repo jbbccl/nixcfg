@@ -8,6 +8,7 @@
 # services.libinput.enable = true;	# 触摸板支持（桌面环境默认启用）
 imports = [
 	./ssh.nix
+	# ./xkb.nix
 ];
 
 }
