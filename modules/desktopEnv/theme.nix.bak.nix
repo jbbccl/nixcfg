@@ -71,19 +71,19 @@ home-manager.users.${username} = {
 		};
 
 		# For Gnome shell
-		"org/gnome/shell/extensions/user-theme" = {
-			name = gtkThemeName;
-		};
+		# "org/gnome/shell/extensions/user-theme" = {
+		# 	name = gtkThemeName;
+		# };
 	};
 	
 	qt = {
 		enable = true;
 		platformTheme.name = "gtk"; 
 		style = {
-		name = gtkThemeName;
+		# name = gtkThemeName;
 		# package = pkgs.kdePackages.breeze;
 		};
 	};
-
 };
+
 }

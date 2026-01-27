@@ -29,7 +29,7 @@ inputs = {
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 	agenix.url = "github:ryantm/agenix";
-	catppuccin.url = "github:catppuccin/nix/release-25.11";
+	# catppuccin.url = "github:catppuccin/nix";#/release-25.11";
 };
 
 outputs = inputs@{ 
@@ -37,7 +37,7 @@ outputs = inputs@{
 	nixpkgs,
 	home-manager,
 	agenix,
-	catppuccin,
+	# catppuccin,
 	... }: let
     username = "e";
 in{
@@ -46,7 +46,7 @@ in{
 		system = "x86_64-linux";
 		modules = [
 			# edit: 
-			catppuccin.nixosModules.catppuccin
+			# catppuccin.nixosModules.catppuccin
 			agenix.nixosModules.default
 
 			{
@@ -90,30 +90,39 @@ in{
 	nixosConfigurations.pc = nixpkgs.lib.nixosSystem {
 		system = "x86_64-linux";
 		modules = [
-			./host/pc/configuration.nix
+			# edit: 
+			agenix.nixosModules.default
+
 			{
-			nixpkgs.overlays = [
-				(final: prev: {
-					stable = import inputs.nixpkgs-stable {
-						system = prev.stdenv.hostPlatform.system;
-						config.allowUnfree = true;
-					};
-					unstable = import inputs.nixpkgs-unstable {
-						system = prev.stdenv.hostPlatform.system;
-						config.allowUnfree = true;
-					};
-					master = import inputs.nixpkgs-master {
-						system = prev.stdenv.hostPlatform.system;
-						config.allowUnfree = true;
-					};
-				})
-			];
+				home-manager.users.${username} = {
+				imports = [];
+				};
 			}
+			# stable: 
+			./host/lap/configuration.nix
 			home-manager.nixosModules.home-manager
+			{
+				nixpkgs.overlays = [
+					(final: prev: {
+						stable = import inputs.nixpkgs-stable {
+							system = prev.stdenv.hostPlatform.system;
+							config.allowUnfree = true;
+						};
+						unstable = import inputs.nixpkgs-unstable {
+							system = prev.stdenv.hostPlatform.system;
+							config.allowUnfree = true;
+						};
+						master = import inputs.nixpkgs-master {
+							system = prev.stdenv.hostPlatform.system;
+							config.allowUnfree = true;
+						};
+					})
+				];
+			}
 		];
 		specialArgs = {
 			_config_ = "pc";
-			username = "e";
+			username = username;
 			inherit self inputs;
 		};
 	};
