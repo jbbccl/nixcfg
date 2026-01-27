@@ -25,11 +25,6 @@
 		# };
 	};
 
-	console = {
-		font = "Lat2-Terminus16";
-		keyMap = "us";
-	};
-
 	system.stateVersion = "25.11";
 	home-manager.users.${username}.home.stateVersion = "25.11";
 }
