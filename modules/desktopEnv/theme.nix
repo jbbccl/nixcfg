@@ -2,7 +2,7 @@
 let
 fontName ="Maple Mono NF CN";
 fontSize = 12;
-
+#ls $XDG_DATA_DIRS/themes
 gtkThemeName = "catppuccin-macchiato-blue-standard";
 gtkThemePkg = pkgs.catppuccin-gtk.override {
 	accents = [ "blue" ];
@@ -10,6 +10,7 @@ gtkThemePkg = pkgs.catppuccin-gtk.override {
 	variant = "macchiato";
 };
 
+#ls $XDG_DATA_DIRS/icons/
 iconThemeName = "Papirus-Dark";
 iconThemePkg = pkgs.catppuccin-papirus-folders.override {
 	flavor = "macchiato";
