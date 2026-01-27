@@ -6,6 +6,6 @@
 		./services/services.nix
 		./shells/__shells__.nix
 		./virtual/virtual.nix
-		./utilities/utilities.nix
+		./utilities/__utilities__.nix
 	];
 }

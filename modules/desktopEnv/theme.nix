@@ -21,24 +21,14 @@ cursorsThemePkg = pkgs.kdePackages.breeze;#pkgs.catppuccin-cursors.macchiatoDark
 
 cursorSize = 16;
 
-
 in
 {
 home-manager.users.${username} = {
-	# home.packages = with pkgs; [
-	# (catppuccin-kvantum.override {
-	# 	accent = "blue";
-	# 	variant = "macchiato";
-	# })
-	# libsForQt5.qtstyleplugin-kvantum
-	# libsForQt5.qt5ct
-	# papirus-folders
-	# ];
 
 	home.pointerCursor = {
 		gtk.enable = true;
 		name = cursorsThemeName;
-		package = pkgs.catppuccin-cursors.macchiatoDark;
+		package = cursorsThemePkg;
 		size = cursorSize;
 	};
 	home.sessionVariables = {
@@ -90,7 +80,7 @@ home-manager.users.${username} = {
 		platformTheme.name = "gtk"; 
 		style = {
 		name = gtkThemeName;
-		package = pkgs.kdePackages.breeze;
+		# package = pkgs.kdePackages.breeze;
 		};
 	};
 

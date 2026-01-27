@@ -29,7 +29,7 @@ inputs = {
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 	agenix.url = "github:ryantm/agenix";
-	catppuccin.url = "github:catppuccin/nix/release-25.11";
+	# catppuccin.url = "github:catppuccin/nix/release-25.11";
 };
 
 outputs = inputs@{ 
@@ -37,15 +37,25 @@ outputs = inputs@{
 	nixpkgs,
 	home-manager,
 	agenix,
-	catppuccin,
-	... }: {
+	# catppuccin,
+	... }: let
+    username = "e";
+in{
 
 	nixosConfigurations.lap = nixpkgs.lib.nixosSystem {
 		system = "x86_64-linux";
 		modules = [
 			# edit: 
-			catppuccin.nixosModules.catppuccin
+			# catppuccin.nixosModules.catppuccin
 			agenix.nixosModules.default
+
+			{
+				home-manager.users.${username} = {
+				imports = [
+					# catppuccin.homeModules.catppuccin
+				];
+				};
+			}
 			# stable: 
 			./host/lap/configuration.nix
 			home-manager.nixosModules.home-manager
@@ -70,7 +80,7 @@ outputs = inputs@{
 		];
 		specialArgs = {
 			_config_ = "lap";
-			username = "e";
+			username = username;
 			inherit self inputs;
 		};
 	};
