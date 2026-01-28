@@ -1,8 +1,14 @@
 { pkgs, lib, username, _config_, ... }:
+let
+  imxterm = pkgs.writeShellScriptBin "xterm" ''
+    exec ${pkgs.kitty}/bin/kitty "$@"
+  '';
+in 
 {
 environment.systemPackages = with pkgs; [
 	alacritty
 	kitty
+	imxterm
 ];
 
 # programs.kitty是 Home Manager option ，
@@ -62,7 +68,10 @@ home-manager.users.${username} = {
 };
 
 xdg.mime.defaultApplications = {
-	"x-scheme-handler/terminal" = "kitty-open.desktop";
+	"x-scheme-handler/terminal" = "kitty";
 };
-environment.sessionVariables.TERMINAL = "kitty";
+environment.sessionVariables={
+	TERMINAL = "kitty";
+	TERM = "kitty";
+};
 }

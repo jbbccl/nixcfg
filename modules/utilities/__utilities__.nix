@@ -1,6 +1,7 @@
 { pkgs,username, ... }: {
 imports = [
 	./neovim/neovim.nix
+	./yazi/yazi.nix
 ];
 
 environment.systemPackages = with pkgs; [
@@ -20,9 +21,6 @@ environment.systemPackages = with pkgs; [
 home-manager.users.${username} = {
 	home.packages = with pkgs; [
 		btop
-		(yazi.override {
-			_7zz = _7zz-rar; 
-		})
 		fzf
 	];
 

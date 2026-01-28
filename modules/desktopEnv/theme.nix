@@ -80,8 +80,8 @@ home-manager.users.${username} = {
 		enable = true;
 		platformTheme.name = "gtk"; 
 		style = {
-		name = "kvantum"; # gtkThemeName;
-		# package = pkgs.kdePackages.breeze;
+			# name = gtkThemeName; # gtkThemeName;
+			# package = pkgs.kdePackages.breeze;
 		};
 	};
 };

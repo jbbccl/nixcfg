@@ -22,6 +22,7 @@ home-manager.users.${username} = {
 environment.systemPackages = with pkgs; [
 	#fuzzel swaylock mako swayidle brightnessctl#亮度调节
 	xwayland-satellite
+	labwc
 	xdg-desktop-portal-gnome
 	xdg-desktop-portal-gtk
 	wl-clipboard

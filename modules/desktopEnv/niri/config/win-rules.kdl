@@ -1,0 +1,55 @@
+window-rule {
+	geometry-corner-radius 12 // 为所有窗口设置几何圆角半径为12
+	clip-to-geometry true	// 将窗口内容裁剪到几何形状（圆角）
+	draw-border-with-background false // 不在窗口背景上绘制边框
+}
+
+// 最大化
+window-rule {
+	match app-id="firefox$"
+	match app-id="code"
+	// match app-id="dev.zed.Zed"
+	open-maximized-to-edges true	//窗口打开时最大化到边缘
+	// open-fullscreen true		//窗口打开时全屏
+}
+// thunar重命名
+window-rule {
+	match app-id="thunar" title="^重命名"
+	match at-startup=true
+
+	open-floating true
+	default-column-width	{ proportion 0.20; }
+	default-window-height	{ proportion 0.12; }
+}
+// 浮动Firefox画中画播放器。
+window-rule {
+	// 此app-id正则表达式将同时匹配：
+	// - 主机版Firefox（app-id为"firefox"）
+	// - Flatpak版Firefox（app-id为"org.mozilla.firefox"）
+	match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+	// 以浮动模式打开
+	open-floating true
+}
+// noctalia放置在背景层内
+layer-rule {
+	match namespace="^noctalia-overview*"
+	place-within-backdrop true
+}
+
+/-window-rule {
+    // 此正则表达式特意设置得尽可能具体，可以只使用 app-id="wezterm"。
+	match app-id=r#"^org\.wezfurlong\.wezterm$"#
+	default-column-width {} // 让窗口自行决定其初始宽度
+}
+/-window-rule {
+    // 匹配KeePassXC密码管理器
+	match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    // 匹配Secrets（GNOME密码管理器）
+	match app-id=r#"^org\.gnome\.World\.Secrets$"#
+
+    // 从屏幕捕获中屏蔽
+	block-out-from "screen-capture"
+
+    // 如果你希望它们在第三方截图工具中可见，请改用此设置。
+	// block-out-from "screencast"
+}
