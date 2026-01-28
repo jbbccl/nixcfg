@@ -4,12 +4,13 @@ window-rule {
 	draw-border-with-background false // 不在窗口背景上绘制边框
 }
 
-// 最大化
+
 window-rule {
 	match app-id="firefox$"
 	match app-id="code"
 	// match app-id="dev.zed.Zed"
-	open-maximized-to-edges true	//窗口打开时最大化到边缘
+	default-column-width {} // 让窗口自行决定其初始宽度
+	// open-maximized-to-edges true	//窗口打开时最大化到边缘
 	// open-fullscreen true		//窗口打开时全屏
 }
 // thunar重命名
