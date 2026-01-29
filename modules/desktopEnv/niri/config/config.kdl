@@ -4,8 +4,11 @@ environment {
 }
 // Note that running niri as a session supports xdg-desktop-autostart,
 //spawn-at-startup "qs" "-c" "noctalia-shell"
+
+
 spawn-at-startup "noctalia-shell"
 spawn-at-startup "fcitx5"
+spawn-at-startup "clash-verge-deb"
 //spawn-at-startup "nm-applet"
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"//null

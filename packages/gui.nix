@@ -1,4 +1,8 @@
-{ pkgs, username, ... }: {
+{ pkgs, username, ... }: 
+let
+#   myClashVerge = pkgs.callPackage ./clash-verge/package.nix { };
+in
+{
 home-manager.users.${username} = {
 	home.packages = with pkgs; [
 		clash-verge-rev

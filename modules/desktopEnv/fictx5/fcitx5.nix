@@ -19,7 +19,7 @@ rime-ice = pkgs.stdenvNoCC.mkDerivation {
 	rm -rf ./others
 	rm -f README.md LICENSE
 	rm -rf ./.github
-	rm squirrel.yaml weasel.yaml double_pinyin* melt_eng* radical_pinyin*
+	#rm squirrel.yaml weasel.yaml double_pinyin* radical_pinyin*
 	rm default.yaml custom_phrase.txt
 	cp -r ./* $out/share/rime-data
 	'';
@@ -60,7 +60,7 @@ home-manager.users.${username} = {
 		source = ./share/rime/default.yaml;
 		force = true;
 	};
-	};
+};
 
 	home.sessionVariables = {
 	XMODIFIERS = "@im=fcitx";

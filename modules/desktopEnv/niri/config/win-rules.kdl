@@ -14,9 +14,9 @@ window-rule {
 	// open-fullscreen true		//窗口打开时全屏
 }
 // thunar重命名
+
 window-rule {
-	match app-id="thunar" title="^重命名"
-	match at-startup=true
+	match app-id="thunar" title="^重命名 “"
 
 	open-floating true
 	default-column-width	{ proportion 0.20; }
