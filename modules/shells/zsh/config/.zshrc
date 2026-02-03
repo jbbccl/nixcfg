@@ -247,7 +247,7 @@ fi
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
     # change suggestion color
-    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#423'
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5f8274'
 fi
 
 # some more ls aliases
@@ -298,6 +298,7 @@ alias sduo=sudo
 alias nv=nvim
 alias docker=podman
 alias pd=podman
+alias db=distrobox
 
  
 alias pdrm="_podrm || podman rm"

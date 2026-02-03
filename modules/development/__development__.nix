@@ -8,6 +8,7 @@ imports = [
 	# ./go.nix
 	./python.nix
 	# ./rust.nix
+	# ./java.nix
 ];
 
 environment.sessionVariables = rec {

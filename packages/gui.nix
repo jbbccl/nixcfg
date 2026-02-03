@@ -5,7 +5,7 @@ in
 {
 home-manager.users.${username} = {
 	home.packages = with pkgs; [
-		clash-verge-rev
+		flclash
 
 		kdePackages.filelight
 		gparted
@@ -15,6 +15,10 @@ home-manager.users.${username} = {
 		zed-editor
 		obsidian
 		libreoffice-qt
+
+		obs-studio
+
+		gimp2
 		# hunspell
 		# wpsoffice-cn
 		# hunspellDicts.zh_CN

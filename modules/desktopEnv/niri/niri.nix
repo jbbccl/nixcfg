@@ -25,9 +25,26 @@ environment.systemPackages = with pkgs; [
 	labwc
 	xdg-desktop-portal-gnome
 	xdg-desktop-portal-gtk
+	polkit_gnome
+	seahorse
 	wl-clipboard
 ];
 
+systemd = {
+  user.services.polkit-gnome-authentication-agent-1 = {
+    description = "polkit-gnome-authentication-agent-1";
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+  };
+};
 # 1. 启用 XDG Desktop Portal (解决 Webview 和文件对话框卡顿的核心)
 # xdg.portal = {
 # 	enable = true;

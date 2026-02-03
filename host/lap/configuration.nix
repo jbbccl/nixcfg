@@ -6,23 +6,25 @@
 		./subFileList.nix
 	];
 
-	boot.kernelPackages = pkgs.stable.linuxPackages_zen;
-
-	boot.kernel.sysctl = {
-		"kernel.perf_event_paranoid" = 0;
-	};
-
-	boot.loader = {
-		systemd-boot.enable = true;
-		efi = {
-			canTouchEfiVariables = true;
-			efiSysMountPoint = "/boot/efi"; # ← use the same mount point here.
+	boot={
+		kernelPackages = pkgs.stable.linuxPackages_zen;
+		supportedFilesystems = [ "ntfs" ];
+		kernel.sysctl = {
+			"kernel.perf_event_paranoid" = 0;
 		};
-		# grub = {
-		# 	efiSupport = true;
-		# 	#efiInstallAsRemovable = true; # 如果 canTouchEfiVariables不能用
-		# 	device = "nodev";
-		# };
+
+		loader = {
+			systemd-boot.enable = true;
+			efi = {
+				canTouchEfiVariables = true;
+				efiSysMountPoint = "/boot/efi"; # ← use the same mount point here.
+			};
+			# grub = {
+			# 	efiSupport = true;
+			# 	#efiInstallAsRemovable = true; # 如果 canTouchEfiVariables不能用
+			# 	device = "nodev";
+			# };
+		};
 	};
 
 	system.stateVersion = "25.11";

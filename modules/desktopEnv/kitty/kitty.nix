@@ -23,7 +23,7 @@ home-manager.users.${username} = {
 		extraConfig = ''
 		include	current-theme.conf
 
-		font_size ${if _config_ == "lap" then "16"
+		font_size ${if _config_ == "lap" then "14"
 						else if _config_ == "pc" then "12"
 						else "14"}
 		font_family			Maple Mono NF CN ExtraLight

@@ -2,6 +2,7 @@
 {
 
 virtualisation = {
+	
 	containers={
 		enable = true;
 		# storage.settings.storage = {
@@ -10,8 +11,9 @@ virtualisation = {
 		# 	runroot = "/home/VMS/docker/run";
 		# };
 	};
-	
-	#docker.enable = true;
+
+	waydroid.enable = true;
+	# docker.enable = true;
 	podman = {
 		enable = true;
 		dockerCompat = true;	# 启用 Docker 兼容
@@ -25,16 +27,16 @@ users.users.${username}.extraGroups = [ "podman" ];
 
 home-manager.users.${username} = {
 	xdg.configFile = {
-	"containers/storage.conf" = {
-		force = true;
-		recursive = true;
-		text=''
+		"containers/storage.conf" = {
+			force = true;
+			recursive = true;
+			text=''
 [storage]
 driver = "overlay"
 graphroot = "/home/VMS/docker/storage"
 #runroot = "/home/VMS/docker/run"
-		'';
-	};
+'';
+		};
 	};
 };
 
@@ -54,6 +56,12 @@ environment.systemPackages = with pkgs; [
 	# buildah				# 构建容器镜像工具
 	distrobox				# 容器化开发环境
 	# docker-compose
+
+	waydroid-nftables
+	# nftables				#waydroid要用
 ];
 
 }
+
+# waydroid session start
+# [00:21:58] RuntimeError: Command failed: % /nix/store/sxxwbc59lsip9shfp1ll7xhz5pcbk82m-waydroid-1.6.1/lib/waydroid/data/scripts/waydroid-net.sh start777
