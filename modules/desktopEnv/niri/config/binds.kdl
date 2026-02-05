@@ -6,9 +6,12 @@ binds {
 	Mod+Shift+Slash { show-hotkey-overlay; }
 
 	// Suggested binds for running programs: terminal, app launcher, screen locker.
-	Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "kitty"; }
+	Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
 	Mod+B hotkey-overlay-title="Open firefox" { spawn "firefox"; }
 	Mod+E hotkey-overlay-title="Open explore" { spawn "thunar"; }
+
+	Mod+Y hotkey-overlay-title="Open a Terminal: kitty" { spawn "sh" "-c" "touch $XAUTHORITY; xauth generate \"$DISPLAY\" ."; }
+
 	Mod+R hotkey-overlay-title="Run an Application: " { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
 	// Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
 	// Mod+R hotkey-overlay-title="Run an Application: " { spawn "dms" "ipc" "call" "spotlight" "open"; }
@@ -110,8 +113,8 @@ binds {
 
 	Mod+Page_Down		{ focus-workspace-down;	}
 	Mod+Page_Up			{ focus-workspace-up;	}
-	Mod+U				{ focus-workspace-down;	}
-	Mod+I				{ focus-workspace-up;	}
+	// Mod+U				{ focus-workspace-down;	}
+	// Mod+I				{ focus-workspace-up;	}
 	Mod+W				{ focus-workspace-up;	}
 	Mod+S				{ focus-workspace-down;	}
 

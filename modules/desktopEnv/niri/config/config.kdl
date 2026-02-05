@@ -1,6 +1,6 @@
 environment {
-  QT_QPA_PLATFORMTHEME "gtk3"
-  QT_QPA_PLATFORMTHEME_QT6 "gtk3"
+//   QT_QPA_PLATFORMTHEME "gtk3"
+//   QT_QPA_PLATFORMTHEME_QT6 "gtk3"
 }
 // Note that running niri as a session supports xdg-desktop-autostart,
 //spawn-at-startup "qs" "-c" "noctalia-shell"
@@ -8,6 +8,9 @@ environment {
 
 spawn-at-startup "noctalia-shell"
 spawn-at-startup "fcitx5"
+// 这是dm做的事,但是xwayland是此桌面托管的，所以放在这里
+spawn-at-startup "sh" "-c" "touch $XAUTHORITY; xauth generate \"$DISPLAY\" ."
+
 //spawn-at-startup "clash-verge-deb"
 //spawn-at-startup "nm-applet"
 
@@ -147,6 +150,6 @@ gestures {
 		bottom-right
 	}
 }
-include "./win-rules.kdl"
+include "./rules.kdl"
 include "./binds.kdl"
 include "./noctalia.kdl"

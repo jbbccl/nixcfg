@@ -1,15 +1,15 @@
 { ... }:
 {
 	imports = [
-		./fictx5/fcitx5.nix
-		./kitty/kitty.nix
-		./explores/explores.nix
+		./fictx5
+		./pty
+		./fileMgr
 
-		./sddm/sddm.nix
-		./niri/niri.nix
+		./displayMgr
+		./niri
 		
-		./noctalia/noctalia.nix
-		# ./waybar/waybar.nix
+		./noctalia
+		# ./waybar
 		
 		# ./plasma/plasma.nix
 

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+export "XAUTHORITY=$(mktemp /tmp/xauth.XXXXXXXXXX)" && xauth generate "$DISPLAY" .
