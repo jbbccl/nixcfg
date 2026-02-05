@@ -64,10 +64,20 @@
 
 	hardware.bluetooth.enable = true;
 
-	# hardware.graphics = {
-	# 	enable = true;
-	# 	extraPackages = with pkgs; [
-	# 		intel-media-driver
-	# 	];
-	# };
+
+	hardware.graphics = {
+		enable = true;
+		# 如果你是 32 位应用兼容需求，可以开启
+		# enable32Bit = true;
+		# 安装对应显卡的 VAAPI 驱动
+		extraPackages = with pkgs; [
+			# Intel
+			intel-media-driver
+			# intel-vaapi-driver # 适用于较旧的 CPU
+			# AMD
+			# amdvlk
+			# 通用/其他
+			# libvdpau-va-gl
+		];
+	};
 }

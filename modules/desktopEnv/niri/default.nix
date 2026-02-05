@@ -21,7 +21,8 @@
 		#fuzzel swaylock mako swayidle brightnessctl#亮度调节
 		xwayland-satellite
 		xauth
-		labwc
+		# xhost
+		# labwc
 
 		xdg-desktop-portal-gnome
 		xdg-desktop-portal-gtk

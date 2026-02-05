@@ -24,65 +24,70 @@ cursorSize = 12;
 
 in
 {
-home-manager.users.${username} = {
-
-	home.pointerCursor = {
-		gtk.enable = true;
-		name = cursorsThemeName;
-		package = cursorsThemePkg;
-		size = cursorSize;
-	};
-	home.sessionVariables = {
-		XCURSOR_THEME = cursorsThemeName;
-		XCURSOR_SIZE = toString cursorSize;
-	};
-		
-	gtk = {
-		enable = true;
-		font = {
-			name = fontName;
-			size = fontSize;
- 		};
-		theme = {
-			name = gtkThemeName;
-			package = gtkThemePkg;
-		};
-		iconTheme = {
-			name = iconThemeName;
-			package = iconThemePkg;
-		};
-		cursorTheme = {
+	home-manager.users.${username} = {
+		home.pointerCursor = {
+			gtk.enable = true;
 			name = cursorsThemeName;
 			package = cursorsThemePkg;
+			size = cursorSize;
+		};
+		home.sessionVariables = {
+			XCURSOR_THEME = cursorsThemeName;
+			XCURSOR_SIZE = toString cursorSize;
+		};
+			
+		gtk = {
+			enable = true;
+			font = {
+				name = fontName;
+				size = fontSize;
+			};
+			theme = {
+				name = gtkThemeName;
+				package = gtkThemePkg;
+			};
+			iconTheme = {
+				name = iconThemeName;
+				package = iconThemePkg;
+			};
+			cursorTheme = {
+				name = cursorsThemeName;
+				package = cursorsThemePkg;
+			};
+
+			gtk3 = {
+				extraConfig.gtk-application-prefer-dark-theme = true;
+			};
+			gtk4 = {
+				extraConfig.gtk-application-prefer-dark-theme = true;
+			};
 		};
 
-		gtk3 = {
-			extraConfig.gtk-application-prefer-dark-theme = true;
-		};
-		gtk4 = {
-			extraConfig.gtk-application-prefer-dark-theme = true;
-		};
-	};
+		dconf.settings = {
+			"org/gnome/desktop/interface" = {
+				gtk-theme = gtkThemeName;
+				color-scheme = "prefer-dark";
+			};
 
-	dconf.settings = {
-		"org/gnome/desktop/interface" = {
-			gtk-theme = gtkThemeName;
-			color-scheme = "prefer-dark";
+			# For Gnome shell
+			# "org/gnome/shell/extensions/user-theme" = {
+			# 	name = gtkThemeName;
+			# };
 		};
+		
+		qt = {
+			enable = true;
+			platformTheme.name = "gtk"; 
+			style = {
+				# name = gtkThemeName; # gtkThemeName;
+				# package = pkgs.kdePackages.breeze;
+			};
+		};
+	};
+	environment.sessionVariables = {
+		QT_QPA_PLATFORMTHEME = "gtk3";
+		QT_QPA_PLATFORMTHEME_QT6 = "gtk3";
+	};
+  
 
-		# For Gnome shell
-		# "org/gnome/shell/extensions/user-theme" = {
-		# 	name = gtkThemeName;
-		# };
-	};
-	
-	qt = {
-		enable = true;
-		platformTheme.name = "gtk"; 
-		style = {
-			# name = gtkThemeName; # gtkThemeName;
-			# package = pkgs.kdePackages.breeze;
-		};
-	};
-};
 }
