@@ -4,12 +4,13 @@ environment {
 }
 // Note that running niri as a session supports xdg-desktop-autostart,
 //spawn-at-startup "qs" "-c" "noctalia-shell"
-
-
-spawn-at-startup "noctalia-shell"
-spawn-at-startup "fcitx5"
 // 这是dm做的事,但是xwayland是此桌面托管的，所以放在这里
-spawn-at-startup "sh" "-c" "touch $XAUTHORITY; xauth generate \"$DISPLAY\" . "//trusted"加上这个sudo gparted第一次启动会变小，神奇
+spawn-at-startup "sh" "-c" "touch $XAUTHORITY; xauth generate \"$DISPLAY\" . trusted"//加上trusted.sudo gparted第一次启动会变小，神奇
+// spawn-at-startup "xhost" "+SI:localuser:root"
+// spawn-at-startup "dbus-update-activation-environment" "--systemd" "--all"
+spawn-at-startup "waybar"
+// spawn-at-startup "noctalia-shell"
+spawn-at-startup "fcitx5"
 
 //spawn-at-startup "clash-verge-deb"
 //spawn-at-startup "nm-applet"

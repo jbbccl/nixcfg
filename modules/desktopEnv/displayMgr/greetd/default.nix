@@ -10,7 +10,7 @@ let
 		${pkgs.xauth}/bin/xauth generate $DISPLAY .
 		${pkgs.niri}/bin/niri-session "$@"
 	'';
-	# -c ${lib.getExe  niri-start-script} \
+	# --cmd ${lib.getExe  niri-start-script} \
 in {
   services.greetd = {
     enable = true;

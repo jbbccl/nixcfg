@@ -7,7 +7,7 @@ imports = [
 	./nodejs.nix
 	# ./go.nix
 	./python.nix
-	# ./rust.nix
+	./rust.nix
 	# ./java.nix
 ];
 

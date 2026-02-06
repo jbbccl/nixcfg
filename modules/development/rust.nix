@@ -1,8 +1,11 @@
 { pkgs, username, ... }: {
   home-manager.users.${username} = {
     home.packages = with pkgs; [
-      rustup
-      rustc
+		rustup
+		rustc
+		pkg-config
+		pango
+		gtk3
     ];
     home.sessionVariables = {
       RUSTUP_HOME = "$HOME/.rustup";

@@ -3,9 +3,9 @@
 
 environment.systemPackages = with pkgs; [
 	# quickshell
-	noctalia-shell
+	# noctalia-shell
 	networkmanagerapplet
-	# inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+	inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
 ];
 
 services = {

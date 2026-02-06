@@ -1,0 +1,257 @@
+{
+		///////////////////////////////////
+	//                               //
+	//  // Modules configuration//   //
+	//                               //
+	///////////////////////////////////
+	"cffi/niri-taskbar": {
+		"module_path": "/home/e/.config/waybar/libniri_taskbar.so",
+		"apps": {
+			"signal": [
+				{
+				"match": "\\([0-9]+\\)$",
+				"class": "unread"
+				}
+			]
+		}
+	},
+
+	"wlr/taskbar":
+	{
+		"format": "{icon}",
+		"icon-size": 20,
+		// "all-outputs": true,
+		"icon-theme": "Numix-Circle",
+		"tooltip-format": "{title:.50}",
+		"on-click": "minimize-raise",
+		"on-click-middle": "close",
+		"on-click-right": "fullscreen"
+	},
+
+	"ext/workspaces":
+	{
+		"format": "{icon}",
+		"format-icons":
+		{
+			"urgent": "",
+			"active": "",
+			"default": ""
+		},
+		"sort-by-number": true,
+		"on-click": "activate"
+	},
+
+	"keyboard-state":
+	{
+		"capslock": true,
+		"format": "{icon}",
+		"format-icons":
+		{
+			"locked": " Caps ",
+			"unlocked": ""
+		}
+	},
+
+	"idle_inhibitor":
+	{
+		"format": "{icon}",
+		"format-icons":
+		{
+			"activated": "",
+			"deactivated": ""
+		}
+	},
+
+	"tray":
+	{
+		"icon-size": 20,
+		"spacing": 10
+	},
+
+	"clock":
+	{
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+		"format-alt": "{%Y-%m-%d}",
+		"format": "{:%H:%M}"
+	},
+
+	"backlight":
+	{
+		"device": "acpi_video0", // Assuming acpi_video0, adjust if needed
+		"tooltip": false,
+		"format": "{percent}% {icon}",
+		"format-icons": ["", "", "", "", "", "", "", "", "", ""],
+		"on-scroll-up": "brightnessctl s +1%",
+		"on-scroll-down": "brightnessctl s 1%-"
+	},
+
+	"group/audio": {
+		"orientation": "inherit",
+		"drawer": {
+			// "transition-duration": 500,
+            // "children-class": "inputr", // 给展开出来的子元素加个类名以便 CSS 控制
+            "transition-left-to-right": false // false = 向左展开，true = 向右展开
+            // "click-to-reveal": true // 关键：点击才显示，不设置这个就是悬停显示
+		},
+		"modules": [
+			"pulseaudio#output",
+			"pulseaudio#input"
+			// "pulseaudio/slider"
+		]
+	},
+	"pulseaudio#output":
+	{
+		"format": "{volume}% {icon}",
+		"format-muted": "  {format_source}",
+		"format-bluetooth": "{volume}% {icon}",
+		"format-bluetooth-muted": "{icon} {format_source}",
+		"tooltip": false,
+		"format-icons":
+		{
+			"headphone": "",
+			"hands-free": "",
+			"headset": "",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": ["", "", ""]
+		},
+		"on-click": "none",
+		// "on-click": "bash ~/.config/waybar/scripts/nowplaying.sh >/dev/null 2>&1 &",
+		"on-click-right": "pavucontrol"
+	},
+	"pulseaudio#input":
+	{
+		"format": "{format_source}",
+		"format-source":  "{volume}% ",
+		"format-source-muted": "",
+		"tooltip": false,
+		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+		"on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+		"on-click-middle": "pavucontrol --tab=3",
+		"on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
+		"on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"
+	},
+	"pulseaudio/slider": {
+		"min": 0,
+		"max": 100,
+		"orientation": "horizontal"
+	},
+	
+	"battery": {
+		"interval": 60,
+		"states": {
+			"critical": 20
+		},
+		"format": "{icon} {capacity}%",
+		"format-charging": "󰂄 {capacity}% ",
+		"format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿","󰂀", "󰂂", "󰁹"],
+		"tooltip-format": "剩余电量：{capacity}%\n充 放 电 : {power}\n可用时间: {timeTo}\n---\n电池健康度: {health}%"
+	},
+
+
+	///////////////////////////
+	//                       //
+	//  // Custom module //  //
+	//                       //
+	///////////////////////////  
+
+
+	"custom/countdown":
+	{
+		"exec": "~/.config/waybar/scripts/countdown/countdown.sh",
+		"return-type": "json",
+		"format": "{}",
+		"interval": 3600,
+		"on-click-right": "foot bash ~/.config/waybar/scripts/countdown/countdown.sh interactive",
+		"on-scroll-up": "~/.config/waybar/scripts/countdown/countdown.sh scroll-up",
+		"on-scroll-down": "~/.config/waybar/scripts/countdown/countdown.sh scroll-down"
+	},
+
+	"group/group-tools":
+	{
+		"orientation": "inherit",
+		"drawer":
+		{
+			"transition-duration": 500,
+			"children-class": "other-apps",
+			"transition-left-to-right": false
+		},
+		"modules": [
+			"custom/snip",
+			"idle_inhibitor",
+			"custom/clip",
+			"custom/galculator",
+			"custom/taskmanager"
+
+		]
+	},
+
+	// "custom/todo":
+	// {
+	// 	"format": "\u00a0{}",
+	// 	"exec": "~/.config/waybar/scripts/todo/todo.sh",
+	// 	"on-double-click": "~/.config/waybar/scripts/todo/todo.sh mark_done",
+	// 	"on-click-right": "~/.config/waybar/scripts/todo/todo.sh open_tui",
+	// 	"on-click-middle": "~/.config/waybar/scripts/todo/todo.sh middle_click",
+	// 	"return-type": "json",
+	// 	"interval": 5,
+	// 	"tooltip": true
+	// },
+
+	///////////////////////////
+	//                       //
+	//  // Power section //  //
+	//                       //
+	///////////////////////////
+
+
+	"group/group-power":
+	{
+		"orientation": "inherit",
+		"drawer":
+		{
+			"transition-duration": 500,
+			"children-class": "not-power",
+			"transition-left-to-right": false
+		},
+		"modules": [
+			"custom/power",
+			"custom/quit",
+			"custom/lock",
+			"custom/reboot"
+		]
+	},
+
+	"custom/quit":
+	{
+		"format": "󰈆",
+		"tooltip": true,
+		"tooltip-format": "Logout",
+		"on-click": "bash ~/.config/waybar/scripts/power.sh --logout"
+	},
+
+	"custom/lock":
+	{
+		"format": "󰍁",
+		"tooltip": true,
+		"tooltip-format": "Lock",
+		"on-click": "bash ~/.config/waybar/scripts/lock.sh"
+	},
+
+	"custom/reboot":
+	{
+		"format": "󰜉",
+		"tooltip": true,
+		"tooltip-format": "Reboot",
+		"on-click": "bash ~/.config/waybar/scripts/power.sh --reboot"
+	},
+
+	"custom/power":
+	{
+		"format": "󰐥",
+		"tooltip": true,
+		"tooltip-format": "Shutdown",
+		"on-click": "bash ~/.config/waybar/scripts/power.sh --shutdown"
+	}
+}

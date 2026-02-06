@@ -1,4 +1,3 @@
-{ ... }:
 {
 	imports = [
 		./fictx5
@@ -6,13 +5,14 @@
 		./fileMgr
 
 		./displayMgr
-		./niri
 		
-		./noctalia
-		# ./waybar
-		
-		# ./plasma/plasma.nix
+		# ./noctalia #只要安装了noctalia, 即使不运行, 应用启动会慢1秒。
+		./waybar
 
+		./niri
+		# ./plasma
+		# ./xfce
+		
 		./theme.nix
 		./broser.nix
   ];

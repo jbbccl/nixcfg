@@ -18,21 +18,29 @@
 	};
 
 	environment.systemPackages = with pkgs; [
-		#fuzzel swaylock mako swayidle brightnessctl#亮度调节
 		xwayland-satellite
 		xauth
 		# xhost
 		# labwc
 
-		xdg-desktop-portal-gnome
-		xdg-desktop-portal-gtk
+		# xdg-desktop-portal-gnome
+		# xdg-desktop-portal-gtk
 		polkit_gnome
 		seahorse
 
 		wl-clipboard
 	];
 	environment.sessionVariables.XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
-	
+
+	xdg.portal = {
+		enable = true;
+		wlr.enable = true;
+		extraPortals = with pkgs; [
+			xdg-desktop-portal-gtk
+			xdg-desktop-portal-gnome
+		];
+	};
+
 	systemd = {
 		user.services.polkit-gnome-authentication-agent-1 = {
 			description = "polkit-gnome-authentication-agent-1";
