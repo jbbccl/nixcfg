@@ -1,0 +1,30 @@
+show=drun
+width=750
+height=400
+always_parse_args=true
+show_all=false
+term=kitty
+hide_scroll=true
+print_command=true
+insensitive=true
+prompt=
+columns=2
+; width=600
+; height=400
+; mode=drun
+colors=colors
+filter_rate=100
+allow_markup=true
+no_actions=true
+; halign=fill
+orientation=vertical
+; content_halign=fill
+; drun-display_generic=true
+
+; always_parse_args=true
+; show_all=false
+; insensitive=true
+allow_images=true
+; normal_window=true
+
+; prompt= 👍launcher mode🤔

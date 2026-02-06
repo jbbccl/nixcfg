@@ -13,7 +13,7 @@ binds {
 	Mod+Y hotkey-overlay-title="Open a Terminal: kitty" { spawn "sh" "-c" "touch $XAUTHORITY; xauth generate \"$DISPLAY\" ."; }
 
 	// Mod+R hotkey-overlay-title="Run an Application: " { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-	Mod+R hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+	Mod+R hotkey-overlay-title="Run an Application: wofi" { spawn "wofi" "--show" "drun"; }
 	// Mod+R hotkey-overlay-title="Run an Application: " { spawn "dms" "ipc" "call" "spotlight" "open"; }
 	// Mod+R hotkey-overlay-title="Run an Application: " { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
 
