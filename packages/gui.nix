@@ -21,7 +21,7 @@ home-manager.users.${username} = {
 		gimp2
 		# hunspell
 		# wpsoffice-cn
-		# hunspellDicts.zh_CN
+		pomodoro-gtk
 	];
 };
 

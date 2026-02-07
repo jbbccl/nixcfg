@@ -74,25 +74,24 @@ home-manager.users.${username} = {
 
 i18n = {
 	inputMethod = {
-	type = "fcitx5";
-	enable = true;
-	fcitx5 = {
-		waylandFrontend = true;
-		addons = with pkgs; [
-#           qt6Packages.fcitx5-configtool
-		fcitx5-gtk
-		libsForQt5.fcitx5-qt
-		kdePackages.fcitx5-qt
-		fcitx5-lua
-		fcitx5-fluent
-		libime
-		librime-lua
-		fcitx5-rime
-		rime-ice
-		];
-
+		type = "fcitx5";
+		enable = true;
+		fcitx5 = {
+				waylandFrontend = true;
+				addons = with pkgs; [
+					#  qt6Packages.fcitx5-configtool
+					fcitx5-gtk
+					libsForQt5.fcitx5-qt
+					kdePackages.fcitx5-qt
+					fcitx5-lua
+					fcitx5-fluent
+					libime
+					librime-lua
+					fcitx5-rime
+					rime-ice
+				];
+			};
 		};
-	};
 	};
 
 }

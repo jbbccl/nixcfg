@@ -1,9 +1,17 @@
 {
-		///////////////////////////////////
+	///////////////////////////////////
 	//                               //
 	//  // Modules configuration//   //
 	//                               //
 	///////////////////////////////////
+	"cpu": {
+        "format": " {usage}%"
+//        "tooltip": false
+    },
+    "memory": {
+        "format": " {}%"
+    },
+
 	"cffi/niri-taskbar": {
 		"module_path": "/home/e/.config/waybar/libniri_taskbar.so",
 		"apps": {
@@ -62,11 +70,10 @@
 		}
 	},
 
-	"tray":
-	{
-		"icon-size": 20,
-		"spacing": 10
-	},
+	"tray": {
+        "icon-size": 20,
+        "spacing": 8
+    },
 
 	"clock":
 	{
@@ -102,7 +109,7 @@
 	"pulseaudio#output":
 	{
 		"format": "{volume}% {icon}",
-		"format-muted": "  {format_source}",
+		"format-muted": " ",
 		"format-bluetooth": "{volume}% {icon}",
 		"format-bluetooth-muted": "{icon} {format_source}",
 		"tooltip": false,
@@ -116,21 +123,22 @@
 			"car": "",
 			"default": ["", "", ""]
 		},
-		"on-click": "none",
+		// "on-click": "none",
 		// "on-click": "bash ~/.config/waybar/scripts/nowplaying.sh >/dev/null 2>&1 &",
-		"on-click-right": "pavucontrol"
+		"on-click-middle": "pwvucontrol",
+		"on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 	},
 	"pulseaudio#input":
 	{
 		"format": "{format_source}",
 		"format-source":  "{volume}% ",
-		"format-source-muted": "",
+		"format-source-muted": " ",
 		"tooltip": false,
-		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+		
 		"on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
-		"on-click-middle": "pavucontrol --tab=3",
-		"on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
-		"on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"
+		"on-click-middle": "pwvucontrol --tab=3",
+		"on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+",
+		"on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-"
 	},
 	"pulseaudio/slider": {
 		"min": 0,
@@ -236,7 +244,7 @@
 		"format": "󰍁",
 		"tooltip": true,
 		"tooltip-format": "Lock",
-		"on-click": "bash ~/.config/waybar/scripts/lock.sh"
+		"on-click": "swaylock"
 	},
 
 	"custom/reboot":
