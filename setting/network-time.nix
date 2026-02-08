@@ -1,4 +1,4 @@
-{config, ...}:{
+{config, username, ...}:{
 
 time.timeZone = "Asia/Shanghai";
 
@@ -21,6 +21,7 @@ networking = {
 		allowedTCPPorts = [
 			53317
 		];
+		trustedInterfaces = [ "waydroid0" ];
 		# allowedUDPPorts = [ ... ];
 	};
 
@@ -30,6 +31,7 @@ networking = {
 	# };
 
 };
+users.users.${username}.extraGroups = [ "networkmanager" ];
 
 security.sudo = {
 	enable = true;
@@ -39,6 +41,12 @@ security.sudo = {
 		Defaults env_keep += "HTTP_PROXY HTTPS_PROXY FTP_PROXY RSYNC_PROXY ALL_PROXY"
 		#includedir /etc/sudoers.d
 	'';
+};
+#waydroid需要networking.firewall.
+boot.kernel.sysctl = {
+	"net.ipv4.ip_forward" = 1;
+	"net.ipv4.conf.all.forwarding" = 1;
+	# "net.ipv6.conf.all.forwarding" = 1;
 };
 # environment.etc = {
 # 	"sudoers.d/proxy_env" = {

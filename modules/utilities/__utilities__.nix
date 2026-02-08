@@ -1,6 +1,6 @@
 { pkgs,username, ... }: {
 imports = [
-	./neovim/neovim.nix
+	# ./neovim/neovim.nix
 	./yazi/yazi.nix
 ];
 

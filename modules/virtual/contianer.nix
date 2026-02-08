@@ -23,6 +23,7 @@ virtualisation = {
 	};
 };
 
+#部分网络设置位于network-time.nix
 users.users.${username}.extraGroups = [ "podman" ];
 
 home-manager.users.${username} = {

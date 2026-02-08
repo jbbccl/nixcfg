@@ -15,12 +15,42 @@
 /*text color for entries that are unselected */
 @define-color content_inactive rgba(255, 255, 255, 0.25);
 * {
-	/*border: none;*/
-	/*border-radius: 0;*/
+	border: none;
+	/* border-radius: 0; */
 	font-family: "Maple Mono NF CN", Roboto, Helvetica, Arial, sans-serif;
 	font-size: 12px;
 	min-height: 0;
 }
+
+#tray menu menuitem {
+    padding: 2px 4px;
+    border-radius: 5px;
+}
+
+#tray menu radio {
+    min-height: 10px;
+    min-width: 10px;
+    border-radius: 50%; /* 强制圆形 */
+}
+
+#tray menu radio:checked {
+    background-color: #b4a1e3 ; /* 选中时的圆点颜色 */
+    color: #b4a1e3 ;
+    border: 1px solid #b4a1e3;
+}
+
+/* 2. 针对复选框 */
+#tray menu check {
+    min-height: 10px;
+    min-width: 10px;
+    border-radius: 0%; /* 强制圆形 */
+}
+
+#tray menu check:checked {
+    background-color: #b4a1e3 ;
+    color: #5c5c75 ;
+}
+
 #memory,
 #cpu,
 #clock,
@@ -58,6 +88,7 @@
 #custom-countdown:hover,
 #pulseaudio:hover,
 #tray > widget:hover,
+#tray menu menuitem:hover,
 #idle_inhibitor:hover,
 #custom-power:hover,
 #custom-reboot:hover,

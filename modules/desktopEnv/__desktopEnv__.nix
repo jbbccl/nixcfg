@@ -1,19 +1,15 @@
 {
 	imports = [
-		./fictx5
-		./pty
-		./fileMgr
-
 		./displayMgr
-		
-		# ./noctalia #只要安装了noctalia, 即使不运行, 应用启动会慢1秒。
-		./waybar/waybar.nix
+		./winMgr
+		./bar
 
-		./niri/niri.nix
-		# ./plasma
-		# ./xfce
+		./pty
+		./fictx5
+		./fileMgr
+	
+		# ./deSession #启用plasma注释其他选项.排除
 		
 		./theme.nix
-		./broser.nix
   ];
 }

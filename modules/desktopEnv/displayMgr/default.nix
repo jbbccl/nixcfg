@@ -1,6 +1,6 @@
 {
 	imports = [
-		# ./sddm
-		./greetd
+		# ./sddm/sddm.nix
+		./greetd/greetd.nix
 	];
 }
