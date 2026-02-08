@@ -1,0 +1,48 @@
+/////////////////////////////////
+//                             //
+//  // Waybar configuration//  //
+//                             //
+/////////////////////////////////
+
+{
+	"include": [
+		"modules.jsonc"
+	],
+	"layer": "top",
+	"position": "top",
+	"height": 24,
+	"spacing": 2,
+	"margin-top": 0,
+	"margin-bottom": 0,
+	"reload_style_on_change": true,
+
+    "mod": "dock",
+    "exclusive": true,
+    "gtk-layer-shell": true,
+    "passthrough": false,
+
+
+
+	"modules-left": [
+		// "niri/window",
+		"memory",
+		"cpu",
+		"battery",
+		"clock",
+		"ext/workspaces"
+	],
+	"modules-center": [
+		"wlr/taskbar"
+	],
+	"modules-right": [
+		// "keyboard-state",
+		// "custom/countdown",
+		// "group/group-tools",
+		"tray",
+		"pulseaudio#input",
+		"pulseaudio#output",
+		"backlight",
+		"group/group-power"
+	]
+
+}

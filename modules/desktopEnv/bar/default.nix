@@ -1,6 +1,12 @@
-{
+{ options, ... }:{
 	imports = [
-		# ./noctalia #只要安装了noctalia, 即使不运行, 应用启动会慢1秒。
-		./waybar/waybar.nix
+		(
+		if options.bar == "waybar" 
+		then (import ./waybar/waybar.nix { options = options; })
+		else if options.bar == "noctalia" 
+		then ./noctalia
+		else []
+		)
+		#只要安装了noctalia, 即使不运行, 应用启动会慢1秒。
   ];
 }

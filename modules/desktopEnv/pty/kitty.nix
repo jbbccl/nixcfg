@@ -17,9 +17,11 @@
 			extraConfig = ''
 			include	current-theme.conf
 
-			font_size ${if _config_ == "lap" then "14"
-							else if _config_ == "pc" then "12"
-							else "14"}
+			font_size ${if _config_ == "lap" 
+						then "14"
+						else if _config_ == "pc" 
+						then "12"
+						else "14"}
 			font_family			Maple Mono NF CN ExtraLight
 			bold_font			Maple Mono NF CN Bold
 			italic_font			Maple Mono NF CN Italic

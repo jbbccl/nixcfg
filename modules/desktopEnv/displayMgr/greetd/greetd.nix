@@ -11,6 +11,7 @@ let
 		${pkgs.niri}/bin/niri-session "$@"
 	'';
 	# --cmd ${lib.getExe  niri-start-script} \
+	# --cmd dbus-run-session labwc
 in {
   services.greetd = {
     enable = true;

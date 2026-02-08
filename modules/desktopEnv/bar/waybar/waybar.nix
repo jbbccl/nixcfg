@@ -1,3 +1,4 @@
+{ options }: 
 { pkgs, username, ... }:
 let
 niri-taskbar = pkgs.rustPlatform.buildRustPackage {
@@ -50,16 +51,29 @@ in
 	home-manager.users.${username} = {
 		services.mako.enable = true;
 		xdg.configFile = {
-			"waybar/" = {
+			"waybar/config.jsonc" = {
 				force = true;
-				recursive = true;
-				source = ./waybar;
+				source = (
+					if options.winMgr=="labwc" 
+					then ./waybar/config-labwc.jsonc
+					else ./waybar/config-niri.jsonc);
 			};
-			"waybar/libniri_taskbar.so" = {
+			"waybar/style.css" = {
 				force = true;
-				recursive = false;  # 文件不需要递归复制
-				source = "${niri-taskbar}/libniri_taskbar.so";  # 修复这里
+				source = ./waybar/style.css;
 			};
+			"waybar/modules.jsonc" = {
+				force = true;
+				source = ./waybar/modules.jsonc;
+			}// 
+			(if options.winMgr == "niri" then {
+				"waybar/libniri_taskbar.so" = {
+					force = true;
+					recursive = false;
+					source = "${niri-taskbar}/libniri_taskbar.so";
+				};
+			} else {});
+
 			"mako/" = {
 				force = true;
 				recursive = true;
