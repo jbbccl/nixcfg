@@ -73,7 +73,7 @@ in
 					source = "${niri-taskbar}/libniri_taskbar.so";
 				};
 			} else {});
-
+			##其他配置
 			"mako/" = {
 				force = true;
 				recursive = true;
@@ -84,6 +84,11 @@ in
 				recursive = true;
 				source = ./fuzzel;
 			};
+			# "swaylock/" = {
+			# 	force = true;
+			# 	recursive = true;
+			# 	source = ./swaylock;
+			# };
 		};	
 	};
 }

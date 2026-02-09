@@ -24,6 +24,11 @@ inputs = {
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 	#edit:
+	# flake-parts.url = "github:hercules-ci/flake-parts";
+	mango = {
+      url = "github:DreamMaoMao/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 	noctalia = {
 		url = "github:noctalia-dev/noctalia-shell";
 		inputs.nixpkgs.follows = "nixpkgs";
@@ -46,14 +51,16 @@ in{
 		system = "x86_64-linux";
 		modules = [
 			# edit: 
+			inputs.mango.nixosModules.mango
 			# catppuccin.nixosModules.catppuccin
 			agenix.nixosModules.default
 
 			{
 				home-manager.users.${username} = {
-				imports = [
-					# catppuccin.homeModules.catppuccin
-				];
+					imports = [
+						inputs.mango.hmModules.mango
+						# catppuccin.homeModules.catppuccin
+					];
 				};
 			}
 			# stable: 
