@@ -1,8 +1,12 @@
-fcitx5 >/dev/null 2>&1 &
-waybar >/dev/null 2>&1 &
-waypaper --restore >/dev/null 2>&1 &
+waybar -c ~/.config/waybar/config-labwc.jsonc -s ~/.config/waybar/style.css >/dev/null 2>&1 &
+
 wlr-randr --output eDP-1  --scale 1.7
 systemctl --user start labwc-session.target
+
+fcitx5 >/dev/null 2>&1 &
+nm-applet >/dev/null 2>&1 &
+
+waypaper --restore >/dev/null 2>&1 &
 
 FlClash >/dev/null 2>&1 &
 

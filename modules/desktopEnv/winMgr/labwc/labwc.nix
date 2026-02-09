@@ -14,21 +14,20 @@
 			button-layout = "appmenu:minimize,maximize,close";
 			};
 		};
-		# TODO 配置文件
-		# xdg.configFile = {
-		# 	"labwc/" = {
-		# 		force = true;
-		# 		recursive = true;
-		# 		source = ./config;
-		# 	};
-		# };
-		# home.file = {
-		# ".local/share/themes/" = {
-		# 		source = ./share/themes;
-		# 		force = true;
-		# 		recursive = true;
-		# 	};
-		# };
+		xdg.configFile = {
+			"labwc/" = {
+				force = true;
+				recursive = true;
+				source = ./config;
+			};
+		};
+		home.file = {
+		".local/share/themes/" = {
+				source = ./themes;
+				force = true;
+				recursive = true;
+			};
+		};
 	};
 	
 		

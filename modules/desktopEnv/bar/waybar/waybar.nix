@@ -38,41 +38,26 @@ in
 
 		fuzzel
 		# wofi
-
-
 		swaylock
 		swayidle
 
 		waypaper
 		swww
-
 	];
 
 	home-manager.users.${username} = {
 		services.mako.enable = true;
 		xdg.configFile = {
-			"waybar/config.jsonc" = {
+			"waybar/" = {
 				force = true;
-				source = (
-					if options.winMgr=="labwc" 
-					then ./waybar/config-labwc.jsonc
-					else ./waybar/config-niri.jsonc);
+				recursive = true;
+				source = ./waybar;
 			};
-			"waybar/style.css" = {
+			"waybar/libniri_taskbar.so" = {
 				force = true;
-				source = ./waybar/style.css;
+				recursive = false;
+				source = "${niri-taskbar}/libniri_taskbar.so";
 			};
-			"waybar/modules.jsonc" = {
-				force = true;
-				source = ./waybar/modules.jsonc;
-			}// 
-			(if options.winMgr == "niri" then {
-				"waybar/libniri_taskbar.so" = {
-					force = true;
-					recursive = false;
-					source = "${niri-taskbar}/libniri_taskbar.so";
-				};
-			} else {});
 			##其他配置
 			"mako/" = {
 				force = true;
@@ -84,32 +69,11 @@ in
 				recursive = true;
 				source = ./fuzzel;
 			};
-			# "swaylock/" = {
-			# 	force = true;
-			# 	recursive = true;
-			# 	source = ./swaylock;
-			# };
+			"swaylock/" = {
+				force = true;
+				recursive = true;
+				source = ./swaylock;
+			};
 		};	
 	};
 }
-
-
-# services.mako.settings={
-# 	"actionable=true" = {
-# 		anchor = "bottom-left";
-# 	};
-# 	actions = true;
-# 	anchor = "bottom-right";
-# 	background-color = "#000000";
-# 	border-color = "#FFFFFF";
-# 	border-radius = 0;
-# 	default-timeout = 0;
-# 	font = "Maple Mono NF CN 10";
-# 	height = 100;
-# 	icons = true;
-# 	ignore-timeout = false;
-# 	layer = "top";
-# 	margin = 10;
-# 	markup = true;
-# 	width = 300;
-# };

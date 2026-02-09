@@ -12,7 +12,7 @@
   </core>
   <!-- <font><theme> can be defined without an attribute to set all places -->
   <theme>
-    <name>Arc-Clone</name>
+    <name>catppuccin-mocha</name>
     <cornerRadius>8</cornerRadius>
     <font place="ActiveWindow">
       <name>Maple Mono NF CN</name>
