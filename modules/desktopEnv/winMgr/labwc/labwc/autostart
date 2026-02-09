@@ -3,6 +3,8 @@ waybar >/dev/null 2>&1 &
 waypaper --restore >/dev/null 2>&1 &
 wlr-randr --output eDP-1  --scale 1.7
 
+FlClash >/dev/null 2>&1 &
+
 # swaybg -i ~/Pictures/land.jpg >/dev/null 2>&1 &
 # Configure output directives such as mode, position, scale and transform.
 # Use wlr-randr to get your output names

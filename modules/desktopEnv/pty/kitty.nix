@@ -32,11 +32,11 @@
 			font_features		MapleMono-NF-CN-BoldItalic +cv01 +ss02 +ss04 +ss05 +zero
 
 			# window
+			remember_window_size		yes
 			hide_window_decorations		titlebar-only
 			window_padding_width		0
 			background_opacity			0.80
-			# background_blur			32
-			remember_window_size		no
+			background_blur			32
 
 			# tab bar
 			tab_bar_edge                top

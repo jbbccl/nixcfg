@@ -10,8 +10,8 @@ let
 		${pkgs.xauth}/bin/xauth generate $DISPLAY .
 		${pkgs.niri}/bin/niri-session "$@"
 	'';
-	# --cmd ${lib.getExe  niri-start-script} \
-	# --cmd dbus-run-session labwc
+	# --cmd ${lib.getExe  niri-start-script} ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions
+	# --cmd dbus-run-session labwc 
 in {
   services.greetd = {
     enable = true;

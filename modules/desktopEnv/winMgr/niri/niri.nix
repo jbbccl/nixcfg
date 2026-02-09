@@ -14,6 +14,7 @@
 	};
 
 	environment.systemPackages = with pkgs; [
+		# niri
 		xwayland-satellite
 		# xauth
 		# # xhost
