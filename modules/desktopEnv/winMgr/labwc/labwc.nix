@@ -2,8 +2,10 @@
 {
 	programs.labwc.enable = true;
 	environment.systemPackages = with pkgs; [git
-		# labwc #装这里不污染全局
+		# labwc #装这里不添加到wayland-sessions
 		wlr-randr
+		xwayland-satellite
+		wl-clipboard
 	];#dbus-run-session labwc
 	
 	
@@ -41,4 +43,5 @@
 		wants = [ "graphical-session.target" ];
 		after = [ "graphical-session.target" ];
 	};
+
 }

@@ -16,17 +16,9 @@
 	environment.systemPackages = with pkgs; [
 		# niri
 		xwayland-satellite
-		# xauth
-		# # xhost
-		# # labwc
-
-		# # xdg-desktop-portal-gnome
-		# # xdg-desktop-portal-gtk
-		# polkit_gnome
-		# seahorse
-
-		# wl-clipboard
+		wl-clipboard
 	];
+
 	# environment.sessionVariables.XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
 
 	# xdg.portal = {

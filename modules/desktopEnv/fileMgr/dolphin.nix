@@ -11,13 +11,13 @@
     kdePackages.kservice     # 提供 kbuildsycoca6 命令
     shared-mime-info         # 修复文件类型识别
 
-		kdePackages.kio # needed since 25.11
-		kdePackages.kio-fuse #to mount remote filesystems via FUSE
-		kdePackages.qtsvg
-		kdePackages.kservice
-		kdePackages.dolphin
-		xdg-utils        # 修复 xdg-open
-		kdePackages.kservice # 关键：用于构建应用菜单缓存
+	kdePackages.kio # needed since 25.11
+	kdePackages.kio-fuse #to mount remote filesystems via FUSE
+	kdePackages.qtsvg
+	kdePackages.kservice
+	kdePackages.dolphin
+	xdg-utils        # 修复 xdg-open
+	kdePackages.kservice # 关键：用于构建应用菜单缓存
   ];
 
   # 2. 注册 KDED 到 D-Bus (解决 "ServiceUnknown" 错误)

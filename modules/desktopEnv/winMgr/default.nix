@@ -12,23 +12,28 @@
 	environment.systemPackages = with pkgs; [
 		xauth
 		# xhost
-
-		wl-clipboard
-		# xdg-desktop-portal-gnome
-		# xdg-desktop-portal-gtk
+		
 		polkit_gnome
 		seahorse
 	];
 	environment.sessionVariables.XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
-	# xdg
+
+	# portal
 	xdg.portal = {
 		enable = true;
 		wlr.enable = true;
 		extraPortals = with pkgs; [
+			xdg-desktop-portal-wlr
 			xdg-desktop-portal-gtk
 			xdg-desktop-portal-gnome
 		];
+		config = {
+			labwc = {
+				default = [ "wlr" ];
+			};
+		};
 	};
+
 	# policy
 	security.polkit.enable = true; # polkit
 	services.gnome.gnome-keyring.enable = true; # secret service
