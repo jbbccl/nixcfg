@@ -35,7 +35,9 @@
 
 	systemd = {
 		user.services.polkit-gnome-authentication-agent-1 = {
+			# enable = true;#显示启动
 			description = "polkit-gnome-authentication-agent-1";
+			# labwc 不能触发target
 			wantedBy = [ "graphical-session.target" ];
 			wants = [ "graphical-session.target" ];
 			after = [ "graphical-session.target" ];

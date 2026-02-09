@@ -2,6 +2,7 @@ fcitx5 >/dev/null 2>&1 &
 waybar >/dev/null 2>&1 &
 waypaper --restore >/dev/null 2>&1 &
 wlr-randr --output eDP-1  --scale 1.7
+systemctl --user start labwc-session.target
 
 FlClash >/dev/null 2>&1 &
 

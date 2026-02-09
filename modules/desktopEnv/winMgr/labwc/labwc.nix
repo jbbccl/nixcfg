@@ -15,4 +15,15 @@
 		};
 	};
 	# TODO 配置文件
+	
+	#在autostart启动下面服务
+	systemd.user.targets.labwc-session = {
+		description = "Labwc Compositor Session";
+		documentation = [ "man:systemd.special(7)" ];
+		
+		# 当启动 labwc-session 时，它会尝试启动 graphical-session
+		bindsTo = [ "graphical-session.target" ];
+		wants = [ "graphical-session.target" ];
+		after = [ "graphical-session.target" ];
+	};
 }
