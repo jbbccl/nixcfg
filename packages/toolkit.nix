@@ -8,7 +8,7 @@
 	# environment.pathsToLink = [ "/share/applications" ];
 	#xdg.dataFile."applications".source = "/opt/toolkit/.Launch";
 	environment.sessionVariables = rec {
-	PATH = [ "/opt/toolkit/.Launch/bin"];
-    XDG_DATA_DIRS = [ "/opt/toolkit/.Launch" ];
+	PATH = [ "/opt/toolkit/ass/bin"];
+    XDG_DATA_DIRS = [ "/opt/toolkit/ass/" ];
   };
 }

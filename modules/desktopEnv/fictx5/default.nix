@@ -34,6 +34,15 @@ home-manager.users.${username} = {
 		recursive = true;
 		source = ./config;
 	};
+	"fcitx5/classicui.conf" = {
+		force = true;
+		recursive = true;
+		source = (if _config_ == "lap" 
+				then ./config/classicui-lap.conf
+			else if _config_ == "pc" 
+				then ./config/classicui-pc.conf
+			else ./config/classicui-pc.conf );
+	};
 	};
 
 	home.file = {

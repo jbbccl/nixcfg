@@ -8,7 +8,7 @@ in
 	imports = [
 		(import ./displayMgr { options = options; })
 		(import ./winMgr { options = options; })
-		(import ./bar { options = options; })
+		(import ./bar/__bar__.nix { options = options; })
 
 		./pty
 		./fictx5

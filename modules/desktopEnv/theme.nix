@@ -1,7 +1,11 @@
-{ pkgs, username, ... }: 
+{ pkgs, username, _config_, ... }: 
 let
 fontName ="Maple Mono NF CN";
-fontSize = 11;
+fontSize = (if _config_ == "lap" 
+				then 20
+			else if _config_ == "pc" 
+				then 12
+			else 14);
 #ls $XDG_DATA_DIRS/themes
 gtkThemeName = "catppuccin-macchiato-blue-standard";
 gtkThemePkg = pkgs.catppuccin-gtk.override {
@@ -20,7 +24,7 @@ iconThemePkg = pkgs.catppuccin-papirus-folders.override {
 cursorsThemeName = "breeze_cursors";#"catppuccin-macchiato-dark-cursors";
 cursorsThemePkg = pkgs.kdePackages.breeze;#pkgs.catppuccin-cursors.macchiatoDark;
 
-cursorSize = 12;
+cursorSize = 24;
 
 in
 {

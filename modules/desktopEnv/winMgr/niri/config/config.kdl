@@ -5,7 +5,7 @@ environment {
 //spawn-at-startup "qs" "-c" "noctalia-shell"
 // 这是dm做的事,但是xwayland是此桌面托管的，所以放在这里
 
-spawn-sh-at-startup "touch $XAUTHORITY; xauth generate \"$DISPLAY\" . trusted"//加上trusted.sudo gparted第一次启动会变小，神奇
+spawn-sh-at-startup "touch $XAUTHORITY; xauth generate \"$DISPLAY\""//加上trusted.sudo gparted第一次启动会变小，神奇
 // spawn-at-startup "xhost" "+SI:localuser:root"
 spawn-sh-at-startup "waybar -c ~/.config/waybar/config-niri.jsonc -s ~/.config/waybar/style.css"
 

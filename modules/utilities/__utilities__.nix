@@ -16,10 +16,15 @@ environment.systemPackages = with pkgs; [
 	ripgrep
 	fd
 	tree
+	
+	firejail
+
+	xorg.xwininfo
 ];
 
 home-manager.users.${username} = {
 	home.packages = with pkgs; [
+		fastfetch
 		btop
 		fzf
 	];

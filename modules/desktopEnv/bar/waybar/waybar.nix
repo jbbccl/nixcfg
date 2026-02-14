@@ -39,7 +39,7 @@ in
 		fuzzel
 		# wofi
 		swaylock
-		swayidle
+		# swayidle
 
 		waypaper
 		swww
