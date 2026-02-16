@@ -75,13 +75,18 @@
         "spacing": 8
     },
 
-	"clock":
-	{
-		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-		"format-alt": "{%Y-%m-%d}",
-		"format": "{:%H:%M}"
+	// "clock":
+	// {
+	// 	"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+	// 	"format-alt": "{%Y-%m-%d}",
+	// 	"format": "{%Y-%m-%d:%H:%M}"
+	// },
+	"clock": {
+		"format": "{:>%y/%m/%d-%H:%M}",//:%S
+		"interval": 1,
+		"align": 1,
+		"justify": "right"
 	},
-
 	"backlight":
 	{
 		"device": "acpi_video0", // Assuming acpi_video0, adjust if needed

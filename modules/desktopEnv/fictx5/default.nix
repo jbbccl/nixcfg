@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, username, _config_, ... }:
 
 let
 rime-ice = pkgs.stdenvNoCC.mkDerivation {
@@ -34,13 +34,13 @@ home-manager.users.${username} = {
 		recursive = true;
 		source = ./config;
 	};
-	"fcitx5/classicui.conf" = {
+	"fcitx5/conf/classicui.conf" = {
 		force = true;
 		recursive = true;
 		source = (if _config_ == "lap" 
-				then ./config/classicui-lap.conf
+				then ./config/conf/classicui-lap.conf
 			else if _config_ == "pc" 
-				then ./config/classicui-pc.conf
+				then ./config/conf/classicui-pc.conf
 			else ./config/classicui-pc.conf );
 	};
 	};

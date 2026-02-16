@@ -22,6 +22,10 @@ home-manager.users.${username} = {
 		# hunspell
 		# wpsoffice-cn
 		pomodoro-gtk
+
+		imhex
+
+		showmethekey
 	];
 };
 

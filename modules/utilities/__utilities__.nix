@@ -16,11 +16,15 @@ environment.systemPackages = with pkgs; [
 	ripgrep
 	fd
 	tree
-	
-	firejail
 
-	xorg.xwininfo
+	squashfsTools
+
+	# xorg.xwininfo
+	# xclip
+	xeyes
 ];
+programs.firejail.enable = true;
+
 
 home-manager.users.${username} = {
 	home.packages = with pkgs; [

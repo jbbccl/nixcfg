@@ -1,7 +1,7 @@
 #修复找不到dolphin
 dbus-update-activation-environment --systemd --all
 
-wlr-randr --output eDP-1  #--scale 1.7
+wlr-randr --output eDP-1  --scale 1.5
 
 systemctl --user start labwc-session.target
 
