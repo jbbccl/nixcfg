@@ -1,3 +1,4 @@
+outer-margin=8
 default-timeout=0
 include=~/.config/mako/colors.conf
 border-size=2

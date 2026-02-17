@@ -82,7 +82,8 @@
 	// 	"format": "{%Y-%m-%d:%H:%M}"
 	// },
 	"clock": {
-		"format": "{:>%y/%m/%d-%H:%M}",//:%S
+		// "format": "{:>%y/%m/%d-%H:%M:%S}",//:%S
+		"format": "{:>%m/%d %H:%M}",
 		"interval": 1,
 		"align": 1,
 		"justify": "right"
