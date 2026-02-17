@@ -3,29 +3,10 @@
 {
 	imports = [
 		./hardware-configuration.nix
-		./subFileList.nix
+		../../modules/__modules__.nix
+		../../packages/__packages__.nix
+		../../setting/__setting__.nix
 	];
-
-	boot={
-		kernelPackages = pkgs.stable.linuxPackages_zen;
-		supportedFilesystems = [ "ntfs" ];
-		kernel.sysctl = {
-			"kernel.perf_event_paranoid" = 0;
-		};
-
-		loader = {
-			systemd-boot.enable = true;
-			efi = {
-				canTouchEfiVariables = true;
-				efiSysMountPoint = "/boot/efi"; # ← use the same mount point here.
-			};
-			# grub = {
-			# 	efiSupport = true;
-			# 	#efiInstallAsRemovable = true; # 如果 canTouchEfiVariables不能用
-			# 	device = "nodev";
-			# };
-		};
-	};
 
 	system.stateVersion = "25.11";
 	home-manager.users.${username}.home.stateVersion = "25.11";

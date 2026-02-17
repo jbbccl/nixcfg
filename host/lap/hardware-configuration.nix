@@ -9,6 +9,17 @@
 		];
 
 	boot={
+		kernelPackages = pkgs.stable.linuxPackages_zen;
+		supportedFilesystems = [ "ntfs" ];
+		kernel.sysctl = {
+			"kernel.perf_event_paranoid" = 0;
+		};
+		kernelParams=[
+			"intel_iommu=on"
+			"iommu=pt"
+			"i915.force_probe=!a7a0"
+			"xe.force_probe=a7a0"
+		];
 		initrd.availableKernelModules = [
 		"xhci_pci" "thunderbolt"
 		"nvme" "usbhid" "usb_storage"
@@ -17,6 +28,19 @@
 		initrd.kernelModules = [ ];
 		kernelModules = [ "kvm-intel" ];
 		extraModulePackages = [ ];
+
+		loader = {
+			systemd-boot.enable = true;
+			efi = {
+				canTouchEfiVariables = true;
+				efiSysMountPoint = "/boot/efi"; # ← use the same mount point here.
+			};
+			# grub = {
+			# 	efiSupport = true;
+			# 	#efiInstallAsRemovable = true; # 如果 canTouchEfiVariables不能用
+			# 	device = "nodev";
+			# };
+		};
 	};
 
 	fileSystems = {
@@ -64,7 +88,7 @@
 
 	hardware.bluetooth.enable = true;
 
-
+	# 显卡驱动
 	hardware.graphics = {
 		enable = true;
 		# 如果你是 32 位应用兼容需求，可以开启
