@@ -1,6 +1,6 @@
 { pkgs,username, ... }: {
 imports = [
-	# ./neovim/neovim.nix
+	./neovim/neovim.nix
 	./yazi/yazi.nix
 ];
 
@@ -16,6 +16,8 @@ environment.systemPackages = with pkgs; [
 	ripgrep
 	fd
 	tree
+	
+	file
 
 	squashfsTools
 

@@ -16,8 +16,10 @@ nix.settings = {
 networking = {
 	hostName = "nixos";
 	networkmanager.enable = true;
+	# 启用这个解决 waydroid-net.sh 报错
+	nftables.enable = true;
 	firewall = {
-		enable = false;
+		enable = true;
 		allowedTCPPorts = [
 			53317
 		];

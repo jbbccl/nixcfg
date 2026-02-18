@@ -11,21 +11,24 @@ home-manager.users.${username} = {
 		gparted
 
 		localsend
-
+		# 编辑器
+		imhex
+		gimp2
 		zed-editor
 		obsidian
 		libreoffice-qt
 
+		# 录屏
 		obs-studio
-
-		gimp2
-		# hunspell
-		# wpsoffice-cn
-		pomodoro-gtk
-
-		imhex
-
 		showmethekey
+
+		# 应用
+		gearlever
+		bottles
+
+		# 其他
+		pomodoro-gtk
+		# keepassxc
 	];
 };
 
