@@ -24,7 +24,7 @@ home-manager.users.${username} = {
 
 		# 应用
 		gearlever
-		bottles
+		# bottles
 
 		# 其他
 		pomodoro-gtk

@@ -4,8 +4,8 @@
 ## 			VMware
 ## =========================
 
-virtualisation.vmware.host.enable = true;
-users.users.${username}.extraGroups = [ "vmware" ];
+# virtualisation.vmware.host.enable = true;
+# users.users.${username}.extraGroups = [ "vmware" ];
 
 ## =========================
 ## 		Virt-Manager
