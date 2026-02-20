@@ -12,6 +12,7 @@ environment.systemPackages = with pkgs; [
 
 	wget
 	curl
+	dae
 
 	ripgrep
 	fd

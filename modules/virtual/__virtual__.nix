@@ -1,4 +1,3 @@
-{ config, pkgs, username, ... }:
 {
   imports = [
 	./contianer.nix

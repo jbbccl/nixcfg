@@ -1,5 +1,5 @@
 { ... }:{
-  # services.pulseaudio.enable = false;  # 禁用PulseAudio（使用PipeWire替代）
+	services.pulseaudio.enable = false;  # 禁用PulseAudio（使用PipeWire替代）
 	security.rtkit.enable = true;  # 启用RTKit实时内核支持（用于音频权限）
 	services.pipewire = {
 		enable = true;  # 启用PipeWire多媒体框架

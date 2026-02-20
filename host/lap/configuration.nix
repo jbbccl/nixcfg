@@ -3,9 +3,11 @@
 {
 	imports = [
 		./hardware-configuration.nix
-		../../modules/__modules__.nix
-		../../packages/__packages__.nix
 		../../setting/__setting__.nix
+		../../modules/__modules__.nix
+		../../desktopEnv/__desktopEnv__.nix
+		../../guiToolkit/__guiToolkit__.nix
+		
 	];
 
 	system.stateVersion = "25.11";

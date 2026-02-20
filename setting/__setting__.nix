@@ -4,7 +4,7 @@ imports = [
 	./font-i8n.nix
 	./network-time.nix
 	./nix-ld.nix
-	./tty.nix
+	./tty-xkb.nix
 	./user.nix
 ];
 }
