@@ -4,7 +4,7 @@
 
 	nix.settings = {
 		substituters = [
-			"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
+			"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=1"
 			"https://mirrors.ustc.edu.cn/nix-channels/store?priority=5"
 			"https://cache.nixos.org/"  # 默认官方缓存
 			#export NIX_PATH=nixpkgs=https://cache.nixos.org/
@@ -23,7 +23,7 @@
 			allowedTCPPorts = [
 				53317
 			];
-			trustedInterfaces = [ "waydroid0" ];
+			trustedInterfaces = [ "waydroid0" "virbr0" ];
 			# allowedUDPPorts = [ ... ];
 		};
 

@@ -11,7 +11,7 @@ home-manager.users.${username} = {
 		gparted
 
 		localsend
-		daed
+		# daed
 		# 编辑器
 		imhex
 		gimp2

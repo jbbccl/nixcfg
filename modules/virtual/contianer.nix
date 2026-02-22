@@ -18,8 +18,8 @@ virtualisation = {
 		enable = true;
 		dockerCompat = true;	# 启用 Docker 兼容
 		defaultNetwork.settings.dns_enabled = true;
-	# autoUpdate = true;
-	# enableNvidia = config.hardware.nvidia.enable or false;
+		# autoUpdate = true;
+		# enableNvidia = config.hardware.nvidia.enable or false;
 	};
 };
 
