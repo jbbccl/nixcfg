@@ -170,34 +170,42 @@
 	//                       //
 	///////////////////////////  
 
-
-	"custom/countdown":
+	"custom/launch":
 	{
-		"exec": "~/.config/waybar/scripts/countdown/countdown.sh",
 		"return-type": "json",
-		"format": "{}",
+		"format": " ",
 		"interval": 3600,
-		"on-click-right": "foot bash ~/.config/waybar/scripts/countdown/countdown.sh interactive",
-		"on-scroll-up": "~/.config/waybar/scripts/countdown/countdown.sh scroll-up",
-		"on-scroll-down": "~/.config/waybar/scripts/countdown/countdown.sh scroll-down"
+		"on-click": "fuzzel"
+	},
+	"custom/filemgr":
+	{
+		"return-type": "json",
+		"format": " ",
+		"interval": 3600,
+		"on-click": "dolphin"
+	},
+	"custom/browser":
+	{
+		"return-type": "json",
+		"format": " ",
+		"interval": 3600,
+		"on-click": "firefox"
+		// "on-click-right":"on-scroll-up":"on-scroll-down":"exec":
 	},
 
-	"group/group-tools":
+	"group/applications":
 	{
 		"orientation": "inherit",
 		"drawer":
 		{
 			"transition-duration": 500,
 			"children-class": "other-apps",
-			"transition-left-to-right": false
+			"transition-left-to-right": true
 		},
 		"modules": [
-			"custom/snip",
-			"idle_inhibitor",
-			"custom/clip",
-			"custom/galculator",
-			"custom/taskmanager"
-
+			"custom/launch",
+			"custom/filemgr",
+			"custom/browser"
 		]
 	},
 
@@ -219,7 +227,21 @@
 	//                       //
 	///////////////////////////
 
-
+	"group/infomation":
+	{
+		"orientation": "inherit",
+		"drawer":
+		{
+			"transition-duration": 500,
+			"children-class": "not-power",
+			"transition-left-to-right": true
+			// "click-to-reveal": true
+		},
+		"modules": [
+			"memory",
+			"cpu"
+		]
+	},
 	"group/group-power":
 	{
 		"orientation": "inherit",

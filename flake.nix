@@ -2,7 +2,7 @@
 # sudo nixos-rebuild switch --flake ~/nixrc#lap
 # 使用缓存
 # sudo nixos-rebuild switch --flake ~/nixrc#lap --option substituters ""
-# 使用官方源sudo NIX_CONFIG="substituters = https://cache.nixos.org" nixos-..
+# 使用官方源sudo NIX_CONFIG="substituters = https://cache.nixos.org" nixos-re..
 # sudo nixos-rebuild switch --flake ~/nixrc#lap --option substituters "https://cache.nixos.org"
 # 测试
 # nix flake check ~/nixrc

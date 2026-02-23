@@ -19,7 +19,7 @@ environment.systemPackages = with pkgs; [
 	tree
 	
 	file
-	# _7zz-rar
+	_7zz-rar
 	
 	squashfsTools
 

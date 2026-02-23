@@ -25,8 +25,8 @@
 
 	"modules-left": [
 		// "niri/window",
-		"memory",
-		"cpu",
+		"group/applications",
+		"group/infomation",
 		"battery",
 		"clock",
 		"ext/workspaces"
