@@ -3,6 +3,8 @@
 {
 	imports = [
 		./hardware-configuration.nix
+		./driver.nix
+		./boot.nix
 		../../setting/__setting__.nix
 		../../modules/__modules__.nix
 		../../desktopEnv/__desktopEnv__.nix
