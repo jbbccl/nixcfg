@@ -39,6 +39,8 @@
 		// "custom/countdown",
 		// "group/group-tools",
 		"tray",
+		"network",
+		// "group/audio",
 		"pulseaudio#input",
 		"pulseaudio#output",
 		"backlight",

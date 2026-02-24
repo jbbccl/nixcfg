@@ -143,6 +143,9 @@
 	<keybind key="W-q">
       <action name="Close" />
     </keybind>
+	<keybind key="W-f">
+      <action name="ToggleMaximize" />
+    </keybind>
     <!-- <keybind key="C-semicolon">
       <action name="Execute" command="clipcat-menu" />
     </keybind>-->
@@ -163,9 +166,6 @@
     </keybind>
     <keybind key="A-F4">
       <action name="Close" />
-    </keybind>
-    <keybind key="W-m">
-      <action name="ToggleMaximize" />
     </keybind>
     <keybind key="W-h">
       <action name="Iconify" />

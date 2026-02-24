@@ -33,11 +33,15 @@ in
 	environment.systemPackages = with pkgs; [
 		waybar
 		brightnessctl
-		networkmanagerapplet
+		# networkmanagerapplet
+		networkmanager_dmenu
+		
 		pwvucontrol
 
 		fuzzel
 		# wofi
+		# walker
+
 		swaylock
 		# swayidle
 
