@@ -17,6 +17,7 @@
 		hostName = "nixos";
 		networkmanager.enable = true;
 		# networkmanager.wifi.powersave = false;
+		networkmanager.wifi.backend = "iwd";
 		# 启用这个解决 waydroid-net.sh 报错
 		nftables.enable = true;
 		firewall = {

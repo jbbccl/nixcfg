@@ -163,19 +163,20 @@
 		"tooltip-format": "剩余电量：{capacity}%\n充 放 电 : {power}\n可用时间: {timeTo}\n---\n电池健康度: {health}%"
 	},
 	"network": {
-		"format-disconnected": "{icon}",
-		"format-wifi": "{icon}",
-		"format-ethernet": "{icon}",
+		// "interface": "{ifname}",
+		"format": "󰌙 ",
+		"format-wifi": "{icon} ",
+		"format-ethernet": "{icon} ",
+		"format-disconnected": "{icon} ",
 		"format-icons": {
 			"disconnected": "󰤮",
 			"wifi": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
 			"ethernet": "󰈀"
 		},
-		
 		//鼠标悬浮在wifi图标上会显示wifi名称、信号强度、ip地址、设备名
-		"tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname} : {ipaddr}\n---\n左键：打开面板\n右键：打开高级网络配置工具",
-		"tooltip-format-ethernet": "{ifname} : {ipaddr}\n---\n左键：打开面板\n右键：打开高级网络配置工具",
-		"tooltip-format-disconnected": "网络未连接\n---\n左键：打开面板\n右键：打开高级网络配置工具",
+		"tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname} : {ipaddr}",
+		"tooltip-format-ethernet": "{ifname} : {ipaddr}",
+		"tooltip-format-disconnected": "网络未连接",
 		"on-click": "networkmanager_dmenu",
 		"on-click-right": "xterm -e nmtui-edit"
 	},
@@ -191,7 +192,7 @@
 		"return-type": "json",
 		"format": " ",
 		"interval": 3600,
-		"on-click": "fuzzel"
+		"on-click": "fuzzel --anchor=top-left"
 	},
 	"custom/filemgr":
 	{
