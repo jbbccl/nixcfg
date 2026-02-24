@@ -41,9 +41,9 @@
 		"format": "{icon}",
 		"format-icons":
 		{
-			"urgent": "",
-			"active": "",
-			"default": ""
+			"urgent": "▫",
+			"active": "◉",
+			"default": "○"
 		},
 		"sort-by-number": true,
 		"on-click": "activate"

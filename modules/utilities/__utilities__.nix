@@ -7,6 +7,7 @@ imports = [
 environment.systemPackages = with pkgs; [
 	vim
 	git
+	glib
 
 	pciutils
 

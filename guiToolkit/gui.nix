@@ -6,12 +6,13 @@ in
 home-manager.users.${username} = {
 	home.packages = with pkgs; [
 		flclash
+		# daed
 
 		kdePackages.filelight
 		gparted
 
 		localsend
-		# daed
+		
 		# 编辑器
 		imhex
 		gimp2
@@ -19,9 +20,10 @@ home-manager.users.${username} = {
 		# obsidian
 		libreoffice-qt
 
-		# 录屏
+		# 流
 		obs-studio
 		showmethekey
+		moonlight-qt
 
 		# 应用
 		gearlever

@@ -1,6 +1,7 @@
 { config, pkgs, ... }:{
 	boot = {
-		kernelPackages = pkgs.stable.linuxPackages_zen;
+		# kernelPackages = pkgs.stable.linuxPackages_zen;
+		kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 		supportedFilesystems = [ "ntfs" ];
 		kernel.sysctl = {
 			"kernel.perf_event_paranoid" = 0;
