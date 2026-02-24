@@ -7,7 +7,7 @@ in
 {
 	imports = [
 		(import ./displayMgr { options = options; })
-		(import ./winMgr { options = options; })
+		(import ./winMgr/__winMgr__.nix { options = options; })
 		(import ./bar/__bar__.nix { options = options; })
 
 		./pty

@@ -3,8 +3,9 @@
 {
 	imports = [
 		./niri/niri.nix
+		./hypr/hypr.nix
 		./labwc/labwc.nix
-		./mangowc/mangowc.nix
+		# ./mangowc/mangowc.nix
 	];
 
 	environment.sessionVariables.NIXOS_OZONE_WL = "1";
