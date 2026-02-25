@@ -18,6 +18,7 @@
 	kdePackages.dolphin
 	xdg-utils        # 修复 xdg-open
 	kdePackages.kservice # 关键：用于构建应用菜单缓存
+	kdePackages.kde-cli-tools
   ];
 
   # 2. 注册 KDED 到 D-Bus (解决 "ServiceUnknown" 错误)

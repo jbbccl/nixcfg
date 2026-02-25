@@ -24,6 +24,7 @@ home-manager.users.${username} = {
 		obs-studio
 		showmethekey
 		moonlight-qt
+		vlc
 
 		# 应用
 		gearlever
