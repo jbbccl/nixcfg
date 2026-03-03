@@ -79,7 +79,6 @@ let
 			{ nixpkgs.overlays = sharedOverlays; }
 			{
 				home-manager.users.${username} = {
-					home.stateVersion = "25.11";
 					imports = [];
 				};
 				# home-manager.useGlobalPkgs = true;
