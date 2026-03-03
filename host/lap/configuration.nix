@@ -1,5 +1,5 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{ config, lib, pkgs, username, ... }:
+{ config, lib, pkgs, ... }:
 {
 	imports = [
 		./hardware-configuration.nix
@@ -13,7 +13,6 @@
 	];
 
 	system.stateVersion = "25.11";
-	home-manager.users.${username}.home.stateVersion = "25.11";
 }
 
 
