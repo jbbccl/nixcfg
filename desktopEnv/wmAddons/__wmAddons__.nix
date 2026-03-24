@@ -1,8 +1,8 @@
-{
+{ options, ... }:{
 	imports = [
 		./pty
 		./fileMgr
 		./inputMth
-		./theme.nix
+		(import ./statusBar/__bar__.nix { options = options; })
 	];
 }

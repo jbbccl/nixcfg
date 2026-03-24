@@ -8,9 +8,9 @@ in
 	imports = [
 		(import ./displayMgr { options = options; })
 		(import ./winMgr/__winMgr__.nix { options = options; })
-		(import ./statusBar/__bar__.nix { options = options; })
+		(import ./wmAddons/__wmAddons__.nix { options = options; })
 
-		./wmAddons/__wmAddons__.nix
+		./theme.nix
 
 		./deSession #启用plasma注释其他选项.排除冲突 greetd需要额外配置才能启动kde
   ];
