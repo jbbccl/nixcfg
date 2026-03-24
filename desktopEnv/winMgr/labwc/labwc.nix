@@ -7,8 +7,8 @@
 		xwayland-satellite
 		wl-clipboard
 	];#dbus-run-session labwc
-	
-	
+
+
 	home-manager.users.${username} = {
 		# 强制 GTK 应用显示：最小化、最大化、关闭
 		dconf.settings = {
@@ -31,17 +31,31 @@
 			};
 		};
 	};
-	
-		
+
 	#在autostart启动下面服务
 	systemd.user.targets.labwc-session = {
 		description = "Labwc Compositor Session";
 		documentation = [ "man:systemd.special(7)" ];
-		
+
 		# 当启动 labwc-session 时，它会尝试启动 graphical-session
 		bindsTo = [ "graphical-session.target" ];
 		wants = [ "graphical-session.target" ];
 		after = [ "graphical-session.target" ];
+	};
+
+	# portal
+	xdg.portal = {
+		extraPortals = with pkgs; [xdg-desktop-portal-wlr];
+
+		config = {
+			labwc = {
+				default = [ "wlr" "gtk" ];
+				"org.freedesktop.impl.portal.Screenshot" = "wlr";
+				"org.freedesktop.impl.portal.ScreenCast" = "wlr";
+				"org.freedesktop.impl.portal.FileChooser" = "gtk";
+				"org.freedesktop.impl.portal.AppChooser" = "gtk";
+			};
+		};
 	};
 
 }

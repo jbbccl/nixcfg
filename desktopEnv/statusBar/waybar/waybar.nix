@@ -1,4 +1,4 @@
-{ options }: 
+{ options }:
 { pkgs, username, ... }:
 let
 niri-taskbar = pkgs.rustPlatform.buildRustPackage {
@@ -8,7 +8,7 @@ niri-taskbar = pkgs.rustPlatform.buildRustPackage {
 	src = builtins.fetchGit {
 	url = "https://github.com/LawnGnome/niri-taskbar.git";
 	ref = "main";
-	rev = "c530349fae638141ec58a9d4db0816d950a9295a"; 
+	rev = "c530349fae638141ec58a9d4db0816d950a9295a";
 	};
 	cargoHash = "sha256-WRc1+ZVhiIfmLHaczAPq21XudI08CgVhlIhVcf0rmSw=";
 	nativeBuildInputs = with pkgs; [
@@ -35,22 +35,11 @@ in
 		brightnessctl
 		# networkmanagerapplet
 		networkmanager_dmenu
-		
+
 		pwvucontrol
-
-		fuzzel
-		# wofi
-		# walker
-
-		swaylock
-		# swayidle
-
-		waypaper
-		swww
 	];
 
 	home-manager.users.${username} = {
-		services.mako.enable = true;
 		xdg.configFile = {
 			"waybar/" = {
 				force = true;
@@ -62,22 +51,6 @@ in
 				recursive = false;
 				source = "${niri-taskbar}/libniri_taskbar.so";
 			};
-			##其他配置
-			"mako/" = {
-				force = true;
-				recursive = true;
-				source = ./mako;
-			};
-			"fuzzel/" = {
-				force = true;
-				recursive = true;
-				source = ./fuzzel;
-			};
-			"swaylock/" = {
-				force = true;
-				recursive = true;
-				source = ./swaylock;
-			};
-		};	
+		};
 	};
 }

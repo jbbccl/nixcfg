@@ -1,9 +1,9 @@
-{ pkgs, username, _config_, ... }: 
+{ pkgs, username, _config_, ... }:
 let
 fontName ="Maple Mono NF CN";
-fontSize = (if _config_ == "lap" 
+fontSize = (if _config_ == "lap"
 				then 11
-			else if _config_ == "pc" 
+			else if _config_ == "pc"
 				then 12
 			else 11);
 #ls $XDG_DATA_DIRS/themes
@@ -39,7 +39,7 @@ in
 			XCURSOR_THEME = cursorsThemeName;
 			XCURSOR_SIZE = toString cursorSize;
 		};
-			
+
 		gtk = {
 			enable = true;
 			font = {
@@ -63,6 +63,7 @@ in
 				extraConfig.gtk-application-prefer-dark-theme = true;
 			};
 			gtk4 = {
+			  theme = null;
 				extraConfig.gtk-application-prefer-dark-theme = true;
 			};
 		};
@@ -78,10 +79,10 @@ in
 			# 	name = gtkThemeName;
 			# };
 		};
-		
+
 		qt = {
 			enable = true;
-			platformTheme.name = "gtk"; 
+			platformTheme.name = "gtk";
 			style = {
 				# name = gtkThemeName; # gtkThemeName;
 				# package = pkgs.kdePackages.breeze;
@@ -92,6 +93,6 @@ in
 		QT_QPA_PLATFORMTHEME = "gtk3";
 		QT_QPA_PLATFORMTHEME_QT6 = "gtk3";
 	};
-  
+
 
 }

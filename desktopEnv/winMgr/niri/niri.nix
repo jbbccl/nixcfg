@@ -18,4 +18,22 @@
 		xwayland-satellite
 		wl-clipboard
 	];
+
+	# portal
+	xdg.portal = {
+		extraPortals = with pkgs; [xdg-desktop-portal-gnome];
+
+		config = {
+			niri = {
+				default = [ "gnome" "gtk" ];
+				"org.freedesktop.impl.portal.Screenshot" = "gnome";
+				"org.freedesktop.impl.portal.ScreenCast" = "gnome";
+				"org.freedesktop.impl.portal.FileChooser" = "gtk";
+				"org.freedesktop.impl.portal.AppChooser" = "gtk";
+				"org.freedesktop.impl.portal.Inhibit" = "gnome";
+				"org.freedesktop.impl.portal.Access" = "gtk";
+			};
+		};
+	};
+
 }

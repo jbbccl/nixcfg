@@ -13,26 +13,20 @@
 	environment.systemPackages = with pkgs; [
 		xauth
 		# xhost
-		
+
 		polkit_gnome
 		seahorse
 	];
-	environment.sessionVariables.XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
+	#environment.sessionVariables.XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
 
-	# portal
+	# portal base
 	xdg.portal = {
 		enable = true;
 		wlr.enable = true;
-		extraPortals = with pkgs; [
-			xdg-desktop-portal-wlr
-			xdg-desktop-portal-gtk
-			xdg-desktop-portal-gnome
-		];
-		config = {
-			labwc = {
-				default = [ "wlr" ];
-			};
-		};
+		extraPortals = with pkgs; [xdg-desktop-portal-gtk];
+		# common = {
+		# 	default = [ "gtk" ];
+		# };
 	};
 
 	# policy

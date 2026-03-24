@@ -1,7 +1,7 @@
 { pkgs, lib, username, _config_, ... }:
 {
 	environment.systemPackages = with pkgs; [
-	
+
 		kitty
 	];
 
@@ -17,10 +17,10 @@
 			extraConfig = ''
 			include	current-theme.conf
 
-			font_size ${if _config_ == "lap" 
+			font_size ${if _config_ == "lap"
 						then "14"
-						else if _config_ == "pc" 
-						then "12"
+						else if _config_ == "pc"
+						then "14"
 						else "14"}
 			font_family			Maple Mono NF CN ExtraLight
 			bold_font			Maple Mono NF CN Bold
@@ -33,7 +33,7 @@
 
 			# window
 			remember_window_size		yes
-			hide_window_decorations		titlebar-only
+			#hide_window_decorations		titlebar-only
 			window_padding_width		0
 			background_opacity			0.80
 			background_blur			32

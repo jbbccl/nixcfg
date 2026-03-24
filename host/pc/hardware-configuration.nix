@@ -4,64 +4,29 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-	imports =
-		[ (modulesPath + "/installer/scan/not-detected.nix")
-		];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-	boot={
-		initrd.availableKernelModules = [ 
-		"xhci_pci" "thunderbolt" 
-		"nvme" "usbhid" "usb_storage" 
-		"sd_mod" "sdhci_pci" 
-		];
-		initrd.kernelModules = [ ];
-		kernelModules = [ "kvm-intel" ];
-		extraModulePackages = [ ];
-	};
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
 
-	fileSystems = {
-		"boot/efi" = {
-			device = "/dev/disk/by-uuid/FED5-34ED";
-			fsType = "vfat";
-			options = [
-				"umask=0077"
-				"fmask=0022"
-				"dmask=0022"
-			];
-		};
-		"/" = {
-			device = "/dev/disk/by-uuid/ea5a05c7-0aac-4a8f-9544-88bf8ba2fa33";
-			fsType = "btrfs";
-			options = [
-				"compress=zstd"
-				"noatime"
-				"subvol=@nixos"
-			];
-		};
-		"/home/unsafe" = {
-			device = "/dev/disk/by-uuid/ea5a05c7-0aac-4a8f-9544-88bf8ba2fa33";
-			fsType = "btrfs";
-			options = [
-				"compress=zstd"
-				"noatime"
-				"subvol=@VM"
-			];
-		};
-		"/home/VMS" = {
-			device = "/dev/disk/by-uuid/a2a06942-a7ba-40a6-acf9-c2811caff238";
-			fsType = "xfs";
-			options = [
-				"noatime"
-			];
-		};
-	};
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/097135e3-2cfd-4630-9157-221aff11102a";
+      fsType = "btrfs";
+      options = [ "subvol=@nixos" ];
+    };
 
+  fileSystems."/boot/efi" =
+    { device = "/dev/disk/by-uuid/DEDC-AE8B";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
 
-	swapDevices = [ ];
+  swapDevices = [ ];
 
-	nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-	hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-	hardware.bluetooth.enable = true;
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
-
