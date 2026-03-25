@@ -2,7 +2,14 @@
 {
 	services.mihomo = {
 		enable = true;
-		configFile = "/path/to/config.yaml";
+		configFile = "/etc/mihomo/config.yaml";
+		webui = pkgs.metacubexd;
+	};
+
+	environment.etc = {
+		"mihomo/config.yaml" = {
+			source = ./etc/mihomo/config.yaml;
+		};
 	};
 	# environment.systemPackages = with pkgs; [
 	# 	dae

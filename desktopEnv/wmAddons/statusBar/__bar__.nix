@@ -3,7 +3,7 @@
 		if options.bar == "waybar"
 		then [
 			(import ./waybar/waybar.nix { options = options; })
-			(import ./necessary/__necessary__.nix { options = options; })
+			(import ./barAddons/__barAddons__.nix { options = options; })
 		] else if options.bar == "noctalia"
 		then [
 			./noctalia
