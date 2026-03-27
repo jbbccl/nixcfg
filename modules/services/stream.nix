@@ -1,6 +1,8 @@
-{ pkgs, ... }:{
+{ pkgs, username, ... }:{
 	environment.systemPackages = with pkgs; [
-		sunshine
+		wayvnc
+		novnc
+		wlr-randr
+		#sunshine
 	];
-	# sun pass
 }
