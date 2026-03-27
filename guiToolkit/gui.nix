@@ -1,18 +1,18 @@
-{ pkgs, username, ... }: 
+{ pkgs, username, ... }:
 let
 #   myClashVerge = pkgs.callPackage ./clash-verge/package.nix { };
 in
 {
 home-manager.users.${username} = {
 	home.packages = with pkgs; [
-		flclash
+		# flclash
 		# daed
 
 		kdePackages.filelight
 		gparted
 
 		localsend
-		
+
 		# 编辑器
 		imhex
 		gimp2

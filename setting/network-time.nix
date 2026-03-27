@@ -25,7 +25,7 @@
 			allowedTCPPorts = [
 				53317
 			];
-			trustedInterfaces = [ "waydroid0" "virbr0" ];
+			trustedInterfaces = [ "waydroid0" "virbr0" "Meta"];
 			# allowedUDPPorts = [ ... ];
 		};
 

@@ -15,7 +15,7 @@ waypaper --restore >/dev/null 2>&1 &
 
 rm $XAUTHORITY ||true && touch $XAUTHORITY && xauth generate "$DISPLAY" . trusted
 
-FlClash >/dev/null 2>&1 &
+# FlClash >/dev/null 2>&1 &
 
 # swaybg -i ~/Pictures/land.jpg >/dev/null 2>&1 &
 # Configure output directives such as mode, position, scale and transform.

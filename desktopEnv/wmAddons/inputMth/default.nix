@@ -41,9 +41,9 @@ home-manager.users.${username} = {
 		"fcitx5/conf/classicui.conf" = {
 			force = true;
 			recursive = true;
-			source = (if _config_ == "lap" 
+			source = (if _config_ == "lap"
 					then ./config/conf/classicui-lap.conf
-				else if _config_ == "pc" 
+				else if _config_ == "pc"
 					then ./config/conf/classicui-pc.conf
 				else ./config/classicui-pc.conf );
 		};
@@ -100,10 +100,10 @@ i18n = {
 		fcitx5 = {
 				waylandFrontend = true;
 				addons = with pkgs; [
-					#  qt6Packages.fcitx5-configtool
+					# qt6Packages.fcitx5-configtool
 					libime
 					librime-lua
-					librime-octagram #接入模型依赖
+					librime-octagram #接入模型依赖TODO: 需要手动放入模型文件
 
 					fcitx5-gtk
 					libsForQt5.fcitx5-qt
@@ -111,7 +111,7 @@ i18n = {
 					fcitx5-lua
 					fcitx5-fluent
 					fcitx5-rime
-					
+
 					rime-ice
 					# wanxiangGram
 				];

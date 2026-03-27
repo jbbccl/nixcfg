@@ -5,6 +5,7 @@
 		#先这样吧
 		configFile = "/home/${username}/nixrc/static/_security/mihomo/config.yaml";
 		webui = pkgs.metacubexd;
+		tunMode = true;
 	};
 
 	# environment.etc = {

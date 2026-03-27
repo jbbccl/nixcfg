@@ -12,6 +12,6 @@ in
 
 		./theme.nix
 
-		./deSession #启用plasma注释其他选项.排除冲突 greetd需要额外配置才能启动kde
+		# ./deSession #启用plasma注释其他选项.排除冲突 greetd需要额外配置才能启动kde
   ];
 }
