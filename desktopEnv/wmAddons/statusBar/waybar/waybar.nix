@@ -44,7 +44,7 @@ in
 			"waybar/" = {
 				force = true;
 				recursive = true;
-				source = ./waybar;
+				source = ./config;
 			};
 			"waybar/libniri_taskbar.so" = {
 				force = true;

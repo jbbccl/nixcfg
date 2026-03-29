@@ -1,5 +1,6 @@
 { config, pkgs, username, ... }: {
 imports = [
+	./editTools/pdf.nix
 	./neovim/neovim.nix
 	./yazi/yazi.nix
 ];

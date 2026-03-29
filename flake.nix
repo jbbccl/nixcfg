@@ -1,9 +1,9 @@
 # ！sudo会重置环境变量, 导致不走代理, 第一次构建使用sudo -E
-# sudo nixos-rebuild switch --flake ~/nixrc#lap
+# sudo nixos-rebuild switch --flake ~/nixcfg#lap
 # NIX_CONFIG="substituters = https://cache.nixos.org" 或  --option substituters "" 
-# sudo nixos-rebuild switch --flake ~/nixrc#lap --option substituters ""
-# sudo nixos-rebuild switch --flake ~/nixrc#lap --option substituters "https://cache.nixos.org"
-# nix flake check ~/nixrc
+# sudo nixos-rebuild switch --flake ~/nixcfg#lap --option substituters ""
+# sudo nixos-rebuild switch --flake ~/nixcfg#lap --option substituters "https://cache.nixos.org"
+# nix flake check ~/nixcfg
 # nix flake update
 # nix flake lock --update-input noctalia
 # 清理

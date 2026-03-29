@@ -5,11 +5,15 @@
 
 		virtualHosts."1.ccb" = {
 			default = true;
-			basicAuth = { dabian = "LKDisadpoOSODPAdioAPDKJ"; };
+			basicAuth = { dabianchaoren = "JHshduSAYD*)(*SD#quh298jjsHODJFSHF*(3j2poijNWJKLSDF))"; };
 			forceSSL = true;
 			#TODO
 			sslCertificate = "/etc/nginx/ssl/cert.pem";
 			sslCertificateKey = "/etc/nginx/ssl/key.pem";
+			listen = [
+				# { addr = "0.0.0.0"; port = 49514; ssl = true; }
+				{ addr = "[::]"; port = 49514; ssl = true; }
+			];
 
 			locations."/" = {
 				proxyPass = "http://127.0.0.1:6080";

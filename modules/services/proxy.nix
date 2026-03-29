@@ -3,7 +3,7 @@
 	services.mihomo = {
 		enable = true;
 		#先这样吧
-		configFile = "/home/${username}/nixrc/static/_security/mihomo/config.yaml";
+		configFile = "/home/${username}/nixcfg/static/_security/mihomo/config.yaml";
 		webui = pkgs.metacubexd;
 		tunMode = true;
 	};
