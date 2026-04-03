@@ -26,8 +26,9 @@
 		};
 	};
 
-	networking.firewall.allowedTCPPorts = [ 80 443 ];
+	networking.firewall.allowedTCPPorts = [ 49514 ];
 }
+# https://[240e:467:573:241f:b584:8f77:a07b:29a8]:49514
 # sudo mkdir -p /etc/nginx/ssl/
 # sudo chown root:nginx /etc/nginx/ssl/
 # sudo chmod 755 /etc/nginx/ssl/

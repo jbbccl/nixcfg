@@ -19,7 +19,6 @@
 			grub = {
 			 	efiSupport = true;
                 useOSProber = true;
-				#efiInstallAsRemovable = true; # 如果 canTouchEfiVariables不能用
 				device = "nodev";
 			};
 		};
