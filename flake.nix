@@ -75,6 +75,7 @@ let
 
 		modules = [
 			./host/${hostName}/configuration.nix
+			agenix.nixosModules.default
 			home-manager.nixosModules.home-manager
 			{ nixpkgs.overlays = sharedOverlays; }
 			{
@@ -93,7 +94,6 @@ in
 			hostName = "lap";
 			extraModules = [
 				inputs.mango.nixosModules.mango
-				agenix.nixosModules.default
 				{home-manager.users.${username}.imports = [
 					inputs.mango.hmModules.mango
 					# inputs.catppuccin.homeModules.catppuccin
