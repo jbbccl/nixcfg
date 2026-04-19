@@ -8,7 +8,7 @@
 				Host github.com
 					HostName github.com
 					User git
-					IdentityFile ${config.sops.secrets."github".path}
+					IdentityFile ${config.sops.secrets.github.path}
 					IdentitiesOnly yes
 				'';
 			};

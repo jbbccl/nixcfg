@@ -7,7 +7,7 @@
 	sops.secrets.airport03URL = {};
 	sops.secrets.github = {
 		mode = "0600";
-		owner = username;
+		owner = "${username}";
 		group = "users";
 		# path = "/home/${username}/.ssh/github";
 	};
