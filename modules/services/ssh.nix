@@ -1,4 +1,4 @@
-{ self, username, ... } :
+{ self, username, config, ... } :
 {
 # services.openssh.enable = true;
 	home-manager.users.${username} = {
@@ -8,7 +8,7 @@
 				Host github.com
 					HostName github.com
 					User git
-					IdentityFile ~/.ssh/github
+					IdentityFile ${config.sops.secrets."github".path}
 					IdentitiesOnly yes
 				'';
 			};

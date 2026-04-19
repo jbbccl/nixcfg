@@ -9,9 +9,11 @@
 		content = lib.replaceStrings [
 			"AIRPORT01_URL_PLACEHOLDER"
 			"AIRPORT02_URL_PLACEHOLDER"
+			"AIRPORT03_URL_PLACEHOLDER"
 		] [
 			config.sops.placeholder.airport01URL
 			config.sops.placeholder.airport02URL
+			config.sops.placeholder.airport03URL
 		] (builtins.readFile ./config/mihomo/config.yaml);
 	};
 

@@ -99,14 +99,14 @@ proxy-providers:
             additional-prefix: "bj"
             skip-cert-verify: true
             udp: true
-    # Airport_03:
-    #     <<: *PProviders
-    #     proxy: "故障转移"
-    #     url: "订阅链接3"
-    #     override:
-    #         additional-prefix: "[机场名称3]"
-    #         skip-cert-verify: true
-    #         udp: true
+    Airport_03:
+        <<: *PProviders
+        proxy: "故障转移"
+        url: "AIRPORT03_URL_PLACEHOLDER"
+        override:
+            additional-prefix: "[机场名称3]"
+            skip-cert-verify: true
+            udp: true
 
 ##############################################
 
