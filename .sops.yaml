@@ -1,0 +1,8 @@
+# age-keygen -o ~/.config/sops/age/keys.txt
+keys:
+  - &admin age1g7yfyq6n5v6ft82qfv0sdhmzu6lmk3th8rga04zzw4calwuj6a7s3dkc4r
+creation_rules:
+  - path_regex: ^secrets/.*\.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *admin

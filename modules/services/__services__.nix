@@ -3,7 +3,7 @@
 		./ssh.nix
 		./proxy.nix
 
-		./nginx.nix
+		# ./nginx.nix
 		./stream.nix
 	];
 }

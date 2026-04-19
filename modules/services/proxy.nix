@@ -1,26 +1,23 @@
-{ config, pkgs, username, ... }:
-let
-	fullTemplate = builtins.readFile config/mihomo/config.yaml;
-	airport01URL = "1111";
-	airport02URL = "1111";
-	# airport02URL = builtins.readFile config.age.secrets.airport_2.path;
-
-	cleanURL = url: builtins.replaceStrings ["\n" "\r"] ["" ""] url;
-
-	replacedTemplate = builtins.replaceStrings [
-		"AIRPORT01_URL_PLACEHOLDER"
-		"AIRPORT02_URL_PLACEHOLDER"
-	] [
-		(cleanURL airport01URL)
-		(cleanURL airport02URL)
-	] fullTemplate;
-
-	finalConfig = pkgs.writeText "mihomo-config.yaml" replacedTemplate;
-in
+{ config, pkgs, lib, ... }:
 {
+
+	sops.templates."mihomo-config.yaml" = {
+		owner = "root";
+		group = "root";
+		mode = "640";
+
+		content = lib.replaceStrings [
+			"AIRPORT01_URL_PLACEHOLDER"
+			"AIRPORT02_URL_PLACEHOLDER"
+		] [
+			config.sops.placeholder.airport01URL
+			config.sops.placeholder.airport02URL
+		] (builtins.readFile ./config/mihomo/config.yaml);
+	};
+
 	services.mihomo = {
 		enable = true;
-		configFile = finalConfig;
+		configFile = config.sops.templates."mihomo-config.yaml".path;
 		webui = pkgs.metacubexd;
 		tunMode = true;
 	};

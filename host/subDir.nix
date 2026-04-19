@@ -4,6 +4,6 @@
 		../modules/__modules__.nix
 		../desktopEnv/__desktopEnv__.nix
 		../guiToolkit/__guiToolkit__.nix
-		# ../secrets/age.nix
+		../secrets/sops.nix
 	];
 }

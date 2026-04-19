@@ -23,7 +23,9 @@ environment.systemPackages = with pkgs; [
 	
 	file
 	_7zz-rar
-	
+	sops
+	age
+
 	squashfsTools
 
 	# xorg.xwininfo
