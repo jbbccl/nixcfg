@@ -31,6 +31,7 @@ environment.systemPackages = with pkgs; [
 	# xorg.xwininfo
 	# xclip
 	xeyes
+	nmap
 ];
 programs.firejail.enable = true;
 
