@@ -186,7 +186,7 @@ sniffer:
 
 # 代理模式
 tun:
-    enable: false
+    enable: true
     stack: gvisor
     # device: Meta
     mtu: 9000

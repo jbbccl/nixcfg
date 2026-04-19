@@ -1,4 +1,4 @@
-{}:{
+{
 	imports = [
 		../setting/__setting__.nix
 		../modules/__modules__.nix

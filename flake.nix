@@ -33,7 +33,10 @@ inputs = {
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 	
-	agenix.url = "github:ryantm/agenix";
+	agenix = {
+		url = "github:ryantm/agenix";
+		inputs.nixpkgs.follows = "nixpkgs"; 
+	};
 	# catppuccin.url = "github:catppuccin/nix";
 };
 
@@ -69,7 +72,7 @@ let
 		inherit system;
 
 		specialArgs = {
-			inherit self inputs username;
+			inherit self inputs username agenix;
 			_config_ = hostName;
 		};
 
