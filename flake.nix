@@ -33,9 +33,9 @@ inputs = {
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 	
-	agenix = {
-		url = "github:ryantm/agenix";
-		inputs.nixpkgs.follows = "nixpkgs"; 
+	sops-nix = {
+		url = "github:Mic92/sops-nix";
+		inputs.nixpkgs.follows = "nixpkgs";
 	};
 	# catppuccin.url = "github:catppuccin/nix";
 };
@@ -44,7 +44,7 @@ outputs = inputs@{
 	self, 
 	nixpkgs, 
 	home-manager, 
-	agenix, 
+	sops-nix, 
 	... 
 }:
 let
@@ -72,13 +72,14 @@ let
 		inherit system;
 
 		specialArgs = {
-			inherit self inputs username agenix;
+			inherit self inputs username;
 			_config_ = hostName;
 		};
 
 		modules = [
 			./host/${hostName}/configuration.nix
-			agenix.nixosModules.default
+			sops-nix.nixosModules.sops
+
 			home-manager.nixosModules.home-manager
 			{ nixpkgs.overlays = sharedOverlays; }
 			{
