@@ -19,6 +19,7 @@ environment.systemPackages = with pkgs; [
 	ripgrep
 	fd
 	tree
+	# gettext
 	
 	file
 	_7zz-rar
