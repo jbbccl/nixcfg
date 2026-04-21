@@ -9,7 +9,7 @@ imports = [
 	./python.nix
 	./rust.nix
 	# ./java.nix
-	./AI/proxy.nix
+	./AI
 ];
 
 environment.sessionVariables = rec {
