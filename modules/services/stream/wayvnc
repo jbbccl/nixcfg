@@ -1,0 +1,6 @@
+address=127.0.0.1
+port=5900
+# keyboard 相关设置
+xkb_layout=us
+xkb_variant=
+xkb_options=

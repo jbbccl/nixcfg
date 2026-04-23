@@ -8,7 +8,7 @@
 	home-manager.users.${username} = {
 		xdg.configFile = {
 			"wayvnc/config" = {
-				source = ./config/wayvnc/config;
+				source = ./wayvnc;
 			};
 		};
 	};

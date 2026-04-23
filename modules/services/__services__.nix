@@ -1,9 +1,9 @@
 {
 	imports = [
 		./ssh.nix
-		./proxy.nix
-
+		./proxy/mihomo.nix
+		# ./stream/vnc.nix
 		# ./nginx.nix
-		./stream.nix
+		./AI
 	];
 }

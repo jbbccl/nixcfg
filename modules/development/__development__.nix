@@ -9,7 +9,6 @@ imports = [
 	./python.nix
 	./rust.nix
 	# ./java.nix
-	./AI
 ];
 
 environment.sessionVariables = rec {

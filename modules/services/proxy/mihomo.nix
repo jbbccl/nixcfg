@@ -14,7 +14,7 @@
 			config.sops.placeholder.airport01URL
 			config.sops.placeholder.airport02URL
 			config.sops.placeholder.airport03URL
-		] (builtins.readFile ./config/mihomo/config.yaml);
+		] (builtins.readFile ./mihomo.yaml);
 	};
 
 	services.mihomo = {
