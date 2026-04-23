@@ -2,7 +2,7 @@
 {
 	environment.systemPackages = with pkgs; [
 		waypaper
-		swww
+		awww
 	];
 	home-manager.users.${username} = {
 		services.mako.enable = true;

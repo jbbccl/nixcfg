@@ -10,7 +10,14 @@ niri-taskbar = pkgs.rustPlatform.buildRustPackage {
 	ref = "main";
 	rev = "c530349fae638141ec58a9d4db0816d950a9295a";
 	};
-	cargoHash = "sha256-WRc1+ZVhiIfmLHaczAPq21XudI08CgVhlIhVcf0rmSw=";
+
+	cargoLock = {
+		lockFile = ./Cargo.lock;
+		# outputHashes = {          # 如果以后有 git 依赖再打开这部分
+		#   "some-git-dep-0.1.0" = "sha256-...";
+		# };
+	};
+	# cargoHash = "sha256-WRc1+ZVhiIfmLHaczAPq21XudI08CgVhlIhVcf0rmSw=";
 	nativeBuildInputs = with pkgs; [
 		pkg-config
 		pango
@@ -21,6 +28,7 @@ niri-taskbar = pkgs.rustPlatform.buildRustPackage {
 		pango
 		gtk3
     ];
+	# nix-prefetch-url --unpack https://crates.io/api/v1/crates/futures-executor/0.3.31/download
 	installPhase = ''
 	mkdir -p $out/lib
 	cargo build --release
