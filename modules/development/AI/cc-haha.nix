@@ -1,31 +1,12 @@
-{ pkgs, lib, ... }:
-
+{ pkgs, ... }: 
 let
-  cc-haha = pkgs.stdenv.mkDerivation {
-    pname = "cc-haha";
-    version = "0.0.1";
-    src = pkgs.fetchFromGitHub {
-      owner = "NanmiCoder";
-      repo = "cc-haha";
-      branch = "main";
-      # 需要替换为实际hash，首次构建会报 correct hash 错误
-      hash = lib.fakeHash;
-    };
+	cc-haha = pkgs.callPackage ./home/e/Desktop/test/cc-haha/flake.nix {};
+in 
+{
+	environment.systemPackages = [ cc-haha ];
 
-    nativeBuildInputs = [ pkgs.bun ];
-
-    buildPhase = ''
-      bun install --frozen-lockfile
-    '';
-
-    installPhase = ''
-      mkdir -p $out/bin
-      cp -r . $out/cc-haha
-      ln -s $out/cc-haha/bin/claude-haha $out/bin/cl
-    '';
-  };
-in {
-  environment.systemPackages = [
-    cc-haha
-  ];
+	environment.etc."myapp-run".source = pkgs.writeShellScript "ccc" 
+	''
+		exec ${cc-haha}/bin/claude-haha
+	'';
 }
