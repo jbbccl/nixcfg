@@ -1,7 +1,7 @@
 {
 imports = [
 	./system.nix
-	./font-i8n.nix
+	./font.nix
 	./nix-ld.nix
 	./tty-xkb.nix
 	./user.nix

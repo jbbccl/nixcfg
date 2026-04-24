@@ -1,9 +1,7 @@
 {
 	imports = [
-		./audio.nix
-		./networking.nix
-		./ssh.nix
-		./proxy/mihomo.nix
-		./AI
+		./basis/__basis__.nix
+		./proxy/__proxy__.nix
+		./AI/__AI__.nix
 	];
 }

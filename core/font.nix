@@ -1,5 +1,4 @@
 { config, pkgs, ... }: {
-	i18n.defaultLocale = "zh_CN.UTF-8"; # "en_US.UTF-8";
 
 	fonts = {
 		packages = with pkgs; [
