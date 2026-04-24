@@ -1,0 +1,12 @@
+# Claude
+.claude/
+
+# Nix
+result
+result-*
+*.swp
+*.swo
+
+# Secrets
+# secrets/*.yaml
+# secrets/*.toml

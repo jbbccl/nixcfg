@@ -1,6 +1,6 @@
 {
   imports = [
-	./contianer.nix
-	./kvm-module.nix
+    ./container
+    ./hardware
   ];
 }

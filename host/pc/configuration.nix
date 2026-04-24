@@ -5,7 +5,7 @@
 		./hardware-configuration.nix
 		./driver.nix
 		./boot.nix
-		../subDir.nix
+		../common.nix
 	];
 
 	system.stateVersion = "25.11";

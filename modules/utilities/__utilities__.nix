@@ -1,6 +1,6 @@
 { config, pkgs, username, ... }: {
 imports = [
-	./editTools/pdf.nix
+	./pdf.nix
 	./neovim/neovim.nix
 	./yazi/yazi.nix
 ];
@@ -20,6 +20,7 @@ environment.systemPackages = with pkgs; [
 	fd
 	tree
 	# gettext
+	
 	
 	file
 	_7zz-rar
@@ -53,6 +54,8 @@ home-manager.users.${username} = {
 		fastfetch
 		btop
 		fzf
+
+		# ocamlPackages.cpdf
 	];
 
 	# catppuccin.flavor = "macchiato";

@@ -17,6 +17,12 @@ model_list:
           api_key: os.environ/MINIMAX_API_KEY
           api_base: https://api.minimaxi.com/anthropic
 
+    - model_name: minimax-m2.7-highspeed
+      litellm_params:
+          model: minimax/MiniMax-M2.7-highspeed
+          api_key: os.environ/MINIMAX_API_KEY
+          api_base: https://api.minimaxi.com/anthropic
+
 litellm_settings:
     drop_params: true
     modify_params: true
