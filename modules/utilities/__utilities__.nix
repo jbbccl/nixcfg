@@ -1,6 +1,5 @@
 { config, pkgs, username, ... }: {
 imports = [
-	./pdf.nix
 	./neovim/neovim.nix
 	./yazi/yazi.nix
 ];
