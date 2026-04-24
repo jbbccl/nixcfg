@@ -33,6 +33,7 @@ nixcfg/
 │   │   ├── proxy/
 │   │   └── AI/
 │   ├── shells/          # Shell 配置
+│   │   ├── bash/
 │   │   ├── fish/
 │   │   └── zsh/
 │   ├── utilities/       # 工具
@@ -61,7 +62,7 @@ nixcfg/
 │   ├── vm-managers.nix
 │   ├── terminal/        # kitty / alacritty
 │   └── file-manager/    # dolphin / thunar
-├── secrets/            # SOPS 加密密钥
+├── secrets/            # SOPS 加密密钥 (__secrets__.nix)
 └── static/             # 静态资源
     └── wallpaper/
 ```
