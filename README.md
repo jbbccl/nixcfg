@@ -9,68 +9,63 @@ nixcfg/
 ├── flake.nix           # 入口
 ├── flake.lock
 ├── .sops.yaml
-├── host/               # 主机配置 (二级)
+├── host/               # 主机配置
 │   ├── common.nix      # 共享配置聚合
 │   ├── lap/
 │   └── pc/
+├── core/               # 核心系统设置
+│   ├── audio.nix
+│   ├── font-i8n.nix
+│   ├── network-time.nix
+│   ├── nix-ld.nix
+│   ├── tty-xkb.nix
+│   └── user.nix
 ├── modules/            # 功能模块
-│   ├── AI/              # AI 服务
-│   │   └── litellm/
+│   ├── options/         # 模块选项 (desktop.*)
 │   ├── development/     # 开发环境
 │   │   └── flake-c-py/
 │   ├── services/        # 系统服务
+│   │   ├── AI/
 │   │   ├── proxy/
-│   │   └── stream/
+│   │   └── ssh.nix
 │   ├── shells/          # Shell 配置
 │   │   ├── fish/
 │   │   └── zsh/
 │   ├── utilities/       # 工具
 │   │   ├── neovim/
-│   │   ├── pdf.nix
 │   │   └── yazi/
 │   └── virtual/         # 虚拟化
-│       ├── container.nix
-│       └── hardware/    # 硬件虚拟化
-│           └── kvm.nix
-├── desktopEnv/         # 桌面环境
-│   ├── deSession/       # 桌面会话
-│   │   ├── plasma/
-│   │   └── xfce/
-│   ├── displayMgr/      # 显示管理器
-│   │   ├── greetd/
-│   │   └── sddm/
-│   ├── winMgr/          # 窗口管理器
-│   │   ├── hypr/
-│   │   ├── labwc/
-│   │   ├── mangowc/
-│   │   └── niri/
-│   └── wmAddons/        # 窗口管理器插件
-│       ├── fileMgr/
-│       ├── inputMth/
-│       ├── pty/
-│       ├── wallpaper/
-│       └── statusBar/  # 状态栏
-│           └── barAddons/
-│               ├── launcher/   # fuzzel/rofi/wofi
-│               ├── lock/      # swaylock/wlogout
-│               ├── notice/    # mako/swaync
-│               ├── noctalia/
-│               └── waybar/
-├── guiToolkit/         # GUI 工具
-├── setting/            # 系统设置
-├── secrets/            # 密钥
+│       ├── container/
+│       └── hardware/
+├── desktop/            # 桌面环境
+│   ├── theme.nix        # 主题 (GTK/Qt/光标)
+│   ├── portal.nix       # XDG Desktop Portal
+│   ├── display-manager/ # greetd / sddm
+│   ├── window-manager/  # niri / hypr / labwc / mangowc
+│   ├── status-bar/      # waybar / noctalia
+│   ├── launcher/        # fuzzel / rofi / wofi
+│   ├── lock/            # swaylock / wlogout
+│   ├── notification/    # mako / swaync
+│   ├── input/           # fcitx5 / rime
+│   ├── wallpaper/       # waypaper
+│   └── session/         # plasma / xfce (与 WM 互斥)
+├── apps/               # 应用
+│   ├── gui.nix
+│   ├── broser.nix
+│   ├── toolkit.nix
+│   ├── wireshark.nix
+│   ├── VMManagers.nix
+│   ├── terminal/        # kitty / alacritty
+│   └── file-manager/    # dolphin / thunar
+├── secrets/            # SOPS 加密密钥
 └── static/             # 静态资源
     └── wallpaper/
 ```
 
-## 规范
+## 架构
 
-1. 本项目是以 flake.nix 为根节点，大体自底层向上生长的树。
-2. 每个节点是配置某一个软件或功能的文件或文件夹。
-3. 非根节点通过 import 或其他引用方式连接子节点，每个非根节点提供一个文件供上级引用。
-4. 除二级 host 目录外，任意节点移除不会对系统正常运行造成影响。
-5. 若 b 功能或软件的运行依赖 a 功能或软件，则 b 位于 a 的子树，或兄弟。
-6. 继续上一条，若 b 位于 a 的子树导致树过于失衡，则将 b 移动到 a 的兄弟节点，并且 b 命名上体现对 a 的依赖。父节点将 a，b 视为同一节点，同步添加或移除。
-7. 任意节点所需依赖及其配置文件，在节点内部完成。
-8. 任意节点移除，不会对上层节点，或同级无关节点造成影响。
-9. 任意节点移除，不会留下残余配置或依赖。
+- **flake.nix** 为根节点，每个主机（lap/pc）通过 `desktop.*` 选项选择桌面组件
+- 每个目录对应一个 **NixOS 模块**，通过 `__*.nix` 索引文件聚合子模块
+- 桌面组件通过 `modules/options/desktop.nix` 定义的选项进行开关，各模块内部使用 `mkIf` 自激活
+- 非根节点通过 `import` 连接，任意节点移除不会对系统正常运行造成影响
+- 每个节点所需依赖及配置文件在节点内部完成

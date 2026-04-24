@@ -1,117 +1,100 @@
-# ！sudo会重置环境变量, 导致不走代理, 第一次构建使用sudo -E
 # sudo nixos-rebuild switch --flake ~/nixcfg#lap
-# NIX_CONFIG="substituters = https://cache.nixos.org" 或  --option substituters "" 
-# sudo nixos-rebuild switch --flake ~/nixcfg#lap --option substituters ""
-# sudo nixos-rebuild switch --flake ~/nixcfg#lap --option substituters "https://cache.nixos.org"
 # nix flake check ~/nixcfg
 # nix flake update
 # nix flake lock --update-input noctalia
-# 清理
 # sudo nix-collect-garbage -d
 {
-description = "Optimized NixOS Flake Configuration";
+	description = "Optimized NixOS Flake Configuration";
 
-inputs = {
-	nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-	nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11"; 
-	nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+	inputs = {
+		nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+		nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+		nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
-	nixpkgs.follows = "nixpkgs-unstable";
+		nixpkgs.follows = "nixpkgs-unstable";
 
-	home-manager = {
-		url = "github:nix-community/home-manager";
-		inputs.nixpkgs.follows = "nixpkgs";
-	};
-
-	mango = {
-		url = "github:DreamMaoMao/mango";
-		inputs.nixpkgs.follows = "nixpkgs";
-	};
-	
-	noctalia = {
-		url = "github:noctalia-dev/noctalia-shell";
-		inputs.nixpkgs.follows = "nixpkgs";
-	};
-	
-	sops-nix = {
-		url = "github:Mic92/sops-nix";
-		inputs.nixpkgs.follows = "nixpkgs";
-	};
-	# catppuccin.url = "github:catppuccin/nix";
-};
-
-outputs = inputs@{ 
-	self, 
-	nixpkgs, 
-	home-manager, 
-	sops-nix, 
-	... 
-}:
-let
-	username = "e";
-	system = "x86_64-linux";
-
-	sharedOverlays = [
-		(final: prev: {
-			stable = import inputs.nixpkgs-stable {
-				inherit system;
-				config.allowUnfree = true;
-			};
-			unstable = import inputs.nixpkgs-unstable {
-				inherit system;
-				config.allowUnfree = true;
-			};
-			master = import inputs.nixpkgs-master {
-				inherit system;
-				config.allowUnfree = true;
-			};
-		})
-	];
-	# 通用
-	mkSystem = { hostName, extraModules ? [] }: nixpkgs.lib.nixosSystem {
-		inherit system;
-
-		specialArgs = {
-			inherit self inputs username;
-			_config_ = hostName;
+		home-manager = {
+			url = "github:nix-community/home-manager";
+			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
-		modules = [
-			./host/${hostName}/configuration.nix
-			sops-nix.nixosModules.sops
+		mango = {
+			url = "github:DreamMaoMao/mango";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 
-			home-manager.nixosModules.home-manager
-			{ nixpkgs.overlays = sharedOverlays; }
-			{
-				home-manager.users.${username} = {
-					imports = [];
+		noctalia = {
+			url = "github:noctalia-dev/noctalia-shell";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
+		sops-nix = {
+			url = "github:Mic92/sops-nix";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+	};
+
+	outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, ... }:
+	let
+		username = "e";
+		system = "x86_64-linux";
+
+		sharedOverlays = [
+			(final: prev: {
+				stable = import inputs.nixpkgs-stable {
+					inherit system;
+					config.allowUnfree = true;
 				};
-				# home-manager.useGlobalPkgs = true;
-				# home-manager.useUserPackages = true;
-			}
-		] ++ extraModules;
-	};
-in
-{
-	nixosConfigurations = {
-		lap = mkSystem {
-			hostName = "lap";
-			extraModules = [
-				inputs.mango.nixosModules.mango
-				{home-manager.users.${username}.imports = [
-					inputs.mango.hmModules.mango
-					# inputs.catppuccin.homeModules.catppuccin
-				];}
-			];
-		};
+				unstable = import inputs.nixpkgs-unstable {
+					inherit system;
+					config.allowUnfree = true;
+				};
+				master = import inputs.nixpkgs-master {
+					inherit system;
+					config.allowUnfree = true;
+				};
+			})
+		];
 
-		pc = mkSystem {
-			hostName = "pc";
-			extraModules = [
-				{home-manager.users.${username}.imports = [];}
-			];
+		mkSystem = { hostName, extraModules ? [] }: nixpkgs.lib.nixosSystem {
+			inherit system;
+
+			specialArgs = {
+				inherit self inputs username hostName;
+			};
+
+			modules = [
+				./host/${hostName}/configuration.nix
+				sops-nix.nixosModules.sops
+
+				home-manager.nixosModules.home-manager
+				{ nixpkgs.overlays = sharedOverlays; }
+				{
+					home-manager.users.${username} = {
+						imports = [];
+					};
+				}
+			] ++ extraModules;
+		};
+	in
+	{
+		nixosConfigurations = {
+			lap = mkSystem {
+				hostName = "lap";
+				extraModules = [
+					inputs.mango.nixosModules.mango
+					{home-manager.users.${username}.imports = [
+						inputs.mango.hmModules.mango
+					];}
+				];
+			};
+
+			pc = mkSystem {
+				hostName = "pc";
+				extraModules = [
+					{home-manager.users.${username}.imports = [];}
+				];
+			};
 		};
 	};
-};
-
 }
