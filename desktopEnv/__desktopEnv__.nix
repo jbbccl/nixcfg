@@ -6,7 +6,7 @@ options = {
 in
 {
 	imports = [
-		(import ./displayMgr { options = options; })
+		(import ./displayMgr/__displayMgr__.nix { options = options; })
 		(import ./winMgr/__winMgr__.nix { options = options; })
 		(import ./wmAddons/__wmAddons__.nix { options = options; })
 
