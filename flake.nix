@@ -92,7 +92,10 @@
 			pc = mkSystem {
 				hostName = "pc";
 				extraModules = [
-					{home-manager.users.${username}.imports = [];}
+					inputs.mango.nixosModules.mango
+					{home-manager.users.${username}.imports = [
+						inputs.mango.hmModules.mango
+					];}
 				];
 			};
 		};
