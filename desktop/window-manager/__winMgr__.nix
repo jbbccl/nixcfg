@@ -1,5 +1,6 @@
 { config, lib, pkgs, username, ... }: {
   imports = [
+    ./portal.nix
     ./niri/niri.nix
     ./hypr/hypr.nix
     ./labwc/labwc.nix
