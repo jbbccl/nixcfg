@@ -1,8 +1,7 @@
 {
 imports = [
-	./audio.nix
+	./system.nix
 	./font-i8n.nix
-	./network-time.nix
 	./nix-ld.nix
 	./tty-xkb.nix
 	./user.nix
