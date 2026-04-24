@@ -1,6 +1,7 @@
 # Claude
 .claude/
 
+docs
 # Nix
 result
 result-*

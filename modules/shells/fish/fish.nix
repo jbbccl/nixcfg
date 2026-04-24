@@ -3,6 +3,12 @@
 # 1. 系统级安装（让所有用户都能使用）
 programs.fish.enable = true;
 
+programs.fish.shellInit = ''                                                                                                
+	function nix-shell --wraps nix-shell                                                                                      
+	command nix-shell --command "exec fish" $argv                                                                           
+	end                                                                                                                       
+''; 
+
 home-manager.users.${username} = {
 	xdg.configFile = {
 		"fish/" = {
