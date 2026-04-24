@@ -1,5 +1,5 @@
 { config, lib, username, ... }: {
-  config = lib.mkIf (config.desktop.windowManager == "mangowc") {
+  config = lib.mkIf (builtins.elem "mangowc" config.desktop.windowManager) {
 	programs.mango.enable = true;
   };
 }

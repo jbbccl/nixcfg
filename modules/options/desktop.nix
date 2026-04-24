@@ -1,8 +1,8 @@
 { lib, ... }: {
   options.desktop = {
     windowManager = lib.mkOption {
-      type = lib.types.nullOr (lib.types.enum [ "niri" "labwc" "hypr" "mangowc" null ]);
-      default = null;
+      type = lib.types.listOf (lib.types.enum [ "niri" "labwc" "hypr" "mangowc" ]);
+      default = [];
     };
     displayManager = lib.mkOption {
       type = lib.types.nullOr (lib.types.enum [ "greetd" "sddm" null ]);

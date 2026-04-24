@@ -1,6 +1,6 @@
 { config, lib, pkgs, username, ... }:
 {
-  config = lib.mkIf (config.desktop.windowManager == "labwc") {
+  config = lib.mkIf (builtins.elem "labwc" config.desktop.windowManager) {
 	programs.labwc.enable = true;
 	environment.systemPackages = with pkgs; [git
 		# labwc

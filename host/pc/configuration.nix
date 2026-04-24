@@ -10,7 +10,7 @@
 	system.stateVersion = "25.11";
 	home-manager.users.${username}.home.stateVersion = "25.11";
 
-	desktop.windowManager = "labwc";
+	desktop.windowManager = [ "labwc" "niri" "hypr" "mangowc" ];
 	desktop.bar = "waybar";
 	desktop.launcher = "fuzzel";
 	desktop.lockscreen = "swaylock";

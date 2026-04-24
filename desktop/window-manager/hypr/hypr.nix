@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
-  config = lib.mkIf (config.desktop.windowManager == "hypr") {
+  config = lib.mkIf (builtins.elem "hypr" config.desktop.windowManager) {
 	programs.hyprland.enable = true;
 
 	xdg.portal = {

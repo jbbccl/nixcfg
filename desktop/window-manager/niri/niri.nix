@@ -1,6 +1,6 @@
 { config, lib, pkgs, username, ... }:
 {
-  config = lib.mkIf (config.desktop.windowManager == "niri") {
+  config = lib.mkIf (builtins.elem "niri" config.desktop.windowManager) {
 	programs.niri.enable = true;
 
 	# environment.sessionVariables.NIXOS_OZONE_WL = "1";

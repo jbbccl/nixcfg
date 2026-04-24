@@ -3,10 +3,10 @@
     ./niri/niri.nix
     ./hypr/hypr.nix
     ./labwc/labwc.nix
-    # ./mangowc/mangowc.nix
+    ./mangowc/mangowc.nix
   ];
 
-  config = lib.mkIf (config.desktop.windowManager != null) {
+  config = lib.mkIf (config.desktop.windowManager != []) {
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     environment.systemPackages = with pkgs; [
