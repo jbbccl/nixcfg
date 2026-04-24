@@ -1,6 +1,6 @@
 { self, username, config, ... } :
 {
-# services.openssh.enable = true;
+	# services.openssh.enable = true;
 	home-manager.users.${username} = {
 		home.file = {
 			".ssh/config" = {

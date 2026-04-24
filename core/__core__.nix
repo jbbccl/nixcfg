@@ -1,9 +1,8 @@
 {
 imports = [
-	./system.nix
-	./font.nix
+	./console.nix
 	./nix-ld.nix
-	./tty-xkb.nix
+	./system.nix
 	./user.nix
 ];
 }

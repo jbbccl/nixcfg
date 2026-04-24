@@ -1,7 +1,7 @@
 {
 	imports = [
 		./options.nix
-		./theme.nix
+		./base/__base__.nix
 		./display-manager/__displayMgr__.nix
 		./window-manager/__winMgr__.nix
 		./status-bar/__bar__.nix
