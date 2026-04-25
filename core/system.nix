@@ -8,7 +8,18 @@
 			"https://cache.nixos.org/"
 		];
 		experimental-features = [ "nix-command" "flakes" ];
+		max-jobs = "auto";
+		cores = 0;
+		auto-optimise-store = true;
 	};
+
+	nix.gc = {
+		automatic = true;
+		dates = "03:15";
+		options = "--delete-older-than 7d";
+	};
+
+	documentation.enable = false;
 
 	security.sudo = {
 		enable = true;

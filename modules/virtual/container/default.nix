@@ -1,6 +1,6 @@
 { ... }: {
-  imports = [
-    ./container.nix
-	./appimage.nix
-  ];
+	imports = [
+		./container.nix
+		./appimage.nix
+	];
 }

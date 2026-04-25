@@ -2,10 +2,9 @@
 {
 programs.fish.enable = true;
 
-programs.fish.shellInit = ''                                                                                                
-	function nix-shell --wraps nix-shell                                                                                      
-	command nix-shell --command "exec fish" $argv                                                                           
-	end                                                                                                                       
+programs.fish.shellInit = ''
+	function nix-shell --wraps nix-shell
+	command nix-shell --command "exec fish" $argv
 ''; 
 
 home-manager.users.${username} = {

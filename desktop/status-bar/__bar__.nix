@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ./waybar/waybar.nix
-    ./noctalia
+	./waybar/waybar.nix
+	./noctalia
   ];
 }

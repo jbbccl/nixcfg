@@ -6,6 +6,6 @@
 		./wireshark.nix
 		./vm-managers.nix
 		./terminal/__terminal__.nix
-    	./file-manager/__fileMgr__.nix
+		./file-manager/__fileMgr__.nix
 	];
 }
