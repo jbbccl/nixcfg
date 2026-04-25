@@ -10,7 +10,7 @@ programs.fish.shellInit = ''
 '';
 
 home-manager.users.${username} = {
-	programs.fish.enable = true;
+	programs.fish.enable = true; # 加上HM才能设置环境变量
 
 	xdg.configFile = {
 		"fish/" = {

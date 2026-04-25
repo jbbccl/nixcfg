@@ -1,33 +1,29 @@
 { pkgs, username, hostName, ... }:
 let
-fontName ="Maple Mono NF CN";
-fontSize = (if hostName == "lap"
-				then 11
-			else if hostName == "pc"
-				then 12
-			else 11);
-#ls $XDG_DATA_DIRS/themes
-gtkThemeName = "catppuccin-macchiato-blue-standard";
-gtkThemePkg = pkgs.catppuccin-gtk.override {
-	accents = [ "blue" ];
-	size = "standard";
-	variant = "macchiato";
-};
+	fontName = "Maple Mono NF CN";
+	fontSize = if hostName == "lap" then 11
+	           else if hostName == "pc" then 12
+	           else 11;
 
-#ls $XDG_DATA_DIRS/icons/
-iconThemeName = "Papirus-Dark";
-iconThemePkg = pkgs.catppuccin-papirus-folders.override {
-	flavor = "macchiato";
-	accent = "blue";
-};
+	gtkThemeName = "catppuccin-macchiato-blue-standard";
+	gtkThemePkg = pkgs.catppuccin-gtk.override {
+		accents = [ "blue" ];
+		size = "standard";
+		variant = "macchiato";
+	};
 
-cursorsThemeName = "breeze_cursors";#"catppuccin-macchiato-dark-cursors";
-cursorsThemePkg = pkgs.kdePackages.breeze;#pkgs.catppuccin-cursors.macchiatoDark;
+	iconThemeName = "Papirus-Dark";
+	iconThemePkg = pkgs.catppuccin-papirus-folders.override {
+		flavor = "macchiato";
+		accent = "blue";
+	};
 
-cursorSize = 12;
+	cursorsThemeName = "breeze_cursors";
+	cursorsThemePkg = pkgs.kdePackages.breeze;
 
-in
-{
+	cursorSize = 12;
+
+in {
 	home-manager.users.${username} = {
 		home.pointerCursor = {
 			gtk.enable = true;
@@ -35,6 +31,7 @@ in
 			package = cursorsThemePkg;
 			size = cursorSize;
 		};
+
 		home.sessionVariables = {
 			XCURSOR_THEME = cursorsThemeName;
 			XCURSOR_SIZE = toString cursorSize;
@@ -59,40 +56,25 @@ in
 				package = cursorsThemePkg;
 			};
 
-			gtk3 = {
-				extraConfig.gtk-application-prefer-dark-theme = true;
-			};
+			gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
 			gtk4 = {
-			  theme = null;
+				theme = null;
 				extraConfig.gtk-application-prefer-dark-theme = true;
 			};
 		};
 
-		dconf.settings = {
-			"org/gnome/desktop/interface" = {
-				gtk-theme = gtkThemeName;
-				color-scheme = "prefer-dark";
-			};
-
-			# For Gnome shell
-			# "org/gnome/shell/extensions/user-theme" = {
-			# 	name = gtkThemeName;
-			# };
+		dconf.settings."org/gnome/desktop/interface" = {
+			gtk-theme = gtkThemeName;
+			color-scheme = "prefer-dark";
 		};
 
 		qt = {
 			enable = true;
-			platformTheme.name = "gtk";
-			style = {
-				# name = gtkThemeName; # gtkThemeName;
-				# package = pkgs.kdePackages.breeze;
-			};
+			platformTheme.name = "gtk3";
 		};
 	};
+
 	environment.sessionVariables = {
-		QT_QPA_PLATFORMTHEME = "gtk3";
 		QT_QPA_PLATFORMTHEME_QT6 = "gtk3";
 	};
-
-
 }
