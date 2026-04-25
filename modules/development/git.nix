@@ -5,8 +5,8 @@
 
 		config = {
 			user = {
-			name  = "lccbbj";
-			email = "lccbbj@example.com";
+				name  = "lccbbj";
+				email = "lccbbj@example.com";
 			};
 			init.defaultBranch = "main";
 		};

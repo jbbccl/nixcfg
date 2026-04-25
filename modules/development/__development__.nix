@@ -1,5 +1,10 @@
-{ username, ... }:
-{
+{ lib, username, ... }: {
+	options.development.languages = lib.mkOption {
+		type = lib.types.listOf lib.types.str;
+		default = [ "c-cpp" "javascript" "python" "rust" ];
+		description = "Languages to enable development tooling for";
+	};
+
 	imports = [
 		./git.nix
 
@@ -7,9 +12,11 @@
 		./javascript.nix
 		./python.nix
 		./rust.nix
+		./go.nix
+		./java.nix
 	];
 
-	environment.sessionVariables = {
+	config.environment.sessionVariables = {
 		PATH = [ "/home/${username}/.local/bin" ];
 	};
 }

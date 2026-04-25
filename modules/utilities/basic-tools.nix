@@ -4,7 +4,7 @@
 	environment.systemPackages = with pkgs; [
 		glib
 
-		vim  git
+		vim
 
 		wget curl
 		pciutils

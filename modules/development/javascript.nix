@@ -1,23 +1,16 @@
-{ pkgs, username, ... }: {
+{ config, pkgs, lib, username, ... }:
+lib.mkIf (builtins.elem "javascript" config.development.languages) {
 
-home-manager.users.${username} = {
-	home.packages = with pkgs; [
-		nodejs_22
-		pnpm
-		bun
-		#   deno
-	];
+	home-manager.users.${username} = {
+		home.packages = with pkgs; [
+			nodejs
+			pnpm
+			bun
+		];
 
-	# home.sessionVariables = {
-	# 	PNPM_HOME = "/home/${username}/.local/share/pnpm";
-	# };
-
-	# home.sessionPath = [ "/home/${username}/.local/share/pnpm/bin" ];
-};
-
-environment.sessionVariables = rec {
-	PNPM_HOME = "/home/${username}/.local/share/pnpm";
-	PATH = [ "/home/${username}/.local/share/pnpm" ];
-};
-
+		home.sessionVariables = {
+			PNPM_HOME = "/home/${username}/.local/share/pnpm";
+		};
+		home.sessionPath = [ "/home/${username}/.local/share/pnpm" ];
+	};
 }
