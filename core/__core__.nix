@@ -1,8 +1,8 @@
 {
-imports = [
-	./console.nix
-	./nix-ld.nix
-	./system.nix
-	./user.nix
-];
+	imports = [
+		./console.nix
+		./nix-ld.nix
+		./system.nix
+		./user.nix
+	];
 }
