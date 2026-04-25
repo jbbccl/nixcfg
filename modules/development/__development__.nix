@@ -4,7 +4,7 @@
 		./git.nix
 
 		./c-cpp.nix
-		./nodejs.nix
+		./javascript.nix
 		./python.nix
 		./rust.nix
 	];

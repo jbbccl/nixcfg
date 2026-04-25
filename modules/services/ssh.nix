@@ -1,17 +1,12 @@
-{ self, username, config, ... } :
+{ self, username, config, lib, ... } :
 {
-	# services.openssh.enable = true;
-	home-manager.users.${username} = {
-		home.file = {
-			".ssh/config" = {
-				text=''
-				Host github.com
-					HostName github.com
-					User git
-					IdentityFile ${config.sops.secrets.github.path}
-					IdentitiesOnly yes
-				'';
-			};
-		};
+	home-manager.users.${username}.home.file.".ssh/config" = lib.mkIf config.secrets.available {
+		text = ''
+		Host github.com
+			HostName github.com
+			User git
+			IdentityFile ${config.sops.secrets.github.path}
+			IdentitiesOnly yes
+		'';
 	};
 }

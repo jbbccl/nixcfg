@@ -7,7 +7,7 @@ in
 		pkgs.litellm
 	];
 
-	systemd.user.services.litellm = {
+	systemd.user.services.litellm = lib.mkIf config.secrets.available {
 		enable = true;
 		description = "LiteLLM Proxy (user mode)";
 		after = [ "network.target" ];

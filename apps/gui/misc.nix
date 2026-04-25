@@ -33,6 +33,7 @@ home-manager.users.${username} = {
 		# 其他
 		pomodoro-gtk
 		# keepassxc
+		xeyes
 	];
 };
 

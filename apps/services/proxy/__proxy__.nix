@@ -1,7 +1,13 @@
 { config, pkgs, lib, ... }:
 {
+	services.mihomo = lib.mkIf config.secrets.available {
+		enable = true;
+		configFile = config.sops.templates."mihomo-config.yaml".path;
+		webui = pkgs.metacubexd;
+		tunMode = true;
+	};
 
-	sops.templates."mihomo-config.yaml" = {
+	sops.templates."mihomo-config.yaml" = lib.mkIf config.secrets.available {
 		owner = "root";
 		group = "root";
 		mode = "640";
@@ -15,12 +21,5 @@
 			config.sops.placeholder.airport02URL
 			config.sops.placeholder.airport03URL
 		] (builtins.readFile ./mihomo.yaml);
-	};
-
-	services.mihomo = {
-		enable = true;
-		configFile = config.sops.templates."mihomo-config.yaml".path;
-		webui = pkgs.metacubexd;
-		tunMode = true;
 	};
 }

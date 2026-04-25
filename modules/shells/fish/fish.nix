@@ -1,6 +1,5 @@
 { config, pkgs, username, ... }:
 {
-# 1. 系统级安装（让所有用户都能使用）
 programs.fish.enable = true;
 
 programs.fish.shellInit = ''                                                                                                
@@ -10,6 +9,7 @@ programs.fish.shellInit = ''
 ''; 
 
 home-manager.users.${username} = {
+	# programs.fish.enable = true;
 	xdg.configFile = {
 		"fish/" = {
 			force = true;
