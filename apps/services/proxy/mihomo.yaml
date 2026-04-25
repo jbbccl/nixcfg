@@ -104,7 +104,7 @@ proxy-providers:
         proxy: "故障转移"
         url: "AIRPORT03_URL_PLACEHOLDER"
         override:
-            additional-prefix: "[机场名称3]"
+            additional-prefix: "fb"
             skip-cert-verify: true
             udp: true
 
