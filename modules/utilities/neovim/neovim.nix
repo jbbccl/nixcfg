@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, ... }:
 {
 		# imports = [./nixvim];
 	# programs.neovim.enable = true;
