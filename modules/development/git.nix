@@ -5,7 +5,7 @@
 		config = {
 			user = {
 				name  = "lccbbj";
-				email = "lccbbj_nonexisten@lccbbj.com";
+				email = "lccbbj@example.com";
 			};
 			init.defaultBranch = "main";
 		};
