@@ -15,7 +15,7 @@ home-manager.users.${username} = {
 
 		# 编辑器
 		imhex
-		gimp2
+		gimp
 		zed-editor
 		# obsidian
 		libreoffice-qt
