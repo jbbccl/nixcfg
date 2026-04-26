@@ -1,8 +1,11 @@
 { config, pkgs, lib, ... }:
+let
+	template = builtins.readFile ./config/mihomo.yaml;
+in
 {
 	services.mihomo = lib.mkIf config.secrets.available {
 		enable = true;
-		configFile = config.sops.templates."mihomo-config.yaml".path;
+		configFile = config.sops.templates."mihomo-config.yaml".path; # "/etc/mihomo/config.yaml"; #
 		webui = pkgs.metacubexd;
 		tunMode = true;
 	};
@@ -20,6 +23,6 @@
 			config.sops.placeholder.airport01URL
 			config.sops.placeholder.airport02URL
 			config.sops.placeholder.airport03URL
-		] (builtins.readFile ./mihomo.yaml);
+		] (template);
 	};
 }
