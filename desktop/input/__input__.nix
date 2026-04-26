@@ -9,13 +9,11 @@ rime-ice = pkgs.stdenvNoCC.mkDerivation {
 	pname = "rime-ice";
 	version = "2024.12.12";
 
-	src = builtins.fetchGit {
-		url = "https://github.com/iDvel/rime-ice.git";
-		ref = "main";  # 分支
-		rev = "c02c83c9e91f3e081052441330df00667abc64a8";  # commit hash
-
-		# rev = "refs/heads/main";  # 分支引用
-		# rev = "refs/tags/2024.12.12";  # 标签引用
+	src = pkgs.fetchFromGitHub {
+		owner = "iDvel";
+		repo = "rime-ice";
+		rev = "c02c83c9e91f3e081052441330df00667abc64a8";
+		hash = "sha256-Qp1ALrmisXp2pr4Jz1ujvYYYP6c2rAPzsUeRAZQySoE=";
 	};
 
 	installPhase = ''

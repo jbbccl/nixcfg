@@ -32,6 +32,11 @@
 			url = "github:Mic92/sops-nix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+
+		# hermes-agent = {
+		# 	url = "github:NousResearch/hermes-agent";
+		# 	inputs.nixpkgs.follows = "nixpkgs";
+		# };
 	};
 
 	outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, ... }:
@@ -68,6 +73,7 @@
 				sops-nix.nixosModules.sops
 
 				home-manager.nixosModules.home-manager
+				# hermes-agent.nixosModules.default
 				{ nixpkgs.overlays = sharedOverlays; }
 				{
 					home-manager.users.${username} = {
@@ -78,6 +84,8 @@
 		};
 	in
 	{
+		formatter.x86_64-linux = (import nixpkgs { system = "x86_64-linux"; }).nixpkgs-fmt;
+
 		nixosConfigurations = {
 			lap = mkSystem {
 				hostName = "lap";
