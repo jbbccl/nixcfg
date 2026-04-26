@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-	template = builtins.readFile ./config/mihomo.yaml;
+	template = builtins.readFile ./mihomo/config.yaml;
 in
 {
 	services.mihomo = lib.mkIf config.secrets.available {

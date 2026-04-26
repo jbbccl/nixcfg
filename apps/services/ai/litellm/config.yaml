@@ -1,15 +1,10 @@
 model_list:
-
-    - model_name: deepseek-reasoner
+    - model_name: deepseek-v4-pro[1m]
       litellm_params:
-          model: deepseek/deepseek-reasoner
+          model: deepseek/deepseek-v4-pro[1m]
           api_key: os.environ/DEEPSEEK_API_KEY
-
-    - model_name: deepseek-chat
-      litellm_params:
-        model: deepseek/deepseek-chat
-        api_key: os.environ/DEEPSEEK_API_KEY
-        api_base: https://api.deepseek.com
+          api_base: https://api.deepseek.com/anthropic
+          custom_llm_provider: "anthropic"
 
     - model_name: deepseek-v4-pro
       litellm_params:
@@ -17,10 +12,17 @@ model_list:
           api_key: os.environ/DEEPSEEK_API_KEY
           api_base: https://api.deepseek.com/anthropic
           custom_llm_provider: "anthropic"
-    
+
     - model_name: deepseek-v4-flash
       litellm_params:
           model: deepseek/deepseek-v4-flash
+          api_key: os.environ/DEEPSEEK_API_KEY
+          api_base: https://api.deepseek.com/anthropic
+          custom_llm_provider: "anthropic"
+
+    - model_name: deepseek-v4-flash[1m]
+      litellm_params:
+          model: deepseek/deepseek-v4-flash[1m]
           api_key: os.environ/DEEPSEEK_API_KEY
           api_base: https://api.deepseek.com/anthropic
           custom_llm_provider: "anthropic"
