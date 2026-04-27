@@ -44,22 +44,7 @@
 		username = "e";
 		system = "x86_64-linux";
 
-		sharedOverlays = [
-			(final: prev: {
-				stable = import inputs.nixpkgs-stable {
-					inherit system;
-					config.allowUnfree = true;
-				};
-				unstable = import inputs.nixpkgs-unstable {
-					inherit system;
-					config.allowUnfree = true;
-				};
-				master = import inputs.nixpkgs-master {
-					inherit system;
-					config.allowUnfree = true;
-				};
-			})
-		];
+		lib = import ./lib { inherit inputs system; };
 
 		mkSystem = { hostName, extraModules ? [] }: nixpkgs.lib.nixosSystem {
 			inherit system;
@@ -75,7 +60,7 @@
 				hermes-agent.nixosModules.default
 				
 				home-manager.nixosModules.home-manager
-				{ nixpkgs.overlays = sharedOverlays; }
+				{ nixpkgs.overlays = lib.nixpkgsOverlays; }
 				{
 					home-manager.users.${username} = {
 						imports = [];
