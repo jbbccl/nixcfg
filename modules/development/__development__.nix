@@ -1,6 +1,13 @@
 { lib, username, ... }: {
 	options.development.languages = lib.mkOption {
-		type = lib.types.listOf lib.types.str;
+		type = lib.types.listOf (lib.types.enum [
+			"c-cpp"
+			"go"
+			"java"
+			"javascript"
+			"python"
+			"rust"
+		]);
 		default = [ "c-cpp" "javascript" "python" "rust" ];
 		description = "Languages to enable development tooling for";
 	};

@@ -7,7 +7,7 @@
     ./mangowc/mangowc.nix
   ];
 
-  config = lib.mkIf (config.desktop.windowManager != []) {
+  config = lib.mkIf (lib.length (config.desktop.windowManager or []) > 0) {
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     environment.systemPackages = with pkgs; [
