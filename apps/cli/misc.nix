@@ -5,6 +5,7 @@
 			fastfetch
 			btop
 			# ocamlPackages.cpdf
+			openssl
 		];
 	};
 }

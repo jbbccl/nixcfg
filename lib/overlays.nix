@@ -10,23 +10,23 @@
 { inputs, system }:
 
 let
-  # ── Eager mode (current, simple) ──
-  eager = [
-    (final: prev: {
-      stable = import inputs.nixpkgs-stable {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      unstable = import inputs.nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      master = import inputs.nixpkgs-master {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    })
-  ];
+	# ── Eager mode (current, simple) ──
+	eager = [
+		(final: prev: {
+		stable = import inputs.nixpkgs-stable {
+			inherit system;
+			config.allowUnfree = true;
+		};
+		unstable = import inputs.nixpkgs-unstable {
+			inherit system;
+			config.allowUnfree = true;
+		};
+		master = import inputs.nixpkgs-master {
+			inherit system;
+			config.allowUnfree = true;
+		};
+		})
+	];
 
   # ── Lazy mode (future, single import + extend) ──
   # Downside: pkgs.stable.X vs pkgs.X may be the same derivation
