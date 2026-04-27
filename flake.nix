@@ -46,6 +46,9 @@
 
 		lib = import ./lib { inherit inputs system; };
 
+		pkgs = import nixpkgs { inherit system; };
+		flakeSrc = self;
+
 		mkSystem = { hostName, extraModules ? [] }: nixpkgs.lib.nixosSystem {
 			inherit system;
 
@@ -58,7 +61,7 @@
 
 				sops-nix.nixosModules.sops
 				hermes-agent.nixosModules.default
-				
+
 				home-manager.nixosModules.home-manager
 				{ nixpkgs.overlays = lib.nixpkgsOverlays; }
 				{
@@ -70,8 +73,51 @@
 		};
 	in
 	{
-		formatter.x86_64-linux = (import nixpkgs { system = "x86_64-linux"; }).nixpkgs-fmt;
+		# ── Formatter ────────────────────────────────────────────────
+		formatter.${system} = pkgs.nixpkgs-fmt;
 
+		# ── Static checks ───────────────────────────────────────────
+		checks.${system} = {
+			formatting = pkgs.runCommand "check-nixpkgs-fmt" {
+				src = flakeSrc;
+				nativeBuildInputs = [ pkgs.nixpkgs-fmt ];
+			} ''
+				nixpkgs-fmt --check $src
+				touch $out
+			'';
+
+			dead-code = pkgs.runCommand "check-deadnix" {
+				src = flakeSrc;
+				nativeBuildInputs = [ pkgs.deadnix ];
+			} ''
+				deadnix --fail -l $src
+				touch $out
+			'';
+
+			statix = pkgs.runCommand "check-statix" {
+				src = flakeSrc;
+				nativeBuildInputs = [ pkgs.statix ];
+			} ''
+				statix check $src
+				touch $out
+			'';
+		};
+
+		# ── Dev shell ───────────────────────────────────────────────
+		devShells.${system}.default = pkgs.mkShell {
+			buildInputs = with pkgs; [
+				nixpkgs-fmt
+				deadnix
+				statix
+				sops
+				age
+			];
+			shellHook = ''
+				echo "nixcfg dev shell — tools: nixpkgs-fmt deadnix statix sops age"
+			'';
+		};
+
+		# ── NixOS configurations ────────────────────────────────────
 		nixosConfigurations = {
 			lap = mkSystem {
 				hostName = "lap";
