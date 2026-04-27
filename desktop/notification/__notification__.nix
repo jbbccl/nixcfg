@@ -1,14 +1,11 @@
-{ config, lib, username, ... }: {
+{ config, lib, pkgs, username, ... }:
+let
+  inherit (import ../../lib/helpers.nix { inherit lib; }) mkConfigDir;
+in {
   config = lib.mkIf (config.desktop.notification == "mako") {
 	home-manager.users.${username} = {
 		services.mako.enable = true;
-		xdg.configFile = {
-			"mako/" = {
-				force = true;
-				recursive = true;
-				source = ./mako;
-			};
-		};
+		xdg.configFile = mkConfigDir "mako" ./mako;
 	};
   };
 }

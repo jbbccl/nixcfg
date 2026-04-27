@@ -1,5 +1,7 @@
 { config, lib, pkgs, username, ... }:
-{
+let
+  inherit (import ../../../lib/helpers.nix { inherit lib; }) mkConfigDir;
+in {
   config = lib.mkIf (config.desktop.bar == "waybar") (let
     niri-taskbar = pkgs.rustPlatform.buildRustPackage {
       pname = "niri-taskbar";
@@ -42,12 +44,7 @@
     ];
 
     home-manager.users.${username} = {
-      xdg.configFile = {
-        "waybar/" = {
-          force = true;
-          recursive = true;
-          source = ./config;
-        };
+      xdg.configFile = mkConfigDir "waybar" ./config // {
         "waybar/libniri_taskbar.so" = {
           force = true;
           recursive = false;

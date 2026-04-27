@@ -1,9 +1,10 @@
 { config, lib, pkgs, username, ... }:
-{
+let
+  inherit (import ../../lib/helpers.nix { inherit lib; }) mkConfigDir mkHomeDir;
+in {
   config = lib.mkIf (builtins.elem "labwc" config.desktop.windowManager) {
 	programs.labwc.enable = true;
 	environment.systemPackages = with pkgs; [git
-		# labwc
 		wlr-randr
 		xwayland-satellite
 		wl-clipboard
@@ -15,20 +16,8 @@
 			button-layout = "appmenu:minimize,maximize,close";
 			};
 		};
-		xdg.configFile = {
-			"labwc/" = {
-				force = true;
-				recursive = true;
-				source = ./config;
-			};
-		};
-		home.file = {
-		".local/share/themes/" = {
-				source = ./themes;
-				force = true;
-				recursive = true;
-			};
-		};
+		xdg.configFile = mkConfigDir "labwc" ./config;
+		home.file = mkHomeDir ".local/share/themes/" ./themes;
 	};
 
 	systemd.user.targets.labwc-session = {

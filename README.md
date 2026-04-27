@@ -12,7 +12,7 @@ nixcfg/
 ├── lib/                # 工具库
 │   ├── default.nix     # 聚合导出 (nixpkgsOverlays + validators)
 │   ├── overlays.nix    # 三分支 nixpkgs overlay (stable/unstable/master)
-│   ├── helpers.nix     # mkNullOrEnum / mkNullOrListEnum
+│   ├── helpers.nix     # mkNullOrEnum, mkConfigDir, mkDevLanguage, mkEnabledOption
 │   └── validators.nix  # 类型校验扩展
 ├── host/               # 主机配置
 │   ├── common.nix      # 共享配置聚合
@@ -148,29 +148,60 @@ nixcfg/
 3. **mkDefault 默认值**：aggregate 层用 `lib.mkDefault true` 设默认，host 在 `special-opt.nix` 中覆写
 4. **条件激活**：所有 leaf 模块首行必须是 `lib.mkIf config.xxx.enable`
 
-### 桌面选项 helper
+### lib/helpers.nix 函数一览
+`lib/helpers.nix` 提供以下可复用函数，被全项目引用：
 
-`lib/helpers.nix` 提供两个 helper，被 `desktop/__desktop__.nix` 引用 避免 `lib.mkOption` 重复样板：
+
+
+| 函数 | 用途 | 出现次数 |
+
+|------|------|----------|
+
+| `mkNullOrEnum` | nullable enum option | 5 |
+
+| `mkNullOrListEnum` | nullable list-of-enum option | 1 |
+
+| `mkConfigDir` | xdg.configFile 目录绑定 (`force/recursive/source`) | 10+ |
+
+| `mkHomeDir` | home.file 目录绑定 | 2 |
+
+| `mkDevLanguage` | 开发语言模块工厂 (`mkIf elem`) | 6 |
+
+| `mkEnabledOption` | enable 开关 + 默认 true | 8 |
+
+
+
+### 用法示例
+
+
 
 ```nix
-mkNullOrEnum = desc: values: lib.mkOption {
-  type = lib.types.nullOr (lib.types.enum values);
-  default = null;
-  description = desc;
-};
-mkNullOrListEnum = desc: values: lib.mkOption {
-  type = lib.types.nullOr (lib.types.listOf (lib.types.enum values));
-  default = null;
-  description = desc;
-};
-```
 
-用法一行搞定：
-```nix
-bar = mkNullOrEnum "status bar" [ "waybar" "noctalia" ];
-windowManager = mkNullOrListEnum "window managers" [ "niri" "labwc" "hypr" "mangowc" ];
-```
+# mkConfigDir — 省 3 行样板
 
+xdg.configFile = mkConfigDir "waybar" ./config;
+
+
+
+# mkDevLanguage — 一个调用替代一个文件
+
+(mkDevLanguage "go" ({ pkgs, username, ... }: {
+
+  home-manager.users.${username} = {
+
+    home.packages = with pkgs; [ go gopls ];
+
+  };
+
+}))
+
+
+
+# mkEnabledOption — 两行省一个 option+config 对
+
+(mkEnabledOption "modules.services" "system services")
+
+```
 ### 索引文件命名
 
 | 索引文件 | 所在目录 | 聚合内容 |
@@ -187,17 +218,27 @@ windowManager = mkNullOrListEnum "window managers" [ "niri" "labwc" "hypr" "mang
 
 以添加 `modules/development/lua.nix` 为例：
 
-**Step 1 — 写 leaf 文件**
+**Step 1 — 添加 mkDevLanguage 调用**（编辑 `modules/development/__development__.nix` 的 imports 列表）
+
+
 
 ```nix
-# modules/development/lua.nix
-{ config, lib, pkgs, ... }:
-lib.mkIf config.development.languages != [] && builtins.elem "lua" config.development.languages {
-  environment.systemPackages = with pkgs; [ lua ];
-}
+
+(mkDevLanguage "lua" ({ pkgs, username, ... }: {
+
+  home-manager.users.${username} = {
+
+    home.packages = with pkgs; [ lua ];
+
+  };
+
+}))
+
 ```
 
-**Step 2 — 注册语言枚举**（编辑 `modules/development/__development__.nix`）
+
+
+**Step 2
 
 ```nix
 type = lib.types.listOf (lib.types.enum [
@@ -269,20 +310,4 @@ flake.nix
             │    └─ user.nix
             ├─ modules/__modules__.nix
             │    ├─ development/__development__.nix
-            │    ├─ services/__services__.nix
             │    ├─ shells/__shells__.nix
-            │    ├─ virtual/__virtual__.nix
-            │    └─ utilities/__utilities__.nix
-            ├─ desktop/__desktop__.nix
-            │    ├─ base/__base__.nix
-            │    ├─ display-manager/__displayMgr__.nix
-            │    ├─ window-manager/__winMgr__.nix
-            │    ├─ status-bar/__bar__.nix
-            │    ├─ launcher/__launcher__.nix
-            │    └─ ...
-            ├─ apps/__apps__.nix
-            │    ├─ services/__services__.nix
-            │    ├─ gui/__gui__.nix
-            │    └─ cli/__cli__.nix
-            └─ secrets/__secrets__.nix
-```

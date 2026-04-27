@@ -1,24 +1,14 @@
-{ username, pkgs, ... }:{
+{ lib, pkgs, username, ... }:
+let
+  inherit (import ../../../lib/helpers.nix { inherit lib; }) mkConfigDir;
+in {
+  environment.systemPackages = with pkgs; [
+    (yazi.override {
+      _7zz = _7zz-rar;
+    })
+  ];
 
-	environment.systemPackages = with pkgs; [
-		(yazi.override {
-			_7zz = _7zz-rar; 
-		})
-	];
-
-	home-manager.users.${username} = {
-		# home.packages = with pkgs; [
-		# 	(yazi.override {
-		# 		_7zz = _7zz-rar; 
-		# 	})
-		# ];
-		
-		xdg.configFile = {
-			"yazi/" = {
-				force = true;
-				recursive = true;
-				source = ./config;
-			};
-		};
-	};
+  home-manager.users.${username} = {
+    xdg.configFile = mkConfigDir "yazi" ./config;
+  };
 }

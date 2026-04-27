@@ -1,16 +1,46 @@
 { lib }:
-{
-  # Nullable enum (null = disabled, string = which variant)
-  mkNullOrEnum = desc: values: lib.mkOption {
-    type = lib.types.nullOr (lib.types.enum values);
+let
+  inherit (lib) mkOption mkEnableOption mkDefault mkIf types;
+  inherit (types) nullOr enum listOf;
+in rec {
+  # ── Nullable enum helpers ──────────────────────────────────────
+  mkNullOrEnum = desc: values: mkOption {
+    type = nullOr (enum values);
+    default = null;
+    description = desc;
+  };
+  mkNullOrListEnum = desc: values: mkOption {
+    type = nullOr (listOf (enum values));
     default = null;
     description = desc;
   };
 
-  # Nullable list-of-enum (null = disabled, list = which variants)
-  mkNullOrListEnum = desc: values: lib.mkOption {
-    type = lib.types.nullOr (lib.types.listOf (lib.types.enum values));
-    default = null;
-    description = desc;
+  # ── xdg.configFile / home.file directory binding ───────────────
+  mkConfigDir = name: source: {
+    "${name}/" = {
+      force = true;
+      recursive = true;
+      inherit source;
+    };
   };
+  mkHomeDir = path: source: {
+    "${path}" = {
+      force = true;
+      recursive = true;
+      inherit source;
+    };
+  };
+
+  # ── Development language module factory ────────────────────────
+  # Usage: (mkDevLanguage "rust" ({ pkgs, username, ... }: { ... }))
+  mkDevLanguage = lang: cfgFn:
+    { config, ... }@args:
+    mkIf (builtins.elem lang config.development.languages) (cfgFn args);
+
+  # ── enable option that defaults to true ───────────────────────
+  mkEnabledOption = name: desc:
+    lib.mkMerge [
+      { options.${name} = mkEnableOption desc; }
+      { config.${name} = mkDefault true; }
+    ];
 }
