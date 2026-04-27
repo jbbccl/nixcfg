@@ -23,10 +23,16 @@ in
 				airport03URL = { sopsFile = ./token.yaml; };
 
 				# apps/services/ai/litellm
-				litellm-env = {
+				api-key-env = {
 					sopsFile = ./api_keys.yaml;
 					owner = "${username}";
 					group = "users";
+					mode = "0400";
+				};
+				hermes-env = {
+					sopsFile = ./api_keys.yaml;
+					owner = "${username}";
+					group = "hermes";
 					mode = "0400";
 				};
 

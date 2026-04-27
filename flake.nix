@@ -33,13 +33,13 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
-		# hermes-agent = {
-		# 	url = "github:NousResearch/hermes-agent";
-		# 	inputs.nixpkgs.follows = "nixpkgs";
-		# };
+		hermes-agent = {
+			url = "github:NousResearch/hermes-agent";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
-	outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, ... }:
+	outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, hermes-agent, ... }:
 	let
 		username = "e";
 		system = "x86_64-linux";
@@ -70,10 +70,11 @@
 
 			modules = [
 				./host/${hostName}/configuration.nix
-				sops-nix.nixosModules.sops
 
+				sops-nix.nixosModules.sops
+				hermes-agent.nixosModules.default
+				
 				home-manager.nixosModules.home-manager
-				# hermes-agent.nixosModules.default
 				{ nixpkgs.overlays = sharedOverlays; }
 				{
 					home-manager.users.${username} = {

@@ -1,6 +1,6 @@
 {
 	imports = [
 		./litellm/litellm.nix
-		# ./cc-haha.nix
+		./hermes.nix
 	];
 }

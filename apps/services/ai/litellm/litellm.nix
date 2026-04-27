@@ -17,7 +17,7 @@ in
 			ExecStart = "${pkgs.litellm}/bin/litellm --host 127.0.0.1 --port 4010 --config ${configFile}";
 			Restart = "always";
 			RestartSec = "5";
-			EnvironmentFile = config.sops.secrets.litellm-env.path;
+			EnvironmentFile = config.sops.secrets.api-key-env.path;
 		};
 	};
 }

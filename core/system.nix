@@ -23,9 +23,18 @@
 
 	security.sudo = {
 		enable = true;
+
 		extraConfig = ''
 			Defaults env_keep += "http_proxy https_proxy ftp_proxy rsync_proxy all_proxy"
 			Defaults env_keep += "HTTP_PROXY HTTPS_PROXY FTP_PROXY RSYNC_PROXY ALL_PROXY"
 		'';
+		
+		extraRules = [{                                                       
+			users = [ "${username}" ];                                                                  
+			commands = [{                                                                     
+			command = "/run/current-system/sw/bin/podman";                                  
+			options = [ "NOPASSWD" ];                                                       
+			}];                                                                               
+		}];
 	};
 }
