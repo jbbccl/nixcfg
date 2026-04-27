@@ -1,9 +1,11 @@
-{ pkgs, username, hostName, ... }:
+{ pkgs, username, hostName, lib, ... }:
 let
 	fontName = "Maple Mono NF CN";
-	fontSize = if hostName == "lap" then 11
-	           else if hostName == "pc" then 12
-	           else 11;
+	fontSize = lib.mkDefault (
+		if hostName == "lap" then 11
+		else if hostName == "pc" then 12
+		else 11
+	);
 
 	gtkThemeName = "catppuccin-macchiato-blue-standard";
 	gtkThemePkg = pkgs.catppuccin-gtk.override {
