@@ -1,26 +1,18 @@
 { config, lib, ... }:
 let
-  mkDesktopOption = desc: values: lib.mkOption {
-    type = lib.types.nullOr (lib.types.enum values);
-    default = null;
-    description = desc;
-  };
-  mkDesktopListOption = desc: values: lib.mkOption {
-    type = lib.types.nullOr (lib.types.listOf (lib.types.enum values));
-    default = null;
-    description = desc;
-  };
+  inherit (import ../lib/helpers.nix { inherit lib; })
+    mkNullOrEnum mkNullOrListEnum;
 in {
   options.desktop = {
     enable = lib.mkEnableOption "desktop environment (WM, bar, DM, theme, etc.)";
-    windowManager = mkDesktopListOption "window managers" [
+    windowManager = mkNullOrListEnum "window managers" [
       "niri" "labwc" "hypr" "mangowc"
     ];
-    displayManager = mkDesktopOption "display manager" [ "greetd" "sddm" ];
-    bar = mkDesktopOption "status bar" [ "waybar" "noctalia" ];
-    launcher = mkDesktopOption "app launcher" [ "fuzzel" "rofi" "wofi" ];
-    lockscreen = mkDesktopOption "lock screen" [ "swaylock" ];
-    notification = mkDesktopOption "notification daemon" [ "mako" "swaync" ];
+    displayManager = mkNullOrEnum "display manager" [ "greetd" "sddm" ];
+    bar = mkNullOrEnum "status bar" [ "waybar" "noctalia" ];
+    launcher = mkNullOrEnum "app launcher" [ "fuzzel" "rofi" "wofi" ];
+    lockscreen = mkNullOrEnum "lock screen" [ "swaylock" ];
+    notification = mkNullOrEnum "notification daemon" [ "mako" "swaync" ];
   };
 
   imports = [

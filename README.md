@@ -12,6 +12,7 @@ nixcfg/
 ├── lib/                # 工具库
 │   ├── default.nix     # 聚合导出 (nixpkgsOverlays + validators)
 │   ├── overlays.nix    # 三分支 nixpkgs overlay (stable/unstable/master)
+│   ├── helpers.nix     # mkNullOrEnum / mkNullOrListEnum
 │   └── validators.nix  # 类型校验扩展
 ├── host/               # 主机配置
 │   ├── common.nix      # 共享配置聚合
@@ -108,7 +109,7 @@ nixcfg/
 
 自定义选项在 `desktop/__desktop__.nix` 中定义，遵循 **"谁的选项放在谁的文件里"** 原则：
 
-- 使用 `mkDesktopOption` / `mkDesktopListOption` helper 简化 `nullOr (enum ...)` 定义
+- 使用 `mkNullOrEnum` / `mkNullOrListEnum` helper 简化 `nullOr (enum ...)` 定义
 - 目前仅 `desktop.*` 系列有自定义选项，其他模块直接使用 NixOS/home-manager 标准选项
 - `desktop/__desktop__.nix` 同时设置默认值，主机只需在 `special-opt.nix` 中写差异
 
@@ -149,15 +150,15 @@ nixcfg/
 
 ### 桌面选项 helper
 
-`desktop/__desktop__.nix` 使用两个 helper 避免 `lib.mkOption` 重复样板：
+`lib/helpers.nix` 提供两个 helper，被 `desktop/__desktop__.nix` 引用 避免 `lib.mkOption` 重复样板：
 
 ```nix
-mkDesktopOption = desc: values: lib.mkOption {
+mkNullOrEnum = desc: values: lib.mkOption {
   type = lib.types.nullOr (lib.types.enum values);
   default = null;
   description = desc;
 };
-mkDesktopListOption = desc: values: lib.mkOption {
+mkNullOrListEnum = desc: values: lib.mkOption {
   type = lib.types.nullOr (lib.types.listOf (lib.types.enum values));
   default = null;
   description = desc;
@@ -166,8 +167,8 @@ mkDesktopListOption = desc: values: lib.mkOption {
 
 用法一行搞定：
 ```nix
-bar = mkDesktopOption "status bar" [ "waybar" "noctalia" ];
-windowManager = mkDesktopListOption "window managers" [ "niri" "labwc" "hypr" "mangowc" ];
+bar = mkNullOrEnum "status bar" [ "waybar" "noctalia" ];
+windowManager = mkNullOrListEnum "window managers" [ "niri" "labwc" "hypr" "mangowc" ];
 ```
 
 ### 索引文件命名
