@@ -31,12 +31,6 @@ in rec {
     };
   };
 
-  # ── Development language module factory ────────────────────────
-  # Usage: (mkDevLanguage "rust" ({ pkgs, username, ... }: { ... }))
-  mkDevLanguage = lang: cfgFn:
-    { config, ... }@args:
-    mkIf (builtins.elem lang config.development.languages) (cfgFn args);
-
   # ── enable option that defaults to true ───────────────────────
   mkEnabledOption = name: desc:
     lib.mkMerge [
