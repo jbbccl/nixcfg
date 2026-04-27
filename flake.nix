@@ -111,9 +111,10 @@
 				statix
 				sops
 				age
+				nixd
 			];
 			shellHook = ''
-				echo "nixcfg dev shell — tools: nixpkgs-fmt deadnix statix sops age"
+				echo "nixcfg dev shell — tools: nixpkgs-fmt deadnix statix sops age nixd"
 			'';
 		};
 
