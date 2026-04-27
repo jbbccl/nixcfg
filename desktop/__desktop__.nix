@@ -1,27 +1,50 @@
-{ config, lib, ... }: {
-	imports = [
-		./options.nix
-		./base/__base__.nix
-		./display-manager/__displayMgr__.nix
-		./window-manager/__winMgr__.nix
-		./status-bar/__bar__.nix
-		./launcher/__launcher__.nix
-		./lock/__lock__.nix
-		./notification/__notification__.nix
-		./input/__input__.nix
-		./wallpaper/__wallpaper__.nix
-		# ./session/__session__.nix  # plasma/xfce full DE, conflicts with WM
-	];
+{ config, lib, ... }:
+let
+  mkDesktopOption = desc: values: lib.mkOption {
+    type = lib.types.nullOr (lib.types.enum values);
+    default = null;
+    description = desc;
+  };
+  mkDesktopListOption = desc: values: lib.mkOption {
+    type = lib.types.nullOr (lib.types.listOf (lib.types.enum values));
+    default = null;
+    description = desc;
+  };
+in {
+  options.desktop = {
+    enable = lib.mkEnableOption "desktop environment (WM, bar, DM, theme, etc.)";
+    windowManager = mkDesktopListOption "window managers" [
+      "niri" "labwc" "hypr" "mangowc"
+    ];
+    displayManager = mkDesktopOption "display manager" [ "greetd" "sddm" ];
+    bar = mkDesktopOption "status bar" [ "waybar" "noctalia" ];
+    launcher = mkDesktopOption "app launcher" [ "fuzzel" "rofi" "wofi" ];
+    lockscreen = mkDesktopOption "lock screen" [ "swaylock" ];
+    notification = mkDesktopOption "notification daemon" [ "mako" "swaync" ];
+  };
 
-	config = lib.mkMerge [
-		{ desktop.enable = lib.mkDefault true; }
-		(lib.mkIf config.desktop.enable {
-			desktop.windowManager = [ "labwc" "niri" "hypr" ];
-			desktop.bar = "waybar";
-			desktop.launcher = "fuzzel";
-			desktop.lockscreen = "swaylock";
-			desktop.notification = "mako";
-			desktop.displayManager = "greetd";
-		})
-	];
+  imports = [
+    ./base/__base__.nix
+    ./display-manager/__displayMgr__.nix
+    ./window-manager/__winMgr__.nix
+    ./status-bar/__bar__.nix
+    ./launcher/__launcher__.nix
+    ./lock/__lock__.nix
+    ./notification/__notification__.nix
+    ./input/__input__.nix
+    ./wallpaper/__wallpaper__.nix
+    # ./session/__session__.nix  # plasma/xfce full DE, conflicts with WM
+  ];
+
+  config = lib.mkMerge [
+    { desktop.enable = lib.mkDefault true; }
+    (lib.mkIf config.desktop.enable {
+      desktop.windowManager = [ "labwc" "niri" "hypr" ];
+      desktop.bar = "waybar";
+      desktop.launcher = "fuzzel";
+      desktop.lockscreen = "swaylock";
+      desktop.notification = "mako";
+      desktop.displayManager = "greetd";
+    })
+  ];
 }

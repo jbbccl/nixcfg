@@ -51,7 +51,7 @@ nixcfg/
 │       └── hardware/
 │
 ├── desktop/            # Layer 2: 桌面环境
-│   ├── options.nix     # 选项定义 (desktop.*)
+│   ├── __desktop__.nix # 选项 + 默认值 + 聚合入口
 │   ├── base/           # 基础配置
 │   │   ├── theme.nix   # 主题 (GTK/Qt/光标)
 │   │   └── fonts.nix   # 字体 (fontconfig)
@@ -106,15 +106,15 @@ nixcfg/
 
 ### 选项定义 (Option)
 
-自定义选项集中在 `desktop/options.nix`，遵循 **"谁的选项放在谁的文件里"** 原则：
+自定义选项在 `desktop/__desktop__.nix` 中定义，遵循 **"谁的选项放在谁的文件里"** 原则：
 
-- 选项定义与消费它的模块放在同一目录，而非集中到独立的 `options/` 目录
+- 使用 `mkDesktopOption` / `mkDesktopListOption` helper 简化 `nullOr (enum ...)` 定义
 - 目前仅 `desktop.*` 系列有自定义选项，其他模块直接使用 NixOS/home-manager 标准选项
 - `desktop/__desktop__.nix` 同时设置默认值，主机只需在 `special-opt.nix` 中写差异
 
 ### 桌面组件
 
-- 通过 `desktop/options.nix` 定义的选项进行开关，各模块内部使用 `mkIf` 自激活
+- 通过 `desktop/__desktop__.nix` 定义的选项进行开关，各模块内部使用 `mkIf` 自激活
 - `desktop.windowManager` 是列表类型：可同时启用多个 WM，登录界面切换，无需重构
 - 各 WM 自带的 portal 依赖只在该 WM 启用时安装（portal.nix 只装 GTK 公共底座）
 - `desktop/__desktop__.nix` 设有公共默认值，减少 lap/pc 之间的重复
@@ -146,6 +146,29 @@ nixcfg/
 2. **选项就近定义**：选项放在消费它的 aggregate 文件中（如 `modules/__modules__.nix` 定义 `modules.services`）
 3. **mkDefault 默认值**：aggregate 层用 `lib.mkDefault true` 设默认，host 在 `special-opt.nix` 中覆写
 4. **条件激活**：所有 leaf 模块首行必须是 `lib.mkIf config.xxx.enable`
+
+### 桌面选项 helper
+
+`desktop/__desktop__.nix` 使用两个 helper 避免 `lib.mkOption` 重复样板：
+
+```nix
+mkDesktopOption = desc: values: lib.mkOption {
+  type = lib.types.nullOr (lib.types.enum values);
+  default = null;
+  description = desc;
+};
+mkDesktopListOption = desc: values: lib.mkOption {
+  type = lib.types.nullOr (lib.types.listOf (lib.types.enum values));
+  default = null;
+  description = desc;
+};
+```
+
+用法一行搞定：
+```nix
+bar = mkDesktopOption "status bar" [ "waybar" "noctalia" ];
+windowManager = mkDesktopListOption "window managers" [ "niri" "labwc" "hypr" "mangowc" ];
+```
 
 ### 索引文件命名
 
@@ -250,7 +273,6 @@ flake.nix
             │    ├─ virtual/__virtual__.nix
             │    └─ utilities/__utilities__.nix
             ├─ desktop/__desktop__.nix
-            │    ├─ options.nix
             │    ├─ base/__base__.nix
             │    ├─ display-manager/__displayMgr__.nix
             │    ├─ window-manager/__winMgr__.nix
