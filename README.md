@@ -9,6 +9,10 @@ nixcfg/
 ├── flake.nix           # 入口
 ├── flake.lock
 ├── .sops.yaml
+├── lib/                # 工具库
+│   ├── default.nix     # 聚合导出 (nixpkgsOverlays + validators)
+│   ├── overlays.nix    # 三分支 nixpkgs overlay (stable/unstable/master)
+│   └── validators.nix  # 类型校验扩展
 ├── host/               # 主机配置
 │   ├── common.nix      # 共享配置聚合
 │   ├── lap/
@@ -114,3 +118,13 @@ nixcfg/
 - `desktop.windowManager` 是列表类型：可同时启用多个 WM，登录界面切换，无需重构
 - 各 WM 自带的 portal 依赖只在该 WM 启用时安装（portal.nix 只装 GTK 公共底座）
 - `desktop/__desktop__.nix` 设有公共默认值，减少 lap/pc 之间的重复
+
+### 三分支 nixpkgs overlay
+
+`lib/overlays.nix` 将 3 个 nixpkgs 分支注入到 package set：
+
+- `pkgs.stable`  — nixos-25.11（稳定版）
+- `pkgs.unstable` — nixos-unstable（滚动更新）
+- `pkgs.master`  — master（最新提交）
+
+全部开启 `allowUnfree = true`。在任意 NixOS/HM 模块中直接用 `pkgs.stable.firefox`、`pkgs.unstable.neovim` 等语法精确选择版本。

@@ -44,13 +44,13 @@ in
 					group = "users";
 				};
 
-				# apps/services/remote-ctrl/nginx.nix — basic auth password hash
-				nginx-basic-auth-hash = {
-					sopsFile = ./token.yaml;
-					mode = "0400";
-					owner = "nginx";
-					group = "nginx";
-				};
+				# laterTODO apps/services/remote-ctrl/nginx.nix — basic auth password hash
+				# nginx-basic-auth-hash = {
+				# 	sopsFile = ./token.yaml;
+				# 	mode = "0400";
+				# 	owner = "nginx";
+				# 	group = "nginx";
+				# };
 			};
 
 			environment.systemPackages = [

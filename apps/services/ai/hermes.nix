@@ -17,6 +17,7 @@ in
 			
 			extraVolumes = [
 				"/home/${username}/nixcfg:/home/${username}/nixcfg:rw"
+				"/home/${username}/Desktop:/home/${username}/Desktop:rw"
 				"/run/user/${uid}/podman/podman.sock:/run/user/${uid}/podman/podman.sock:rw"
 				# "/run/podman/podman.sock:/run/podman/podman.sock:rw"
 			];
