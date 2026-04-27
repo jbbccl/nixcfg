@@ -1,6 +1,6 @@
 { config, lib, pkgs, username, ... }:
 let
-  inherit (import ../../lib/helpers.nix { inherit lib; }) mkConfigDir;
+  inherit (import ../../../lib/helpers.nix { inherit lib; }) mkConfigDir;
 in {
   config = lib.mkIf (builtins.elem "niri" config.desktop.windowManager) {
 	programs.niri.enable = true;
