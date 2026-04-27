@@ -30,11 +30,4 @@ in rec {
       inherit source;
     };
   };
-
-  # ── enable option that defaults to true ───────────────────────
-  mkEnabledOption = name: desc:
-    lib.mkMerge [
-      { options.${name} = mkEnableOption desc; }
-      { config.${name} = mkDefault true; }
-    ];
 }
