@@ -1,16 +1,15 @@
-{ lib, username, ... }: {
-	options.development.languages = lib.mkOption {
-		type = lib.types.listOf (lib.types.enum [
-			"c-cpp"
-			"go"
-			"java"
-			"javascript"
-			"python"
-			"rust"
-		]);
-		default = [ "c-cpp" "javascript" "python" "rust" ];
-		description = "Languages to enable development tooling for";
-	};
+{ lib, username, ... }: let
+  inherit (import ../../lib/helpers.nix { inherit lib; })
+    mkNullOrEnum mkNullOrListEnum;
+in {
+	options.development.languages = mkNullOrListEnum "langs" [
+		"c-cpp"
+		"go"
+		"java"
+		"javascript"
+		"python"
+		"rust"
+	];
 
 	imports = [
 		./git.nix
@@ -23,6 +22,8 @@
 		./java.nix
 	];
 
+	config.development.languages = [ "c-cpp" "javascript" "python" "rust" ];
+	
 	config.environment.sessionVariables = {
 		PATH = [ "/home/${username}/.local/bin" ];
 	};
