@@ -1,6 +1,7 @@
 { config, lib, pkgs, username, ... }:
 let
-  cfg = config.services.hermes-agent;
+	cfg = config.services.hermes-agent;
+	uid = builtins.toString config.users.users.${username}.uid;
 in
 {
 	services.hermes-agent = lib.mkIf config.secrets.available {
@@ -11,12 +12,17 @@ in
 			enable = true;
 
 			backend = "podman";
+			image = "debian:bookworm-slim";
 			hostUsers = [ "${username}" ];
 			
-			 extraVolumes = [
+			extraVolumes = [
 				"/home/${username}/nixcfg:/home/${username}/nixcfg:rw"
+				"/run/user/${uid}/podman/podman.sock:/run/user/${uid}/podman/podman.sock:rw"
+				# "/run/podman/podman.sock:/run/podman/podman.sock:rw"
 			];
 		};
+
+		workingDirectory = "/home/hermes";
 
 		settings = {
 			model = {
