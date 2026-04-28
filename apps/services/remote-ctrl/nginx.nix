@@ -1,15 +1,17 @@
-{ config, lib, pkgs, username, ... }: {
-	sops.templates."nginx-htpasswd" = lib.mkIf config.secrets.available {
+{ config, lib, pkgs, username, ... }:
+lib.mkIf config.secrets.available {
+
+	sops.templates."nginx-htpasswd" = {
 		owner = "nginx";
 		group = "nginx";
 		mode = "0400";
 		content = lib.replaceStrings
 			[ "BASIC_AUTH_HASH_PLACEHOLDER" ]
-			[ config.sops.placeholder.nginx-basic-auth-hash ]
+			[ config.sops.placeholder."nginx-basic-auth-hash" ]
 			"dabianchaoren:BASIC_AUTH_HASH_PLACEHOLDER";
 	};
 
-	services.nginx = lib.mkIf config.secrets.available {
+	services.nginx = {
 		enable = true;
 		recommendedProxySettings = true;
 

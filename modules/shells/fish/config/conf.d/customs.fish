@@ -15,4 +15,5 @@ if status is-interactive
 	alias docker=podman
 	alias pd=podman
 	alias db=distrobox
+	alias hh="hermes --tui"
 end
