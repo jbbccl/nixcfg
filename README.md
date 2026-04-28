@@ -68,17 +68,24 @@ nixcfg/
 │
 ├── apps/               # Layer 3: 用户应用
 │   ├── services/       # 后台守护进程
-│   │   ├── ai/             # litellm
+│   │   ├── ai/             # litellm + hermes-agent
 │   │   ├── proxy/          # mihomo
-│   │   └── remote-ctrl/    # nginx / wayvnc
-│   └── gui/            # 桌面应用
-│       ├── misc.nix        # 杂项 GUI 工具
-│       ├── broser.nix
-│       ├── toolkit.nix     # /opt/toolkit
-│       ├── wireshark.nix
-│       ├── vm-managers.nix
-│       ├── terminal/       # kitty / alacritty
-│       └── file-manager/   # dolphin / thunar
+│   │   └── remote-ctrl/    # nginx + wayvnc
+│   ├── gui/            # 桌面应用
+│   │   ├── misc.nix        # 杂项 GUI 工具
+│   │   ├── broser.nix
+│   │   ├── toolkit.nix     # /opt/toolkit
+│   │   ├── wireshark.nix
+│   │   ├── vm-managers.nix
+│   │   ├── terminal/       # kitty / alacritty
+│   │   └── file-manager/   # dolphin / thunar
+│   ├── cli/            # 命令行工具
+│   │   └── misc.nix
+│   └── containers/     # 容器化应用
+│       └── daily/          # daily-deb (Debian GUI 容器)
+│           ├── __daily__.nix    # 模块入口 + 脚本 + systemd oneshot
+│           └── debian/
+│               └── Dockerfile   # Debian 镜像定义
 │
 ├── secrets/            # SOPS 加密密钥 (__secrets__.nix)
 └── static/             # 静态资源
@@ -152,13 +159,8 @@ nixcfg/
 `lib/helpers.nix` 提供以下可复用函数，被全项目引用：
 
 | 函数 | 用途 | 出现次数 |
-
 |------|------|----------|
-
 | `mkNullOrEnum` | nullable enum option | 5 |
-
 | `mkNullOrListEnum` | nullable list-of-enum option | 1 |
-
 | `mkConfigDir` | xdg.configFile 目录绑定 (`force/recursive/source`) | 10+ |
-
 | `mkHomeDir` | home.file 目录绑定 | 2 |
