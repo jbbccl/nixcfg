@@ -25,11 +25,14 @@ lib.mkIf config.secrets.available {
 		virtualHosts."1.ccb" = {
 			default = true;
 			basicAuthFile = config.sops.templates."nginx-htpasswd".path;
+			# addSSL = true;
 			forceSSL = true;
 			sslCertificate = "/etc/nginx/ssl/cert.pem";
 			sslCertificateKey = "/etc/nginx/ssl/key.pem";
 			listen = [
 				{ addr = "[::]"; port = 49514; ssl = true; }
+				# { addr = "127.0.0.1"; port = 80; }
+				# { addr = "127.0.0.1"; port = 443; ssl = true; }
 			];
 
 			locations."/" = {
