@@ -10,7 +10,7 @@ nixcfg/
 ├── flake.lock
 ├── .sops.yaml
 ├── lib/                # 工具库
-│   ├── default.nix     # 聚合导出 (nixpkgsOverlays + validators)
+│   ├── default.nix     # 聚合导出 (nixpkgsOverlays + validators + helpers)
 │   ├── overlays.nix    # 三分支 nixpkgs overlay (stable/unstable/master)
 │   ├── helpers.nix     # mkNullOrEnum, mkConfigDir, mkHomeDir
 │   └── validators.nix  # 类型校验扩展
@@ -67,6 +67,7 @@ nixcfg/
 │   └── session/         # plasma / xfce (与 WM 互斥)
 │
 ├── apps/               # Layer 3: 用户应用
+│   ├── __apps__.nix    # 选项 (services/gui/cli/containers) + 默认值
 │   ├── services/       # 后台守护进程
 │   │   ├── ai/             # litellm + hermes-agent
 │   │   ├── proxy/          # mihomo
@@ -82,10 +83,10 @@ nixcfg/
 │   ├── cli/            # 命令行工具
 │   │   └── misc.nix
 │   └── containers/     # 容器化应用
-│       └── daily/          # daily-deb (Debian GUI 容器)
-│           ├── __daily__.nix    # 模块入口 + 脚本 + systemd oneshot
-│           └── debian/
-│               └── Dockerfile   # Debian 镜像定义
+│       ├── __containers__.nix  # 选项 + 导入 + mkDefault 默认值
+│       └── debian/            # Debian 每日容器
+│           ├── default.nix     # 模块实现 (容器脚本 + systemd)
+│           └── Dockerfile      # Dockerfile
 │
 ├── secrets/            # SOPS 加密密钥 (__secrets__.nix)
 └── static/             # 静态资源
@@ -103,7 +104,7 @@ nixcfg/
 | Layer 0 | `core/` | NixOS 内核配置，所有上层的基础 |
 | Layer 1 | `modules/` | 系统级模块扩展（服务、开发环境、Shell、虚拟化） |
 | Layer 2 | `desktop/` | 桌面环境（窗口管理器、显示管理器、输入法等） |
-| Layer 3 | `apps/` | 用户应用（后台服务 + GUI 应用） |
+| Layer 3 | `apps/` | 用户应用（后台服务 + GUI 应用 + 容器） |
 
 ### 模块原则
 
@@ -114,11 +115,18 @@ nixcfg/
 
 ### 选项定义 (Option)
 
-自定义选项在 `desktop/__desktop__.nix` 中定义，遵循 **"谁的选项放在谁的文件里"** 原则：
+自定义选项遵循 **"谁的选项放在谁的文件里"** 原则：
 
-- 使用 `mkNullOrEnum` / `mkNullOrListEnum` helper 简化 `nullOr (enum ...)` 定义
-- 目前仅 `desktop.*` 系列有自定义选项，其他模块直接使用 NixOS/home-manager 标准选项
-- `desktop/__desktop__.nix` 同时设置默认值，主机只需在 `special-opt.nix` 中写差异
+| 文件 | 选项 | 类型 |
+|------|------|------|
+| `desktop/__desktop__.nix` | `desktop.*` | 桌面组件选择 (WM/bar/launcher 等) |
+| `modules/__modules__.nix` | `modules.*` | 模块大类开关 |
+| `apps/__apps__.nix` | `apps.*` | 应用大类开关 |
+| `apps/containers/__containers__.nix` | `apps.containers.*` | 容器实例开关 |
+
+- `desktop.*` 使用 `mkNullOrEnum` / `mkNullOrListEnum` helper
+- `modules.*` 和 `apps.*` 使用标准 `mkEnableOption`
+- 父级 aggregate 文件同时设置 `lib.mkDefault` 默认值，主机只需在 `special-opt.nix` 中写差异
 
 ### 桌面组件
 
