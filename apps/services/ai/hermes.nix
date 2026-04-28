@@ -1,9 +1,18 @@
-{ config, lib, pkgs, username, ... }:
+{ self, config, lib, pkgs, username, ... }:
 let
 	cfg = config.services.hermes-agent;
 	uid = builtins.toString config.users.users.${username}.uid;
 in
 {
+	sops.secrets = lib.mkIf config.secrets.available {
+		hermes-env = {
+			sopsFile = "${self}/secrets/api_keys.yaml";
+			owner = "${username}";
+			group = "hermes";
+			mode = "0400";
+		};
+	};
+
 	services.hermes-agent = lib.mkIf config.secrets.available {
 		enable = true;
 
@@ -19,7 +28,6 @@ in
 				"/home/${username}/nixcfg:/home/${username}/nixcfg:rw"
 				"/home/${username}/Desktop:/home/${username}/Desktop:rw"
 				"/run/user/${uid}/podman/podman.sock:/run/user/${uid}/podman/podman.sock:rw"
-				# "/run/podman/podman.sock:/run/podman/podman.sock:rw"
 			];
 		};
 
@@ -39,7 +47,6 @@ in
 		environmentFiles = [ config.sops.secrets.hermes-env.path ];
 	};
 
-	# ── Seamless mode switching ─────────────────────────────────────────
 	system.activationScripts."hermes-agent-fix-ownership" = lib.stringAfter [ "hermes-agent-setup" ] ''
 		echo "hermes-agent: fixing ownership of state directory..."
 		chown -R ${cfg.user}:${cfg.group} ${cfg.stateDir} 2>/dev/null || true

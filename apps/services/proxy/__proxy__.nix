@@ -1,11 +1,17 @@
-{ config, pkgs, lib, ... }:
+{ self, config, pkgs, lib, ... }:
 let
 	template = builtins.readFile ./mihomo/config.yaml;
 in
 {
+	sops.secrets = lib.mkIf config.secrets.available {
+		airport01URL = { sopsFile = "${self}/secrets/token.yaml"; };
+		airport02URL = { sopsFile = "${self}/secrets/token.yaml"; };
+		airport03URL = { sopsFile = "${self}/secrets/token.yaml"; };
+	};
+
 	services.mihomo = lib.mkIf config.secrets.available {
 		enable = true;
-		configFile = config.sops.templates."mihomo-config.yaml".path; # "/etc/mihomo/config.yaml"; #
+		configFile = config.sops.templates."mihomo-config.yaml".path;
 		webui = pkgs.metacubexd;
 		tunMode = true;
 	};

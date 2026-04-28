@@ -1,5 +1,12 @@
-{ config, lib, pkgs, username, ... }:
+{ self, config, lib, pkgs, username, ... }:
 lib.mkIf config.secrets.available {
+
+	sops.secrets.nginx-basic-auth-hash = {
+		sopsFile = "${self}/secrets/token.yaml";
+		mode = "0400";
+		owner = "nginx";
+		group = "nginx";
+	};
 
 	sops.templates."nginx-htpasswd" = {
 		owner = "nginx";
