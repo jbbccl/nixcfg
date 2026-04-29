@@ -1,4 +1,4 @@
-FROM docker.io/library/debian:latest
+FROM docker.io/kalilinux/kali-last-release:latest
 
 ARG USERNAME=a
 ARG USER_UID=1000
@@ -10,10 +10,10 @@ WORKDIR /home/${USERNAME}
 RUN <<EOF
 	set -e
 
-	sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources
+	sed -i "s@http://http.kali.org/kali@http://mirrors.tuna.tsinghua.edu.cn/kali@g" /etc/apt/sources.list
 	apt update && apt install -y --reinstall ca-certificates
 	update-ca-certificates
-	sed -i "s@http://@https://@g" /etc/apt/sources.list.d/debian.sources
+	sed -i "s@http://@https://@g" /etc/apt/sources.list
 	apt update
 	apt upgrade -y
 
@@ -37,6 +37,10 @@ RUN <<EOF
 	echo "zh_CN.UTF-8 UTF-8" >> /etc/locale.gen
 	locale-gen
 	echo 'LANG=zh_CN.UTF-8' > /etc/locale.conf
+
+	mkdir /etc/dconf/db/local.d/
+	touch /etc/dconf/db/local.d/empty
+	dconf update
 
 	apt install -y \
 		kitty fuzzel \

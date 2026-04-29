@@ -84,9 +84,15 @@ nixcfg/
 │   │   └── misc.nix
 │   └── containers/     # 容器化应用
 │       ├── __containers__.nix  # 选项 + 导入 + mkDefault 默认值
-│       └── debian/            # Debian 每日容器
-│           ├── default.nix     # 模块实现 (容器脚本 + systemd)
-│           └── Dockerfile      # Dockerfile
+│       ├── entrypoint.sh       # 容器入口 dbus/PATH/XDG 初始化
+│       ├── environment         # 容器内环境变量
+│       ├── toolkit-profile.sh  # login shell profile
+│       ├── debian/            # Debian 每日容器
+│       │   ├── default.nix     # 模块 (构建服务 + CLI)
+│       │   └── Dockerfile
+│       └── kali/              # Kali 每日容器
+│           ├── default.nix     # 模块 (构建服务 + CLI)
+│           └── Dockerfile
 │
 ├── secrets/            # SOPS 加密密钥 (__secrets__.nix)
 └── static/             # 静态资源

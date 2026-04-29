@@ -1,23 +1,23 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.apps.containers.debian;
+  cfg = config.apps.containers.kali;
 
-  context = pkgs.runCommand "debian-ctx" { } ''
+  context = pkgs.runCommand "kali-ctx" { } ''
     mkdir $out
     cp ${./Dockerfile} $out/Dockerfile
     cp ${../entrypoint.sh} $out/entrypoint.sh
     cp ${../environment} $out/environment
     cp ${../toolkit-profile.sh} $out/toolkit-profile.sh
-    chmod +x $out/entrypoint.sh $out/toolkit-profile.sh
+	chmod +x $out/entrypoint.sh $out/toolkit-profile.sh
   '';
 
-  launchCmd = pkgs.writeShellScriptBin "deb" ''
+  launchCmd = pkgs.writeShellScriptBin "kali" ''
     set -eu
     DATA="$HOME/.local/share/containers"
-    mkdir -p "$DATA/debian" "$DATA/public" "$DATA/toolkit"
+    mkdir -p "$DATA/kali" "$DATA/public" "$DATA/toolkit"
 
     exec ${pkgs.podman}/bin/podman run --rm -it \
-      --name debian \
+      --name kali \
       --env DISPLAY --env WAYLAND_DISPLAY --env XDG_RUNTIME_DIR \
       --env DBUS_SESSION_BUS_ADDRESS \
       --env ZDOTDIR=/home/a/.config/zsh \
@@ -44,28 +44,27 @@ let
       -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
       -v "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:ro" \
       -v "$XDG_RUNTIME_DIR/pipewire-0:$XDG_RUNTIME_DIR/pipewire-0:ro" \
-      -v "$XDG_RUNTIME_DIR/bus:$XDG_RUNTIME_DIR/bus:ro" \
-      -v "$DATA/debian:/home/a:rw" \
+      -v "$DATA/kali:/home/a:rw" \
       -v "$DATA/public:/home/public:ro" \
       -v "$DATA/toolkit:/opt/toolkit" \
       -v /run/current-system/sw/share/X11/fonts:/usr/local/share/fonts:ro \
       -v /run/current-system/sw/share/icons/:/usr/share/icons/:ro \
       --device /dev/dri --device /dev/snd \
-      -h debian \
+      -h kali \
       --user a \
       --network host --uts private \
       --ipc=private --userns=keep-id \
-      localhost/debian:daily zsh -l
+      localhost/kali-linux:play zsh
   '';
 in
 {
-  options.apps.containers.debian = {
-    enable = lib.mkEnableOption "Debian daily container";
+  options.apps.containers.kali = {
+    enable = lib.mkEnableOption "Kali daily container";
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.user.services.build-debian = {
-      description = "Build debian OCI image";
+    systemd.user.services.build-kali = {
+      description = "Build kali OCI image";
       wantedBy = [ "default.target" ];
       serviceConfig = {
         Type = "oneshot";
@@ -73,12 +72,12 @@ in
       };
       script = ''
         export PATH="${pkgs.shadow}/bin:$PATH"
-        if ${pkgs.podman}/bin/podman image exists localhost/debian:daily; then
+        if ${pkgs.podman}/bin/podman image exists localhost/kali-linux:play; then
           echo "Image already exists, skipping build"
         else
           ${pkgs.podman}/bin/podman build \
             --build-arg USER_UID=$(id -u) --build-arg USER_GID=$(id -g) \
-            -t localhost/debian:daily ${context}
+            -t localhost/kali-linux:play ${context}
         fi
       '';
     };
