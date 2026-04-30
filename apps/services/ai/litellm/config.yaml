@@ -30,14 +30,14 @@ model_list:
     - model_name: minimax-m2.7
       litellm_params:
           model: minimax/MiniMax-M2.7
-          api_key: os.environ/MINIMAX_API_KEY
+          api_key: os.environ/MINIMAX_CN_API_KEY
           api_base: https://api.minimaxi.com/anthropic
           custom_llm_provider: "anthropic" 
 
     - model_name: minimax-m2.7-highspeed
       litellm_params:
           model: minimax/MiniMax-M2.7-highspeed
-          api_key: os.environ/MINIMAX_API_KEY
+          api_key: os.environ/MINIMAX_CN_API_KEY
           api_base: https://api.minimaxi.com/anthropic
           custom_llm_provider: "anthropic" 
 

@@ -1,4 +1,4 @@
-{ self, pkgs, config, lib, username, ... }:
+{ pkgs, config, lib, ... }:
 let
 	configFile = builtins.toFile "litellm-config.yaml" (builtins.readFile ./config.yaml);
 in
@@ -6,15 +6,6 @@ in
 	environment.systemPackages = [
 		pkgs.litellm
 	];
-
-	sops.secrets = lib.mkIf config.secrets.available {
-		api-key-env = {
-			sopsFile = "${self}/secrets/api_keys.yaml";
-			owner = "${username}";
-			group = "users";
-			mode = "0400";
-		};
-	};
 
 	systemd.user.services.litellm = lib.mkIf config.secrets.available {
 		enable = true;

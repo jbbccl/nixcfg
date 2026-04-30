@@ -1,0 +1,34 @@
+auxiliary:
+  approval:
+    provider: deepseek
+    model: deepseek-v4-flash
+  compression:
+    provider: deepseek
+    model: deepseek-v4-flash
+  session_search:
+    provider: deepseek
+    model: deepseek-v4-flash
+  title_generation:
+    provider: deepseek
+    model: deepseek-v4-flash
+  vision:
+    provider: deepseek
+    model: deepseek-v4-flash
+delegation:
+  provider: deepseek
+  model: deepseek-v4-flash
+display:
+  compact: false
+  personality: kawaii
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+
+model:
+  provider: deepseek
+  default: deepseek-v4-pro
+terminal:
+  backend: local
+  timeout: 180
+toolsets:
+- all

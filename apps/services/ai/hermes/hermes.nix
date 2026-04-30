@@ -1,18 +1,9 @@
-{ self, config, lib, pkgs, username, ... }:
+{ config, lib, pkgs, username, ... }:
 let
 	cfg = config.services.hermes-agent;
 	uid = builtins.toString config.users.users.${username}.uid;
 in
 {
-	sops.secrets = lib.mkIf config.secrets.available {
-		hermes-env = {
-			sopsFile = "${self}/secrets/api_keys.yaml";
-			owner = "${username}";
-			group = "hermes";
-			mode = "0400";
-		};
-	};
-
 	services.hermes-agent = lib.mkIf config.secrets.available {
 		enable = true;
 
@@ -33,19 +24,55 @@ in
 
 		workingDirectory = "/home/hermes";
 
-		settings = {
-			model = {
-				default = "deepseek-v4-pro";
-				base_url = "https://api.deepseek.com";
-			};
-			toolsets = [ "all" ];
-			terminal = { backend = "local"; timeout = 180; };
-			display = { compact = false; personality = "kawaii"; };
-			memory = { memory_enabled = true; user_profile_enabled = true; };
-		};
+		configFile = ./config.yaml;
 
-		environmentFiles = [ config.sops.secrets.hermes-env.path ];
+		# settings = {
+		# 	model = {
+		# 		default = "deepseek-v4-pro";
+		# 		base_url = "https://api.deepseek.com";
+		# 	};
+
+		# 	providers = {
+		# 		deepseek = {
+		# 			api = "https://api.deepseek.com/v1";
+		# 			key_env = "DEEPSEEK_API_KEY";
+		# 			models = {
+		# 				"deepseek-v4-pro" = {};
+		# 				"deepseek-v4-flash" = {};
+		# 			};
+		# 		};
+		# 		minimax = {
+		# 			api = "https://api.minimaxi.com/v1";
+		# 			key_env = "MINIMAX_API_KEY";
+		# 			models = {
+		# 				"minimax-M2.7" = {};
+		# 			};
+		# 		};
+		# 	};
+
+		# 	delegation = {
+		# 		model = "deepseek-v4-flash";
+		# 		base_url = "https://api.deepseek.com/v1";
+		# 	};
+
+		# 	auxiliary = {
+		# 		compression = { model = "deepseek-v4-flash"; base_url = "https://api.deepseek.com/v1"; };
+		# 		vision = { model = "deepseek-v4-flash"; base_url = "https://api.deepseek.com/v1"; };
+		# 		session_search = { model = "deepseek-v4-flash"; base_url = "https://api.deepseek.com/v1"; };
+		# 		approval = { model = "deepseek-v4-flash"; base_url = "https://api.deepseek.com/v1"; };
+		# 		title_generation = { model = "deepseek-v4-flash"; base_url = "https://api.deepseek.com/v1"; };
+		# 	};
+		# 	toolsets = [ "all" ];
+		# 	terminal = { backend = "local"; timeout = 180; };
+		# 	display = { compact = false; personality = "kawaii"; };
+		# 	memory = { memory_enabled = true; user_profile_enabled = true; };
+		# };
+
+		environmentFiles = [ config.sops.secrets.api-key-env.path ];
 	};
+
+
+
 
 	system.activationScripts."hermes-agent-fix-ownership" = lib.stringAfter [ "hermes-agent-setup" ] ''
 		echo "hermes-agent: fixing ownership of state directory..."

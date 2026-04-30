@@ -17,6 +17,6 @@
 		apps.services.enable = lib.mkDefault true;
 		apps.gui.enable = lib.mkDefault true;
 		apps.cli.enable = lib.mkDefault true;
-		apps.containers.enable = lib.mkDefault true;
+		apps.containers.enable = lib.mkDefault false;
 	};
 }
