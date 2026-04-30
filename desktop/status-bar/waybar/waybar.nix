@@ -39,18 +39,19 @@ in {
       waybar
       brightnessctl
       networkmanagerapplet
-      networkmanager_dmenu
+    #   networkmanager_dmenu
       pwvucontrol
     ];
 
     home-manager.users.${username} = {
-      xdg.configFile = mkConfigDir "waybar" ./config // {
-        "waybar/libniri_taskbar.so" = {
-          force = true;
-          recursive = false;
-          source = "${niri-taskbar}/libniri_taskbar.so";
-        };
-      };
+      xdg.configFile = mkConfigDir "waybar" ./config;
+	#   // {
+    #     "waybar/libniri_taskbar.so" = {
+    #       force = true;
+    #       recursive = false;
+    #       source = "${niri-taskbar}/libniri_taskbar.so";
+    #     };
+    #   };
     };
   });
 }

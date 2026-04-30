@@ -32,8 +32,8 @@
 		"ext/workspaces"
 	],
 	"modules-center": [
-		// "wlr/taskbar"
-		"cffi/niri-taskbar"
+		"wlr/taskbar"
+		// "cffi/niri-taskbar"
 	],
 	"modules-right": [
 		// "keyboard-state",
