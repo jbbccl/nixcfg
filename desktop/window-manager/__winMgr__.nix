@@ -1,6 +1,5 @@
 { config, lib, pkgs, username, ... }: {
   imports = [
-    ./portal.nix
     ./niri/niri.nix
     ./hypr/hypr.nix
     ./labwc/labwc.nix
@@ -34,5 +33,11 @@
         TimeoutStopSec = 10;
       };
     };
+
+	# portal
+	xdg.portal = {
+		enable = true;
+		extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+	};
   };
 }
