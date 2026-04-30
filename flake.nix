@@ -1,4 +1,4 @@
-# sudo nixos-rebuild switch --flake ~/nixcfg#lap
+# sudo nixos-rebuild switch --flake ~/nixcfg#lap --option substitute false
 # nix flake check ~/nixcfg
 # nix flake update
 # nix flake lock --update-input noctalia

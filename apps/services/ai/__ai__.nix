@@ -2,6 +2,7 @@
 	imports = [
 		./litellm/litellm.nix
 		./hermes/hermes.nix
+		./opencode/opencode.nix
 	];
 
 	sops.secrets = lib.mkIf config.secrets.available {

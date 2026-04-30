@@ -69,7 +69,7 @@ nixcfg/
 ├── apps/               # Layer 3: 用户应用
 │   ├── __apps__.nix    # 选项 (services/gui/cli/containers) + 默认值
 │   ├── services/       # 后台守护进程
-│   │   ├── ai/             # litellm + hermes-agent
+│   │   ├── ai/             # litellm + hermes-agent + opencode
 │   │   ├── proxy/          # mihomo
 │   │   └── remote-ctrl/    # nginx + wayvnc
 │   ├── gui/            # 桌面应用
