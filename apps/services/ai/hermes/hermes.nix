@@ -78,6 +78,8 @@ in
 		echo "hermes-agent: fixing ownership of state directory..."
 		chown -R ${cfg.user}:${cfg.group} ${cfg.stateDir} 2>/dev/null || true
 		chmod 2770 ${cfg.stateDir} ${cfg.stateDir}/.hermes ${cfg.workingDirectory} 2>/dev/null || true
+		chmod 0400 ${cfg.stateDir}/.hermes/.env
+		chmod 0770 ${cfg.stateDir}/.hermes/config.yaml
 		chmod 0750 ${cfg.stateDir}/home 2>/dev/null || true
 
 		for _d in cron sessions logs memories; do

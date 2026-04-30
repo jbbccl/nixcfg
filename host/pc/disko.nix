@@ -1,9 +1,9 @@
 {
-  # disko config for desktop — nix run github:nix-community/disko
+  #神秘格盘小工具,运行 `nix run github:nix-community/disko -- --mode disko ./host/pc/disko.nix` 整块盘给你扬了
   disko.devices = {
     disk.main = {
       type = "disk";
-      device = "/dev/nvme0n1";  # adjust to your NVMe device
+      device = "/dev/nvme0n1";
       content = {
         type = "gpt";
         partitions = {

@@ -1,9 +1,8 @@
 {
-  # disko config for laptop — nix run github:nix-community/disko
   disko.devices = {
     disk.main = {
       type = "disk";
-      device = "/dev/nvme0n1";  # adjust to your NVMe device
+      device = "/dev/nvme0n1";
       content = {
         type = "gpt";
         partitions = {
