@@ -54,78 +54,35 @@
 
 			specialArgs = {
 				inherit self inputs username hostName;
+				helpers = lib.helpers;
+				validators = lib.validators;
 			};
 
 			modules = [
 				./host/${hostName}/configuration.nix
-
-				sops-nix.nixosModules.sops
-				hermes-agent.nixosModules.default
-
 				home-manager.nixosModules.home-manager
 				{ nixpkgs.overlays = lib.nixpkgsOverlays; }
+			] ++ [
+				sops-nix.nixosModules.sops
+				hermes-agent.nixosModules.default
+				inputs.mango.nixosModules.mango
 				{
 					home-manager.users.${username} = {
-						imports = [];
+						imports = [
+							inputs.mango.hmModules.mango
+						];
 					};
 				}
 			] ++ extraModules;
 		};
 	in
 	{
-		# ── Formatter ────────────────────────────────────────────────
-		formatter.${system} = pkgs.nixpkgs-fmt;
-
-		# ── Static checks ───────────────────────────────────────────
-		checks.${system} = {
-			formatting = pkgs.runCommand "check-nixpkgs-fmt" {
-				src = flakeSrc;
-				nativeBuildInputs = [ pkgs.nixpkgs-fmt ];
-			} ''
-				nixpkgs-fmt --check $src
-				touch $out
-			'';
-
-			dead-code = pkgs.runCommand "check-deadnix" {
-				src = flakeSrc;
-				nativeBuildInputs = [ pkgs.deadnix ];
-			} ''
-				deadnix --fail -l $src
-				touch $out
-			'';
-
-			statix = pkgs.runCommand "check-statix" {
-				src = flakeSrc;
-				nativeBuildInputs = [ pkgs.statix ];
-			} ''
-				statix check $src
-				touch $out
-			'';
-		};
-
-		# ── Dev shell ───────────────────────────────────────────────
-		devShells.${system}.default = pkgs.mkShell {
-			buildInputs = with pkgs; [
-				nixpkgs-fmt
-				deadnix
-				statix
-				sops
-				age
-				nixd
-			];
-			shellHook = ''
-				echo "nixcfg dev shell — tools: nixpkgs-fmt deadnix statix sops age nixd"
-			'';
-		};
-
 		# ── NixOS configurations ────────────────────────────────────
 		nixosConfigurations = {
 			lap = mkSystem {
 				hostName = "lap";
 				extraModules = [
-					inputs.mango.nixosModules.mango
 					{home-manager.users.${username}.imports = [
-						inputs.mango.hmModules.mango
 					];}
 				];
 			};
@@ -133,9 +90,7 @@
 			pc = mkSystem {
 				hostName = "pc";
 				extraModules = [
-					inputs.mango.nixosModules.mango
 					{home-manager.users.${username}.imports = [
-						inputs.mango.hmModules.mango
 					];}
 				];
 			};

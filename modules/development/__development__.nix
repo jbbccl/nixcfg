@@ -1,5 +1,5 @@
-{ lib, username, ... }: let
-  inherit (import ../../lib/helpers.nix { inherit lib; })
+{ config, lib, username, helpers, ... }: let
+  inherit (helpers)
     mkNullOrEnum mkNullOrListEnum;
 in {
 	options.development.languages = mkNullOrListEnum "langs" [
@@ -22,9 +22,10 @@ in {
 		./java.nix
 	];
 
-	config.development.languages = [ "c-cpp" "javascript" "python" "rust" ];
-	
-	config.environment.sessionVariables = {
-		PATH = [ "/home/${username}/.local/bin" ];
+	config = lib.mkIf config.modules.development.enable  {
+		development.languages = [ "c-cpp" "javascript" "python" "rust" ];
+		environment.sessionVariables = {
+			PATH = [ "/home/${username}/.local/bin" ];
+		};
 	};
 }

@@ -1,8 +1,10 @@
-{ username, pkgs, lib, ... }:{
+{ config, username, pkgs, lib, ... }: {
 	imports = [
 		# ./bash/bash.nix
 		./fish/fish.nix
 		./zsh/zsh.nix
 	];
-	users.users.${username}.shell = pkgs.fish;
+	config = lib.mkIf config.modules.shells.enable {
+		users.users.${username}.shell = pkgs.fish;
+	};
 }

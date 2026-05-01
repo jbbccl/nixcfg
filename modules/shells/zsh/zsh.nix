@@ -1,6 +1,6 @@
-{ config, lib, pkgs, username, ... }:
+{ config, lib, pkgs, username, helpers, ... }:
 let
-  inherit (import ../../../lib/helpers.nix { inherit lib; }) mkHomeDir;
+  inherit (helpers) mkHomeDir;
 in {
   programs.zsh = {
     enable = true;

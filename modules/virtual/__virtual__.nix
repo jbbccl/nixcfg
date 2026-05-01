@@ -1,6 +1,6 @@
 {
 	imports = [
-		./container
-		./hardware
+		./container/default.nix
+		./hardware/default.nix
 	];
 }

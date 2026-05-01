@@ -10,5 +10,6 @@ in
 	];
 	imports = [
 		./kitty.nix
+		./alacritty.nix
 	];
 }

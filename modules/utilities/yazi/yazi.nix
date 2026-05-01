@@ -1,6 +1,6 @@
-{ lib, pkgs, username, ... }:
+{ lib, pkgs, username, helpers, ... }:
 let
-  inherit (import ../../../lib/helpers.nix { inherit lib; }) mkConfigDir;
+  inherit (helpers) mkConfigDir;
 in {
   environment.systemPackages = with pkgs; [
     (yazi.override {

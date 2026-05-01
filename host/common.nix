@@ -1,4 +1,4 @@
-{
+{ inputs, username, ... }: {
 	imports = [
 		../apps/__apps__.nix
 		../core/__core__.nix

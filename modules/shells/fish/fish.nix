@@ -1,6 +1,6 @@
-{ config, lib, pkgs, username, ... }:
+{ config, lib, pkgs, username, helpers, ... }:
 let
-  inherit (import ../../../lib/helpers.nix { inherit lib; }) mkConfigDir;
+  inherit (helpers) mkConfigDir;
 in {
   programs.fish.enable = true;
 

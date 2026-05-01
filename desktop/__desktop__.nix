@@ -1,6 +1,6 @@
-{ config, lib, ... }:
+{ config, lib, helpers, ... }:
 let
-	inherit (import ../lib/helpers.nix { inherit lib; })
+	inherit (helpers)
 		mkNullOrEnum mkNullOrListEnum;
 in {
 	options.desktop = {

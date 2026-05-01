@@ -1,6 +1,6 @@
-{ lib, pkgs, username, ... }:
+{ lib, pkgs, username, helpers, ... }:
 let
-  inherit (import ../../../lib/helpers.nix { inherit lib; }) mkHomeDir;
+  inherit (helpers) mkHomeDir;
 in {
   programs.bash.enable = true;
   programs.bash.interactiveShellInit = ''

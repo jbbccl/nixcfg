@@ -46,6 +46,8 @@
 			#key map
 			map ctrl+s send_text all \e:w\r
 			map cmd+1 combine : send_key ctrl+space : send_key 1
+			map home send_text all \x1b[H
+			map end send_text all \x1b[F
 
 			#url
 			mouse_map left click grabbed,ungrabbed discard_event
@@ -68,7 +70,7 @@
 	};
 	environment.sessionVariables={
 		TERMINAL = "kitty";
-		TERM = "kitty";
+		TERM = "xterm-kitty";
 	};
 
 }

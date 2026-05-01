@@ -1,6 +1,6 @@
-{ config, lib, pkgs, username, ... }:
+{ config, lib, pkgs, username, helpers, ... }:
 let
-  inherit (import ../../../lib/helpers.nix { inherit lib; }) mkConfigDir mkHomeDir;
+  inherit (helpers) mkConfigDir mkHomeDir;
 in {
   config = lib.mkIf (builtins.elem "labwc" config.desktop.windowManager) {
 	programs.labwc.enable = true;
