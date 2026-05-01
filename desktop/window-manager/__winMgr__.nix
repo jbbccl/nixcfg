@@ -34,6 +34,13 @@
             extraArgs = [ "--session" ];
           };
         })
+        (lib.mkIf (builtins.elem "labwc" config.desktop.windowManager) {
+          labwc = {
+            prettyName = "Labwc";
+            comment = "Labwc compositor managed by UWSM";
+            binPath = "${lib.getExe pkgs.labwc}";
+          };
+        })
       ];
     };
 
