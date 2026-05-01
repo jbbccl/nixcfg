@@ -1,6 +1,21 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, username, helpers, ... }:
+let
+  inherit (helpers) mkConfigDir;
+in {
   config = lib.mkIf (builtins.elem "hypr" config.desktop.windowManager) {
 	programs.hyprland.enable = true;
+
+	environment.systemPackages = with pkgs; [
+		xwayland-satellite
+		wl-clipboard
+		grim
+		slurp
+		jq
+	];
+
+	home-manager.users.${username} = {
+		xdg.configFile = mkConfigDir "hypr" ./config;
+	};
 
 	xdg.portal = {
 		extraPortals = with pkgs; [xdg-desktop-portal-hyprland];

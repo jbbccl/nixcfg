@@ -15,6 +15,28 @@
       seahorse
     ];
 
+    # ── UWSM: proper systemd session lifecycle (fixes systemctl --user exit races) ─
+    programs.uwsm = {
+      enable = true;
+      waylandCompositors = lib.mkMerge [
+        (lib.mkIf (builtins.elem "hypr" config.desktop.windowManager) {
+          hyprland = {
+            prettyName = "Hyprland";
+            comment = "Hyprland compositor managed by UWSM";
+            binPath = "${lib.getExe pkgs.hyprland}";
+          };
+        })
+        (lib.mkIf (builtins.elem "niri" config.desktop.windowManager) {
+          niri = {
+            prettyName = "Niri";
+            comment = "Niri compositor managed by UWSM";
+            binPath = "${lib.getExe pkgs.niri}";
+            extraArgs = [ "--session" ];
+          };
+        })
+      ];
+    };
+
     # policy
     security.polkit.enable = true;
     services.gnome.gnome-keyring.enable = true;
