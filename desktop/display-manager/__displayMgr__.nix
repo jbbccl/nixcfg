@@ -13,7 +13,7 @@
           hyprland = {
             prettyName = "Hyprland";
             comment = "Hyprland compositor managed by UWSM";
-            binPath = "${lib.getExe pkgs.hyprland}";
+            binPath = "${lib.getExe' pkgs.hyprland "start-hyprland"}";
           };
         })
         (lib.mkIf (builtins.elem "niri" config.desktop.windowManager) {
