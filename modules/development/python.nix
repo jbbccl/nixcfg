@@ -8,9 +8,9 @@ lib.mkIf (builtins.elem "python" config.development.languages) {
 
 	home-manager.users.${username}.xdg.configFile."uv/uv.toml" = {
 		text = ''
-			[[index]]
-			url = "https://pypi.tuna.tsinghua.edu.cn/simple"
-			default = true
+            [[index]]
+            url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+            default = true
 		'';
 	};
 }

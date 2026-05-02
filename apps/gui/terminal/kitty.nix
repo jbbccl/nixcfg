@@ -15,45 +15,45 @@
 			enable = true;
 			# settings = {};
 			extraConfig = ''
-			include	current-theme.conf
+                include	current-theme.conf
 
-			font_size ${if hostName == "lap"
-						then "14"
-						else if hostName == "pc"
-						then "14"
-						else "14"}
-			font_family			Maple Mono NF CN ExtraLight
-			bold_font			Maple Mono NF CN Bold
-			italic_font			Maple Mono NF CN Italic
-			bold_italic_font	Maple Mono NF CN Bold Italic
-			font_features		MapleMono-NF-CN-ExtraLight +cv01 +ss02 +ss04 +ss05 +zero
-			font_features		MapleMono-NF-CN-Bold +cv01 +ss02 +ss04 +ss05 +zero
-			font_features		MapleMono-NF-CN-Italic +cv01 +ss02 +ss04 +ss05 +zero
-			font_features		MapleMono-NF-CN-BoldItalic +cv01 +ss02 +ss04 +ss05 +zero
+                font_size ${if hostName == "lap"
+                			then "14"
+                			else if hostName == "pc"
+                			then "14"
+                			else "14"}
+                font_family			Maple Mono NF CN ExtraLight
+                bold_font			Maple Mono NF CN Bold
+                italic_font			Maple Mono NF CN Italic
+                bold_italic_font	Maple Mono NF CN Bold Italic
+                font_features		MapleMono-NF-CN-ExtraLight +cv01 +ss02 +ss04 +ss05 +zero
+                font_features		MapleMono-NF-CN-Bold +cv01 +ss02 +ss04 +ss05 +zero
+                font_features		MapleMono-NF-CN-Italic +cv01 +ss02 +ss04 +ss05 +zero
+                font_features		MapleMono-NF-CN-BoldItalic +cv01 +ss02 +ss04 +ss05 +zero
 
-			# window
-			remember_window_size		yes
-			#hide_window_decorations		titlebar-only
-			window_padding_width		0
-			background_opacity			0.80
-			background_blur			32
+                # window
+                remember_window_size		yes
+                #hide_window_decorations		titlebar-only
+                window_padding_width		0
+                background_opacity			0.80
+                background_blur			32
 
-			# tab bar
-			tab_bar_edge                top
-			tab_bar_style               powerline
-			tab_powerline_style         slanted
+                # tab bar
+                tab_bar_edge                top
+                tab_bar_style               powerline
+                tab_powerline_style         slanted
 
-			#key map
-			map ctrl+s send_text all \e:w\r
-			map cmd+1 combine : send_key ctrl+space : send_key 1
-			map home send_text all \x1b[H
-			map end send_text all \x1b[F
+                #key map
+                map ctrl+s send_text all \e:w\r
+                map cmd+1 combine : send_key ctrl+space : send_key 1
+                map home send_text all \x1b[H
+                map end send_text all \x1b[F
 
-			#url
-			mouse_map left click grabbed,ungrabbed discard_event
-			mouse_map ctrl+left press grabbed discard_event
-			mouse_map ctrl+left release ungrabbed mouse_handle_click selection link prompt
-			'';
+                #url
+                mouse_map left click grabbed,ungrabbed discard_event
+                mouse_map ctrl+left press grabbed discard_event
+                mouse_map ctrl+left release ungrabbed mouse_handle_click selection link prompt
+            '';
 		};
 
 		xdg.configFile = {

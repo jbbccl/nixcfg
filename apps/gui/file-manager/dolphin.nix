@@ -1,8 +1,8 @@
 { config, pkgs, username, ... }:
 let
 	dolphinTerminal = pkgs.writeShellScriptBin "dolphin-terminal" ''
-		exec ''${TERMINAL:-kitty} "$@"
-	'';
+        exec ''${TERMINAL:-kitty} "$@"
+    '';
 in
 {
 	environment.systemPackages = with pkgs; [
