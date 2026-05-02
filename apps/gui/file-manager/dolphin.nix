@@ -34,41 +34,41 @@ in
 			"kdeglobals" = {
 				force = true;
 				text = ''
-				[General]
-				TerminalApplication=${dolphinTerminal}/bin/dolphin-terminal
-				TerminalService=false
-				'';
+                    [General]
+                    TerminalApplication=${dolphinTerminal}/bin/dolphin-terminal
+                    TerminalService=false
+                '';
 			};
 		};
 
 		xdg.dataFile = {
 			"kio/servicemenus/vscode-open.desktop" = {
 				text = ''
-				[Desktop Entry]
-				Type=Service
-				ServiceTypes=KonqPopupMenu/Plugin
-				MimeType=inode/directory;application/octet-stream;
-				Actions=openInVSCode
+                    [Desktop Entry]
+                    Type=Service
+                    ServiceTypes=KonqPopupMenu/Plugin
+                    MimeType=inode/directory;application/octet-stream;
+                    Actions=openInVSC
 
-				[Desktop Action openInVSCode]
-				Name=在 VSCode 中打开
-				Icon=vscode
-				Exec=code %f
-				'';
+                    [Desktop Action openInVSCode]
+                    Name=在 VSCode 中打开
+                    Icon=vscode
+                    Exec=code %f
+                '';
 			};
 			"kio/servicemenus/zed-open.desktop" = {
 				text = ''
-				[Desktop Entry]
-				Type=Service
-				ServiceTypes=KonqPopupMenu/Plugin
-				MimeType=inode/directory;application/octet-stream;
-				Actions=openInZed
+                    [Desktop Entry]
+                    Type=Service
+                    ServiceTypes=KonqPopupMenu/Plugin
+                    MimeType=inode/directory;application/octet-stream;
+                    Actions=openInZed
 
-				[Desktop Action openInZed]
-				Name=在 Zed 中打开
-				Icon=zeditor
-				Exec=zeditor %f
-				'';
+                    [Desktop Action openInZed]
+                    Name=在 Zed 中打开
+                    Icon=zeditor
+                    Exec=zeditor %f
+                '';
 			};
 		};
 	};
