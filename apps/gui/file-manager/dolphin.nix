@@ -22,18 +22,9 @@ in
 		# kdePackages.xdg-desktop-portal-kde
 	];
 
-	xdg = {
-		mime.enable = true;
-		menus.enable = true;
-		portal = {
-			enable = true;
-			xdgOpenUsePortal = true;
-			extraPortals = with pkgs; [
-				kdePackages.xdg-desktop-portal-kde
-				xdg-desktop-portal-gtk
-			];
-		};
-	};
+	xdg.portal.extraPortals = [
+		pkgs.kdePackages.xdg-desktop-portal-kde
+	];
 
 	environment.etc."xdg/menus/applications.menu".source = 
 	"${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
