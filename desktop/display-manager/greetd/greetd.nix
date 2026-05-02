@@ -1,16 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-	niri-start-script = pkgs.writeShellScriptBin "start" ''
-		export XAUTHORITY=$(mktemp /tmp/xauth.XXXXXXXXXX)
-		${pkgs.xauth}/bin/xauth generate $DISPLAY .
-		${pkgs.niri}/bin/niri-session "$@"
-	'';
-in {
+{ config, lib, pkgs, ... }:{
 	config = lib.mkIf (config.desktop.displayManager == "greetd") {
 		services.greetd = {
 			enable = true;

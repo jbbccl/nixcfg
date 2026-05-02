@@ -178,3 +178,16 @@ nixcfg/
 | `mkNullOrListEnum` | nullable list-of-enum option | 1 |
 | `mkConfigDir` | xdg.configFile 目录绑定 (`force/recursive/source`) | 10+ |
 | `mkHomeDir` | home.file 目录绑定 | 2 |
+
+备忘
+```sh
+sudo nixos-rebuild switch --flake ~/nixcfg#lap --option substitute false
+nix flake check ~/nixcfg
+nix flake update
+nix flake lock --update-input noctalia
+
+nix profile wipe-history --profile /home/e/.local/state/nix/profiles/profile --older-than 1d
+sudo systemctl restart nix-daemon
+nix-collect-garbage -d
+sudo nix-collect-garbage -d
+```

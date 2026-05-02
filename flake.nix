@@ -1,8 +1,3 @@
-# sudo nixos-rebuild switch --flake ~/nixcfg#lap --option substitute false
-# nix flake check ~/nixcfg
-# nix flake update
-# nix flake lock --update-input noctalia
-# sudo nix-collect-garbage -d
 {
 	description = "Optimized NixOS Flake Configuration";
 
