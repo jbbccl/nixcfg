@@ -3,6 +3,10 @@ let
 #   myClashVerge = pkgs.callPackage ./clash-verge/package.nix { };
 in
 {
+	environment.systemPackages = with pkgs; [
+		kdePackages.partitionmanager
+	];
+
 	home-manager.users.${username} = {
 		home.packages = with pkgs; [
 			# flclash
@@ -10,7 +14,7 @@ in
 
 			kdePackages.filelight
 			# gparted
-			kdePackages.partitionmanager
+			# partitionmanager
 
 			localsend
 
