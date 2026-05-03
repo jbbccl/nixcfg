@@ -2,7 +2,7 @@
 	boot = {
 		# kernelPackages = pkgs.stable.linuxPackages_zen;
 		# kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-		kernelPackages = pkgs.linuxKernel.kernels.linux_xanmod;
+		kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
 		supportedFilesystems = [ "ntfs" ];
 		kernel.sysctl = {
 			"kernel.perf_event_paranoid" = 0;
@@ -40,5 +40,6 @@
 			fsType = "ntfs";
 		};
 	};
+	# swapDevices = [ { device = "/swap/swapfile"; size = 32768; } ];
 
 }
