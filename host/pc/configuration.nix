@@ -4,7 +4,6 @@
 		./hardware-configuration.nix
 		./driver.nix
 		./boot.nix
-		./special-opt.nix
 		../common.nix
 	];
 
