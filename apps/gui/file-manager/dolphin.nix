@@ -48,7 +48,7 @@ in
                     Type=Service
                     ServiceTypes=KonqPopupMenu/Plugin
                     MimeType=inode/directory;application/octet-stream;
-                    Actions=openInVSC
+                    Actions=openInVSCode
 
                     [Desktop Action openInVSCode]
                     Name=在 VSCode 中打开
