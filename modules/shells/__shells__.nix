@@ -4,7 +4,7 @@
 		./fish/fish.nix
 		./zsh/zsh.nix
 	];
-	config = lib.mkIf config.modules.shells.enable {
+	config = {
 		users.users.${username}.shell = pkgs.fish;
 	};
 }

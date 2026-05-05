@@ -8,8 +8,10 @@ in {
 		windowManager = mkNullOrListEnum "window managers" [
 			"niri" "labwc" "hypr" "mangowc"
 		];
+		bar = mkNullOrListEnum "status bar" [ 
+			"waybar" "noctalia" 
+		];
 		displayManager = mkNullOrEnum "display manager" [ "greetd" "sddm" ];
-		bar = mkNullOrEnum "status bar" [ "waybar" "noctalia" ];
 		launcher = mkNullOrEnum "app launcher" [ "fuzzel" "rofi" "wofi" ];
 		lockscreen = mkNullOrEnum "lock screen" [ "swaylock" ];
 		notification = mkNullOrEnum "notification daemon" [ "mako" "swaync" ];
@@ -32,7 +34,7 @@ in {
 		{ desktop.enable = lib.mkDefault true; }
 		(lib.mkIf config.desktop.enable {
 			desktop.windowManager = [ "labwc" "niri" "hypr" ];
-			desktop.bar = "waybar";
+			desktop.bar = [ "waybar" "noctalia"];
 			desktop.launcher = "fuzzel";
 			desktop.lockscreen = "swaylock";
 			desktop.notification = "mako";
