@@ -7,16 +7,25 @@ in {
       pname = "niri-taskbar";
       version = "2025.10.12";
 
-      src = pkgs.fetchFromGitHub {
-        owner = "LawnGnome";
-        repo = "niri-taskbar";
-        rev = "c530349fae638141ec58a9d4db0816d950a9295a";
-        hash = "sha256-PN+7s3KnbIdUSs+PmY3A80x//tIQu2aqaW/vN7gXTRU=";
+      src = pkgs.stdenvNoCC.mkDerivation {
+        name = "niri-taskbar-patched-src";
+        src = pkgs.fetchFromGitHub {
+          owner = "LawnGnome";
+          repo = "niri-taskbar";
+          rev = "c530349fae638141ec58a9d4db0816d950a9295a";
+          hash = "sha256-PN+7s3KnbIdUSs+PmY3A80x//tIQu2aqaW/vN7gXTRU=";
+        };
+        phases = [ "unpackPhase" "patchPhase" "installPhase" ];
+        postPatch = ''
+          cp ${./Cargo.lock} Cargo.lock
+          substituteInPlace Cargo.toml --replace-fail '>=25.11.0, <25.12.0' '>=26.4.0'
+        '';
+        installPhase = ''
+          cp -r . $out
+        '';
       };
 
-      cargoLock = {
-        lockFile = ./Cargo.lock;
-      };
+      cargoHash = "sha256-5U25Px5BnhOdGStoceDEujGFOjFPexmwuzzwMdUBOss=";
 
       nativeBuildInputs = with pkgs; [
         pkg-config
@@ -44,14 +53,14 @@ in {
     ];
 
     home-manager.users.${username} = {
-      xdg.configFile = mkConfigDir "waybar" ./config;
-	#   // {
-    #     "waybar/libniri_taskbar.so" = {
-    #       force = true;
-    #       recursive = false;
-    #       source = "${niri-taskbar}/libniri_taskbar.so";
-    #     };
-    #   };
+      xdg.configFile = mkConfigDir "waybar" ./config
+	  // {
+        "waybar/libniri_taskbar.so" = {
+          force = true;
+          recursive = false;
+          source = "${niri-taskbar}/libniri_taskbar.so";
+        };
+      };
     };
   });
 }
