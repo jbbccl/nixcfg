@@ -5,15 +5,16 @@ let
 # 	url = "https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram";
 # 	sha256 = "sha256:153zlmfp416f9bl99szqs91ypwsz6z0139l543n3blibj8fhf6yx";
 # };
+rime-ice-tag = "2026.03.26";
 rime-ice = pkgs.stdenvNoCC.mkDerivation {
 	pname = "rime-ice";
-	version = "2024.12.12";
+	version = rime-ice-tag;
 
 	src = pkgs.fetchFromGitHub {
 		owner = "iDvel";
 		repo = "rime-ice";
-		rev = "c02c83c9e91f3e081052441330df00667abc64a8";
-		hash = "sha256-Qp1ALrmisXp2pr4Jz1ujvYYYP6c2rAPzsUeRAZQySoE=";
+		rev = rime-ice-tag;
+		hash = "sha256-hRtA1cYAQm7M+dPSThedqKogr8YMkP9WQFEZw5pdCbU=";
 	};
 
 	installPhase = ''
@@ -64,21 +65,11 @@ home-manager.users.${username} = {
 		# 	force = true;
 		# };
 
-		".local/share/fcitx5/rime/default.yaml" = {
-			source = ./share/rime/default.yaml;
-			force = true;
-		};
-		".local/share/fcitx5/rime/rime_ice.custom.yaml" = {
-			source = ./share/rime/rime_ice.custom.yaml;
-			force = true;
-		};
-
-		".local/share/fcitx5/themes" = {
-			source = ./share/themes;
+		".local/share/fcitx5/" = {
 			force = true;
 			recursive = true;
+			source = ./share;
 		};
-
 	};
 
 	home.sessionVariables = {
