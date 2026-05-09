@@ -10,7 +10,7 @@ in {
 	];
 
 	options.apps = {
-		gui.defaultBrowser = mkNullOrEnum "defaultBrowser" [ "chromium" "firefox" ];
+		# gui.defaultBrowser = mkNullOrEnum "defaultBrowser" [ "chromium" "firefox" ];
 		# services.enable = lib.mkEnableOption "application services (AI, proxy, remote)";
 		# gui.enable = lib.mkEnableOption "GUI applications (terminal, browser, file manager)";
 		# cli.enable = lib.mkEnableOption "CLI applications (misc tools)";
@@ -18,7 +18,7 @@ in {
 	};
 
 	config = {
-		apps.gui.defaultBrowser = "firefox" ;
+		# apps.gui.defaultBrowser = "firefox" ;
 		# apps.services.enable = lib.mkDefault true;
 		# apps.gui.enable = lib.mkDefault true;
 		# apps.cli.enable = lib.mkDefault true;
