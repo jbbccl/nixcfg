@@ -2,7 +2,7 @@
 let
 	browser = "librewolf.desktop";
 in {
-	programs.firefox.enable = true;
+	# programs.firefox.enable = true;
 	environment.systemPackages = with pkgs; [
 		ungoogled-chromium
 		# librewolf
