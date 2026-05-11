@@ -20,15 +20,15 @@ in
 
 			# 编辑器
 			imhex
-			gimp
+			# gimp
 			zed-editor
 			# obsidian
 			libreoffice-qt
 
 			# 流
 			obs-studio
-			showmethekey
-			moonlight-qt
+			# showmethekey
+			# moonlight-qt
 			vlc
 
 			# 应用
@@ -36,7 +36,7 @@ in
 			# bottles
 
 			# 其他
-			pomodoro-gtk
+			# pomodoro-gtk
 			# keepassxc
 			xeyes
 		];
