@@ -1,6 +1,7 @@
 { self, config, lib, pkgs, username, ... }:
 lib.mkIf config.secrets.available {
 
+# nix-shell -p apacheHttpd --run 'htpasswd -B -n dabianchaoren'
 	sops.secrets.nginx-basic-auth-hash = {
 		sopsFile = "${self}/secrets/token.yaml";
 		mode = "0400";
@@ -48,3 +49,17 @@ lib.mkIf config.secrets.available {
 
 	networking.firewall.allowedTCPPorts = [ 49514 ];
 }
+
+# sudo mkdir -p /etc/nginx/ssl/
+# sudo chown root:nginx /etc/nginx/ssl/
+# sudo chmod 755 /etc/nginx/ssl/
+
+# sudo openssl req -x509 -newkey rsa:4096 \
+#         -keyout /etc/nginx/ssl/key.pem \
+#         -out /etc/nginx/ssl/cert.pem \
+#         -days 365 -nodes \
+#         -subj "/CN=1.ccb"
+        
+# sudo chown root:nginx /etc/nginx/ssl/key.pem /etc/nginx/ssl/cert.pem
+# sudo chmod 644 /etc/nginx/ssl/cert.pem
+# sudo chmod 640 /etc/nginx/ssl/key.pem
