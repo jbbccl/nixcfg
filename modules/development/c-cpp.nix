@@ -1,5 +1,5 @@
 { config, pkgs, lib, username, ... }:
-lib.mkIf (builtins.elem "c-cpp" config.development.languages) {
+lib.mkIf (builtins.elem "c-cpp" config.modules.development.languages) {
 
 	environment.systemPackages = with pkgs; [
 		gcc

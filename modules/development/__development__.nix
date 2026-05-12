@@ -2,14 +2,6 @@
   inherit (helpers)
     mkNullOrEnum mkNullOrListEnum;
 in {
-	options.development.languages = mkNullOrListEnum "langs" [
-		"c-cpp"
-		"go"
-		"java"
-		"javascript"
-		"python"
-		"rust"
-	];
 
 	imports = [
 		./git.nix
@@ -21,11 +13,8 @@ in {
 		./go.nix
 		./java.nix
 	];
-
-	config = lib.mkIf config.modules.development.enable  {
-		development.languages = [ "c-cpp" "javascript" "python" "rust" ];
-		environment.sessionVariables = {
-			PATH = [ "/home/${username}/.local/bin" ];
-		};
+	
+	environment.sessionVariables = {
+		PATH = [ "/home/${username}/.local/bin" ];
 	};
 }

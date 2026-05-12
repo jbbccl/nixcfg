@@ -1,5 +1,5 @@
 { config, pkgs, lib, username, ... }:
-lib.mkIf (builtins.elem "javascript" config.development.languages) {
+lib.mkIf (builtins.elem "javascript" config.modules.development.languages) {
 
 	home-manager.users.${username} = {
 		home.packages = with pkgs; [

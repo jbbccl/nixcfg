@@ -6,96 +6,159 @@
 
 ```
 nixcfg/
-├── flake.nix           # 入口
+├── flake.nix              # 入口
 ├── flake.lock
 ├── .sops.yaml
-├── lib/                # 工具库
-│   ├── default.nix     # 聚合导出 (nixpkgsOverlays + validators + helpers)
-│   ├── overlays.nix    # 三分支 nixpkgs overlay (stable/unstable/master)
-│   ├── helpers.nix     # mkNullOrEnum, mkConfigDir, mkHomeDir
-│   └── validators.nix  # 类型校验扩展
-├── host/               # 主机配置
-│   ├── common.nix      # 共享配置聚合
+├── lib/                   # 工具库
+│   ├── default.nix        # 聚合导出 (nixpkgsOverlays + validators + helpers)
+│   ├── overlays.nix       # 三分支 nixpkgs overlay (stable/unstable/master)
+│   ├── helpers.nix        # mkNullOrEnum, mkNullOrListEnum, mkConfigDir, mkHomeDir
+│   └── validators.nix     # 类型校验扩展
+├── host/                  # 主机配置
+│   ├── common.nix         # 共享配置聚合
 │   ├── lap/
-│   │   ├── ...
-│   │   └── special-opt.nix  # 主机差异选项
+│   │   ├── configuration.nix
+│   │   ├── boot.nix
+│   │   ├── driver.nix
+│   │   └── hardware-configuration.nix
 │   └── pc/
-│       ├── ...
-│       └── special-opt.nix
+│       ├── configuration.nix
+│       ├── boot.nix
+│       ├── driver.nix
+│       └── hardware-configuration.nix
 │
-├── core/               # Layer 0: NixOS 内核
-│   ├── console.nix     # 控制台 (TTY 字体/键盘)
-│   ├── system.nix      # 时区/语言/nix 设置/sudo
-│   ├── user.nix        # 用户账户
-│   └── nix-ld.nix      # 非 Nix 二进制兼容
+├── core/                  # Layer 0: NixOS 内核
+│   ├── __core__.nix       # 聚合入口
+│   ├── console.nix        # 控制台 (TTY 字体/键盘)
+│   ├── system.nix         # 时区/语言/nix 设置/sudo
+│   ├── user.nix           # 用户账户
+│   └── nix-ld.nix         # 非 Nix 二进制兼容
 │
-├── modules/            # Layer 1: NixOS 模块扩展
-│   ├── services/       # 系统服务
-│   │   ├── audio.nix       # PipeWire
+├── modules/               # Layer 1: NixOS 模块扩展
+│   ├── __modules__.nix    # 选项 (modules.*) + 默认值 + 聚合导入
+│   ├── services/
+│   │   ├── __services__.nix
+│   │   ├── audio.nix      # PipeWire
 │   │   ├── networking.nix
 │   │   ├── ssh.nix
 │   │   └── xserver.nix
-│   ├── shells/         # Shell 配置
+│   ├── shells/
+│   │   ├── __shells__.nix
 │   │   ├── bash/
 │   │   ├── fish/
 │   │   └── zsh/
-│   ├── development/    # 开发工具链
+│   ├── development/
+│   │   ├── __development__.nix
 │   │   ├── git.nix
+│   │   ├── c-cpp.nix
 │   │   ├── go.nix
-│   │   ├── rust.nix
-│   │   └── ...
-│   ├── utilities/      # 系统工具
+│   │   ├── java.nix
+│   │   ├── javascript.nix
+│   │   ├── python.nix
+│   │   └── rust.nix
+│   ├── utilities/
+│   │   ├── __utilities__.nix
+│   │   ├── basic-tools.nix
 │   │   ├── neovim/
 │   │   └── yazi/
-│   └── virtual/        # 虚拟化
+│   └── virtual/
+│       ├── __virtual__.nix
 │       ├── container/
 │       └── hardware/
 │
-├── desktop/            # Layer 2: 桌面环境
-│   ├── __desktop__.nix # 选项 + 默认值 + 聚合入口
-│   ├── base/           # 基础配置
-│   │   ├── theme.nix   # 主题 (GTK/Qt/光标)
-│   │   └── fonts.nix   # 字体 (fontconfig)
-│   ├── display-manager/ # greetd / sddm
-│   ├── window-manager/  # niri / hypr / labwc / mangowc (+ portal.nix)
-│   ├── status-bar/      # waybar / noctalia
-│   ├── launcher/        # fuzzel / rofi / wofi
-│   ├── lock/            # swaylock / wlogout
-│   ├── notification/    # mako / swaync
-│   ├── input/           # fcitx5 / rime
-│   ├── wallpaper/       # waypaper
-│   └── session/         # plasma / xfce (与 WM 互斥)
+├── desktop/               # Layer 2: 桌面环境
+│   ├── __desktop__.nix    # 选项 + 默认值 + 聚合入口
+│   ├── base/
+│   │   ├── __base__.nix
+│   │   ├── theme.nix      # 主题 (GTK/Qt/光标)
+│   │   └── fonts.nix      # 字体 (fontconfig)
+│   ├── display-manager/   # greetd / sddm
+│   │   ├── __displayMgr__.nix
+│   │   ├── greetd/
+│   │   └── sddm/
+│   ├── window-manager/    # niri / hypr / labwc / mangowc (+ portal.nix)
+│   │   ├── __winMgr__.nix
+│   │   ├── niri/
+│   │   ├── hypr/
+│   │   ├── labwc/
+│   │   └── mangowc/
+│   ├── status-bar/        # waybar / noctalia
+│   │   ├── __bar__.nix
+│   │   ├── waybar/
+│   │   └── noctalia/
+│   ├── launcher/          # fuzzel / rofi / wofi
+│   │   ├── __launcher__.nix
+│   │   ├── fuzzel/
+│   │   ├── rofi/
+│   │   └── wofi/
+│   ├── lock/              # swaylock / wlogout
+│   │   ├── __lock__.nix
+│   │   ├── swaylock/
+│   │   └── wlogout/
+│   ├── notification/      # mako / swaync
+│   │   ├── __notification__.nix
+│   │   ├── mako/
+│   │   └── swaync/
+│   ├── input/             # fcitx5 / rime
+│   │   └── __input__.nix
+│   ├── wallpaper/         # waypaper
+│   │   └── __wallpaper__.nix
+│   └── session/           # plasma / xfce (与 WM 互斥)
+│       ├── default.nix
+│       ├── plasma/
+│       └── xfce/
 │
-├── apps/               # Layer 3: 用户应用
-│   ├── __apps__.nix    # 选项 (services/gui/cli/containers) + 默认值
-│   ├── services/       # 后台守护进程
-│   │   ├── ai/             # litellm + hermes-agent + opencode
-│   │   ├── proxy/          # mihomo
-│   │   └── remote-ctrl/    # nginx + wayvnc
-│   ├── gui/            # 桌面应用
-│   │   ├── misc.nix        # 杂项 GUI 工具
-│   │   ├── broser.nix
-│   │   ├── toolkit.nix     # /opt/toolkit
-│   │   ├── wireshark.nix
-│   │   ├── vm-managers.nix
-│   │   ├── terminal/       # kitty / alacritty
-│   │   └── file-manager/   # dolphin / thunar
-│   ├── cli/            # 命令行工具
+├── apps/                  # Layer 3: 用户应用
+│   ├── __apps__.nix       # 选项 (services/gui/cli/containers) + 默认值
+│   ├── services/
+│   │   ├── __services__.nix
+│   │   ├── ai/            # litellm + hermes-agent + opencode
+│   │   │   └── __ai__.nix
+│   │   ├── proxy/         # mihomo
+│   │   │   └── __proxy__.nix
+│   │   └── remote-ctrl/   # nginx + wayvnc
+│   │       ├── __remote-ctrl__.nix
+│   │       ├── nginx.nix
+│   │       ├── vnc.nix
+│   │       └── wayvnc/
+│   ├── gui/
+│   │   ├── __gui__.nix
+│   │   ├── claude-haha/   # Claude Code Haha (deb 提取)
+│   │   ├── terminal/      # kitty / alacritty
+│   │   │   ├── __terminal__.nix
+│   │   │   ├── kitty.nix
+│   │   │   └── alacritty.nix
+│   │   ├── file-manager/  # dolphin / thunar
+│   │   │   ├── __fileMgr__.nix
+│   │   │   ├── dolphin.nix
+│   │   │   └── thunar.nix
+│   │   └── toolkits/      # misc / broser / wireshark / vm-managers
+│   │       ├── __toolkits__.nix
+│   │       ├── misc.nix
+│   │       ├── broser.nix
+│   │       ├── wireshark.nix
+│   │       └── vm-managers.nix
+│   ├── cli/
+│   │   ├── __cli__.nix
 │   │   └── misc.nix
-│   └── containers/     # 容器化应用
-│       ├── __containers__.nix  # 选项 + 导入 + mkDefault 默认值
-│       ├── entrypoint.sh       # 容器入口 dbus/PATH/XDG 初始化
-│       ├── environment         # 容器内环境变量
-│       ├── toolkit-profile.sh  # login shell profile
-│       ├── debian/            # Debian 每日容器
-│       │   ├── default.nix     # 模块 (构建服务 + CLI)
+│   └── containers/
+│       ├── __containers__.nix
+│       ├── entrypoint.sh
+│       ├── environment
+│       ├── toolkit-profile.sh
+│       ├── debian/
+│       │   ├── default.nix
 │       │   └── Dockerfile
-│       └── kali/              # Kali 每日容器
-│           ├── default.nix     # 模块 (构建服务 + CLI)
+│       └── kali/
+│           ├── default.nix
 │           └── Dockerfile
 │
-├── secrets/            # SOPS 加密密钥 (__secrets__.nix)
-└── static/             # 静态资源
+├── secrets/               # SOPS 加密密钥
+│   ├── __secrets__.nix
+│   ├── api_keys.yaml
+│   ├── ssh_keys.yaml
+│   └── token.yaml
+└── static/                # 静态资源
     └── wallpaper/
 ```
 
@@ -128,11 +191,10 @@ nixcfg/
 | `desktop/__desktop__.nix` | `desktop.*` | 桌面组件选择 (WM/bar/launcher 等) |
 | `modules/__modules__.nix` | `modules.*` | 模块大类开关 |
 | `apps/__apps__.nix` | `apps.*` | 应用大类开关 |
-| `apps/containers/__containers__.nix` | `apps.containers.*` | 容器实例开关 |
+| `apps/containers/__containers__.nix` | `-` | 不在顶层,不配置开关 |
 
-- `desktop.*` 使用 `mkNullOrEnum` / `mkNullOrListEnum` helper
-- `modules.*` 和 `apps.*` 使用标准 `mkEnableOption`
-- 父级 aggregate 文件同时设置 `lib.mkDefault` 默认值，主机只需在 `special-opt.nix` 中写差异
+- 统一使用 `mkNullOrEnum` / `mkNullOrListEnum` helper
+- 父级 aggregate 文件同时设置 `lib.mkDefault` 默认值，主机只需在 `configuration.nix` 中写差异
 
 ### 桌面组件
 
@@ -155,19 +217,10 @@ nixcfg/
 
 本项目的模块导入**全部手动维护**，不使用 `imports = builtins.attrValues (builtins.readDir ./.)` 等自动发现。每个模块目录内有一个 `__<name>__.nix` 索引文件，显式列出所有子模块的 import 路径。
 
-### 为什么手动维护
-
 - **删除即生效**：移除一行 import 注释掉模块，不再需要找文件删
 - **加载顺序可控**：import 列表顺序决定合并顺序，后续模块可覆写前置模块
 - **依赖显式可见**：每个模块引了什么一目了然
 - **无隐性生效**：新建一个 `.nix` 文件不会自动激活，必须手动加入索引
-
-### 约定
-
-1. **两层索引**：aggregate（`__*__.nix`）负责 imports + enable 开关 + mkDefault 默认值；leaf 文件只写 `config = lib.mkIf config.xxx.enable { ... }`
-2. **选项就近定义**：选项放在消费它的 aggregate 文件中（如 `modules/__modules__.nix` 定义 `modules.services`）
-3. **mkDefault 默认值**：aggregate 层用 `lib.mkDefault true` 设默认，host 在 `special-opt.nix` 中覆写
-4. **条件激活**：所有 leaf 模块首行必须是 `lib.mkIf config.xxx.enable`
 
 ### lib/helpers.nix 函数一览
 `lib/helpers.nix` 提供以下可复用函数，被全项目引用：

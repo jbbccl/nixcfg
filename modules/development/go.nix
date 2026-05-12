@@ -1,5 +1,5 @@
 { config, pkgs, lib, username, ... }:
-lib.mkIf (builtins.elem "go" config.development.languages) {
+lib.mkIf (builtins.elem "go" config.modules.development.languages) {
 
 	home-manager.users.${username} = {
 		home.packages = with pkgs; [

@@ -1,5 +1,5 @@
 { config, lib, ... }:
-lib.mkIf config.modules.development.enable {
+{
 	programs.git = {
 		enable = true;
 
