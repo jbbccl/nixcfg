@@ -48,18 +48,20 @@ lib.mkIf config.secrets.available {
 	};
 
 	networking.firewall.allowedTCPPorts = [ 49514 ];
+
+	system.activationScripts.nginx-ssl-cert = ''
+		if [ ! -f /etc/nginx/ssl/cert.pem ]; then
+			mkdir -p /etc/nginx/ssl
+			chown root:nginx /etc/nginx/ssl
+			chmod 755 /etc/nginx/ssl
+			${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 \
+				-keyout /etc/nginx/ssl/key.pem \
+				-out /etc/nginx/ssl/cert.pem \
+				-days 365 -nodes \
+				-subj "/CN=1.ccb"
+			chown root:nginx /etc/nginx/ssl/key.pem /etc/nginx/ssl/cert.pem
+			chmod 644 /etc/nginx/ssl/cert.pem
+			chmod 640 /etc/nginx/ssl/key.pem
+		fi
+	'';
 }
-
-# sudo mkdir -p /etc/nginx/ssl/
-# sudo chown root:nginx /etc/nginx/ssl/
-# sudo chmod 755 /etc/nginx/ssl/
-
-# sudo openssl req -x509 -newkey rsa:4096 \
-#         -keyout /etc/nginx/ssl/key.pem \
-#         -out /etc/nginx/ssl/cert.pem \
-#         -days 365 -nodes \
-#         -subj "/CN=1.ccb"
-        
-# sudo chown root:nginx /etc/nginx/ssl/key.pem /etc/nginx/ssl/cert.pem
-# sudo chmod 644 /etc/nginx/ssl/cert.pem
-# sudo chmod 640 /etc/nginx/ssl/key.pem
