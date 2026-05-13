@@ -1,6 +1,6 @@
 {
-	imports = [
-		./nginx.nix
-		./vnc.nix
-	];
+  imports = [
+    ./nginx.nix
+    ./vnc.nix
+  ];
 }

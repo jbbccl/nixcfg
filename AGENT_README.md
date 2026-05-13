@@ -241,6 +241,5 @@ nix flake lock --update-input noctalia
 
 nix profile wipe-history --profile /home/e/.local/state/nix/profiles/profile --older-than 1d
 sudo systemctl restart nix-daemon
-nix-collect-garbage -d
-sudo nix-collect-garbage -d
+sudo nix-collect-garbage -d && nix-collect-garbage -d
 ```
