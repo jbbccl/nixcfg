@@ -18,8 +18,8 @@ in {
 		extraPortals = with pkgs; [ xdg-desktop-portal-gnome ];
 		config.niri = {
 			default = [ "gnome" "gtk" ];
-			"org.freedesktop.impl.portal.FileChooser" = "gtk";
-			"org.freedesktop.impl.portal.AppChooser" = "gtk";
+			"org.freedesktop.impl.portal.FileChooser" = "gnome";
+			"org.freedesktop.impl.portal.AppChooser" = "gnome";
 		};
 	};
   };

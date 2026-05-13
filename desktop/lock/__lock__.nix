@@ -7,6 +7,8 @@ in {
 		swaylock
 	];
 
+	security.pam.services.swaylock = {};
+
 	home-manager.users.${username} = {
 		xdg.configFile = mkConfigDir "swaylock" ./swaylock;
 	};

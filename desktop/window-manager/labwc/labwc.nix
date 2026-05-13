@@ -37,6 +37,7 @@ in {
 				"org.freedesktop.impl.portal.ScreenCast" = "wlr";
 				"org.freedesktop.impl.portal.FileChooser" = "gtk";
 				"org.freedesktop.impl.portal.AppChooser" = "gtk";
+				"org.freedesktop.impl.portal.Secret" = "gnome-keyring";
 			};
 		};
 	};
