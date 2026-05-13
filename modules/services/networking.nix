@@ -2,7 +2,7 @@
 	networking = {
 		hostName = "nixos";
 		networkmanager.enable = true;
-		networkmanager.wifi.backend = "iwd";
+		# networkmanager.wifi.backend = "iwd";
 		nftables.enable = true;
 		firewall = {
 			enable = true;
