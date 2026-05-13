@@ -16,4 +16,7 @@ if status is-interactive
 	alias pd=podman
 	alias db=distrobox
 	alias hh="hermes --tui"
+	alias ns="sudo nixos-rebuild switch --flake"
+	alias nb="sudo nixos-rebuild switch --flake"
+	alias gc="sudo nix-collect-garbage -d && nix-collect-garbage -d"
 end

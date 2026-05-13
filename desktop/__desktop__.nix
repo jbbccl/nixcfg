@@ -44,7 +44,7 @@ in {
 			desktop.notification = "mako";
 			desktop.displayManager = "greetd";
 			desktop.terminal = "kitty";
-			desktop.fileManager = [ "dolphin" ];
+			desktop.fileManager = [ "dolphin" "thunar" ];
 		})
 	];
 }
