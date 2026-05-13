@@ -15,6 +15,8 @@ in {
 		launcher = mkNullOrEnum "app launcher" [ "fuzzel" "rofi" "wofi" ];
 		lockscreen = mkNullOrEnum "lock screen" [ "swaylock" ];
 		notification = mkNullOrEnum "notification daemon" [ "mako" "swaync" ];
+		terminal = mkNullOrEnum "terminal emulator" [ "kitty" "alacritty" ];
+		fileManager = mkNullOrEnum "file manager" [ "dolphin" "thunar" ];
 	};
 
 	imports = [
@@ -27,6 +29,8 @@ in {
 		./notification/__notification__.nix
 		./input/__input__.nix
 		./wallpaper/__wallpaper__.nix
+		./terminal/__terminal__.nix
+		./file-manager/__fileMgr__.nix
 		# ./session/__session__.nix  # plasma/xfce full DE, conflicts with WM
 	];
 
@@ -39,6 +43,8 @@ in {
 			desktop.lockscreen = "swaylock";
 			desktop.notification = "mako";
 			desktop.displayManager = "greetd";
+			desktop.terminal = "kitty";
+			desktop.fileManager = "dolphin";
 		})
 	];
 }

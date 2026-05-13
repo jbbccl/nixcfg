@@ -1,4 +1,5 @@
-{ config, pkgs, username, ... }:
+{ config, pkgs, lib, username, ... }:
+lib.mkIf (config.desktop.fileManager == "dolphin") (
 let
 	dolphinTerminal = pkgs.writeShellScriptBin "dolphin-terminal" ''
         exec ''${TERMINAL:-kitty} "$@"
@@ -29,7 +30,7 @@ in
 	environment.etc."xdg/menus/applications.menu".source = 
 	"${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
-  	home-manager.users.${username} = {
+ 	home-manager.users.${username} = {
 		xdg.configFile = {
 			"kdeglobals" = {
 				force = true;
@@ -72,4 +73,4 @@ in
 			};
 		};
 	};
-}
+})
