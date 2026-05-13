@@ -16,7 +16,7 @@ in {
 		lockscreen = mkNullOrEnum "lock screen" [ "swaylock" ];
 		notification = mkNullOrEnum "notification daemon" [ "mako" "swaync" ];
 		terminal = mkNullOrEnum "terminal emulator" [ "kitty" "alacritty" ];
-		fileManager = mkNullOrEnum "file manager" [ "dolphin" "thunar" ];
+		fileManager = mkNullOrListEnum "file managers" [ "dolphin" "thunar" ];
 	};
 
 	imports = [
@@ -44,7 +44,7 @@ in {
 			desktop.notification = "mako";
 			desktop.displayManager = "greetd";
 			desktop.terminal = "kitty";
-			desktop.fileManager = "dolphin";
+			desktop.fileManager = [ "dolphin" ];
 		})
 	];
 }

@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-lib.mkIf (config.desktop.fileManager == "thunar") {
+lib.mkIf (builtins.elem "thunar" config.desktop.fileManager) {
 	programs.thunar.enable = true;
 	services.gvfs.enable = true;
 	services.tumbler.enable = true;

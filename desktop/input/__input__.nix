@@ -76,7 +76,7 @@ home-manager.users.${username} = {
 	XMODIFIERS = "@im=fcitx";
 	QT_IM_MODULE = "fcitx";
 	QT_IM_MODULES = "fcitx;ibus;wayland";
-	# GTK_IM_MODULE = "fcitx";
+	GTK_IM_MODULE = "fcitx";
 	SDL_IM_MODULE = "fcitx";
 	GLFW_IM_MODULE = "fcitx";
 	};

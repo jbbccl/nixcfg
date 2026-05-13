@@ -1,5 +1,5 @@
 { config, pkgs, lib, username, ... }:
-lib.mkIf (config.desktop.fileManager == "dolphin") (
+lib.mkIf (builtins.elem "dolphin" config.desktop.fileManager) (
 let
 	dolphinTerminal = pkgs.writeShellScriptBin "dolphin-terminal" ''
         exec ''${TERMINAL:-kitty} "$@"
