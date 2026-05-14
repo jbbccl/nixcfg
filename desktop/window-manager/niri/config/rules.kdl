@@ -10,6 +10,7 @@ window-rule {
 	match app-id="code"
 	match app-id="dev.zed.Zed"
 	match app-id="Ablaze Floorp"
+	match app-id="brave-browser"
 	default-column-width {} // 让窗口自行决定其初始宽度
 	// open-maximized-to-edges true	//窗口打开时最大化到边缘
 	// open-fullscreen true		//窗口打开时全屏open-maximized true

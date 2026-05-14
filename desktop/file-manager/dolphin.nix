@@ -67,7 +67,7 @@ in
 
                     [Desktop Action openInZed]
                     Name=在 Zed 中打开
-                    Icon=zeditor
+                    Icon=zed
                     Exec=zeditor %f
                 '';
 			};

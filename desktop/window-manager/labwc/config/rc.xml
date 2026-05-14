@@ -131,7 +131,7 @@
       <action name="Execute" command="fuzzel" />
     </keybind>
     <keybind key="W-b">
-      <action name="Execute" command="floorp" />
+      <action name="Execute" command="brave" />
     </keybind>
 
     <keybind key="W-l">
