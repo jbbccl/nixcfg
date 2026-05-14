@@ -31,6 +31,7 @@ in {
 		./wallpaper/__wallpaper__.nix
 		./terminal/__terminal__.nix
 		./file-manager/__fileMgr__.nix
+		./browser/__browser__.nix
 		# ./session/__session__.nix  # plasma/xfce full DE, conflicts with WM
 	];
 

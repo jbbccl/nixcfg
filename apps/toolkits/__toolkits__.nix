@@ -1,6 +1,5 @@
 { pkgs, username, ... }: {
 	imports = [
-		./broser.nix
 		./misc.nix
 		./vm-managers.nix
 		./wireshark.nix

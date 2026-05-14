@@ -66,7 +66,7 @@ nixcfg/
 │       ├── container/
 │       └── hardware/
 │
-├── desktop/               # Layer 2: 桌面环境
+├── desktop/               # Layer 2: 桌面环境（DE 标配组件）
 │   ├── __desktop__.nix    # 选项 + 默认值 + 聚合入口
 │   ├── base/
 │   │   ├── __base__.nix
@@ -76,7 +76,7 @@ nixcfg/
 │   │   ├── __displayMgr__.nix
 │   │   ├── greetd/
 │   │   └── sddm/
-│   ├── window-manager/    # niri / hypr / labwc / mangowc (+ portal.nix)
+│   ├── window-manager/    # niri / hypr / labwc / mangowc
 │   │   ├── __winMgr__.nix
 │   │   ├── niri/
 │   │   ├── hypr/
@@ -99,8 +99,19 @@ nixcfg/
 │   │   ├── __notification__.nix
 │   │   ├── mako/
 │   │   └── swaync/
+│   ├── terminal/          # kitty / alacritty
+│   │   ├── __terminal__.nix
+│   │   ├── kitty.nix
+│   │   ├── alacritty.nix
+│   │   └── config/
+│   ├── file-manager/      # dolphin / thunar
+│   │   ├── __fileMgr__.nix
+│   │   ├── dolphin.nix
+│   │   └── thunar.nix
 │   ├── input/             # fcitx5 / rime
-│   │   └── __input__.nix
+│   │   ├── __input__.nix
+│   │   ├── config/
+│   │   └── share/
 │   ├── wallpaper/         # waypaper
 │   │   └── __wallpaper__.nix
 │   └── session/           # plasma / xfce (与 WM 互斥)
@@ -108,7 +119,7 @@ nixcfg/
 │       ├── plasma/
 │       └── xfce/
 │
-├── apps/                  # Layer 3: 用户应用
+├── apps/                  # Layer 3: 用户应用（非 DE 标配）
 │   ├── __apps__.nix       # 选项 (services/gui/cli/containers) + 默认值
 │   ├── services/
 │   │   ├── __services__.nix
@@ -124,14 +135,6 @@ nixcfg/
 │   ├── gui/
 │   │   ├── __gui__.nix
 │   │   ├── claude-haha/   # Claude Code Haha (deb 提取)
-│   │   ├── terminal/      # kitty / alacritty
-│   │   │   ├── __terminal__.nix
-│   │   │   ├── kitty.nix
-│   │   │   └── alacritty.nix
-│   │   ├── file-manager/  # dolphin / thunar
-│   │   │   ├── __fileMgr__.nix
-│   │   │   ├── dolphin.nix
-│   │   │   └── thunar.nix
 │   │   └── toolkits/      # misc / broser / wireshark / vm-managers
 │   │       ├── __toolkits__.nix
 │   │       ├── misc.nix
@@ -164,6 +167,18 @@ nixcfg/
 
 ## 架构
 
+### 分层标准
+
+**desktop/ vs apps/ 的划分依据：主流 DE 是否标配该组件。**
+
+| DE 标配（→ desktop/） | 非标配（→ apps/） |
+|---|---|
+| 窗口管理器、状态栏、显示管理器、启动器 | 浏览器、编辑器、IDE |
+| 终端、文件管理器、锁屏、通知 | AI 服务、代理、远程控制 |
+| 输入法、壁纸、主题/字体 | 网络工具 (wireshark)、虚拟机 |
+
+如果一个组件 KDE / GNOME / XFCE 都自带，它就是 desktop/。
+
 ### 分层结构
 
 每层只依赖下层，不反向：
@@ -172,7 +187,7 @@ nixcfg/
 |---|------|------|
 | Layer 0 | `core/` | NixOS 内核配置，所有上层的基础 |
 | Layer 1 | `modules/` | 系统级模块扩展（服务、开发环境、Shell、虚拟化） |
-| Layer 2 | `desktop/` | 桌面环境（窗口管理器、显示管理器、输入法等） |
+| Layer 2 | `desktop/` | 桌面环境（DE 标配组件） |
 | Layer 3 | `apps/` | 用户应用（后台服务 + GUI 应用 + 容器） |
 
 ### 模块原则
@@ -188,7 +203,7 @@ nixcfg/
 
 | 文件 | 选项 | 类型 |
 |------|------|------|
-| `desktop/__desktop__.nix` | `desktop.*` | 桌面组件选择 (WM/bar/launcher 等) |
+| `desktop/__desktop__.nix` | `desktop.*` | 桌面组件选择 (WM/bar/DM/launcher/terminal/fileManager 等) |
 | `modules/__modules__.nix` | `modules.*` | 模块大类开关 |
 | `apps/__apps__.nix` | `apps.*` | 应用大类开关 |
 | `apps/containers/__containers__.nix` | `-` | 不在顶层,不配置开关 |
@@ -199,8 +214,9 @@ nixcfg/
 ### 桌面组件
 
 - 通过 `desktop/__desktop__.nix` 定义的选项进行开关，各模块内部使用 `mkIf` 自激活
-- `desktop.windowManager` 是列表类型：可同时启用多个 WM，登录界面切换，无需重构
-- 各 WM 自带的 portal 依赖只在该 WM 启用时安装（portal.nix 只装 GTK 公共底座）
+- `desktop.windowManager`、`desktop.bar`、`desktop.fileManager` 是列表类型：可同时启用多个，无需重构
+- `desktop.terminal`、`desktop.launcher` 等是单选枚举：同一时刻只有一个终端/启动器
+- 各 WM 自带的 portal 依赖只在该 WM 启用时安装
 - `desktop/__desktop__.nix` 设有公共默认值，减少 lap/pc 之间的重复
 
 ### 三分支 nixpkgs overlay
@@ -228,7 +244,7 @@ nixcfg/
 | 函数 | 用途 | 出现次数 |
 |------|------|----------|
 | `mkNullOrEnum` | nullable enum option | 5 |
-| `mkNullOrListEnum` | nullable list-of-enum option | 1 |
+| `mkNullOrListEnum` | nullable list-of-enum option | 3 |
 | `mkConfigDir` | xdg.configFile 目录绑定 (`force/recursive/source`) | 10+ |
 | `mkHomeDir` | home.file 目录绑定 | 2 |
 
