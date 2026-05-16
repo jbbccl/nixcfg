@@ -13,6 +13,7 @@ in {
 		./services/__services__.nix
 		./toolkits/__toolkits__.nix
 		./containers/__containers__.nix
+		./game/__game__.nix
 	];
 
 	config = lib.mkDefault {
