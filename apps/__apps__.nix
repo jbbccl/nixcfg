@@ -12,7 +12,6 @@ in {
 	imports = [
 		./services/__services__.nix
 		./toolkits/__toolkits__.nix
-		./cli/__cli__.nix
 		./containers/__containers__.nix
 	];
 

@@ -15,6 +15,7 @@ in
 			kdePackages.filelight
 			# gparted
 			# partitionmanager
+			xfce4-taskmanager
 
 			localsend
 
@@ -39,6 +40,12 @@ in
 			# pomodoro-gtk
 			# keepassxc
 			xeyes
+
+			squashfsTools
+			fastfetch
+			btop
+			# ocamlPackages.cpdf
+			openssl
 		];
 	};
 }
