@@ -46,6 +46,9 @@ in
 			btop
 			# ocamlPackages.cpdf
 			openssl
+
+			traceroute
+			dig
 		];
 	};
 }

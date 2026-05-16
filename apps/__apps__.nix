@@ -19,7 +19,7 @@ in {
 	config = lib.mkDefault {
 		apps.services.ai.enable          = true;
 		apps.services.proxy.enable       = true;
-		apps.services.ingress.enable     = true;
+		apps.services.ingress.enable     = false;
 		apps.services.remote-ctrl.enable = false;
 	};
 }
