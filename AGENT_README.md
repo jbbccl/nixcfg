@@ -108,6 +108,9 @@ nixcfg/
 │   │   ├── __fileMgr__.nix
 │   │   ├── dolphin.nix
 │   │   └── thunar.nix
+│   ├── browser/           # firefox + BetterFox
+│   │   ├── __browser__.nix
+│   │   └── firefox.nix
 │   ├── input/             # fcitx5 / rime
 │   │   ├── __input__.nix
 │   │   ├── config/
@@ -204,6 +207,7 @@ nixcfg/
 | 文件 | 选项 | 类型 |
 |------|------|------|
 | `desktop/__desktop__.nix` | `desktop.*` | 桌面组件选择 (WM/bar/DM/launcher/terminal/fileManager 等) |
+| `desktop/browser/__browser__.nix` | `desktop.browser.firefox.*` | Firefox 增强 (BetterFox / Smoothfox / uBlock / 搜索引擎) |
 | `modules/__modules__.nix` | `modules.*` | 模块大类开关 |
 | `apps/__apps__.nix` | `apps.*` | 应用大类开关 |
 | `apps/containers/__containers__.nix` | `-` | 不在顶层,不配置开关 |

@@ -1,5 +1,6 @@
 # Claude
 .claude/
+.hermes/
 
 docs/
 # Nix
