@@ -39,6 +39,10 @@
 			device = "/dev/disk/by-uuid/BE0C1FAE4B33B9A6";
 			fsType = "ntfs";
 		};
+		"/home/unsafe" = {
+			device = "/dev/disk/by-uuid/4C1C7F941C7F7832";
+			fsType = "ntfs";
+		};
 	};
 	# swapDevices = [ { device = "/swap/swapfile"; size = 32768; } ];
 

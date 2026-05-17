@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-	browser = "librewolf.desktop";
+	browser = "firefox.desktop";
 in {
 	options.desktop.browser.firefox = {
 		enable = lib.mkEnableOption "BetterFox privacy & performance tweaks for Firefox";
@@ -23,12 +23,12 @@ in {
 			ublock = true;
 		};
 
-		# xdg.mime.defaultApplications = {
-		# 	"text/html" = browser;
-		# 	"x-scheme-handler/http" = browser;
-		# 	"x-scheme-handler/https" = browser;
-		# 	"x-scheme-handler/about" = browser;
-		# 	"x-scheme-handler/unknown" = browser;
-		# };
+		xdg.mime.defaultApplications = {
+			"text/html" = browser;
+			"x-scheme-handler/http" = browser;
+			"x-scheme-handler/https" = browser;
+			"x-scheme-handler/about" = browser;
+			"x-scheme-handler/unknown" = browser;
+		};
 	};
 }

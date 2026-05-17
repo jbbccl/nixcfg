@@ -5,12 +5,8 @@ let
 in {
 	options.desktop = {
 		enable = lib.mkEnableOption "desktop environment (WM, bar, DM, theme, etc.)";
-		windowManager = mkNullOrListEnum "window managers" [
-			"niri" "labwc" "hypr" "mangowc"
-		];
-		bar = mkNullOrListEnum "status bar" [ 
-			"waybar" "noctalia" 
-		];
+		windowManager = mkNullOrListEnum "window managers" [ "niri" "labwc" "hypr" "mangowc" ];
+		bar = mkNullOrListEnum "status bar" [ "waybar" "noctalia" ];
 		displayManager = mkNullOrEnum "display manager" [ "greetd" "sddm" ];
 		launcher = mkNullOrEnum "app launcher" [ "fuzzel" "rofi" "wofi" ];
 		lockscreen = mkNullOrEnum "lock screen" [ "swaylock" ];
@@ -38,14 +34,16 @@ in {
 	config = lib.mkMerge [
 		{ desktop.enable = lib.mkDefault true; }
 		(lib.mkIf config.desktop.enable {
-			desktop.windowManager = [ "labwc" "niri" "hypr" ];
-			desktop.bar = [ "waybar"];
-			desktop.launcher = "fuzzel";
-			desktop.lockscreen = "swaylock";
-			desktop.notification = "mako";
-			desktop.displayManager = "greetd";
-			desktop.terminal = "kitty";
-			desktop.fileManager = [ "dolphin" "thunar" ];
+			desktop = {
+				windowManager = lib.mkDefault [ "labwc" "niri" ];
+				bar           = lib.mkDefault [ "waybar" ];
+				launcher      = lib.mkDefault "fuzzel";
+				lockscreen    = lib.mkDefault "swaylock";
+				notification  = lib.mkDefault "mako";
+				displayManager= lib.mkDefault "greetd";
+				terminal      = lib.mkDefault "kitty";
+				fileManager   = lib.mkDefault [ "dolphin" "thunar" ];
+			};
 		})
 	];
 }
