@@ -1,6 +1,7 @@
-{ pkgs, username, hostName, ... }:
+{ config, lib, pkgs, username, hostName, helpers, ... }:
 
 let
+  inherit (helpers) mkConfigDir mkHomeDir;
 # wanxiangGram = builtins.fetchurl {
 # 	url = "https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram";
 # 	sha256 = "sha256:153zlmfp416f9bl99szqs91ypwsz6z0139l543n3blibj8fhf6yx";
@@ -31,22 +32,7 @@ in
 {
 home-manager.users.${username} = {
 
-	xdg.configFile = {
-		"fcitx5/" = {
-			force = true;
-			recursive = true;
-			source = ./config;
-		};
-		"fcitx5/conf/classicui.conf" = {
-			force = true;
-			recursive = true;
-			source = (if hostName == "lap"
-					then ./config/conf/classicui-lap.conf
-				else if hostName == "pc"
-					then ./config/conf/classicui-pc.conf
-				else ./config/classicui-pc.conf );
-		};
-	};
+	xdg.configFile = mkConfigDir "fcitx5" ./config;
 
 	home.file = {
 		".local/share/fcitx5/rime" = {
@@ -60,17 +46,7 @@ home-manager.users.${username} = {
 			# rm -f ~/.local/share/fcitx5/rime/build/*
 			'';
 		};
-		# ".local/share/fcitx5/rime/wanxiang-lts-zh-hans.gram" = {
-		# 	source = "${wanxiangGram}/wanxiang-lts-zh-hans.gram";
-		# 	force = true;
-		# };
-
-		".local/share/fcitx5/" = {
-			force = true;
-			recursive = true;
-			source = ./share;
-		};
-	};
+	} // mkHomeDir ".local/share/fcitx5/" ./share;
 
 	home.sessionVariables = {
 	XMODIFIERS = "@im=fcitx";

@@ -34,15 +34,15 @@ in {
 	config = lib.mkMerge [
 		{ desktop.enable = lib.mkDefault true; }
 		(lib.mkIf config.desktop.enable {
-			desktop = {
-				windowManager = lib.mkDefault [ "labwc" "niri" ];
-				bar           = lib.mkDefault [ "waybar" ];
-				launcher      = lib.mkDefault "fuzzel";
-				lockscreen    = lib.mkDefault "swaylock";
-				notification  = lib.mkDefault "mako";
-				displayManager= lib.mkDefault "greetd";
-				terminal      = lib.mkDefault "kitty";
-				fileManager   = lib.mkDefault [ "dolphin" "thunar" ];
+			desktop = lib.mkDefault {
+				windowManager = [ "labwc" "niri" ];
+				bar           = [ "waybar" ];
+				launcher      = "fuzzel";
+				lockscreen    = "swaylock";
+				notification  = "mako";
+				displayManager= "greetd";
+				terminal      = "kitty";
+				fileManager   = [ "dolphin" "thunar" ];
 			};
 		})
 	];

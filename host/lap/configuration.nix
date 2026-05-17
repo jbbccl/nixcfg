@@ -10,4 +10,6 @@
 
 	system.stateVersion = "25.11";
 	home-manager.users.${username}.home.stateVersion = "25.11";
+
+	apps.game.steam.enable = false;
 }
