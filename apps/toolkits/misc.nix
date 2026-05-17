@@ -47,6 +47,9 @@ in
 			# ocamlPackages.cpdf
 			openssl
 
+			# zap
+			# caido
+			# mitmproxy
 			traceroute
 			dig
 		];
