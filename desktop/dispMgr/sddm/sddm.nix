@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
-  config = lib.mkIf (config.desktop.displayManager == "sddm") {
+  config = lib.mkIf (config.desktop.dispMgr.select == "sddm") {
 	services.displayManager.sddm = {
 		enable = true;
 		wayland.enable = true;

@@ -2,7 +2,7 @@
 let
   inherit (helpers) mkConfigDir mkHomeDir;
 in {
-  config = lib.mkIf (builtins.elem "labwc" config.desktop.windowManager) {
+  config = lib.mkIf (builtins.elem "labwc" config.desktop.winMgr.list) {
 	programs.labwc.enable = true;
 	environment.systemPackages = with pkgs; [git
 		wlr-randr

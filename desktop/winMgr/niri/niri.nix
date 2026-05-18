@@ -22,7 +22,7 @@ in {
 		default = {};
 	};
 
-	config = lib.mkIf (builtins.elem "niri" config.desktop.windowManager) {
+	config = lib.mkIf (builtins.elem "niri" config.desktop.winMgr.list) {
 		programs.niri.enable = true;
 
 		home-manager.users.${username}.xdg.configFile =

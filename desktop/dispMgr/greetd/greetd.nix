@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:{
-	config = lib.mkIf (config.desktop.displayManager == "greetd") {
+	config = lib.mkIf (config.desktop.dispMgr.select == "greetd") {
 		services.greetd = {
 			enable = true;
 			settings = {

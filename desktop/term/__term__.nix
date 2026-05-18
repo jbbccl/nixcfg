@@ -1,15 +1,18 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, helpers, ... }:
 let
-	xterm = pkgs.writeShellScriptBin "xterm" ''
-        exec ${pkgs.kitty}/bin/kitty "$@"
-    '';
+  inherit (helpers) mkNullOrEnum;
+  xterm = pkgs.writeShellScriptBin "xterm" ''
+    exec ${pkgs.kitty}/bin/kitty "$@"
+  '';
 in {
-	imports = [
-		./kitty.nix
-		./alacritty.nix
-	];
+  imports = [
+    ./kitty.nix
+    ./alacritty.nix
+  ];
 
-	config = lib.mkIf (config.desktop.terminal == "kitty") {
-		environment.systemPackages = [ xterm ];
-	};
+  options.desktop.term.select = mkNullOrEnum "terminal emulator" [ "kitty" "alacritty" ];
+
+  config = lib.mkIf (config.desktop.term.select == "kitty") {
+    environment.systemPackages = [ xterm ];
+  };
 }

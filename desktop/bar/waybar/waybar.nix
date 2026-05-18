@@ -2,7 +2,7 @@
 let
   inherit (helpers) mkConfigDir;
 in {
-  config = lib.mkIf (builtins.elem "waybar" config.desktop.bar) (let
+  config = lib.mkIf (builtins.elem "waybar" config.desktop.bar.list) (let
     niri-taskbar = pkgs.rustPlatform.buildRustPackage {
       pname = "niri-taskbar";
       version = "2025.10.12";

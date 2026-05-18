@@ -2,7 +2,7 @@
 let
   inherit (helpers) mkConfigDir;
 in {
-  config = lib.mkIf (builtins.elem "hypr" config.desktop.windowManager) {
+  config = lib.mkIf (builtins.elem "hypr" config.desktop.winMgr.list) {
 	programs.hyprland.enable = true;
 
 	environment.systemPackages = with pkgs; [

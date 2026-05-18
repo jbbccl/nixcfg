@@ -1,5 +1,5 @@
 { config, pkgs, lib, username, hostName, ... }:
-lib.mkIf (config.desktop.terminal == "kitty") {
+lib.mkIf (config.desktop.term.select == "kitty") {
 	environment.systemPackages = with pkgs; [
 
 		kitty

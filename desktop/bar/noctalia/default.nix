@@ -1,5 +1,5 @@
 { config, lib, pkgs, inputs, ... }: {
-  config = lib.mkIf (builtins.elem "noctalia" config.desktop.bar) {
+  config = lib.mkIf (builtins.elem "noctalia" config.desktop.bar.list) {
 	environment.systemPackages = with pkgs; [
 		networkmanagerapplet
 		inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
