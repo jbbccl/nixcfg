@@ -1,8 +1,10 @@
-{ config, lib, pkgs, username, helpers, ... }:
-let
-  inherit (helpers) mkConfigDir mkNullOrEnum;
-in {
-  options.desktop.lock.select = mkNullOrEnum "lock screen" [ "swaylock" ];
+{ config, lib, pkgs, username, ... }:
+{
+  options.desktop.lock.select = lib.mkOption {
+    type = lib.types.nullOr (lib.types.enum [ "swaylock" ]);
+    default = null;
+    description = "lock screen";
+  };
 
   config = lib.mkIf (config.desktop.lock.select == "swaylock") {
     environment.systemPackages = with pkgs; [
@@ -12,7 +14,11 @@ in {
     security.pam.services.swaylock = {};
 
     home-manager.users.${username} = {
-      xdg.configFile = mkConfigDir "swaylock" ./swaylock;
+      xdg.configFile."swaylock/" = {
+        force = true;
+        recursive = true;
+        source = ./swaylock;
+      };
     };
   };
 }

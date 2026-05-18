@@ -1,7 +1,5 @@
-{ config, lib, helpers, ... }:
-let
-	inherit (helpers) mkNullOrEnum mkNullOrListEnum;
-in {
+{ config, lib, ... }:
+{
 	options.apps = {
 		services.ai.enable          = lib.mkEnableOption "AI services (litellm, hermes, opencode)";
 		services.proxy.enable       = lib.mkEnableOption "proxy service (mihomo)";

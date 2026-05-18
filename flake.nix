@@ -49,8 +49,6 @@
 
 			specialArgs = {
 				inherit self inputs username hostName;
-				helpers = lib.helpers;
-				validators = lib.validators;
 			};
 
 			modules = [

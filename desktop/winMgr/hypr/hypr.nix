@@ -1,10 +1,7 @@
-{ config, lib, pkgs, username, helpers, ... }:
-let
-  inherit (helpers) mkConfigDir;
-in {
+{ config, lib, pkgs, username, ... }:
+{
   config = lib.mkIf (builtins.elem "hypr" config.desktop.winMgr.list) {
 	programs.hyprland.enable = true;
-
 	environment.systemPackages = with pkgs; [
 		xwayland-satellite
 		wl-clipboard
@@ -12,11 +9,13 @@ in {
 		slurp
 		jq
 	];
-
 	home-manager.users.${username} = {
-		xdg.configFile = mkConfigDir "hypr" ./config;
+		xdg.configFile."hypr/" = {
+			force = true;
+			recursive = true;
+			source = ./config;
+		};
 	};
-
 	xdg.portal = {
 		extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
 		config = {

@@ -1,6 +1,5 @@
-{ config, pkgs, lib, helpers, ... }:
+{ config, pkgs, lib, ... }:
 let
-  inherit (helpers) mkNullOrEnum;
   xterm = pkgs.writeShellScriptBin "xterm" ''
     exec ${pkgs.kitty}/bin/kitty "$@"
   '';
@@ -10,7 +9,11 @@ in {
     ./alacritty.nix
   ];
 
-  options.desktop.term.select = mkNullOrEnum "terminal emulator" [ "kitty" "alacritty" ];
+  options.desktop.term.select = lib.mkOption {
+    type = lib.types.nullOr (lib.types.enum [ "kitty" "alacritty" ]);
+    default = null;
+    description = "terminal emulator";
+  };
 
   config = lib.mkIf (config.desktop.term.select == "kitty") {
     environment.systemPackages = [ xterm ];

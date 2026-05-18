@@ -1,12 +1,9 @@
-{ config, lib, pkgs, username, helpers, ... }:
-let
-  inherit (helpers) mkConfigDir;
-in {
+{ config, lib, pkgs, username, ... }:
+{
   config = lib.mkIf (builtins.elem "waybar" config.desktop.bar.list) (let
     niri-taskbar = pkgs.rustPlatform.buildRustPackage {
       pname = "niri-taskbar";
       version = "2025.10.12";
-
       src = pkgs.stdenvNoCC.mkDerivation {
         name = "niri-taskbar-patched-src";
         src = pkgs.fetchFromGitHub {
@@ -24,9 +21,7 @@ in {
           cp -r . $out
         '';
       };
-
       cargoHash = "sha256-5U25Px5BnhOdGStoceDEujGFOjFPexmwuzzwMdUBOss=";
-
       nativeBuildInputs = with pkgs; [
         pkg-config
         pango
@@ -48,13 +43,15 @@ in {
       waybar
       brightnessctl
       networkmanagerapplet
-    #   networkmanager_dmenu
       pwvucontrol
     ];
-
     home-manager.users.${username} = {
-      xdg.configFile = mkConfigDir "waybar" ./config
-	  // {
+      xdg.configFile = {
+        "waybar/" = {
+          force = true;
+          recursive = true;
+          source = ./config;
+        };
         "waybar/libniri_taskbar.so" = {
           force = true;
           recursive = false;

@@ -1,7 +1,6 @@
-{ config, lib, pkgs, username, hostName, helpers, ... }:
+{ config, lib, pkgs, username, hostName, ... }:
 
 let
-  inherit (helpers) mkConfigDir mkHomeDir;
 # wanxiangGram = builtins.fetchurl {
 # 	url = "https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram";
 # 	sha256 = "sha256:153zlmfp416f9bl99szqs91ypwsz6z0139l543n3blibj8fhf6yx";
@@ -32,7 +31,11 @@ in
 {
 home-manager.users.${username} = {
 
-	xdg.configFile = mkConfigDir "fcitx5" ./config;
+	xdg.configFile."fcitx5/" = {
+		force = true;
+		recursive = true;
+		source = ./config;
+	};
 
 	home.file = {
 		".local/share/fcitx5/rime" = {
@@ -46,7 +49,13 @@ home-manager.users.${username} = {
 			# rm -f ~/.local/share/fcitx5/rime/build/*
 			'';
 		};
-	} // mkHomeDir ".local/share/fcitx5/" ./share;
+	} // {
+		".local/share/fcitx5/" = {
+			force = true;
+			recursive = true;
+			source = ./share;
+		};
+	};
 
 	home.sessionVariables = {
 	XMODIFIERS = "@im=fcitx";

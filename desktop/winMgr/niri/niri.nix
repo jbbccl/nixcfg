@@ -1,6 +1,21 @@
-{ config, lib, pkgs, username, helpers, ... }:
+{ config, lib, pkgs, username, ... }:
 let
-	inherit (helpers) mkConfigDir mkNiriOutputKdl;
+	mkKdlBlocks = name: mkLines: attrs:
+		builtins.concatStringsSep "\n" (
+			lib.mapAttrsToList (key: val:
+				let
+					body = builtins.concatStringsSep "\n" (mkLines key val);
+				in
+				if body == "" then "" else "${name} \"${key}\" {\n${body}\n}\n"
+			) attrs
+		);
+	mkNiriOutputKdl = mkKdlBlocks "output" (_: out:
+		     lib.optional out.off                     "    off"
+		  ++ lib.optional (out.mode != null)          "    mode \"${out.mode}\""
+		  ++ lib.optional (out.scale != null)         "    scale ${builtins.toString out.scale}"
+		  ++ lib.optional (out.transform != "normal") "    transform \"${out.transform}\""
+		  ++ lib.optional (out.position != null)      "    position x=${builtins.toString out.position.x} y=${builtins.toString out.position.y}"
+	);
 	cfg = config.desktop.winMgr.niri;
 	opt = t: d: lib.mkOption { type = t; default = d; };
 in {
@@ -26,9 +41,14 @@ in {
 		programs.niri.enable = true;
 
 		home-manager.users.${username}.xdg.configFile =
-		mkConfigDir "niri" ./config // {
-			"niri/output.kdl" = { text = mkNiriOutputKdl cfg.outputs; force = true; };
-		};
+			{
+				"niri/" = {
+					force = true;
+					recursive = true;
+					source = ./config;
+				};
+				"niri/output.kdl" = { text = mkNiriOutputKdl cfg.outputs; force = true; };
+			};
 
 	environment.systemPackages = with pkgs; [
 		xwayland-satellite

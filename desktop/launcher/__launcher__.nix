@@ -1,8 +1,10 @@
-{ config, lib, pkgs, username, helpers, ... }:
-let
-  inherit (helpers) mkConfigDir mkNullOrEnum;
-in {
-  options.desktop.launcher.select = mkNullOrEnum "app launcher" [ "fuzzel" "rofi" "wofi" ];
+{ config, lib, pkgs, username, ... }:
+{
+  options.desktop.launcher.select = lib.mkOption {
+    type = lib.types.nullOr (lib.types.enum [ "fuzzel" "rofi" "wofi" ]);
+    default = null;
+    description = "app launcher";
+  };
 
   config = lib.mkIf (config.desktop.launcher.select == "fuzzel") {
     environment.systemPackages = with pkgs; [
@@ -10,7 +12,11 @@ in {
     ];
 
     home-manager.users.${username} = {
-      xdg.configFile = mkConfigDir "fuzzel" ./fuzzel;
+      xdg.configFile."fuzzel/" = {
+        force = true;
+        recursive = true;
+        source = ./fuzzel;
+      };
     };
   };
 }

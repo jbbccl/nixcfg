@@ -1,7 +1,5 @@
-{ config, lib, pkgs, username, helpers, ... }:
-let
-  inherit (helpers) mkConfigDir mkHomeDir;
-in {
+{ config, lib, pkgs, username, ... }:
+{
   config = lib.mkIf (builtins.elem "labwc" config.desktop.winMgr.list) {
 	programs.labwc.enable = true;
 	environment.systemPackages = with pkgs; [
@@ -9,17 +7,23 @@ in {
 		xwayland-satellite
 		wl-clipboard
 	];
-
 	home-manager.users.${username} = {
 		dconf.settings = {
 			"org/gnome/desktop/wm/preferences" = {
 			button-layout = "appmenu:minimize,maximize,close";
 			};
 		};
-		xdg.configFile = mkConfigDir "labwc" ./config;
-		home.file = mkHomeDir ".local/share/themes/" ./themes;
+		xdg.configFile."labwc/" = {
+			force = true;
+			recursive = true;
+			source = ./config;
+		};
+		home.file.".local/share/themes/" = {
+			force = true;
+			recursive = true;
+			source = ./themes;
+		};
 	};
-
 	systemd.user.targets.labwc-session = {
 		description = "Labwc Compositor Session";
 		documentation = [ "man:systemd.special(7)" ];
@@ -27,7 +31,6 @@ in {
 		wants = [ "graphical-session.target" ];
 		after = [ "graphical-session.target" ];
 	};
-
 	xdg.portal = {
 		extraPortals = with pkgs; [xdg-desktop-portal-wlr];
 		config = {

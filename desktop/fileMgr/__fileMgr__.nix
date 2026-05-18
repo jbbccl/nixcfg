@@ -1,17 +1,13 @@
-{ config, pkgs, lib, helpers, ... }:
-let
-  inherit (helpers) mkNullOrListEnum;
-in {
+{ config, pkgs, lib, ... }:
+{
   imports = [
     ./dolphin.nix
     ./thunar.nix
   ];
 
-  options.desktop.fileMgr.list = mkNullOrListEnum "file managers" [ "dolphin" "thunar" ];
-
-  # config = lib.mkIf (lib.length (config.desktop.fileMgr.list or []) > 0) {
-  #   environment.systemPackages = with pkgs; [
-  #     ntfs3g
-  #   ];
-  # };
+  options.desktop.fileMgr.list = lib.mkOption {
+    type = lib.types.nullOr (lib.types.listOf (lib.types.enum [ "dolphin" "thunar" ]));
+    default = null;
+    description = "file managers";
+  };
 }

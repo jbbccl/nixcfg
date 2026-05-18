@@ -1,24 +1,27 @@
-{ config, lib, username, helpers, ... }: let
-  inherit (helpers) mkNullOrListEnum;
-in {
-	imports = [
-		./git.nix
+{ config, lib, username, ... }:
+{
+  imports = [
+    ./git.nix
 
-		./c-cpp.nix
-		./javascript.nix
-		./python.nix
-		./rust.nix
-		./go.nix
-		./java.nix
-	];
+    ./c-cpp.nix
+    ./javascript.nix
+    ./python.nix
+    ./rust.nix
+    ./go.nix
+    ./java.nix
+  ];
 
-	options.modules = {
-		development.languages = mkNullOrListEnum "langs" [ 
-			"c-cpp" "go" "java" "javascript" "python" "rust"
-		];
-	};
-	
-	config.environment.sessionVariables = {
-		PATH = [ "/home/${username}/.local/bin" ];
-	};
+  options.modules = {
+    development.languages = lib.mkOption {
+      type = lib.types.nullOr (lib.types.listOf (lib.types.enum [
+        "c-cpp" "go" "java" "javascript" "python" "rust"
+      ]));
+      default = null;
+      description = "langs";
+    };
+  };
+
+  config.environment.sessionVariables = {
+    PATH = [ "/home/${username}/.local/bin" ];
+  };
 }

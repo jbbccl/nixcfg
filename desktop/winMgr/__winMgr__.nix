@@ -1,7 +1,5 @@
-{ config, lib, pkgs, username, helpers, ... }:
-let
-  inherit (helpers) mkNullOrListEnum;
-in {
+{ config, lib, pkgs, username, ... }:
+{
   imports = [
     ./niri/niri.nix
     ./hypr/hypr.nix
@@ -9,7 +7,11 @@ in {
     ./mangowc/mangowc.nix
   ];
 
-  options.desktop.winMgr.list = mkNullOrListEnum "window managers" [ "niri" "labwc" "hypr" "mangowc" ];
+  options.desktop.winMgr.list = lib.mkOption {
+    type = lib.types.nullOr (lib.types.listOf (lib.types.enum [ "niri" "labwc" "hypr" "mangowc" ]));
+    default = null;
+    description = "window managers";
+  };
 
   config = lib.mkIf (config.desktop.winMgr.list != []) {
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -20,7 +22,6 @@ in {
       seahorse
     ];
 
-    # ── policy ─────────────────────────────────────────────────────
     security.polkit.enable = true;
     services.gnome.gnome-keyring.enable = true;
     systemd.user.services.polkit-gnome-authentication-agent-1 = {
@@ -37,7 +38,6 @@ in {
       };
     };
 
-    # ── portal ──────────────────────────────────────────────────────
     xdg = {
       mime.enable = true;
       menus.enable = true;

@@ -1,15 +1,16 @@
-{ config, lib, pkgs, helpers, ... }:
-let
-  inherit (helpers) mkNullOrEnum;
-in {
+{ config, lib, pkgs, ... }:
+{
   imports = [
     # ./sddm/sddm.nix
     ./greetd/greetd.nix
   ];
 
-  options.desktop.dispMgr.select = mkNullOrEnum "display manager" [ "greetd" "sddm" ];
+  options.desktop.dispMgr.select = lib.mkOption {
+    type = lib.types.nullOr (lib.types.enum [ "greetd" "sddm" ]);
+    default = null;
+    description = "display manager";
+  };
 
-  # ── UWSM: proper systemd session lifecycle (fixes systemctl --user exit races) ─
   config = lib.mkIf (config.desktop.winMgr.list != []) {
     programs.uwsm = {
       enable = true;
