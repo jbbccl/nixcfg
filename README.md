@@ -15,10 +15,14 @@ imports = [
 # 选择启用的桌面
 config.desktop.winMgr.list = [ "niri" ];
 ```
+
+## 使用整个配置
+
 原configuration存放在`/nixcfg/host`下  
 
 `secrets/__secrets__.nix:4`依赖sops解密服务的模块总开关, 没有密钥时关闭
 
+---
 # (agent readme)项目规范
 
 **项目基础架构，和项目结构同步更改**
