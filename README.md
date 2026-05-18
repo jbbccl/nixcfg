@@ -1,4 +1,25 @@
-# 项目规范
+# 非常模块化的nixos 配置
+
+赛博积木这一块    
+每个文件摘出去就能用, 例如fcitx输入法配置和WM配置.
+```
+desktop/input
+desktop/winMgr
+```
+可以直接import到你的config里
+```nix
+imports = [ 
+	./input/__input__.nix
+	./winMgr/__winMgr__.nix
+];
+# 选择启用的桌面
+config.desktop.winMgr.list = [ "niri" ];
+```
+原configuration存放在`/nixcfg/host`下  
+
+`secrets/__secrets__.nix:4`依赖sops解密服务的模块总开关, 没有密钥时关闭
+
+# (agent readme)项目规范
 
 **项目基础架构，和项目结构同步更改**
 
@@ -177,7 +198,7 @@ nixcfg/
 2. **选项就近定义**：选项放在消费它的 aggregate 文件中（`desktop/winMgr/__winMgr__.nix` 定义 `desktop.winMgr.list`）
 3. **mkDefault 默认值**：aggregate 层用 `lib.mkDefault true` 设默认，host 在 `special-opt.nix` 中覆写
 4. **条件激活**：所有 leaf 模块首行必须是 `lib.mkIf config.xxx.enable`
-
+5. **最小改动原则**: 每次增加功能只用简洁的语法造成最小的改动, 删除\简化则不受约束.
 ### lib/helpers.nix 函数一览
 `lib/helpers.nix` 提供以下可复用函数，被全项目引用：
 
