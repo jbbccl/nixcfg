@@ -76,20 +76,7 @@ input {
 	focus-follows-mouse max-scroll-amount="0%"
 }
 
-output "eDP-1" {
-	// off
-	mode "3414x2134@60.0"
-	// You can use integer or fractional scale, for example use 1.5 for 150% scale.
-	scale 1.5
-	// normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
-	transform "normal"
-	position x=1280 y=0
-}
-
-/-output "HDMI-A-1"{
- //  mode "1920x1080@119.996"
-}
-
+include "./output.kdl"
 layout {
 	gaps 4
 	background-color "#1e1e2e"

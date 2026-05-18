@@ -30,4 +30,25 @@ in rec {
 			inherit source;
 		};
 	};
+
+  # ── KDL generators ─────────────────────────────────────────────
+  # Generic: mkKdlBlocks "output" (name: out: [ "    mode ..." ]) outputs
+	mkKdlBlocks = name: mkLines: attrs:
+		builtins.concatStringsSep "\n" (
+			lib.mapAttrsToList (key: val:
+				let
+					body = builtins.concatStringsSep "\n" (mkLines key val);
+				in
+				if body == "" then "" else "${name} \"${key}\" {\n${body}\n}\n"
+			) attrs
+		);
+
+  # Niri-specific: mkNiriOutputKdl config.desktop.niri.outputs → output.kdl
+	mkNiriOutputKdl = mkKdlBlocks "output" (_: out:
+		     lib.optional out.off                     "    off"
+		  ++ lib.optional (out.mode != null)          "    mode \"${out.mode}\""
+		  ++ lib.optional (out.scale != null)         "    scale ${builtins.toString out.scale}"
+		  ++ lib.optional (out.transform != "normal") "    transform \"${out.transform}\""
+		  ++ lib.optional (out.position != null)      "    position x=${builtins.toString out.position.x} y=${builtins.toString out.position.y}"
+	);
 }

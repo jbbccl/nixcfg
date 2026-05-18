@@ -30,7 +30,7 @@ in {
 		./browser/__browser__.nix
 		# ./session/__session__.nix  # plasma/xfce full DE, conflicts with WM
 	];
-
+	#TODO命名改缩写, winMgr.list = [ xx xx ]; launcher.select = "xxx";
 	config = lib.mkMerge [
 		{ desktop.enable = lib.mkDefault true; }
 		(lib.mkIf config.desktop.enable {
