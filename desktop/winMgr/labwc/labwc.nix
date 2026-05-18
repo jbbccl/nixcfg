@@ -4,7 +4,7 @@ let
 in {
   config = lib.mkIf (builtins.elem "labwc" config.desktop.winMgr.list) {
 	programs.labwc.enable = true;
-	environment.systemPackages = with pkgs; [git
+	environment.systemPackages = with pkgs; [
 		wlr-randr
 		xwayland-satellite
 		wl-clipboard

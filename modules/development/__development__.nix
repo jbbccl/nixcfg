@@ -1,8 +1,6 @@
 { config, lib, username, helpers, ... }: let
-  inherit (helpers)
-    mkNullOrEnum mkNullOrListEnum;
+  inherit (helpers) mkNullOrListEnum;
 in {
-
 	imports = [
 		./git.nix
 
@@ -13,8 +11,14 @@ in {
 		./go.nix
 		./java.nix
 	];
+
+	options.modules = {
+		development.languages = mkNullOrListEnum "langs" [ 
+			"c-cpp" "go" "java" "javascript" "python" "rust"
+		];
+	};
 	
-	environment.sessionVariables = {
+	config.environment.sessionVariables = {
 		PATH = [ "/home/${username}/.local/bin" ];
 	};
 }
