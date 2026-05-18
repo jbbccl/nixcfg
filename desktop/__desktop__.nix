@@ -3,6 +3,22 @@ let
 	inherit (helpers)
 		mkNullOrEnum mkNullOrListEnum;
 in {
+	imports = [
+		./base/__base__.nix
+		./dispMgr/__dispMgr__.nix
+		./winMgr/__winMgr__.nix
+		./bar/__bar__.nix
+		./launcher/__launcher__.nix
+		./lock/__lock__.nix
+		./notif/__notif__.nix
+		./input/__input__.nix
+		./wallpaper/__wallpaper__.nix
+		./term/__term__.nix
+		./fileMgr/__fileMgr__.nix
+		./browser/__browser__.nix
+		# ./session/__session__.nix  # plasma/xfce full DE, conflicts with WM
+	];
+
 	options.desktop = {
 		enable = lib.mkEnableOption "desktop environment (WM, bar, DM, theme, etc.)";
 		windowManager = mkNullOrListEnum "window managers" [ "niri" "labwc" "hypr" "mangowc" ];
@@ -15,22 +31,6 @@ in {
 		fileManager = mkNullOrListEnum "file managers" [ "dolphin" "thunar" ];
 	};
 
-	imports = [
-		./base/__base__.nix
-		./display-manager/__displayMgr__.nix
-		./window-manager/__winMgr__.nix
-		./status-bar/__bar__.nix
-		./launcher/__launcher__.nix
-		./lock/__lock__.nix
-		./notification/__notification__.nix
-		./input/__input__.nix
-		./wallpaper/__wallpaper__.nix
-		./terminal/__terminal__.nix
-		./file-manager/__fileMgr__.nix
-		./browser/__browser__.nix
-		# ./session/__session__.nix  # plasma/xfce full DE, conflicts with WM
-	];
-	#TODO命名改缩写, winMgr.list = [ xx xx ]; launcher.select = "xxx";
 	config = lib.mkMerge [
 		{ desktop.enable = lib.mkDefault true; }
 		(lib.mkIf config.desktop.enable {

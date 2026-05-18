@@ -1,6 +1,7 @@
 { config, lib, pkgs, username, helpers, ... }:
 let
 	inherit (helpers) mkConfigDir mkNiriOutputKdl;
+	cfg = config.desktop.winMgr.niri;
 	opt = t: d: lib.mkOption { type = t; default = d; };
 in {
 	options.desktop.winMgr.niri.outputs = lib.mkOption {
@@ -26,7 +27,7 @@ in {
 
 		home-manager.users.${username}.xdg.configFile =
 		mkConfigDir "niri" ./config // {
-			"niri/output.kdl" = { text = mkNiriOutputKdl config.desktop.winMgr.niri.outputs; force = true; };
+			"niri/output.kdl" = { text = mkNiriOutputKdl cfg.outputs; force = true; };
 		};
 
 	environment.systemPackages = with pkgs; [
