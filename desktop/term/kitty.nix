@@ -1,7 +1,6 @@
 { config, pkgs, lib, username, hostName, ... }:
 lib.mkIf (config.desktop.term.select == "kitty") {
 	environment.systemPackages = with pkgs; [
-
 		kitty
 	];
 
@@ -17,11 +16,7 @@ lib.mkIf (config.desktop.term.select == "kitty") {
 			extraConfig = ''
                 include	current-theme.conf
 
-                font_size ${if hostName == "lap"
-                			then "14"
-                			else if hostName == "pc"
-                			then "14"
-                			else "14"}
+                font_size			14
                 font_family			Maple Mono NF CN ExtraLight
                 bold_font			Maple Mono NF CN Bold
                 italic_font			Maple Mono NF CN Italic
@@ -33,10 +28,10 @@ lib.mkIf (config.desktop.term.select == "kitty") {
 
                 # window
                 remember_window_size		yes
-                #hide_window_decorations		titlebar-only
+                #hide_window_decorations	titlebar-only
                 window_padding_width		0
                 background_opacity			0.80
-                background_blur			32
+                background_blur				32
 
                 # tab bar
                 tab_bar_edge                top

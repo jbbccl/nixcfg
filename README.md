@@ -1,7 +1,7 @@
 # 非常模块化的nixos 配置
 
 赛博积木这一块    
-每个文件摘出去就能用, 例如fcitx输入法配置和WM配置.
+每个目录摘出去就能用, 例如fcitx输入法配置和WM配置.
 ```
 desktop/input
 desktop/winMgr
