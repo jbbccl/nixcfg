@@ -1,6 +1,6 @@
-{ username, ... }: {
+{ username, hostName, ... }: {
 	networking = {
-		hostName = "nixos";
+		inherit hostName;
 		networkmanager.enable = true;
 		# networkmanager.wifi.backend = "iwd";
 		nftables.enable = true;
