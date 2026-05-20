@@ -8,7 +8,8 @@
 			"kernel.perf_event_paranoid" = 0;
 		};
 		kernelParams=[
-
+			# "quiet"
+			"systemd.show_status=0"
 		];
 
 		loader = {
