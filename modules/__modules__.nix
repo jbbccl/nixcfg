@@ -22,7 +22,7 @@
 				shells.enable                = true;
 				shells.fish.enable           = true;
 				shells.zsh.enable            = true;
-				virtual.enable               = true;
+				virtual.enable               = true;#TODO死开关
 				utilities.enable             = true;
 				utilities.neovim.enable      = true;
 				utilities.yazi.enable        = true;

@@ -1,24 +1,16 @@
-{ config, lib, pkgs, username, ... }:
+{ config, lib, ... }:
 {
-  options.desktop.lock.select = lib.mkOption {
-    type = lib.types.nullOr (lib.types.enum [ "swaylock" ]);
-    default = null;
-    description = "lock screen";
-  };
+	options.desktop.lock.select = lib.mkOption {
+		type = lib.types.nullOr (lib.types.enum [ "swaylock" ]);
+		default = null;
+		description = "lock screen";
+	};
 
-  config = lib.mkIf (config.desktop.lock.select == "swaylock") {
-    environment.systemPackages = with pkgs; [
-      swaylock
-    ];
+	imports = [
+		./swaylock/swaylock.nix
+	];
 
-    security.pam.services.swaylock = {};
-
-    home-manager.users.${username} = {
-      xdg.configFile."swaylock/" = {
-        force = true;
-        recursive = true;
-        source = ./swaylock;
-      };
-    };
-  };
+	config = lib.mkIf (config.desktop.lock.select == "swaylock") {
+		desktop.lock.swaylock.enable = lib.mkDefault true;
+	};
 }
