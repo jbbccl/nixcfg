@@ -1,20 +1,17 @@
-{ pkgs, username, ... }: {
+{ config, lib, pkgs, username, ... }:
+{
+	options.apps.toolkits.enable = lib.mkEnableOption "toolkits";
+
 	imports = [
 		./misc.nix
 		./vm-managers.nix
 		./wireshark.nix
 	];
 
-	home-manager.users.${username} = {
-		home.packages = with pkgs; [
-
-		];
-	# XDG_DATA_DIRS = "$XDG_DATA_DIRS:${config.home.homeDirectory}/custom-dir";
-	};
-	# environment.pathsToLink = [ "/share/applications" ];
-	#xdg.dataFile."applications".source = "/opt/toolkit/.Launch";
-	environment.sessionVariables = rec {
-		PATH = [ "/opt/toolkit/ass/bin" ];
-		XDG_DATA_DIRS = [ "/opt/toolkit/ass/" ];
+	config = lib.mkIf config.apps.toolkits.enable {
+		environment.sessionVariables = rec {
+			PATH = [ "/opt/toolkit/ass/bin" ];
+			XDG_DATA_DIRS = [ "/opt/toolkit/ass/" ];
+		};
 	};
 }

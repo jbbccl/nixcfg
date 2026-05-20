@@ -1,22 +1,26 @@
-{ config, pkgs, username, ... }:{
-	programs.firejail.enable = true;
-	
-	environment.systemPackages = with pkgs; [
-		glib
+{ config, lib, pkgs, ... }:
+{
+	options.modules.utilities.basic-tools.enable = lib.mkEnableOption "basic CLI tools";
 
-		vim
+	config = lib.mkIf config.modules.utilities.basic-tools.enable {
+		programs.firejail.enable = true;
 
-		wget curl
-		pciutils
+		environment.systemPackages = with pkgs; [
+			glib
 
-		ripgrep
-		fd fzf
-		tree # gettext
+			vim
 
-		file
-		_7zz-rar
+			wget curl
+			pciutils
 
-		# xclip
-		nmap
-	];
+			ripgrep
+			fd fzf
+			tree
+
+			file
+			_7zz-rar
+
+			nmap
+		];
+	};
 }

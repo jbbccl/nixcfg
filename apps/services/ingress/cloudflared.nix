@@ -2,7 +2,7 @@
 let
 cfg = config.apps.services.ingress;
 in
-lib.mkIf (cfg.enable && config.secrets.available) {
+lib.mkIf cfg.enable {
   services.cloudflared = {
     enable = true;
     tunnels."sh-tunnel" = {

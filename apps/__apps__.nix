@@ -1,12 +1,6 @@
 { config, lib, ... }:
 {
-	# TODO 自己声明option
-	options.apps = {
-		services.ai.enable          = lib.mkEnableOption "AI services (litellm, hermes, opencode)";
-		services.proxy.enable       = lib.mkEnableOption "proxy service (mihomo)";
-		services.ingress.enable     = lib.mkEnableOption "ingress services (cloudflared tunnel + nginx)";
-		services.remote-ctrl.enable = lib.mkEnableOption "remote control services (vnc, nginx basic auth)";
-	};
+	options.apps.enable = lib.mkEnableOption "applications";
 
 	imports = [
 		./services/__services__.nix
@@ -15,12 +9,22 @@
 		./game/__game__.nix
 	];
 
-	config.apps = lib.mkDefault {
-		services.ai.enable          = true;
-		services.proxy.enable       = true;
-		services.ingress.enable     = false;
-		services.remote-ctrl.enable = false;
-
-		game.steam.enable = true;
-	};
+	config = lib.mkMerge [
+		{ apps.enable = lib.mkDefault true; }
+		(lib.mkIf config.apps.enable {
+			apps = lib.mkDefault {
+				services.ai.enable          = true;
+				services.ai.hermes.enable   = true;
+				services.ai.litellm.enable  = true;
+				services.ai.opencode.enable = true;
+				services.proxy.enable       = true;
+				services.proxy.mihomo.enable = true;
+				services.ingress.enable     = false;
+				services.remote-ctrl.enable = false;
+				toolkits.enable             = true;
+				game.enable                 = true;
+				game.steam.enable           = true;
+			};
+		})
+	];
 }

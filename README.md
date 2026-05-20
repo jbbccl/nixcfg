@@ -20,9 +20,10 @@ config.desktop.winMgr.list = [ "niri" ];
 
 原configuration存放在`/nixcfg/host`下  
 
-`secrets/__secrets__.nix:4`依赖sops解密服务的模块总开关, 没有密钥时关闭
+`secrets/__secrets__.nix`管理 sops 密钥和 age 配置
 
 ---
+
 # (agent readme)项目规范
 
 **项目基础架构，和项目结构同步更改**
@@ -49,36 +50,44 @@ nixcfg/
 │       └── special-opt.nix
 │
 ├── core/               # Layer 0: NixOS 内核
+│   ├── __core__.nix    # enable 开关 + imports + 默认值
 │   ├── console.nix     # 控制台 (TTY 字体/键盘)
 │   ├── system.nix      # 时区/语言/nix 设置/sudo
 │   ├── user.nix        # 用户账户
 │   └── nix-ld.nix      # 非 Nix 二进制兼容
 │
 ├── modules/            # Layer 1: NixOS 模块扩展
-│   ├── services/       # 系统服务
-│   │   ├── audio.nix       # PipeWire
-│   │   ├── networking.nix
-│   │   ├── ssh.nix
-│   │   └── xserver.nix
-│   ├── shells/         # Shell 配置
-│   │   ├── bash/
-│   │   ├── fish/
-│   │   └── zsh/
-│   ├── development/    # 开发工具链
+│   ├── __modules__.nix     # enable 开关 + imports + lib.mkDefault 默认值
+│   ├── development/        # 开发工具链
+│   │   ├── __development__.nix  # languages option + imports
 │   │   ├── git.nix
 │   │   ├── go.nix
 │   │   ├── rust.nix
 │   │   └── ...
-│   ├── utilities/      # 系统工具
-│   │   ├── neovim/
-│   │   └── yazi/
-│   └── virtual/        # 虚拟化
-│       ├── container/
-│       └── hardware/
+│   ├── services/           # 系统服务
+│   │   ├── __services__.nix    # enable 开关 + imports
+│   │   ├── audio.nix           # PipeWire (自声明 enable)
+│   │   ├── ssh.nix             # SSH + GitHub 密钥
+│   │   └── xserver.nix         # X11 xkb
+│   ├── shells/             # Shell 配置
+│   │   ├── __shells__.nix      # enable 开关 + imports + 默认 shell
+│   │   ├── bash/
+│   │   ├── fish/
+│   │   └── zsh/
+│   ├── virtual/            # 虚拟化
+│   │   ├── __virtual__.nix     # enable 开关 + imports
+│   │   ├── container/
+│   │   └── hardware/
+│   └── utilities/          # 系统工具
+│       ├── __utilities__.nix   # enable 开关 + imports
+│       ├── neovim/
+│       ├── yazi/
+│       └── basic-tools.nix
 │
 ├── desktop/            # Layer 2: 桌面环境
-│   ├── __desktop__.nix # enable 开关 + imports + 默认值
+│   ├── __desktop__.nix # enable 开关 + imports + lib.mkDefault 默认值
 │   ├── base/           # 基础配置
+│   │   ├── __base__.nix
 │   │   ├── theme.nix   # 主题 (GTK/Qt/光标)
 │   │   └── fonts.nix   # 字体 (fontconfig)
 │   ├── dispMgr/        # greetd / sddm
@@ -94,30 +103,24 @@ nixcfg/
 │   └── wallpaper/      # waypaper
 │
 ├── apps/               # Layer 3: 用户应用
-│   ├── __apps__.nix    # 选项 (services/gui/cli/containers) + 默认值
+│   ├── __apps__.nix    # enable 开关 + imports + lib.mkDefault 默认值
 │   ├── services/       # 后台守护进程
+│   │   ├── __services__.nix # enable 开关 + imports
 │   │   ├── ai/             # litellm + hermes-agent + opencode
+│   │   │   └── __ai__.nix  # enable 开关 + sops 密钥 + 子模块默认值
 │   │   ├── proxy/          # mihomo
+│   │   │   └── __proxy__.nix   # enable 开关 + imports
+│   │   ├── ingress/        # cloudflared + nginx
+│   │   │   └── __ingress__.nix # enable/domain/port 选项 + sops 密钥
 │   │   └── remote-ctrl/    # nginx + wayvnc
-│   ├── gui/            # 桌面应用
-│   │   ├── misc.nix        # 杂项 GUI 工具
-│   │   ├── broser.nix
-│   │   ├── toolkit.nix     # /opt/toolkit
-│   │   ├── wireshark.nix
-│   │   └── vm-managers.nix
-│   ├── cli/            # 命令行工具
-│   │   └── misc.nix
+│   │       └── __remote-ctrl__.nix  # enable 开关 + imports
+│   ├── toolkits/       # /opt/toolkit 工具集
+│   │   └── __toolkits__.nix    # enable 开关 + imports
+│   ├── game/           # 游戏
+│   │   ├── __game__.nix      # enable 开关 + imports
+│   │   └── steam.nix         # Steam (自声明 enable)
 │   └── containers/     # 容器化应用
-│       ├── __containers__.nix  # 选项 + 导入 + mkDefault 默认值
-│       ├── entrypoint.sh       # 容器入口 dbus/PATH/XDG 初始化
-│       ├── environment         # 容器内环境变量
-│       ├── toolkit-profile.sh  # login shell profile
-│       ├── debian/            # Debian 每日容器
-│       │   ├── default.nix     # 模块 (构建服务 + CLI)
-│       │   └── Dockerfile
-│       └── kali/              # Kali 每日容器
-│           ├── default.nix     # 模块 (构建服务 + CLI)
-│           └── Dockerfile
+│       └── __containers__.nix    # enable 开关 + imports
 │
 ├── secrets/            # SOPS 加密密钥 (__secrets__.nix)
 └── static/             # 静态资源
@@ -135,7 +138,7 @@ nixcfg/
 | Layer 0 | `core/` | NixOS 内核配置，所有上层的基础 |
 | Layer 1 | `modules/` | 系统级模块扩展（服务、开发环境、Shell、虚拟化） |
 | Layer 2 | `desktop/` | 桌面环境（窗口管理器、显示管理器、输入法等） |
-| Layer 3 | `apps/` | 用户应用（后台服务 + GUI 应用 + 容器） |
+| Layer 3 | `apps/` | 用户应用（后台服务 + 工具集 + 游戏 + 容器） |
 
 ### 模块原则
 
@@ -150,6 +153,7 @@ nixcfg/
 
 | 文件 | 选项 | 类型 |
 |------|------|------|
+| `apps/__apps__.nix` | `apps.enable` / `apps.services.*.enable` / `apps.game.*.enable` / `apps.toolkits.enable` 默认值 | |
 | `desktop/__desktop__.nix` | `desktop.enable` | 顶层开关 |
 | `desktop/winMgr/__winMgr__.nix` | `desktop.winMgr.list` | `mkNullOrListEnum` |
 | `desktop/bar/__bar__.nix` | `desktop.bar.list` | `mkNullOrListEnum` |
@@ -160,13 +164,15 @@ nixcfg/
 | `desktop/term/__term__.nix` | `desktop.term.select` | `mkNullOrEnum` |
 | `desktop/fileMgr/__fileMgr__.nix` | `desktop.fileMgr.list` | `mkNullOrListEnum` |
 | `desktop/browser/__browser__.nix` | `desktop.browser.firefox.*` | `mkEnableOption` |
-| `modules/__modules__.nix` | `modules.*` | 模块大类开关 |
-| `apps/__apps__.nix` | `apps.*` | 应用大类开关 |
-| `apps/containers/__containers__.nix` | `apps.containers.*` | 容器实例开关 |
+| `modules/__modules__.nix` | `modules.enable` + 所有子模块 `lib.mkDefault` 默认值 | |
+| `modules/development/__development__.nix` | `modules.development.languages` | `mkNullOrListEnum` |
+| `apps/services/ai/__ai__.nix` | `apps.services.ai.enable` | `mkEnableOption` |
+| `apps/services/ingress/__ingress__.nix` | `apps.services.ingress.enable` / `domain` / `port` | `mkEnableOption` + `mkOption` |
+| `apps/services/proxy/mihomo/__mihomo__.nix` | `apps.services.proxy.mihomo.enable` | `mkEnableOption` |
 
 - `desktop.*` 使用 `mkNullOrEnum` / `mkNullOrListEnum` helper
 - `modules.*` 和 `apps.*` 使用标准 `mkEnableOption`
-- `__desktop__.nix` 集中设置 `lib.mkDefault` 默认值，主机只需在 `special-opt.nix` 中写差异
+- `__desktop__.nix`、`__apps__.nix`、`__modules__.nix` 集中设置 `lib.mkDefault` 默认值，主机只需在 `special-opt.nix` 中写差异
 
 ### 桌面组件
 
@@ -191,7 +197,7 @@ nixcfg/
 
 ### 约定
 
-1. `__*__.nix`代表一个摘出去能直接用的模块, 不需要考虑其子模块的独立性,如`apps/services/ai` 下子模块全都依赖`__ai__.nix`中定义的密钥
+1. `__*__.nix`代表一个摘出去能直接用的模块, 若导入的子模块不以`__xxx__.nix`命名则不需要考虑其的独立性,如`apps/services/ai` 下子模块全都依赖`__ai__.nix`中定义的密钥
 
 2. **自己声明选项**：每个带有config的模块, (包括不需要考虑再分的模块) 使用如下写法.
 at `apps/services/proxy/aaa/aaa.nix`
@@ -207,7 +213,7 @@ in
   };
 }
 ```
-并在`__apps__.nix` `__desktop__.nix` `__modules__.nix`中设置默认值.`__secrets__.nix`中`hasKey`为false时强制关闭依赖服务.
+并在`__apps__.nix` `__desktop__.nix` `__modules__.nix`中设置默认值.每个 `__*__.nix` 自声明 option，父模块只设 `lib.mkDefault` 默认值.
 
 3. **最小改动原则**: 每次增加功能只用简洁的语法造成最小的改动, 删除\简化则不受约束.比如能在变量里改动一处,就不要改动多处
 

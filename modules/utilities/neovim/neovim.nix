@@ -1,10 +1,12 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
-		# imports = [./nixvim];
-	# programs.neovim.enable = true;
-	environment.systemPackages = with pkgs; [neovim];
-	environment.sessionVariables = {
-		VISUAL = "nvim";
-		EDITOR = "nvim";
+	options.modules.utilities.neovim.enable = lib.mkEnableOption "neovim";
+
+	config = lib.mkIf config.modules.utilities.neovim.enable {
+		environment.systemPackages = with pkgs; [ neovim ];
+		environment.sessionVariables = {
+			VISUAL = "nvim";
+			EDITOR = "nvim";
+		};
 	};
 }

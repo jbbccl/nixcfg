@@ -1,5 +1,5 @@
 { self, config, lib, pkgs, username, ... }:
-lib.mkIf (config.apps.services.remote-ctrl.enable && config.secrets.available) {
+lib.mkIf config.apps.services.remote-ctrl.enable {
 
 # nix-shell -p apacheHttpd --run 'htpasswd -B -n dabianchaoren'
   sops.secrets.nginx-basic-auth-hash = {
