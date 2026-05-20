@@ -77,17 +77,19 @@ i18n = {
 					# qt6Packages.fcitx5-configtool
 					libime
 					librime-lua
-					librime-octagram #接入模型依赖TODO: 需要手动放入模型文件
+					# librime-octagram #接入模型依赖TODO: 需要手动放入模型文件
 
 					fcitx5-gtk
 					libsForQt5.fcitx5-qt
 					kdePackages.fcitx5-qt
 					fcitx5-lua
-					fcitx5-fluent
 					fcitx5-rime
 
 					rime-ice
-					# wanxiangGram
+
+					catppuccin-fcitx5
+					# fcitx5-nord
+					# fcitx5-fluent
 				];
 			};
 		};
