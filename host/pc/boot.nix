@@ -9,7 +9,7 @@
 		};
 		kernelParams=[
 			# "quiet"
-			"systemd.show_status=0"
+			# "systemd.show_status=0"
 		];
 
 		loader = {

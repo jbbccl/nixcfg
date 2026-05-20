@@ -189,29 +189,27 @@ nixcfg/
 
 本项目的模块导入**全部手动维护**，不使用 `imports = builtins.attrValues (builtins.readDir ./.)` 等自动发现。每个模块目录内有一个 `__<name>__.nix` 索引文件，显式列出所有子模块的 import 路径。
 
-### 为什么手动维护
-
-- **删除即生效**：移除一行 import 注释掉模块，不再需要找文件删
-- **加载顺序可控**：import 列表顺序决定合并顺序，后续模块可覆写前置模块
-- **依赖显式可见**：每个模块引了什么一目了然
-- **无隐性生效**：新建一个 `.nix` 文件不会自动激活，必须手动加入索引
-
 ### 约定
 
-1. **两层索引**：aggregate（`__*__.nix`）负责 imports + enable 开关 + mkDefault 默认值；leaf 文件只写 `config = lib.mkIf config.xxx.enable { ... }`
-2. **选项就近定义**：选项放在消费它的 aggregate 文件中（`desktop/winMgr/__winMgr__.nix` 定义 `desktop.winMgr.list`）
-3. **mkDefault 默认值**：aggregate 层用 `lib.mkDefault true` 设默认，host 在 `special-opt.nix` 中覆写
-4. **条件激活**：所有 leaf 模块首行必须是 `lib.mkIf config.xxx.enable`
-5. **最小改动原则**: 每次增加功能只用简洁的语法造成最小的改动, 删除\简化则不受约束.比如能在变量里改动一处,就不要改动多处
-### lib/helpers.nix 函数一览
-`lib/helpers.nix` 提供以下可复用函数，被全项目引用：
+1. `__*__.nix`代表一个摘出去能直接用的模块, 不需要考虑其子模块的独立性,如`apps/services/ai` 下子模块全都依赖`__ai__.nix`中定义的密钥
 
-| 函数 | 用途 | 出现次数 |
-|------|------|----------|
-| `mkNullOrEnum` | nullable enum option (单选) | 6 |
-| `mkNullOrListEnum` | nullable list-of-enum option (多选) | 3 |
-| `mkConfigDir` | xdg.configFile 目录绑定 (`force/recursive/source`) | 10+ |
-| `mkHomeDir` | home.file 目录绑定 | 2 |
+2. **自己声明选项**：每个带有config的模块, (包括不需要考虑再分的模块) 使用如下写法.
+at `apps/services/proxy/aaa/aaa.nix`
+```nix
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.apps.services.aaa; # 与路径对应
+in
+{
+  options.apps.services.aaa.enable = lib.mkEnableOption "..."; # bool用enable\ enum用select \ list 用list
+  config = lib.mkIf cfg.enable {
+    ...
+  };
+}
+```
+并在`__apps__.nix` `__desktop__.nix` `__modules__.nix`中设置默认值.`__secrets__.nix`中`hasKey`为false时强制关闭依赖服务.
+
+3. **最小改动原则**: 每次增加功能只用简洁的语法造成最小的改动, 删除\简化则不受约束.比如能在变量里改动一处,就不要改动多处
 
 备忘
 ```sh
