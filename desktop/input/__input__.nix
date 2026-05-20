@@ -1,10 +1,6 @@
 { config, lib, pkgs, username, hostName, ... }:
 
 let
-# wanxiangGram = builtins.fetchurl {
-# 	url = "https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram";
-# 	sha256 = "sha256:153zlmfp416f9bl99szqs91ypwsz6z0139l543n3blibj8fhf6yx";
-# };
 rime-ice-tag = "2026.03.26";
 rime-ice = pkgs.stdenvNoCC.mkDerivation {
 	pname = "rime-ice";
@@ -37,8 +33,8 @@ home-manager.users.${username} = {
 		source = ./config;
 	};
 
-	home.file = {
-		".local/share/fcitx5/rime" = {
+	xdg.dataFile = {
+		"fcitx5/rime/" = {
 			source = "${rime-ice}/share/rime-data";
 			force = true;
 			recursive = true;
@@ -49,22 +45,22 @@ home-manager.users.${username} = {
 			# rm -f ~/.local/share/fcitx5/rime/build/*
 			'';
 		};
-	} // {
-		".local/share/fcitx5/" = {
+
+		"fcitx5/" = {
 			force = true;
 			recursive = true;
 			source = ./share;
 		};
 	};
 
-	home.sessionVariables = {
-	XMODIFIERS = "@im=fcitx";
-	QT_IM_MODULE = "fcitx";
-	QT_IM_MODULES = "fcitx;ibus;wayland";
-	GTK_IM_MODULE = "fcitx";
-	SDL_IM_MODULE = "fcitx";
-	GLFW_IM_MODULE = "fcitx";
-	};
+	# home.sessionVariables = {
+	# 	XMODIFIERS = "@im=fcitx";
+	# 	QT_IM_MODULE = "fcitx";
+	# 	QT_IM_MODULES = "fcitx;ibus;wayland";
+	# 	GTK_IM_MODULE = "fcitx";
+	# 	SDL_IM_MODULE = "fcitx";
+	# 	GLFW_IM_MODULE = "fcitx";
+	# };
 };
 
 i18n = {
@@ -74,22 +70,9 @@ i18n = {
 		fcitx5 = {
 				waylandFrontend = true;
 				addons = with pkgs; [
-					# qt6Packages.fcitx5-configtool
-					libime
-					librime-lua
-					# librime-octagram #接入模型依赖TODO: 需要手动放入模型文件
-
-					fcitx5-gtk
-					libsForQt5.fcitx5-qt
-					kdePackages.fcitx5-qt
-					fcitx5-lua
 					fcitx5-rime
-
+					librime-lua
 					rime-ice
-
-					catppuccin-fcitx5
-					# fcitx5-nord
-					# fcitx5-fluent
 				];
 			};
 		};
