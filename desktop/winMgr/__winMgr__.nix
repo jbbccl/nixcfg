@@ -1,4 +1,7 @@
 { config, lib, pkgs, username, ... }:
+let
+	mkWmEnable = name: lib.mkDefault (builtins.elem name config.desktop.winMgr.list);
+in
 {
   imports = [
     ./niri/niri.nix
