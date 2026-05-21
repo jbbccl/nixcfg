@@ -19,6 +19,7 @@
 				services.audio.enable        = true;
 				services.ssh.enable          = true;
 				services.xserver.enable      = true;
+				services.kmscon.enable 		 = true;
 				shells.enable                = true;
 				shells.fish.enable           = true;
 				shells.zsh.enable            = true;

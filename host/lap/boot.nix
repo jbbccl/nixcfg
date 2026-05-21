@@ -12,6 +12,7 @@
 			"iommu=pt"
 			"i915.force_probe=!a7a0"
 			"xe.force_probe=a7a0"
+			"fbcon=font:TER16x32"
 		];
 
 		loader = {

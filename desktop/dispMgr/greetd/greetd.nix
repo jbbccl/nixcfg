@@ -2,6 +2,7 @@
 	config = lib.mkIf (config.desktop.dispMgr.select == "greetd") {
 		services.greetd = {
 			enable = true;
+			useTextGreeter = true;
 			settings = {
 				default_session = {
 					command = ''

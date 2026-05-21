@@ -5,12 +5,14 @@ let
 in {
 	options.core.console.font = lib.mkOption {
 		type = lib.types.str;
-		default = "Lat2-Terminus16";
-		description = "TTY console font";
+		default = "ter-v22b";
+		description = "TTY console font (console backend only)";
 	};
 
 	config = {
 		console = {
+			enable = true;
+			earlySetup = true;
 			font = cfg.font;
 			packages = [ pkgs.terminus_font ];
 			useXkbConfig = true;

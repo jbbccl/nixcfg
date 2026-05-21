@@ -10,8 +10,6 @@
 	system.stateVersion = "25.11";
 	home-manager.users.${username}.home.stateVersion = "25.11";
 
-	core.console.font = "ter-222n";#"ter-228n";
-
 	desktop.winMgr.niri.outputs = {
 		"eDP-1" = { mode = "3414x2134@60.0"; scale = 1.5; position = { x = 1280; y = 0; }; };
 		"DP-1"  = { mode = "1920x1080@120.000"; };

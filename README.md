@@ -142,62 +142,17 @@ nixcfg/
 
 ### 模块原则
 
-- **flake.nix** 为根节点，每个主机（lap/pc）通过 `desktop.*` 选项选择桌面组件
-- 每个目录对应一个 **NixOS 模块**，通过 `__*.nix` 索引文件聚合子模块
+- **flake.nix** 为根节点，每个主机（lap/pc）通过选项选择组件
+- 每个目录对应一个 **NixOS 模块**，通过 `__*__.nix` 索引文件聚合子模块
 - 非根节点通过 `import` 连接，任意节点移除不会对系统正常运行造成影响
-- 每个节点所需依赖及配置文件在节点内部完成
-
-### 选项定义 (Option)
-
-**分散定义**：每个子模块自包含 option 定义 + config 逻辑，删除 import 即清理干净。
-
-| 文件 | 选项 | 类型 |
-|------|------|------|
-| `apps/__apps__.nix` | `apps.enable` / `apps.services.*.enable` / `apps.game.*.enable` / `apps.toolkits.enable` 默认值 | |
-| `desktop/__desktop__.nix` | `desktop.enable` | 顶层开关 |
-| `desktop/winMgr/__winMgr__.nix` | `desktop.winMgr.list` | `mkNullOrListEnum` |
-| `desktop/bar/__bar__.nix` | `desktop.bar.list` | `mkNullOrListEnum` |
-| `desktop/dispMgr/__dispMgr__.nix` | `desktop.dispMgr.select` | `mkNullOrEnum` |
-| `desktop/launcher/__launcher__.nix` | `desktop.launcher.select` | `mkNullOrEnum` |
-| `desktop/lock/__lock__.nix` | `desktop.lock.select` | `mkNullOrEnum` |
-| `desktop/notif/__notif__.nix` | `desktop.notif.select` | `mkNullOrEnum` |
-| `desktop/term/__term__.nix` | `desktop.term.select` | `mkNullOrEnum` |
-| `desktop/fileMgr/__fileMgr__.nix` | `desktop.fileMgr.list` | `mkNullOrListEnum` |
-| `desktop/browser/__browser__.nix` | `desktop.browser.firefox.*` | `mkEnableOption` |
-| `modules/__modules__.nix` | `modules.enable` + 所有子模块 `lib.mkDefault` 默认值 | |
-| `modules/development/__development__.nix` | `modules.development.languages` | `mkNullOrListEnum` |
-| `apps/services/ai/__ai__.nix` | `apps.services.ai.enable` | `mkEnableOption` |
-| `apps/services/ingress/__ingress__.nix` | `apps.services.ingress.enable` / `domain` / `port` | `mkEnableOption` + `mkOption` |
-| `apps/services/proxy/mihomo/__mihomo__.nix` | `apps.services.proxy.mihomo.enable` | `mkEnableOption` |
-
-- `desktop.*` 使用 `mkNullOrEnum` / `mkNullOrListEnum` helper
-- `modules.*` 和 `apps.*` 使用标准 `mkEnableOption`
-- `__desktop__.nix`、`__apps__.nix`、`__modules__.nix` 集中设置 `lib.mkDefault` 默认值，主机只需在 `special-opt.nix` 中写差异
-
-### 桌面组件
-
-- 通过 `desktop.*.list` / `desktop.*.select` 选项进行开关，各模块内部使用 `mkIf` 自激活
-- `desktop.winMgr.list` 是列表类型：可同时启用多个 WM，登录界面切换，无需重构
-- 各 WM 自带的 portal 依赖只在该 WM 启用时安装
-- `desktop/__desktop__.nix` 设有公共默认值，减少 lap/pc 之间的重复
-
-### 三分支 nixpkgs overlay
-
-`lib/overlays.nix` 将 3 个 nixpkgs 分支注入到 package set：
-
-- `pkgs.stable`  — nixos-25.11（稳定版）
-- `pkgs.unstable` — nixos-unstable（滚动更新）
-- `pkgs.master`  — master（最新提交）
-
-全部开启 `allowUnfree = true`。在任意 NixOS/HM 模块中直接用 `pkgs.stable.firefox`、`pkgs.unstable.neovim` 等语法精确选择版本。
-
-## 手动维护模块规范
-
-本项目的模块导入**全部手动维护**，不使用 `imports = builtins.attrValues (builtins.readDir ./.)` 等自动发现。每个模块目录内有一个 `__<name>__.nix` 索引文件，显式列出所有子模块的 import 路径。
+- 每个以`__*__.nix`为入口的节点所需依赖及配置文件在节点内部完成, 禁用模块即禁用依赖
+- 每个子模块自包含 option 定义, 删除 import 即清理干净, 详见 `###约定 2. 自己声明选项` 
 
 ### 约定
 
-1. `__*__.nix`代表一个摘出去能直接用的模块, 若导入的子模块不以`__xxx__.nix`命名则不需要考虑其的独立性,如`apps/services/ai` 下子模块全都依赖`__ai__.nix`中定义的密钥
+0. 本项目的模块导入**全部手动维护**，不使用 `imports = builtins.attrValues (builtins.readDir ./.)` 等自动发现。每个模块目录内有一个 `__<name>__.nix` 索引文件，显式列出所有子模块的 import 路径。
+
+1. `__*__.nix`代表一个摘出去能直接用的模块, 若导入的子模块不以`__*__.nix`命名则不需要考虑其的独立性,如`apps/services/ai` 下子模块不以`__*__.nix`命名, 可以全都依赖`__ai__.nix`中定义的密钥
 
 2. **自己声明选项**：每个带有config的模块, (包括不需要考虑再分的模块) 使用如下写法.
 at `apps/services/proxy/aaa/aaa.nix`
@@ -216,6 +171,14 @@ in
 并在`__apps__.nix` `__desktop__.nix` `__modules__.nix`中设置默认值.每个 `__*__.nix` 自声明 option，父模块只设 `lib.mkDefault` 默认值.
 
 3. **最小改动原则**: 每次增加功能只用简洁的语法造成最小的改动, 删除\简化则不受约束.比如能在变量里改动一处,就不要改动多处
+
+
+### 桌面组件
+
+- 通过 `desktop.*.list` / `desktop.*.select` 选项进行开关，各模块内部使用 `mkIf` 自激活
+- `desktop.winMgr.list` 是列表类型：可同时启用多个 WM，登录界面切换，无需重构
+- 各 WM 自带的 portal 依赖只在该 WM 启用时安装
+- `desktop/__desktop__.nix` 设有公共默认值，减少 lap/pc 之间的重复
 
 备忘
 ```sh

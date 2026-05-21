@@ -1,8 +1,15 @@
-{ config, pkgs, ... }:{
+{ config, lib, pkgs, ... }:{
 	boot = {
-		# kernelPackages = pkgs.stable.linuxPackages_zen;
-		kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-		# kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
+		kernelPackages = pkgs.linuxKernel.packages.linux_zen.extend (kself: ksuper: {
+			kernel = ksuper.kernel.override {
+				structuredExtraConfig = with lib.kernel; {
+					MZEN3 = yes;
+					FONT_TER10x18 = yes;
+				};
+				ignoreConfigErrors = true;
+			};
+		});
+
 		supportedFilesystems = [ "ntfs" ];
 		kernel.sysctl = {
 			"kernel.perf_event_paranoid" = 0;
@@ -10,6 +17,7 @@
 		kernelParams=[
 			# "quiet"
 			# "systemd.show_status=0"
+			"fbcon=font:TER16x32"#16x32"
 		];
 
 		loader = {

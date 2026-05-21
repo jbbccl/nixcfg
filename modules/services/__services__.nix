@@ -6,5 +6,6 @@
 		./audio.nix
 		./ssh.nix
 		./xserver.nix
+		./kmscon.nix
 	];
 }
