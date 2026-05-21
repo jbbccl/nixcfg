@@ -23,6 +23,8 @@ virtualisation = {
 	};
 };
 
+networking.firewall.trustedInterfaces = [ "waydroid0" ];
+
 users.users.${username}.extraGroups = [ "podman" ];
 
 home-manager.users.${username} = {

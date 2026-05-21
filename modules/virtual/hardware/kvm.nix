@@ -17,6 +17,8 @@ environment.systemPackages = with pkgs; [
 	OVMFFull  # UEFI 固件支持
 ];
 
+networking.firewall.trustedInterfaces = [ "virbr0" ];
+
 users.users.${username}.extraGroups = [ "libvirtd" "kvm" ];
 
 # 开启嵌套虚拟化

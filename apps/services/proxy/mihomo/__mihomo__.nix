@@ -35,6 +35,7 @@ in
 			webui = pkgs.metacubexd;
 			tunMode = true;
 		};
+		networking.firewall.trustedInterfaces = [ "Meta" ];
 
 		systemd.services.mihomo.serviceConfig.BindReadOnlyPaths = [
 			"${geodata}/GeoSite.dat:/var/lib/private/mihomo/GeoSite.dat"

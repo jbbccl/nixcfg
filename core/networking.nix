@@ -4,16 +4,7 @@
 		networkmanager.enable = true;
 		# networkmanager.wifi.backend = "iwd";
 		nftables.enable = true;
-		firewall = {
-			enable = true;
-			allowedTCPPorts = [
-				53317
-			];
-			allowedUDPPorts = [
-				53317
-			];
-			trustedInterfaces = [ "waydroid0" "virbr0" "Meta" ];
-		};
+		firewall.enable = true;
 	};
 	users.users.${username}.extraGroups = [ "networkmanager" ];
 

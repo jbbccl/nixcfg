@@ -6,6 +6,11 @@ in
 	environment.systemPackages = with pkgs; [
 		kdePackages.partitionmanager
 	];
+	# locosend
+	networking.firewall={
+		allowedTCPPorts = [ 53317 ];
+		allowedUDPPorts = [ 53317 ];
+	};
 
 	home-manager.users.${username} = {
 		home.packages = with pkgs; [
