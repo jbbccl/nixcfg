@@ -8,6 +8,7 @@ in
 	options.apps.services.ai.hermes.enable = lib.mkEnableOption "hermes-agent (container mode)";
 
 	config = lib.mkIf cfg.enable {
+		# users.users.${username}.linger = true;
 		services.hermes-agent = {
 			enable = true;
 
@@ -37,6 +38,11 @@ in
 			# 	};
 			# };
 			environmentFiles = [ config.sops.secrets.api-key-env.path ];
+		};
+
+		systemd.services.hermes-agent = {
+			after = [ "user@${uid}.service" ];
+			requires = [ "user@${uid}.service" ];
 		};
 
 		system.activationScripts."hermes-agent-fix-ownership" = lib.stringAfter [ "hermes-agent-setup" ] ''
