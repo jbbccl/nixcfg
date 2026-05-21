@@ -1,4 +1,4 @@
-{ config, lib, pkgs, username, hostName, ... }:
+{ config, lib, pkgs, username, ... }:
 
 let
 	cfg = config.desktop.input;

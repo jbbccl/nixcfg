@@ -8,12 +8,15 @@ desktop/winMgr
 ```
 可以直接import到你的config里
 ```nix
+# 如果模块需要的参数不在flake specialArg里
+_module.args.username = "your_user_name";
 imports = [ 
 	./input/__input__.nix
 	./winMgr/__winMgr__.nix
 ];
-# 选择启用的桌面
-config.desktop.winMgr.list = [ "niri" ];
+# 选择启用的输入法和桌面
+desktop.input.select = "fcitx5";
+desktop.winMgr.list = [ "niri" ];
 ```
 
 ## 使用整个配置

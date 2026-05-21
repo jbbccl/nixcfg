@@ -1,4 +1,4 @@
-{ config, pkgs, lib, username, hostName, ... }:
+{ config, pkgs, lib, username, ... }:
 lib.mkIf (config.desktop.term.select == "kitty") {
 	environment.systemPackages = with pkgs; [
 		kitty

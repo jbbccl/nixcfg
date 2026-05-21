@@ -1,4 +1,4 @@
-{ config, pkgs, username, hostName, lib, ... }:
+{ config, pkgs, username, lib, ... }:
 let
 	fontName = "Maple Mono NF CN";
 	fontSize = config.desktop.base.fontSize;
