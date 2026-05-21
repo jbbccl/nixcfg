@@ -1,5 +1,11 @@
-{ config, lib, pkgs, username, ... }: {
-  config = lib.mkIf (builtins.elem "mangowc" config.desktop.winMgr.list) {
+{ config, lib, pkgs, username, ... }:
+let
+	cfg = config.desktop.winMgr.mangowc;
+in
+{
+	options.desktop.winMgr.mangowc.enable = lib.mkEnableOption "mangowc window manager";
+
+	config = lib.mkIf cfg.enable {
     programs.mango.enable = true;
 
     xdg.portal = {

@@ -36,22 +36,25 @@ nixcfg/
 ├── flake.lock
 ├── .sops.yaml
 ├── lib/                # 工具库
-│   ├── default.nix     # 聚合导出 (nixpkgsOverlays + validators + helpers)
-│   ├── overlays.nix    # 三分支 nixpkgs overlay (stable/unstable/master)
-│   ├── helpers.nix     # mkNullOrEnum, mkConfigDir, mkHomeDir
-│   └── validators.nix  # 类型校验扩展
+│   ├── default.nix     # 聚合导出 (nixpkgsOverlays)
+│   └── overlays.nix    # 三分支 nixpkgs overlay (stable/unstable/master)
 ├── host/               # 主机配置
 │   ├── common.nix      # 共享配置聚合
 │   ├── lap/
-│   │   ├── ...
-│   │   └── special-opt.nix  # 主机差异选项
+│   │   ├── configuration.nix
+│   │   ├── hardware-configuration.nix
+│   │   ├── boot.nix
+│   │   └── driver.nix        # 主机差异驱动
 │   └── pc/
-│       ├── ...
-│       └── special-opt.nix
+│       ├── configuration.nix
+│       ├── hardware-configuration.nix
+│       ├── boot.nix
+│       └── driver.nix
 │
 ├── core/               # Layer 0: NixOS 内核
 │   ├── __core__.nix    # enable 开关 + imports + 默认值
 │   ├── console.nix     # 控制台 (TTY 字体/键盘)
+│   ├── networking.nix  # 网络 (防火墙/NetworkManager)
 │   ├── system.nix      # 时区/语言/nix 设置/sudo
 │   ├── user.nix        # 用户账户
 │   └── nix-ld.nix      # 非 Nix 二进制兼容
@@ -60,13 +63,17 @@ nixcfg/
 │   ├── __modules__.nix     # enable 开关 + imports + lib.mkDefault 默认值
 │   ├── development/        # 开发工具链
 │   │   ├── __development__.nix  # languages option + imports
+│   │   ├── c-cpp.nix
 │   │   ├── git.nix
 │   │   ├── go.nix
-│   │   ├── rust.nix
-│   │   └── ...
+│   │   ├── java.nix
+│   │   ├── javascript.nix
+│   │   ├── python.nix
+│   │   └── rust.nix
 │   ├── services/           # 系统服务
 │   │   ├── __services__.nix    # enable 开关 + imports
 │   │   ├── audio.nix           # PipeWire (自声明 enable)
+│   │   ├── kmscon.nix          # kmscon 虚拟终端
 │   │   ├── ssh.nix             # SSH + GitHub 密钥
 │   │   └── xserver.nix         # X11 xkb
 │   ├── shells/             # Shell 配置
@@ -76,8 +83,13 @@ nixcfg/
 │   │   └── zsh/
 │   ├── virtual/            # 虚拟化
 │   │   ├── __virtual__.nix     # enable 开关 + imports
-│   │   ├── container/
-│   │   └── hardware/
+│   │   ├── container/          # 容器运行时
+│   │   │   ├── default.nix
+│   │   │   ├── appimage.nix
+│   │   │   └── container.nix
+│   │   └── hardware/           # 硬件加速虚拟化
+│   │       ├── default.nix
+│   │       └── kvm.nix
 │   └── utilities/          # 系统工具
 │       ├── __utilities__.nix   # enable 开关 + imports
 │       ├── neovim/
@@ -91,14 +103,15 @@ nixcfg/
 │   │   ├── theme.nix   # 主题 (GTK/Qt/光标)
 │   │   └── fonts.nix   # 字体 (fontconfig)
 │   ├── dispMgr/        # greetd / sddm
+│   ├── session/        # 桌面会话 (plasma / xfce)
 │   ├── winMgr/         # niri / hypr / labwc / mangowc
 │   ├── bar/            # waybar / noctalia
 │   ├── launcher/       # fuzzel / rofi / wofi
-│   ├── lock/           # swaylock
+│   ├── lock/           # swaylock / wlogout
 │   ├── notif/          # mako / swaync
 │   ├── term/           # kitty / alacritty
 │   ├── fileMgr/        # dolphin / thunar
-│   ├── browser/        # firefox
+│   ├── browser/        # firefox / other
 │   ├── input/          # fcitx5 / rime
 │   └── wallpaper/      # waypaper
 │
@@ -115,12 +128,17 @@ nixcfg/
 │   │   └── remote-ctrl/    # nginx + wayvnc
 │   │       └── __remote-ctrl__.nix  # enable 开关 + imports
 │   ├── toolkits/       # /opt/toolkit 工具集
-│   │   └── __toolkits__.nix    # enable 开关 + imports
+│   │   ├── __toolkits__.nix    # enable 开关 + imports
+│   │   ├── misc.nix           # 杂项工具
+│   │   ├── vm-managers.nix    # 虚拟机管理
+│   │   └── wireshark.nix      # 网络分析
 │   ├── game/           # 游戏
 │   │   ├── __game__.nix      # enable 开关 + imports
 │   │   └── steam.nix         # Steam (自声明 enable)
 │   └── containers/     # 容器化应用
-│       └── __containers__.nix    # enable 开关 + imports
+│       ├── __containers__.nix    # enable 开关 + imports
+│       ├── debian/
+│       └── kali/
 │
 ├── secrets/            # SOPS 加密密钥 (__secrets__.nix)
 └── static/             # 静态资源

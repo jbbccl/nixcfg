@@ -28,6 +28,7 @@
         launcher.select = "fuzzel";
         lock.select = "swaylock";
         notif.select = "mako";
+        input.select = "fcitx5";
         dispMgr.select = "greetd";
         term.select = "kitty";
         fileMgr.list = [ "dolphin" "thunar" ];

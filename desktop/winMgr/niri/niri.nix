@@ -1,5 +1,6 @@
 { config, lib, pkgs, username, ... }:
 let
+	cfg = config.desktop.winMgr.niri;
 	mkKdlBlocks = name: mkLines: attrs:
 		builtins.concatStringsSep "\n" (
 			lib.mapAttrsToList (key: val:
@@ -16,9 +17,9 @@ let
 		  ++ lib.optional (out.transform != "normal") "    transform \"${out.transform}\""
 		  ++ lib.optional (out.position != null)      "    position x=${builtins.toString out.position.x} y=${builtins.toString out.position.y}"
 	);
-	cfg = config.desktop.winMgr.niri;
 	opt = t: d: lib.mkOption { type = t; default = d; };
 in {
+	options.desktop.winMgr.niri.enable = lib.mkEnableOption "niri window manager";
 	options.desktop.winMgr.niri.outputs = lib.mkOption {
 		type = lib.types.attrsOf (lib.types.submodule {
 			options = {
@@ -37,7 +38,7 @@ in {
 		default = {};
 	};
 
-	config = lib.mkIf (builtins.elem "niri" config.desktop.winMgr.list) {
+	config = lib.mkIf cfg.enable {
 		programs.niri.enable = true;
 
 		home-manager.users.${username}.xdg.configFile =

@@ -1,6 +1,11 @@
 { config, lib, pkgs, username, ... }:
+let
+	cfg = config.desktop.winMgr.labwc;
+in
 {
-  config = lib.mkIf (builtins.elem "labwc" config.desktop.winMgr.list) {
+	options.desktop.winMgr.labwc.enable = lib.mkEnableOption "labwc window manager";
+
+	config = lib.mkIf cfg.enable {
 	programs.labwc.enable = true;
 	environment.systemPackages = with pkgs; [
 		wlr-randr

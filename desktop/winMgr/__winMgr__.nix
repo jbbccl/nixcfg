@@ -14,6 +14,11 @@
   };
 
   config = lib.mkIf (config.desktop.winMgr.list != []) {
+	desktop.winMgr.niri.enable    = mkWmEnable "niri";
+	desktop.winMgr.labwc.enable   = mkWmEnable "labwc";
+	desktop.winMgr.hypr.enable    = mkWmEnable "hypr";
+	desktop.winMgr.mangowc.enable = mkWmEnable "mangowc";
+
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     environment.systemPackages = with pkgs; [

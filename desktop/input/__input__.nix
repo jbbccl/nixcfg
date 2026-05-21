@@ -1,81 +1,89 @@
 { config, lib, pkgs, username, hostName, ... }:
 
 let
-rime-ice-tag = "2026.03.26";
-rime-ice = pkgs.stdenvNoCC.mkDerivation {
-	pname = "rime-ice";
-	version = rime-ice-tag;
+	cfg = config.desktop.input;
+	rime-ice-tag = "2026.03.26";
+	rime-ice = pkgs.stdenvNoCC.mkDerivation {
+		pname = "rime-ice";
+		version = rime-ice-tag;
 
-	src = pkgs.fetchFromGitHub {
-		owner = "iDvel";
-		repo = "rime-ice";
-		rev = rime-ice-tag;
-		hash = "sha256-hRtA1cYAQm7M+dPSThedqKogr8YMkP9WQFEZw5pdCbU=";
+		src = pkgs.fetchFromGitHub {
+			owner = "iDvel";
+			repo = "rime-ice";
+			rev = rime-ice-tag;
+			hash = "sha256-hRtA1cYAQm7M+dPSThedqKogr8YMkP9WQFEZw5pdCbU=";
+		};
+
+		installPhase = ''
+		mkdir -p $out/share/rime-data
+		rm -rf ./others
+		rm -f README.md LICENSE
+		rm -rf ./.github
+		#rm squirrel.yaml weasel.yaml double_pinyin* radical_pinyin*
+		rm default.yaml custom_phrase.txt
+		cp -r ./* $out/share/rime-data
+		'';
 	};
-
-	installPhase = ''
-	mkdir -p $out/share/rime-data
-	rm -rf ./others
-	rm -f README.md LICENSE
-	rm -rf ./.github
-	#rm squirrel.yaml weasel.yaml double_pinyin* radical_pinyin*
-	rm default.yaml custom_phrase.txt
-	cp -r ./* $out/share/rime-data
-	'';
-};
 in
 {
-home-manager.users.${username} = {
-
-	xdg.configFile."fcitx5/" = {
-		force = true;
-		recursive = true;
-		source = ./config;
+	options.desktop.input.select = lib.mkOption {
+		type = lib.types.nullOr (lib.types.enum [ "fcitx5" ]);
+		default = null;
+		description = "input method framework";
 	};
 
-	xdg.dataFile = {
-		"fcitx5/rime/" = {
-			source = "${rime-ice}/share/rime-data";
+	config = lib.mkIf (cfg.select == "fcitx5") {
+		home-manager.users.${username} = {
+
+		xdg.configFile."fcitx5/" = {
 			force = true;
 			recursive = true;
-			onChange = ''
-			mkdir -p ~/.local/share/fcitx5/rime
-			chmod -R u+w ~/.local/share/fcitx5/rime
-			rm -f ~/.local/share/fcitx5/rime/*.bin
-			# rm -f ~/.local/share/fcitx5/rime/build/*
-			'';
+			source = ./config;
 		};
 
-		"fcitx5/" = {
-			force = true;
-			recursive = true;
-			source = ./share;
+		xdg.dataFile = {
+			"fcitx5/rime/" = {
+				source = "${rime-ice}/share/rime-data";
+				force = true;
+				recursive = true;
+				onChange = ''
+				mkdir -p ~/.local/share/fcitx5/rime
+				chmod -R u+w ~/.local/share/fcitx5/rime
+				rm -f ~/.local/share/fcitx5/rime/*.bin
+				# rm -f ~/.local/share/fcitx5/rime/build/*
+				'';
+			};
+
+			"fcitx5/" = {
+				force = true;
+				recursive = true;
+				source = ./share;
+			};
 		};
-	};
 
-	# home.sessionVariables = {
-	# 	XMODIFIERS = "@im=fcitx";
-	# 	QT_IM_MODULE = "fcitx";
-	# 	QT_IM_MODULES = "fcitx;ibus;wayland";
-	# 	GTK_IM_MODULE = "fcitx";
-	# 	SDL_IM_MODULE = "fcitx";
-	# 	GLFW_IM_MODULE = "fcitx";
-	# };
-};
+		# home.sessionVariables = {
+		# 	XMODIFIERS = "@im=fcitx";
+		# 	QT_IM_MODULE = "fcitx";
+		# 	QT_IM_MODULES = "fcitx;ibus;wayland";
+		# 	GTK_IM_MODULE = "fcitx";
+		# 	SDL_IM_MODULE = "fcitx";
+		# 	GLFW_IM_MODULE = "fcitx";
+		# };
+		};
 
-i18n = {
-	inputMethod = {
-		type = "fcitx5";
-		enable = true;
-		fcitx5 = {
-				waylandFrontend = true;
-				addons = with pkgs; [
-					fcitx5-rime
-					librime-lua
-					rime-ice
-				];
+		i18n = {
+			inputMethod = {
+				type = "fcitx5";
+				enable = true;
+				fcitx5 = {
+					waylandFrontend = true;
+					addons = with pkgs; [
+						fcitx5-rime
+						librime-lua
+						rime-ice
+					];
+				};
 			};
 		};
 	};
-
 }

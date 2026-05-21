@@ -1,6 +1,11 @@
 { config, lib, pkgs, username, ... }:
+let
+	cfg = config.desktop.winMgr.hypr;
+in
 {
-  config = lib.mkIf (builtins.elem "hypr" config.desktop.winMgr.list) {
+	options.desktop.winMgr.hypr.enable = lib.mkEnableOption "hyprland window manager";
+
+	config = lib.mkIf cfg.enable {
 	programs.hyprland.enable = true;
 	environment.systemPackages = with pkgs; [
 		xwayland-satellite
