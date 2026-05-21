@@ -170,25 +170,45 @@ nixcfg/
 
 0. 本项目的模块导入**全部手动维护**，不使用 `imports = builtins.attrValues (builtins.readDir ./.)` 等自动发现。每个模块目录内有一个 `__<name>__.nix` 索引文件，显式列出所有子模块的 import 路径。
 
-1. `__*__.nix`代表一个摘出去能直接用的模块, 若导入的子模块不以`__*__.nix`命名则不需要考虑其的独立性,如`apps/services/ai` 下子模块不以`__*__.nix`命名, 可以全都依赖`__ai__.nix`中定义的密钥
+1. `__*__.nix`代表一个摘出去能直接用的模块, 若导入的子模块不以`__*__.nix`命名则不需要考虑其独立性,如`apps/services/ai` 下子模块不以`__*__.nix`命名, 可以全都依赖`__ai__.nix`中定义的密钥
 
 2. **自己声明选项**：每个带有config的模块, (包括不需要考虑再分的模块) 使用如下写法.
-at `apps/services/proxy/aaa/aaa.nix`
-```nix
-{ config, lib, pkgs, ... }:
-let
-  cfg = config.apps.services.aaa; # 与路径对应
-in
-{
-  options.apps.services.aaa.enable = lib.mkEnableOption "..."; # bool用enable\ enum用select \ list 用list
-  config = lib.mkIf cfg.enable {
-    ...
-  };
-}
-```
-并在`__apps__.nix` `__desktop__.nix` `__modules__.nix`中设置默认值.每个 `__*__.nix` 自声明 option，父模块只设 `lib.mkDefault` 默认值.
+	at `apps/services/proxy/aaa/aaa.nix`
+	```nix
+	{ config, lib, pkgs, ... }:
+	let
+	cfg = config.apps.services.aaa; # 与路径对应
+	in
+	{
+	options.apps.services.aaa.enable = lib.mkEnableOption "...";
+	config = lib.mkIf cfg.enable {
+		...
+	};
+	}
+	```
+	并在`__apps__.nix` `__desktop__.nix` `__modules__.nix`中设置默认值.每个 `__*__.nix` 自声明 option，父模块只设 `lib.mkDefault` 默认值.
 
-3. **最小改动原则**: 每次增加功能只用简洁的语法造成最小的改动, 删除\简化则不受约束.比如能在变量里改动一处,就不要改动多处
+3. 对2的补充, 模块对外提供的option目前有以下三种, 启用 .enable | 单选 select | 多选 list ,
+	在__desktop__.nix中,为了方便批量选择和选择防止冲突使用多选和单选方法, 每个叶子模块仍用.enable设置boolean, 在父节点(.list option定义处)设置select或list选择逻辑  
+	如`desktop/winMgr/__winMgr__.nix`
+	```nix
+	...
+	let
+		mkWmEnable = name: lib.mkDefault (builtins.elem name config.desktop.winMgr.list);
+	in
+	{
+		# 定义list
+		options.desktop.winMgr.list = ...
+			# 实现list选择逻辑
+			desktop.winMgr.niri.enable    = mkWmEnable "niri";
+			desktop.winMgr.labwc.enable   = mkWmEnable "labwc";
+			desktop.winMgr.hypr.enable    = mkWmEnable "hypr";
+			desktop.winMgr.mangowc.enable = mkWmEnable "mangowc";
+		...
+	}
+	```
+
+4. **最小改动原则**: 每次增加功能只用简洁的语法造成最小的改动, 删除\简化则不受约束.比如能在变量里改动一处,就不要改动多处
 
 
 ### 桌面组件

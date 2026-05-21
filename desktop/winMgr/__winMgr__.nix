@@ -11,8 +11,8 @@ in
   ];
 
   options.desktop.winMgr.list = lib.mkOption {
-    type = lib.types.nullOr (lib.types.listOf (lib.types.enum [ "niri" "labwc" "hypr" "mangowc" ]));
-    default = null;
+    type = lib.types.listOf (lib.types.enum [ "niri" "labwc" "hypr" "mangowc" ]);
+    default = [];
     description = "window managers";
   };
 
