@@ -1,26 +1,31 @@
-{ config, pkgs, username, ... }:
-
+{ config, lib, pkgs, username, ... }:
+let
+	cfg = config.modules.virtual.hardware.kvm;
+in
 {
-# 1. 启用 Libvirt 守护进程 (管理 KVM 的核心)
-virtualisation.libvirtd = {
-	enable = true;
-	# 可选：让它在关机时挂起虚拟机而不是直接断电
-	onShutdown = "suspend";
-};
+	options.modules.virtual.hardware.kvm.enable = lib.mkEnableOption "KVM virtualization (libvirtd)";
 
-# Virt-Manager 图形化,放到packages中
-# programs.virt-manager.enable = true;
+	config = lib.mkIf cfg.enable {
+		virtualisation.libvirtd = {
+			enable = true;
+			onShutdown = "suspend";
+		};
 
-environment.systemPackages = with pkgs; [
-	qemu
-	qemu_kvm
-	OVMFFull  # UEFI 固件支持
-];
+		systemd.services.libvirtd = {
+			wantedBy = lib.mkForce [];
+			postStart = ''
+				${pkgs.libvirt}/bin/virsh net-start default 2>/dev/null || true
+			'';
+		};
 
-networking.firewall.trustedInterfaces = [ "virbr0" ];
+		environment.systemPackages = with pkgs; [
+			qemu
+			qemu_kvm
+			OVMFFull
+		];
 
-users.users.${username}.extraGroups = [ "libvirtd" "kvm" ];
+		networking.firewall.trustedInterfaces = [ "virbr0" ];
 
-# 开启嵌套虚拟化
-# boot.extraModprobeConfig = "options kvm_intel nested=1";
+		users.users.${username}.extraGroups = [ "libvirtd" "kvm" ];
+	};
 }

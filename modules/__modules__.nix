@@ -15,15 +15,19 @@
 		(lib.mkIf config.modules.enable {
 			modules = lib.mkDefault {
 				development.languages        = [ "c-cpp" "javascript" "python" "rust" ];
-				services.enable              = true;
-				services.audio.enable        = true;
-				services.ssh.enable          = true;
-				services.xserver.enable      = true;
-				services.kmscon.enable 		 = true;
+				services.enable              		= true;
+				services.audio.enable        		= true;
+				services.ssh.enable          		= true;
+				services.xserver.enable      		= true;
+				services.kmscon.enable 		 		= true;
 				shells.enable                = true;
 				shells.fish.enable           = true;
 				shells.zsh.enable            = true;
-				virtual.enable               = true;#TODO死开关
+				virtual.enable               		= true;
+				virtual.container.enable      		= true;
+				virtual.container.waydroid.enable	= true;
+				virtual.container.appimage.enable	= true;
+				virtual.hardware.kvm.enable			= true;
 				utilities.enable             = true;
 				utilities.neovim.enable      = true;
 				utilities.yazi.enable        = true;

@@ -47,10 +47,18 @@
 		"/home/backup" = {
 			device = "/dev/disk/by-uuid/BE0C1FAE4B33B9A6";
 			fsType = "ntfs";
+			options = [
+				"noauto"
+				"x-systemd.automount"
+			];
 		};
 		"/home/unsafe" = {
 			device = "/dev/disk/by-uuid/4C1C7F941C7F7832";
 			fsType = "ntfs";
+			options = [
+				"noauto"
+				"x-systemd.automount"
+			];
 		};
 	};
 	# swapDevices = [ { device = "/swap/swapfile"; size = 32768; } ];

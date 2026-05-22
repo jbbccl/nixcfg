@@ -43,6 +43,7 @@ in
 		systemd.services.hermes-agent = {
 			after = [ "user@${uid}.service" ];
 			requires = [ "user@${uid}.service" ];
+			unitConfig.Wants = lib.mkForce "";
 		};
 
 		system.activationScripts."hermes-agent-fix-ownership" = lib.stringAfter [ "hermes-agent-setup" ] ''

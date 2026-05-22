@@ -1,13 +1,15 @@
+{ config, lib, ... }:
+let
+	cfg = config.modules.virtual.container.appimage;
+in
 {
-	# Flatpak
-	services.flatpak.enable = true;
-	# flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-	# flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-	# flatpak install --user flathub com.usebottles.bottles
+	options.modules.virtual.container.appimage.enable = lib.mkEnableOption "Flatpak & AppImage support";
 
-	# AppImage
-	programs.appimage = {
-		enable = true;
-		binfmt = true;
+	config = lib.mkIf cfg.enable {
+		services.flatpak.enable = true;
+		programs.appimage = {
+			enable = true;
+			binfmt = true;
+		};
 	};
 }
