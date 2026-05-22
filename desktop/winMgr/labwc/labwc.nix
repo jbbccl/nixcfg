@@ -49,5 +49,17 @@ in
 			};
 		};
 	};
+
+	programs.uwsm = {
+		enable = true;
+		waylandCompositors = {
+			labwc = {
+				prettyName = "Labwc";
+				comment = "Labwc compositor managed by UWSM";
+				binPath = "${lib.getExe pkgs.labwc}";
+			};
+		};
+	};
+
   };
 }

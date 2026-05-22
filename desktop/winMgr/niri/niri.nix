@@ -64,5 +64,18 @@ in {
 			"org.freedesktop.impl.portal.AppChooser" = "gnome";
 		};
 	};
+
+    programs.uwsm = {
+		enable = true;
+		waylandCompositors = {
+			niri = {
+				prettyName = "Niri";
+				comment = "Niri compositor managed by UWSM";
+				binPath = "${lib.getExe pkgs.niri}";
+				extraArgs = [ "--session" ];
+			};
+		};
+	};
+
   };
 }
