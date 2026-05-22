@@ -1,10 +1,13 @@
 { config, lib, pkgs, ... }:
 let
+cfg = config.desktop.dispMgr.greetd;
 wayland-session = config.services.displayManager.sessionData.desktops;
 xsession = config.services.displayManager.sessionData.desktops;
 in
 {
-	config = lib.mkIf (config.desktop.dispMgr.select == "greetd") {
+    options.desktop.dispMgr.greetd.enable = lib.mkEnableOption "greetd";
+
+	config =  lib.mkIf cfg.enable {
 		services.greetd = {
 			enable = true;
 			useTextGreeter = true;
