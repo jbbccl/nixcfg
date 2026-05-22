@@ -260,40 +260,6 @@ if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
 fi
 
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-}
-
-
-opy() {
-	hostIP="127.0.0.1"
-	httpPort="7897"
-	export http_proxy="http://$hostIP:$httpPort"
-	export HTTP_PROXY="http://$hostIP:$httpPort"
-
-	export https_proxy="http://$hostIP:$httpPort"
-	export HTTPS_proxy="http://$hostIP:$httpPort"
-
-	export ftp_proxy="http://$hostIP:$httpPort"
-	export FTP_PROXY="http://$hostIP:$httpPort"
-
-	export ALL_PROXY="socks5://$hostIP:$httpPort"
-	export all_proxy="socks5://$hostIP:$httpPort"
-
-	export no_proxy=localhost,127.0.0.0/8,*.local,10.0.0.0/8
-
-	unset hostIP  httpPort
-}
-
-upy() {
-	unset *_proxy *_PROXY
-}
-
 alias sduo=sudo
 alias nv=nvim
 alias docker=podman

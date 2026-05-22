@@ -13,4 +13,8 @@ lib.mkIf (builtins.elem "python" config.modules.development.languages) {
             default = true
 		'';
 	};
+
+	programs.fish.shellInit = ''
+		
+	'';
 }
