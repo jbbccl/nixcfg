@@ -5,5 +5,6 @@
 		ignoreShellProgramCheck = true;
 		extraGroups = [ "wheel" "video" "audio" "render"];
 		# packages = with pkgs; [tree];
+        linger = true;
 	};
 }

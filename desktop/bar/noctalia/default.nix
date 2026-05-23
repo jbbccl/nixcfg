@@ -1,13 +1,19 @@
-{ config, lib, pkgs, inputs, ... }: {
-  config = lib.mkIf (builtins.elem "noctalia" config.desktop.bar.list) {
-	environment.systemPackages = with pkgs; [
-		networkmanagerapplet
-		inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-	];
+{ config, lib, pkgs, inputs, ... }:
+let
+	cfg = config.desktop.bar.noctalia;
+in
+{
+	options.desktop.bar.noctalia.enable = lib.mkEnableOption "noctalia status bar";
 
-	services = {
-		upower.enable = true;
-		power-profiles-daemon.enable = true;
+	config = lib.mkIf cfg.enable {
+		environment.systemPackages = with pkgs; [
+			networkmanagerapplet
+			inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+		];
+
+		services = {
+			upower.enable = true;
+			power-profiles-daemon.enable = true;
+		};
 	};
-  };
 }

@@ -1,56 +1,32 @@
-/*style_11*/
 @define-color bg_main rgba(25, 25, 25, 0.65);
 @define-color bg_main_tooltip rgba(0, 0, 0, 0.7);
-
-/*base background color of selections */
 @define-color bg_hover rgba(200, 200, 200, 0.3);
-/*base background color of active elements */
 @define-color bg_active rgba(100, 100, 100, 0.5);
-
-/*base border color*/
 @define-color border_main rgba(255, 255, 255, 0.2);
-
-/*text color for entries, views and content in general */
 @define-color content_main #ebdbb2;
-/*text color for entries that are unselected */
 @define-color content_inactive rgba(255, 255, 255, 0.25);
+@define-color accent #fbf1c7;
+
 * {
 	border: none;
-	/* border-radius: 0; */
 	font-family: "Maple Mono NF CN", Roboto, Helvetica, Arial, sans-serif;
 	font-size: 12px;
 	min-height: 0;
+	min-width: 0;
 }
 
-#tray menu menuitem {
-    padding: 2px 4px;
-    border-radius: 5px;
+window#waybar {
+	background: @bg_main;
+	color: @content_main;
 }
 
-#tray menu radio {
-    min-height: 10px;
-    min-width: 10px;
-    border-radius: 50%; /* 强制圆形 */
+tooltip {
+	border-radius: 18px;
+	background-color: @bg_main_tooltip;
+	border: 1px solid @border_main;
 }
 
-#tray menu radio:checked {
-    background-color: #b4a1e3 ; /* 选中时的圆点颜色 */
-    color: #b4a1e3 ;
-    border: 1px solid #b4a1e3;
-}
-
-/* 2. 针对复选框 */
-#tray menu check {
-    min-height: 10px;
-    min-width: 10px;
-    border-radius: 0%; /* 强制圆形 */
-}
-
-#tray menu check:checked {
-    background-color: #b4a1e3 ;
-    color: #5c5c75 ;
-}
-
+/* ── module base ── */
 #memory,
 #cpu,
 #clock,
@@ -61,30 +37,32 @@
 #tray,
 #tray > widget,
 #idle_inhibitor,
+#custom-launcher,
 #custom-launch,
 #custom-filemgr,
 #custom-browser,
 #custom-power,
 #custom-reboot,
 #custom-quit,
-#custom-lock,
-#custom-launcher {
+#custom-lock {
 	background: @bg_main;
 	padding: 1px 8px;
 	margin: 2px;
 	border-radius: 6px;
-	transition:
-		background-color 0.3s ease,
-		color 0.3s ease;
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-#custom-launcher:hover,
-#backlight:hover,
+/* ── module hover ── */
+#memory:hover,
+#cpu:hover,
 #clock:hover,
+#backlight:hover,
 #pulseaudio:hover,
+#battery:hover,
+#network:hover,
 #tray > widget:hover,
-#tray menu menuitem:hover,
 #idle_inhibitor:hover,
+#custom-launcher:hover,
 #custom-launch:hover,
 #custom-filemgr:hover,
 #custom-browser:hover,
@@ -96,36 +74,51 @@
 	color: #FFFFFF;
 }
 
-window#waybar {
-	background: @bg_main;
-	color: @content_main;
-	/*#ebdbb2*/
-}
-
-tooltip {
-	border-radius: 18px;
-	background-color: @bg_main_tooltip;
-	border: 1px solid @border_main;
-}
-
+/* ── clock ── */
 #clock {
-	background: @bg_main;
-	color: @content_main;
 	font-weight: bold;
 }
 
+/* ── pulseaudio ── */
 #pulseaudio.muted {
-	background: @bg_main;
-	color: @content_main;
+	color: @content_inactive;
 }
 
-/* .niri-taskbar {
-	background: @bg_main;
-	padding: 0 5px;
-	margin: 2px;
-	border-radius: 6px;
-} */
+/* ── tray menu ── */
+#tray menu menuitem {
+	padding: 2px 4px;
+	border-radius: 5px;
+}
 
+#tray menu menuitem:hover {
+	background: @bg_hover;
+	color: #FFFFFF;
+}
+
+#tray menu radio {
+	min-height: 10px;
+	min-width: 10px;
+	border-radius: 50%;
+}
+
+#tray menu radio:checked {
+	background-color: #b4a1e3;
+	color: #b4a1e3;
+	border: 1px solid #b4a1e3;
+}
+
+#tray menu check {
+	min-height: 10px;
+	min-width: 10px;
+	border-radius: 0%;
+}
+
+#tray menu check:checked {
+	background-color: #b4a1e3;
+	color: #5c5c75;
+}
+
+/* ── taskbar ── */
 #taskbar button,
 .niri-taskbar button {
 	background: transparent;
@@ -141,30 +134,5 @@ tooltip {
 
 #taskbar button.active,
 .niri-taskbar button.focused {
-	border-bottom-color: #fbf1c7;
+	border-bottom-color: @accent;
 }
-
-/* #taskbar {
-    background: #504945;
-    padding: 0 5px;
-    margin: 4px;
-    border-radius: 6px;
-} */
-
-
-/*#tray {
-	margin-left: 5px;
-	margin-right: 5px;
-}
-#tray > .passive {
-	border-bottom: none;
-}
-#tray > .active {
-	border-bottom: 3px solid white;
-}
-#tray > .needs-attention {
-	border-bottom: 3px solid @warning_color;
-}
-#tray > widget {
-	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}*/

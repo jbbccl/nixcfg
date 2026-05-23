@@ -1,63 +1,40 @@
 { config, lib, pkgs, username, ... }:
+let
+	cfg = config.desktop.bar.waybar;
+
+	niri-taskbar = pkgs.callPackage ./niri-taskbar.nix { inherit lib; };
+
+	waybar-bin = if cfg.niriTaskbar then
+		pkgs.runCommand "waybar-wrapped"
+			{ nativeBuildInputs = [ pkgs.makeWrapper ]; }
+			''
+			mkdir -p $out/bin
+			makeWrapper ${lib.getExe pkgs.waybar} $out/bin/waybar \
+				--prefix LD_LIBRARY_PATH : ${niri-taskbar}/lib
+			''
+	else
+		pkgs.waybar;
+in
 {
-  config = lib.mkIf (builtins.elem "waybar" config.desktop.bar.list) (let
-    niri-taskbar = pkgs.rustPlatform.buildRustPackage {
-      pname = "niri-taskbar";
-      version = "2025.10.12";
-      src = pkgs.stdenvNoCC.mkDerivation {
-        name = "niri-taskbar-patched-src";
-        src = pkgs.fetchFromGitHub {
-          owner = "LawnGnome";
-          repo = "niri-taskbar";
-          rev = "c530349fae638141ec58a9d4db0816d950a9295a";
-          hash = "sha256-PN+7s3KnbIdUSs+PmY3A80x//tIQu2aqaW/vN7gXTRU=";
-        };
-        phases = [ "unpackPhase" "patchPhase" "installPhase" ];
-        postPatch = ''
-          cp ${./Cargo.lock} Cargo.lock
-          substituteInPlace Cargo.toml --replace-fail '>=25.11.0, <25.12.0' '>=26.4.0'
-        '';
-        installPhase = ''
-          cp -r . $out
-        '';
-      };
-      cargoHash = "sha256-5U25Px5BnhOdGStoceDEujGFOjFPexmwuzzwMdUBOss=";
-      nativeBuildInputs = with pkgs; [
-        pkg-config
-        pango
-        gtk3
-      ];
-      buildInputs = with pkgs; [
-        pkg-config
-        pango
-        gtk3
-      ];
-      installPhase = ''
-        mkdir -p $out/lib
-        cargo build --release
-        cp -r ./target/release/libniri_taskbar.so $out/libniri_taskbar.so
-      '';
-    };
-  in {
-    environment.systemPackages = with pkgs; [
-      waybar
-      brightnessctl
-      networkmanagerapplet
-      pwvucontrol
-    ];
-    home-manager.users.${username} = {
-      xdg.configFile = {
-        "waybar/" = {
-          force = true;
-          recursive = true;
-          source = ./config;
-        };
-        "waybar/libniri_taskbar.so" = {
-          force = true;
-          recursive = false;
-          source = "${niri-taskbar}/libniri_taskbar.so";
-        };
-      };
-    };
-  });
+	options.desktop.bar.waybar = {
+		enable = lib.mkEnableOption "waybar status bar";
+		niriTaskbar = lib.mkEnableOption "niri-taskbar cffi plugin";
+	};
+
+	config = lib.mkIf cfg.enable {
+		environment.systemPackages = with pkgs; [
+			waybar-bin
+			brightnessctl
+			networkmanagerapplet
+			pwvucontrol
+		];
+
+		home-manager.users.${username} = {
+			xdg.configFile."waybar/" = {
+				force = true;
+				recursive = true;
+				source = ./config;
+			};
+		};
+	};
 }

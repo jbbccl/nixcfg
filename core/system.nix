@@ -4,6 +4,10 @@
 
 	nixpkgs.config.allowUnfree = true;
 
+    # services.logind.settings.Login = {
+    #     KillUserProcesses = true;
+    # };
+
 	nix.settings = {
 		substituters = [
 			"https://mirrors.ustc.edu.cn/nix-channels/store?priority=5"

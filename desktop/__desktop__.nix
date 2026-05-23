@@ -25,6 +25,7 @@
         base.fontSize = 12;
         winMgr.list = [ "labwc" "niri" ];
         bar.list = [ "waybar" ];
+        bar.waybar.niriTaskbar = true;
         launcher.select = "fuzzel";
         lock.select = "swaylock";
         notif.select = "mako";
