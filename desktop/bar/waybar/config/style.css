@@ -1,11 +1,33 @@
-@define-color bg_main rgba(25, 25, 25, 0.65);
-@define-color bg_main_tooltip rgba(0, 0, 0, 0.7);
-@define-color bg_hover rgba(200, 200, 200, 0.3);
-@define-color bg_active rgba(100, 100, 100, 0.5);
-@define-color border_main rgba(255, 255, 255, 0.2);
-@define-color content_main #ebdbb2;
-@define-color content_inactive rgba(255, 255, 255, 0.25);
-@define-color accent #fbf1c7;
+/* ═══ Catppuccin Mocha ═══ */
+@define-color base      #1e1e2e;
+@define-color mantle    #181825;
+@define-color crust     #11111b;
+@define-color surface0  #313244;
+@define-color surface1  #45475a;
+@define-color surface2  #585b70;
+@define-color overlay0  #6c7086;
+@define-color text      #cdd6f4;
+@define-color subtext0  #a6adc8;
+@define-color lavender  #b4befe;
+@define-color mauve     #cba6f7;
+@define-color red       #f38ba8;
+@define-color yellow    #f9e2af;
+
+/* ═══ layer: main bar & tooltip ═══ */
+@define-color bar-bg      alpha(@base, 0.65);
+@define-color bar-fg      @text;
+@define-color tooltip-bg  alpha(@mantle, 0.85);
+@define-color tooltip-border alpha(@overlay0, 0.5);
+
+/* ═══ layer: widget ═══ */
+@define-color widget-bg       alpha(@base, 0.65);
+@define-color widget-hover-bg alpha(@surface1, 0.6);
+@define-color widget-active   alpha(@surface0, 0.7);
+@define-color widget-muted    alpha(@subtext0, 0.4);
+
+/* ═══ layer: taskbar ═══ */
+@define-color taskbar-border     alpha(@overlay0, 0.5);
+@define-color taskbar-accent     @lavender;
 
 * {
 	border: none;
@@ -16,14 +38,14 @@
 }
 
 window#waybar {
-	background: @bg_main;
-	color: @content_main;
+	background: @bar-bg;
+	color: @bar-fg;
 }
 
 tooltip {
 	border-radius: 18px;
-	background-color: @bg_main_tooltip;
-	border: 1px solid @border_main;
+	background-color: @tooltip-bg;
+	border: 1px solid @tooltip-border;
 }
 
 /* ── module base ── */
@@ -46,7 +68,7 @@ tooltip {
 #custom-quit,
 #custom-lock,
 #custom-mic {
-	background: @bg_main;
+	background: @widget-bg;
 	padding: 1px 8px;
 	margin: 2px;
 	border-radius: 6px;
@@ -72,8 +94,8 @@ tooltip {
 #custom-quit:hover,
 #custom-lock:hover,
 #custom-mic:hover {
-	background: @bg_hover;
-	color: #FFFFFF;
+	background: @widget-hover-bg;
+	color: @text;
 }
 
 /* ── clock ── */
@@ -83,18 +105,24 @@ tooltip {
 
 /* ── pulseaudio ── */
 #pulseaudio.muted {
-	color: @content_inactive;
+	color: @widget-muted;
 }
 
 /* ── tray menu ── */
+#tray menu * {
+    font-size: 14px;     /* 右键菜单 */
+    font-family: "Maple Mono NF CN", sans-serif;
+    /* padding: 4px 8px; */
+}
+
 #tray menu menuitem {
 	padding: 2px 4px;
 	border-radius: 5px;
 }
 
 #tray menu menuitem:hover {
-	background: @bg_hover;
-	color: #FFFFFF;
+	background: @widget-hover-bg;
+	color: @text;
 }
 
 #tray menu radio {
@@ -104,9 +132,9 @@ tooltip {
 }
 
 #tray menu radio:checked {
-	background-color: #b4a1e3;
-	color: #b4a1e3;
-	border: 1px solid #b4a1e3;
+	background-color: @mauve;
+	color: @mauve;
+	border: 1px solid @mauve;
 }
 
 #tray menu check {
@@ -116,8 +144,8 @@ tooltip {
 }
 
 #tray menu check:checked {
-	background-color: #b4a1e3;
-	color: #5c5c75;
+	background-color: @mauve;
+	color: @surface1;
 }
 
 /* ── taskbar ── */
@@ -131,10 +159,10 @@ tooltip {
 
 #taskbar button:hover,
 .niri-taskbar button:hover {
-	border-bottom-color: @border_main;
+	border-bottom-color: @taskbar-border;
 }
 
 #taskbar button.active,
 .niri-taskbar button.focused {
-	border-bottom-color: @accent;
+	border-bottom-color: @taskbar-accent;
 }
