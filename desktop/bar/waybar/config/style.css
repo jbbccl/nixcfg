@@ -44,7 +44,8 @@ tooltip {
 #custom-power,
 #custom-reboot,
 #custom-quit,
-#custom-lock {
+#custom-lock,
+#custom-mic {
 	background: @bg_main;
 	padding: 1px 8px;
 	margin: 2px;
@@ -69,7 +70,8 @@ tooltip {
 #custom-power:hover,
 #custom-reboot:hover,
 #custom-quit:hover,
-#custom-lock:hover {
+#custom-lock:hover,
+#custom-mic:hover {
 	background: @bg_hover;
 	color: #FFFFFF;
 }

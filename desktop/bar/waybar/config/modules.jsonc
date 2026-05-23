@@ -108,9 +108,20 @@
 		},
 		"modules": [
 			"pulseaudio#output",
-			"pulseaudio#input"
-			// "pulseaudio/slider"
+			"custom/mic"
 		]
+	},
+	"custom/mic":
+	{
+		"return-type": "json",
+		"exec": "~/.config/waybar/scripts/mic.sh",
+		"interval": 5,
+		"tooltip": false,
+		"on-click": "true",
+		"on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+		"on-click-middle": "pwvucontrol --tab=3",
+		"on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+",
+		"on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-"
 	},
 	"pulseaudio#output":
 	{
