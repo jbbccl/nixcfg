@@ -29,13 +29,6 @@ in
 			source = ./themes;
 		};
 	};
-	systemd.user.targets.labwc-session = {
-		description = "Labwc Compositor Session";
-		documentation = [ "man:systemd.special(7)" ];
-		bindsTo = [ "graphical-session.target" ];
-		wants = [ "graphical-session.target" ];
-		after = [ "graphical-session.target" ];
-	};
 	xdg.portal = {
 		extraPortals = with pkgs; [xdg-desktop-portal-wlr];
 		config = {

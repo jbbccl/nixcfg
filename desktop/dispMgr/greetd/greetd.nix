@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 let
 cfg = config.desktop.dispMgr.greetd;
-wayland-session = config.services.displayManager.sessionData.desktops;
-xsession = config.services.displayManager.sessionData.desktops;
+session = config.services.displayManager.sessionData.desktops;
 in
 {
     options.desktop.dispMgr.greetd.enable = lib.mkEnableOption "greetd";
@@ -15,7 +14,7 @@ in
 				default_session = {
 					command = ''
 					${lib.getExe pkgs.tuigreet} \
-					--sessions ${wayland-session}/share/wayland-sessions:${xsession}/share/xsessions \
+					--sessions ${session}/share/wayland-sessions:${session}/share/xsessions \
 					--time \
 					--time-format '%Y-%m-%d %H:%M' \
 					--asterisks \

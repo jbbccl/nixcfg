@@ -3,8 +3,6 @@ dbus-update-activation-environment --systemd --all
 
 wlr-randr --output eDP-1  --scale 1.5
 
-systemctl --user start labwc-session.target
-
 waybar -c ~/.config/waybar/config-labwc.jsonc -s ~/.config/waybar/style.css >/dev/null 2>&1 &
 
 fcitx5 >/dev/null 2>&1 &
