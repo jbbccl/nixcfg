@@ -11,5 +11,10 @@
 	system.stateVersion = "25.11";
 	home-manager.users.${username}.home.stateVersion = "25.11";
 
+	services.logind.settings.Login = {
+		HandleLidSwitch = "suspend";
+		HandleLidSwitchExternalPower = "lock";
+	};
+
 	apps.game.steam.enable = false;
 }
