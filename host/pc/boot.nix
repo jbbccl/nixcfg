@@ -1,8 +1,18 @@
 { config, lib, pkgs, ... }:{
 	boot = {
-		# kernelPackages = pkgs.stable.linuxPackages_zen;
-		kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-		# kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
+		# kernelPackages = pkgs.linuxPackages_zen_custom;
+		kernelPackages = pkgs.linuxKernel.packagesFor (
+			pkgs.linuxKernel.kernels.linux_zen.override {
+				argsOverride = {
+					structuredExtraConfig = pkgs.linuxKernel.kernels.linux_zen.structuredExtraConfig // {
+						X86_NATIVE_CPU = lib.kernel.yes;
+						FONT_TER10x18 = lib.kernel.yes;
+						FONT_TER16x32 = lib.mkForce lib.kernel.no;
+					};
+				};
+				ignoreConfigErrors = true;
+			}
+		);
 
 		supportedFilesystems = [ "ntfs" ];
 		kernel.sysctl = {

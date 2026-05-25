@@ -1,16 +1,43 @@
 {
-	///////////////////////////////////
-	//                               //
-	//  // Modules configuration//   //
-	//                               //
-	///////////////////////////////////
 	"cpu": {
         "format": " {usage}%"
-//        "tooltip": false
     },
+
     "memory": {
         "format": " {}%"
     },
+
+    "battery": {
+		"interval": 60,
+		"states": {
+			"critical": 20
+		},
+		"format": "{icon} {capacity}%",
+		"format-charging": "󰂄 {capacity}% ",
+		"format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿","󰂀", "󰂂", "󰁹"],
+		"tooltip-format": "剩余电量：{capacity}%\n充 放 电 : {power}\n可用时间: {timeTo}\n---\n电池健康度: {health}%"
+	},
+
+    "clock": {
+		"format": "{:>%m/%d %H:%M}",
+		"interval": 1,
+		"align": 1,
+		"justify": "right",
+		"tooltip-format": "<big>{:%Y-%m-%d %A}</big>\n<tt>{calendar}</tt>"
+	},
+
+    "ext/workspaces":
+	{
+		"format": "{icon}",
+		"format-icons":
+		{
+			"urgent": "▫",
+			"active": "◉",
+			"default": "○"
+		},
+		"sort-by-number": true,
+		"on-click": "activate"
+	},
 
 	"cffi/niri-taskbar": {
 		"module_path": "libniri_taskbar.so",
@@ -34,19 +61,6 @@
 		"on-click": "minimize-raise",
 		"on-click-middle": "close",
 		"on-click-right": "fullscreen"
-	},
-
-	"ext/workspaces":
-	{
-		"format": "{icon}",
-		"format-icons":
-		{
-			"urgent": "▫",
-			"active": "◉",
-			"default": "○"
-		},
-		"sort-by-number": true,
-		"on-click": "activate"
 	},
 
 	"keyboard-state":
@@ -75,19 +89,7 @@
         "spacing": 8
     },
 
-	// "clock":
-	// {
-	// 	"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-	// 	"format-alt": "{%Y-%m-%d}",
-	// 	"format": "{%Y-%m-%d:%H:%M}"
-	// },
-	"clock": {
-		"format": "{:>%m/%d %H:%M}",
-		"interval": 1,
-		"align": 1,
-		"justify": "right",
-		"tooltip-format": "<big>{:%Y-%m-%d %A}</big>\n<tt>{calendar}</tt>"
-	},
+	
 	"backlight":
 	{
 		"device": "acpi_video0", // Assuming acpi_video0, adjust if needed
@@ -118,8 +120,8 @@
 		"interval": 5,
 		"tooltip": false,
 		"on-click": "true",
-		"on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
-		"on-click-middle": "pwvucontrol --tab=3",
+		"on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+		"on-click-right": "pwvucontrol --tab=3",
 		"on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+",
 		"on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-"
 	},
@@ -127,24 +129,32 @@
 	{
 		"format": "{volume}% {icon}",
 		"format-muted": " ",
-		"format-bluetooth": "{volume}% {icon}",
-		"format-bluetooth-muted": "{icon} {format_source}",
+		"format-bluetooth": "{volume}% {icon}󰂯",
+		"format-bluetooth-muted": "{icon}󰂲",
 		"tooltip": false,
 		"format-icons":
 		{
 			"headphone": "",
-			"hands-free": "",
-			"headset": "",
+			"hands-free": "󰋎",
+            "headset": "󰋎",
 			"phone": "",
 			"portable": "",
 			"car": "",
 			"default": ["", "", ""]
 		},
-		// "on-click": "none",
-		// "on-click": "bash ~/.config/waybar/scripts/nowplaying.sh >/dev/null 2>&1 &",
-		"on-click-middle": "pwvucontrol",
-		"on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+		"on-click-right": "pwvucontrol",
+		"on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 	},
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱",
+        "tooltip-format-on": "中: 打开面板\n右键: 禁用蓝牙",
+        "tooltip-format-disabled": "右键：启用蓝牙",
+        "tooltip-format-connected": "󰂱 {device_alias}",
+        "on-click-middle": "rfkill toggle bluetooth",
+        "on-click-right": "overskride"
+    },
 	"pulseaudio#input":
 	{
 		"format": "{format_source}",
@@ -163,16 +173,6 @@
 		"orientation": "horizontal"
 	},
 	
-	"battery": {
-		"interval": 60,
-		"states": {
-			"critical": 20
-		},
-		"format": "{icon} {capacity}%",
-		"format-charging": "󰂄 {capacity}% ",
-		"format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿","󰂀", "󰂂", "󰁹"],
-		"tooltip-format": "剩余电量：{capacity}%\n充 放 电 : {power}\n可用时间: {timeTo}\n---\n电池健康度: {health}%"
-	},
 	"network": {
 		// "interface": "{ifname}",
 		"format": "󰌙 ",
@@ -192,11 +192,7 @@
 		"on-click-right": "xterm -e nmtui-edit"
 	},
 
-	///////////////////////////
-	//                       //
-	//  // Custom module //  //
-	//                       //
-	///////////////////////////  
+	// ──────── Custom module ────────────────────────
 
 	"custom/launch":
 	{
@@ -237,11 +233,7 @@
 		]
 	},
 
-	///////////////////////////
-	//                       //
-	//  // Power section //  //
-	//                       //
-	///////////////////////////
+	// ──────── Power section ────────────────────────
 
 	"group/infomation":
 	{

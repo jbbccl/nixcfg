@@ -40,6 +40,7 @@
 		// "custom/countdown",
 		// "group/group-tools",
 		"tray",
+        "bluetooth",
 		// "pulseaudio#input",
         "custom/mic",
 		"pulseaudio#output",
