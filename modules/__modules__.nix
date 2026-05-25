@@ -17,6 +17,7 @@
 				development.languages        = [ "c-cpp" "javascript" "python" "rust" ];
 				services.enable              		= true;
 				services.audio.enable        		= true;
+				services.audio.bluetooth			= true;
 				services.ssh.enable          		= true;
 				services.xserver.enable      		= true;
 				services.kmscon.enable 		 		= true;
