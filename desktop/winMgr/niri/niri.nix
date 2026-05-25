@@ -39,43 +39,42 @@ in {
 	};
 
 	config = lib.mkIf cfg.enable {
-		programs.niri.enable = true;
+        programs.niri.enable = true;
 
-		home-manager.users.${username}.xdg.configFile =
-			{
-				"niri/" = {
-					force = true;
-					recursive = true;
-					source = ./config;
-				};
-				"niri/output.kdl" = { text = mkNiriOutputKdl cfg.outputs; force = true; };
-			};
+        home-manager.users.${username}.xdg.configFile =
+            {
+                "niri/" = {
+                    force = true;
+                    recursive = true;
+                    source = ./config;
+                };
+                "niri/output.kdl" = { text = mkNiriOutputKdl cfg.outputs; force = true; };
+            };
 
-	environment.systemPackages = with pkgs; [
-		xwayland-satellite
-		wl-clipboard
-	];
+        environment.systemPackages = with pkgs; [
+            xwayland-satellite
+            wl-clipboard
+        ];
 
-	xdg.portal = {
-		extraPortals = with pkgs; [ xdg-desktop-portal-gnome ];
-		config.niri = {
-			default = [ "gnome" "gtk" ];
-			"org.freedesktop.impl.portal.FileChooser" = "gnome";
-			"org.freedesktop.impl.portal.AppChooser" = "gnome";
-		};
-	};
+        xdg.portal = {
+            extraPortals = with pkgs; [ xdg-desktop-portal-gnome ];
+            config.niri = {
+                default = [ "gnome" "gtk" ];
+                "org.freedesktop.impl.portal.FileChooser" = "gnome";
+                "org.freedesktop.impl.portal.AppChooser" = "gnome";
+            };
+        };
 
-    programs.uwsm = {
-		enable = true;
-		waylandCompositors = {
-			niri = {
-				prettyName = "Niri";
-				comment = "Niri compositor managed by UWSM";
-				binPath = "${lib.getExe pkgs.niri}";
-				extraArgs = [ "--session" ];
-			};
-		};
-	};
-
-  };
+        programs.uwsm = {
+            enable = true;
+            waylandCompositors = {
+                niri = {
+                    prettyName = "Niri";
+                    comment = "Niri compositor managed by UWSM";
+                    binPath = "${lib.getExe pkgs.niri}";
+                    extraArgs = [ "--session" ];
+                };
+            };
+        };
+    };
 }

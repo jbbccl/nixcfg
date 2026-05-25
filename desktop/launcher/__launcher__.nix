@@ -1,22 +1,23 @@
-{ config, lib, pkgs, username, ... }:
+{ config, lib, ... }:
+let
+	mkLauncherEnable = name: lib.mkDefault (config.desktop.launcher.select == name);
+in
 {
-  options.desktop.launcher.select = lib.mkOption {
-    type = lib.types.nullOr (lib.types.enum [ "fuzzel" "rofi" "wofi" ]);
-    default = null;
-    description = "app launcher";
-  };
+	imports = [
+		./fuzzel/fuzzel.nix
+		./rofi/rofi.nix
+		./wofi/wofi.nix
+	];
 
-  config = lib.mkIf (config.desktop.launcher.select == "fuzzel") {
-    environment.systemPackages = with pkgs; [
-      fuzzel
-    ];
+	options.desktop.launcher.select = lib.mkOption {
+		type = lib.types.nullOr (lib.types.enum [ "fuzzel" "rofi" "wofi" ]);
+		default = null;
+		description = "app launcher";
+	};
 
-    home-manager.users.${username} = {
-      xdg.configFile."fuzzel/" = {
-        force = true;
-        recursive = true;
-        source = ./fuzzel;
-      };
-    };
-  };
+	config = lib.mkIf (config.desktop.launcher.select != null) {
+		desktop.launcher.fuzzel.enable = mkLauncherEnable "fuzzel";
+		desktop.launcher.rofi.enable   = mkLauncherEnable "rofi";
+		desktop.launcher.wofi.enable   = mkLauncherEnable "wofi";
+	};
 }
