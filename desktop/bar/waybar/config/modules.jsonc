@@ -118,7 +118,6 @@
 		"return-type": "json",
 		"exec": "~/.config/waybar/scripts/mic.sh",
 		"interval": 5,
-		"tooltip": false,
 		"on-click": "true",
 		"on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
 		"on-click-right": "pwvucontrol --tab=3",

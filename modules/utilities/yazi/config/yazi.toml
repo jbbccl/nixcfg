@@ -1,6 +1,6 @@
 # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+# "$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
 
 [mgr]
 ratio          = [ 2, 7, 7 ]
@@ -87,37 +87,19 @@ rules = [
 ]
 
 [tasks]
-micro_workers    = 10
-macro_workers    = 10
-bizarre_retry    = 3
-image_alloc      = 536870912  # 512MB
-image_bound      = [ 10000, 10000 ]
+file_workers    = 10
+plugin_workers  = 10
+bizarre_retry   = 3
+image_alloc     = 536870912  # 512MB
+image_bound     = [ 10000, 10000 ]
 suppress_preload = false
 
 [plugin]
 fetchers = [
 	# Mimetype
-	{ id = "mime", url = "*/",         run = "mime.dir", prio = "high" },
-	{ id = "mime", url = "local://*",  run = "mime.local", prio = "high" },
-	{ id = "mime", url = "remote://*", run = "mime.remote", prio = "high" },
-]
-spotters = [
-	{ url = "*/", run = "folder" },
-	# Code
-	{ mime = "text/*", run = "code" },
-	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
-	# Image
-	{ mime = "image/{avif,hei?,jxl}", run = "magick" },
-	{ mime = "image/svg+xml", run = "svg" },
-	{ mime = "image/*", run = "image" },
-	# Video
-	{ mime = "video/*", run = "video" },
-	# Virtual file system
-	{ mime = "vfs/*", run = "vfs" },
-	# Error
-	{ mime = "null/*", run = "null" },
-	# Fallback
-	{ url = "*", run = "file" },
+	{ id = "mime", url = "*/",         run = "mime.dir",   prio = "high", group = "mime" },
+	{ id = "mime", url = "local://*",  run = "mime.local",  prio = "high", group = "mime.local" },
+	{ id = "mime", url = "remote://*", run = "mime.remote", prio = "high", group = "mime.remote" },
 ]
 preloaders = [
 	# Image
