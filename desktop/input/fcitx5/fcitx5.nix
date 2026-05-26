@@ -10,11 +10,11 @@ in
 		desktop.input.rime.enable = lib.mkDefault true;
 
 		home-manager.users.${username} = {config, ...}: {
-            # ── rime ────────────────────────────────────
-			xdg.dataFile."fcitx5/rime" = {
+            # ── rime ────────────────────────────────────TODO
+            xdg.dataFile."fcitx5/rime" = {
                 force = true;
-				source = config.lib.file.mkOutOfStoreSymlink rimePath;
-			};
+                source = config.lib.file.mkOutOfStoreSymlink rimePath;
+            };
             # ── config ──────────────────────────────────
 			xdg.configFile."fcitx5/" = {
 				force = true;

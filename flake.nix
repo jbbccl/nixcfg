@@ -54,7 +54,12 @@
 			modules = [
 				./host/${hostName}/configuration.nix
 				home-manager.nixosModules.home-manager
-				{ nixpkgs.overlays = lib.nixpkgsOverlays; }
+				{
+					system.stateVersion = "25.11";
+					nixpkgs.overlays = lib.nixpkgsOverlays;
+                    home-manager.backupFileExtension = "backup";
+					home-manager.users.${username}.home.stateVersion = "25.11";
+				}
 			] ++ [
 				sops-nix.nixosModules.sops
 				hermes-agent.nixosModules.default
