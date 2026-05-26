@@ -1,5 +1,5 @@
 { config, pkgs, lib, username, ... }:
-lib.mkIf (builtins.elem "python" config.modules.development.languages) {
+lib.mkIf (builtins.elem "python" config.modules.dev.lang) {
 
 	environment.systemPackages = with pkgs; [
 		python3

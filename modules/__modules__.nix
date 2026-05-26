@@ -3,7 +3,7 @@
 	options.modules.enable = lib.mkEnableOption "system modules";
 
 	imports = [
-		./development/__development__.nix
+		./dev/__dev__.nix
 		./services/__services__.nix
 		./shells/__shells__.nix
 		./virtual/__virtual__.nix
@@ -14,7 +14,7 @@
 		{ modules.enable = lib.mkDefault true; }
 		(lib.mkIf config.modules.enable {
 			modules = lib.mkDefault {
-				development.languages        = [ "c-cpp" "javascript" "python" "rust" ];
+				dev.lang                     = [ "c-cpp" "javascript" "python" "rust" ];
 				services.enable              		= true;
 				services.audio.enable        		= true;
 				services.audio.bluetooth			= true;

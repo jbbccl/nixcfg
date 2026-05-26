@@ -12,7 +12,7 @@
   ];
 
   options.modules = {
-    development.languages = lib.mkOption {
+    dev.lang = lib.mkOption {
       type = lib.types.nullOr (lib.types.listOf (lib.types.enum [
         "c-cpp" "go" "java" "javascript" "python" "rust"
       ]));
