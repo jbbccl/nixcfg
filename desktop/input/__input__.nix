@@ -4,6 +4,7 @@ let
 in
 {
 	imports = [
+		./rime/rime.nix
 		./fcitx5/fcitx5.nix
 	];
 
@@ -14,6 +15,7 @@ in
 	};
 
 	config = lib.mkIf (config.desktop.input.select != null) {
+        desktop.input.rime.enable = lib.mkDefault true;
 		desktop.input.fcitx5.enable = mkInputEnable "fcitx5";
 	};
 }
