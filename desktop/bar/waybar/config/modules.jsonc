@@ -149,11 +149,11 @@
         "format": "󰂯",
         "format-disabled": "󰂲",
         "format-connected": "󰂱",
-        "tooltip-format-on": "中: 打开面板\n右键: 禁用蓝牙",
-        "tooltip-format-disabled": "右键：启用蓝牙",
+        "tooltip-format-on": "右键: 打开面板\n中键: 禁用蓝牙",
+        "tooltip-format-disabled": "中键：启用蓝牙",
         "tooltip-format-connected": "󰂱 {device_alias}",
         "on-click-middle": "rfkill toggle bluetooth",
-        "on-click-right": "overskride"
+        "on-click-right": "xterm bluetuith"
     },
 	"pulseaudio#input":
 	{
