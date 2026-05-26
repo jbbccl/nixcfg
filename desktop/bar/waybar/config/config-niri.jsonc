@@ -36,12 +36,10 @@
 		"cffi/niri-taskbar"
 	],
 	"modules-right": [
-		// "keyboard-state",
-		// "custom/countdown",
-		// "group/group-tools",
 		"tray",
-        "bluetooth",
-		// "pulseaudio#input",
+        // "network",
+        // "bluetooth",
+		// "pulseaudio#input", //TODO
         "custom/mic",
 		"pulseaudio#output",
 		"backlight",

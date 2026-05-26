@@ -175,20 +175,19 @@
 	
 	"network": {
 		// "interface": "{ifname}",
-		"format": "󰌙 ",
-		"format-wifi": "{icon} ",
-		"format-ethernet": "{icon} ",
-		"format-disconnected": "{icon} ",
+		"format": "󰌙",
+		"format-wifi": "{icon}",
+		"format-ethernet": "{icon}",
+		"format-disconnected": "{icon}",
 		"format-icons": {
 			"disconnected": "󰤮",
 			"wifi": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
 			"ethernet": "󰈀"
 		},
-		//鼠标悬浮在wifi图标上会显示wifi名称、信号强度、ip地址、设备名
 		"tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname} : {ipaddr}",
 		"tooltip-format-ethernet": "{ifname} : {ipaddr}",
 		"tooltip-format-disconnected": "网络未连接",
-		"on-click": "networkmanager_dmenu",
+		// "on-click": "networkmanager_dmenu",
 		"on-click-right": "xterm -e nmtui-edit"
 	},
 

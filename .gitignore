@@ -2,6 +2,7 @@
 .claude/
 .hermes/
 
+tmp/
 docs/
 # Nix
 result

@@ -24,7 +24,10 @@
       desktop = lib.mkDefault {
         base.fontSize = 12;
         winMgr.list = [ "labwc" "niri" ];
-        bar.list = [ "waybar" ];
+        bar.list = [ 
+            "waybar" 
+            # "noctalia"
+        ];
         bar.waybar.niriTaskbar = true;
         launcher.select = "fuzzel";
         lock.select = "swaylock";
