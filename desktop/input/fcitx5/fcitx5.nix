@@ -37,11 +37,9 @@ in
 					source = "${rime-ice}/share/rime-data";
 					force = true;
 					recursive = true;
-					onChange = ''
-						mkdir -p ~/.local/share/fcitx5/rime
-						chmod -R u+w ~/.local/share/fcitx5/rime
-						rm -f ~/.local/share/fcitx5/rime/*.bin
-					'';
+					# onChange = ''
+					# 	rm -r ~/.local/share/fcitx5/rime/build
+					# '';
 				};
 				"fcitx5/" = {
 					force = true;
