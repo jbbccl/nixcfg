@@ -1,17 +1,13 @@
 { config, lib, pkgs, ... }:
 let
 	cfg = config.desktop.base;
-
-	defaultIconPkg = pkgs.catppuccin-papirus-folders.override {
-		flavor = "macchiato";
-		accent = "blue";
-	};
 in
 {
 	imports = [
 		./fonts.nix
-		./gtk.nix
-		./qt.nix
+		# ./gtk.nix
+		# ./qt.nix
+        ./stylix.nix
 		./cursor.nix
 	];
 
@@ -31,7 +27,10 @@ in
 		};
 		iconThemePackage = lib.mkOption {
 			type = lib.types.package;
-			default = defaultIconPkg;
+			default = pkgs.catppuccin-papirus-folders.override {
+                flavor = "macchiato";
+                accent = "blue";
+            };
 		};
 	};
 

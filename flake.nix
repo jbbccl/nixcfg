@@ -32,9 +32,14 @@
 			url = "github:NousResearch/hermes-agent";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+
+        stylix = {
+            url = "github:nix-community/stylix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 	};
 
-	outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, hermes-agent, ... }:
+	outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, hermes-agent, stylix, ... }:
 	let
 		username = "e";
 		system = "x86_64-linux";
@@ -64,6 +69,7 @@
 				sops-nix.nixosModules.sops
 				hermes-agent.nixosModules.default
 				inputs.mango.nixosModules.mango
+                stylix.nixosModules.stylix
 				{
 					home-manager.users.${username} = {
 						imports = [
