@@ -24,14 +24,14 @@ in
 
 			localsend
 
-			# 编辑器
+			# ── editor ──────────────────────────────────
 			imhex
 			# gimp
 			zed-editor
 			# obsidian
 			libreoffice-qt
 
-			# 流
+			# ── stream ──────────────────────────────────
 			obs-studio
 			# showmethekey
 			# moonlight-qt
@@ -46,17 +46,24 @@ in
 			# keepassxc
 			xeyes
 
-			squashfsTools
+			# ── e ────────────────────────────────────────
 			fastfetch
 			btop
 			# ocamlPackages.cpdf
 			openssl
 
+            # ── archive ──────────────────────────────────
+            _7zz-rar
+            squashfsTools
+
+            # ── network ──────────────────────────────────
 			# zap
 			# caido
 			# mitmproxy
 			traceroute
 			dig
+
+            nmap
 		];
 	};
 }

@@ -9,6 +9,12 @@
 	];
 
 	config = lib.mkIf config.modules.shells.enable {
-		users.users.${username}.shell = pkgs.fish;
+        users.defaultUserShell = pkgs.fish;
+		# users.users.${username}.shell = pkgs.fish;
+
+        # ───── shell toolkits ─────────────────────────
+        environment.systemPackages = with pkgs; [
+            ripgrep fd fzf bat tree
+        ];
 	};
 }

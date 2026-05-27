@@ -7,20 +7,11 @@
 
 		environment.systemPackages = with pkgs; [
 			glib
-
-			vim
-
-			wget curl
+			wget
+            curl
 			pciutils
-
-			ripgrep
-			fd fzf
-			tree
-
+			vim 
 			file
-			_7zz-rar
-
-			nmap
 		];
 	};
 }
