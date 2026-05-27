@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 <action>
-	<icon>utilities-terminal</icon>
-	<name>Open Terminal Here</name>
-	<submenu></submenu>
-	<unique-id>1774204061880356-1</unique-id>
-	<command>kitty -d %n</command>
-	<description>Example for a custom action</description>
-	<range></range>
-	<patterns>*</patterns>
-	<startup-notify/>
-	<directories/>
+    <icon>utilities-terminal</icon>
+    <name>Open Terminal Here</name>
+    <submenu></submenu>
+    <unique-id>1774204061880356-1</unique-id>
+    <command>kitty -d %n</command>
+    <description>Example for a custom action</description>
+    <range></range>
+    <patterns>*</patterns>
+    <startup-notify/>
+    <directories/>
 </action>
 <action>
-	<icon></icon>
-	<name>zeditor</name>
-	<submenu></submenu>
-	<unique-id>1774253299924057-1</unique-id>
-	<command>zeditor %f</command>
-	<description></description>
-	<range>*</range>
-	<patterns>*</patterns>
-	<directories/>
-	<other-files/>
-	<text-files/>
+    <icon>zed</icon>
+    <name>zeditor</name>
+    <submenu></submenu>
+    <unique-id>1774253299924057-1</unique-id>
+    <command>zeditor %f</command>
+    <description></description>
+    <range>*</range>
+    <patterns>*</patterns>
+    <directories/>
+    <other-files/>
+    <text-files/>
 </action>
 <action>
-	<icon></icon>
-	<name>code</name>
-	<submenu></submenu>
-	<unique-id>1774585328752013-1</unique-id>
-	<command>code %f</command>
-	<description></description>
-	<range>*</range>
-	<patterns>*</patterns>
-	<directories/>
-	<other-files/>
-	<text-files/>
+    <icon>vscode</icon>
+    <name>code</name>
+    <submenu></submenu>
+    <unique-id>1774585328752013-1</unique-id>
+    <command>code %f</command>
+    <description></description>
+    <range>*</range>
+    <patterns>*</patterns>
+    <directories/>
+    <other-files/>
+    <text-files/>
 </action>
 </actions>

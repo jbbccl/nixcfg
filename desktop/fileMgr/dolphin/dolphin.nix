@@ -1,9 +1,6 @@
 { config, lib, pkgs, username, ... }:
 let
 	cfg = config.desktop.fileMgr.dolphin;
-	dolphinTerminal = pkgs.writeShellScriptBin "dolphin-terminal" ''
-		exec ''${TERMINAL:-kitty} "$@"
-	'';
 in
 {
 	options.desktop.fileMgr.dolphin.enable = lib.mkEnableOption "dolphin file manager";
@@ -18,7 +15,7 @@ in
 			kdePackages.kservice
 			kdePackages.plasma-workspace
 			kdePackages.qtwayland
-			kdePackages.breeze-icons
+			# kdePackages.breeze-icons
 			shared-mime-info
 			xdg-desktop-portal
 			xdg-desktop-portal-gtk
@@ -32,12 +29,15 @@ in
 			"${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
 		home-manager.users.${username} = {
-			xdg.configFile."kdeglobals" = {
+            xdg.configFile."kdeglobals" = {
 				force = true;
 				text = ''
-					[General]
-					TerminalApplication=${dolphinTerminal}/bin/dolphin-terminal
-					TerminalService=false
+                    [General]
+                    TerminalApplication=xterm
+                    TerminalService=false
+
+                    [Icons]
+                    Theme=Papirus-Dark
 				'';
 			};
 

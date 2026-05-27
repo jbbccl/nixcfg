@@ -22,7 +22,6 @@
     { desktop.enable = lib.mkDefault true; }
     (lib.mkIf config.desktop.enable {
       desktop = lib.mkDefault {
-        base.fontSize = 12;
         winMgr.list = [ "labwc" "niri" ];
         bar.list = [ 
             "waybar" 

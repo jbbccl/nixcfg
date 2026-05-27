@@ -10,12 +10,12 @@ in
 		services.gvfs.enable = true;
 		services.tumbler.enable = true;
 
-		home-manager.users.${username} = {
-			xdg.configFile."Thunar/uca.xml" = {
-				force = true;
-				recursive = true;
-				source = ./uca.xml;
-			};
-		};
+		# home-manager.users.${username} = {
+		# 	xdg.configFile."Thunar/uca.xml" = {
+		# 		force = true;
+		# 		recursive = true;
+		# 		source = ./uca.xml;
+		# 	};
+		# };
 	};
 }

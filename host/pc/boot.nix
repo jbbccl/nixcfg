@@ -59,10 +59,10 @@
 		"/home/unsafe" = {
 			device = "/dev/disk/by-uuid/4C1C7F941C7F7832";
 			fsType = "ntfs";
-			options = [
-				"noauto"
-				"x-systemd.automount"
-			];
+			# options = [
+			# 	"noauto"
+			# 	"x-systemd.automount"
+			# ];
 		};
 	};
 	# swapDevices = [ { device = "/swap/swapfile"; size = 32768; } ];

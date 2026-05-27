@@ -1,7 +1,41 @@
+{ config, lib, pkgs, ... }:
+let
+	cfg = config.desktop.base;
+
+	defaultIconPkg = pkgs.catppuccin-papirus-folders.override {
+		flavor = "macchiato";
+		accent = "blue";
+	};
+in
 {
 	imports = [
 		./fonts.nix
-		./theme.nix
+		./gtk.nix
+		./qt.nix
+		./cursor.nix
 	];
-    programs.dconf.enable = true;
+
+	options.desktop.base = {
+		fontName = lib.mkOption {
+			type = lib.types.str;
+			default = "Maple Mono NF CN";
+		};
+		fontSize = lib.mkOption {
+			type = lib.types.int;
+			default = 12;
+		};
+
+		iconThemeName = lib.mkOption {
+			type = lib.types.str;
+			default = "Papirus-Dark";
+		};
+		iconThemePackage = lib.mkOption {
+			type = lib.types.package;
+			default = defaultIconPkg;
+		};
+	};
+
+	config = {
+		programs.dconf.enable = true;
+	};
 }
