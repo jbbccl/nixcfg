@@ -1,6 +1,17 @@
 { config, lib, pkgs, ... }:
 let
-	palette = (lib.importJSON ../static/palette.json).macchiato.colors;
+	palette = {
+		base     = "24273a";
+		red      = "ed8796";
+		green    = "a6da95";
+		yellow   = "eed49f";
+		blue     = "8aadf4";
+		pink     = "f5bde6";
+		teal     = "8bd5ca";
+		subtext1 = "b8c0e0";
+		surface2 = "5b6078";
+		subtext0 = "a5adcb";
+	};
 	cfg = config.core.console;
 in {
 	options.core.console.font = lib.mkOption {
@@ -16,7 +27,7 @@ in {
 			font = cfg.font;
 			packages = [ pkgs.terminus_font ];
 			useXkbConfig = true;
-			colors = map (which_color: (lib.substring 1 6 palette.${which_color}.hex)) [
+			colors = map (which_color: palette.${which_color}) [
 				"base" "red" "green" "yellow" "blue" "pink" "teal" "subtext1"
 				"surface2" "red" "green" "yellow" "blue" "pink" "teal" "subtext0"
 			];

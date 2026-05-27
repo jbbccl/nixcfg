@@ -143,9 +143,7 @@ nixcfg/
 │       ├── debian/
 │       └── kali/
 │
-├── secrets/            # SOPS 加密密钥 (__secrets__.nix)
-└── static/             # 静态资源
-    └── wallpaper/
+└── secrets/            # SOPS 加密密钥 (__secrets__.nix)
 ```
 
 ## 架构
