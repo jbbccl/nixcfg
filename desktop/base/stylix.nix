@@ -1,9 +1,19 @@
 { config, lib, pkgs, ... }:
 let
+	cfg = config.desktop.base.stylix;
 	base = config.desktop.base;
 in
 {
-	config = {
+	options.desktop.base.stylix = lib.mkOption {
+		type = lib.types.submodule {
+			options = {
+				enable = lib.mkEnableOption "Stylix unified theming";
+			};
+		};
+		default = { };
+	};
+
+	config = lib.mkIf cfg.enable {
 		stylix = {
 			enable = true;
 			polarity = "dark";
@@ -23,7 +33,14 @@ in
 				dark = base.iconThemeName;
 			};
 
+			cursor = {
+                name = base.cursorName;
+				package = base.cursorPackage;
+				size = base.cursorSize;
+			};
+
 			targets = {
+				console.enable = false;
 				gtk.enable = true;
 				qt.enable = true;
 				qt.platform = "qtct";

@@ -1,42 +1,49 @@
 { config, lib, pkgs, username, ... }:
 let
 	cfg = config.desktop.base.gtk;
+	base = config.desktop.base;
 in
 {
-	options.desktop.base.gtk = {
-		themeName = lib.mkOption {
-			type = lib.types.str;
-			default = "catppuccin-macchiato-blue-standard";
-		};
-		themePackage = lib.mkOption {
-			type = lib.types.package;
-			default = pkgs.catppuccin-gtk.override {
-				accents = [ "blue" ];
-				size = "standard";
-				variant = "macchiato";
+	options.desktop.base.gtk = lib.mkOption {
+		type = lib.types.submodule {
+			options = {
+				enable = lib.mkEnableOption "GTK theming";
+				themeName = lib.mkOption {
+					type = lib.types.str;
+					default = "catppuccin-macchiato-blue-standard";
+				};
+				themePackage = lib.mkOption {
+					type = lib.types.package;
+					default = pkgs.catppuccin-gtk.override {
+						accents = [ "blue" ];
+						size = "standard";
+						variant = "macchiato";
+					};
+				};
 			};
 		};
+		default = { };
 	};
 
-	config = {
+	config = lib.mkIf cfg.enable {
 		home-manager.users.${username} = {
 			gtk = {
 				enable = true;
 				font = {
-					name = config.desktop.base.fontName;
-					size = config.desktop.base.fontSize;
+					name = base.fontName;
+					size = base.fontSize;
 				};
 				theme = {
 					name = cfg.themeName;
 					package = cfg.themePackage;
 				};
 				iconTheme = {
-					name = config.desktop.base.iconThemeName;
-					package = config.desktop.base.iconThemePackage;
+					name = base.iconThemeName;
+					package = base.iconThemePackage;
 				};
 				cursorTheme = {
-					name = config.desktop.base.cursor.name;
-					package = config.desktop.base.cursor.package;
+					name = base.cursor.name;
+					package = base.cursor.package;
 				};
 
 				gtk3.extraConfig.gtk-application-prefer-dark-theme = true;

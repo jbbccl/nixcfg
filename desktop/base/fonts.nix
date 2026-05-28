@@ -1,5 +1,8 @@
-{ config, pkgs, ... }: {
-
+{ config, pkgs, ... }:
+let
+    base = config.desktop.base;
+in
+{
 	fonts = {
 		packages = with pkgs; [
 			maple-mono.NF-CN
@@ -11,9 +14,9 @@
 		];
 		fontconfig.defaultFonts = {
 			emoji = [ "Noto Color Emoji" ];
-			monospace = [ "MapleMono-NF-CN"  ];
-			sansSerif = [ "MapleMono-NF-CN" "Source Han Sans SC" ];
-			serif = [ "MapleMono-NF-CN" "Source Han Serif SC" ];
+			monospace = [ base.fontName  ];
+			sansSerif = [ base.fontName "Source Han Sans SC" ];
+			serif = [ base.fontName "Source Han Serif SC" ];
 		};
 	};
 }

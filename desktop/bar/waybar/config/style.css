@@ -29,6 +29,7 @@ window#waybar {
 }
 
 tooltip {
+    font-size: 12px;
 	border-radius: 6px;
 	background-color: @bg1;
 	border: 1px solid @overlay0;

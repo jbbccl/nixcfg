@@ -9,10 +9,10 @@ in
 		environment.systemPackages = with pkgs; [ fuzzel ];
 
 		home-manager.users.${username} = {
-			xdg.configFile."fuzzel/" = {
+			xdg.configFile."fuzzel/fuzzel.ini" = {
 				force = true;
 				recursive = true;
-				source = ./.;
+				source = ./fuzzel.ini;
 			};
 		};
 	};

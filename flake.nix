@@ -63,7 +63,7 @@
 					system.stateVersion = "25.11";
 					nixpkgs.overlays = lib.nixpkgsOverlays;
                     home-manager.backupFileExtension = "backup";
-					home-manager.users.${username}.home.stateVersion = "25.11";
+					home-manager.users.${username}.home.stateVersion = "26.05";
 				}
 			] ++ [
 				sops-nix.nixosModules.sops

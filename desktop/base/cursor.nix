@@ -1,35 +1,23 @@
 { config, lib, pkgs, username, ... }:
 let
 	cfg = config.desktop.base.cursor;
+    base = config.desktop.base;
 in
 {
-	options.desktop.base.cursor = {
-		name = lib.mkOption {
-			type = lib.types.str;
-			default = "breeze_cursors";
-		};
-		package = lib.mkOption {
-			type = lib.types.package;
-			default = pkgs.kdePackages.breeze;
-		};
-		size = lib.mkOption {
-			type = lib.types.int;
-			default = 12;
-		};
-	};
+	options.desktop.base.cursor.enable = lib.mkEnableOption "cursor theming";
 
-	config = {
+	config = lib.mkIf cfg.enable {
 		home-manager.users.${username} = {
 			home.pointerCursor = {
 				gtk.enable = true;
-				name = cfg.name;
-				package = cfg.package;
-				size = cfg.size;
+				name = base.cursorName;
+				package = base.cursorPackage;
+				size = base.cursorSize;
 			};
 
 			home.sessionVariables = {
-				XCURSOR_THEME = cfg.name;
-				XCURSOR_SIZE = toString cfg.size;
+				XCURSOR_THEME = base.cursorName;
+				XCURSOR_SIZE = toString base.cursorSize;
 			};
 		};
 	};

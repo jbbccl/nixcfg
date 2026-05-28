@@ -2,7 +2,6 @@
 let
 	cfg = config.desktop.base.qt;
 	base = config.desktop.base;
-
 	qt5ct = lib.generators.toINI { } {
 		Appearance = {
 			icon_theme = base.iconThemeName;
@@ -16,29 +15,35 @@ let
 	};
 in
 {
-	options.desktop.base.qt = {
-		platformTheme = lib.mkOption {
-			type = lib.types.str;
-			default = "qtct";
-		};
-		style = lib.mkOption {
-			type = lib.types.str;
-			default = "kvantum";
-		};
-		kvantumName = lib.mkOption {
-			type = lib.types.str;
-			default = "catppuccin-macchiato-blue";
-		};
-		kvantumPackage = lib.mkOption {
-			type = lib.types.package;
-			default = pkgs.catppuccin-kvantum.override {
-				variant = "macchiato";
-				accent = "blue";
+	options.desktop.base.qt = lib.mkOption {
+		type = lib.types.submodule {
+			options = {
+				enable = lib.mkEnableOption "Qt theming";
+				platformTheme = lib.mkOption {
+					type = lib.types.str;
+					default = "qtct";
+				};
+				style = lib.mkOption {
+					type = lib.types.str;
+					default = "kvantum";
+				};
+				kvantumName = lib.mkOption {
+					type = lib.types.str;
+					default = "catppuccin-macchiato-blue";
+				};
+				kvantumPackage = lib.mkOption {
+					type = lib.types.package;
+					default = pkgs.catppuccin-kvantum.override {
+						variant = "macchiato";
+						accent = "blue";
+					};
+				};
 			};
 		};
+		default = { };
 	};
 
-	config = {
+	config = lib.mkIf cfg.enable {
 		home-manager.users.${username} = {
 			qt = {
 				enable = true;
