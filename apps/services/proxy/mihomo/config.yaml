@@ -124,6 +124,12 @@ tun:
   auto-route: true
   auto-redirect: true
   auto-detect-interface: true
+  route-exclude-address:
+    - 192.168.0.0/16
+    - 172.16.0.0/12
+    - 10.0.0.0/8
+    - fd00::/8
+    - fe80::/10
 
 # DNS模块
 dns:
