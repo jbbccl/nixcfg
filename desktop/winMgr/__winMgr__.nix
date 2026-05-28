@@ -35,16 +35,18 @@ in
     systemd.user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
       wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
       after = [ "graphical-session.target" ];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         Restart = "on-failure";
         RestartSec = 1;
-        TimeoutStopSec = 10;
+        TimeoutStopSec = 4;
       };
     };
+    # 防止登出重进太快导致错误
+    systemd.user.targets.graphical-session.unitConfig.StopTimeoutSec = 3;
 
     xdg = {
       mime.enable = true;
