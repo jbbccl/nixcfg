@@ -29,10 +29,14 @@ window#waybar {
 }
 
 tooltip {
-    font-size: 12px;
-	border-radius: 6px;
-	background-color: @bg1;
-	border: 1px solid @overlay0;
+    border: 1px solid @overlay0;
+    border-radius: 6px;
+}
+
+tooltip label {
+    font-size: 14px;
+    padding: 6px 10px;
+    color: @text;
 }
 
 /* ── module base ── */

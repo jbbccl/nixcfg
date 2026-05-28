@@ -51,6 +51,7 @@ in
 			btop
 			# ocamlPackages.cpdf
 			openssl
+            jq
 
             # ── archive ──────────────────────────────────
             _7zz-rar

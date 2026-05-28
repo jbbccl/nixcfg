@@ -22,6 +22,7 @@
     { desktop.enable = lib.mkDefault true; }
     (lib.mkIf config.desktop.enable {
       desktop = lib.mkDefault {
+        base.theme = "manual";
         winMgr.list = [ "labwc" "niri" ];
         bar.list = [ 
             "waybar" 

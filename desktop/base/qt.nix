@@ -4,6 +4,7 @@ let
 	base = config.desktop.base;
 	qt5ct = lib.generators.toINI { } {
 		Appearance = {
+			custom_palette = true;
 			icon_theme = base.iconThemeName;
 			style = "kvantum";
 			standard_dialogs = "xdgdesktopportal";
@@ -40,7 +41,6 @@ in
 				};
 			};
 		};
-		default = { };
 	};
 
 	config = lib.mkIf cfg.enable {

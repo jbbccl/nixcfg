@@ -42,8 +42,8 @@ in
 					package = base.iconThemePackage;
 				};
 				cursorTheme = {
-					name = base.cursor.name;
-					package = base.cursor.package;
+					name = base.cursorName;
+					package = base.cursorPackage;
 				};
 
 				gtk3.extraConfig.gtk-application-prefer-dark-theme = true;

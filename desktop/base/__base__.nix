@@ -15,8 +15,10 @@ in
 	options.desktop.base = {
 		theme = lib.mkOption {
 			type = lib.types.nullOr (lib.types.enum [ "stylix" "manual" ]);
-			default = "stylix";
+			default = null;
 		};
+
+        # ── font ────────────────────────────────────
 		fontName = lib.mkOption {
 			type = lib.types.str;
 			default = "Maple Mono NF CN";
@@ -26,6 +28,7 @@ in
 			default = 12;
 		};
 
+        # ── icon ────────────────────────────────────
 		iconThemeName = lib.mkOption {
 			type = lib.types.str;
 			default = "Papirus-Dark";
@@ -38,6 +41,7 @@ in
 			};
 		};
 
+        # ── cursor ────────────────────────────────────
         cursorName = lib.mkOption {
             type = lib.types.str;
             default = "breeze_cursors";
