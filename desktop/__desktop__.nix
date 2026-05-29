@@ -32,7 +32,7 @@
         bar.waybar.niriTaskbar = true;
         launcher.select = "fuzzel";
         lock.select = "swaylock";
-        pwmenu.select = "wlogout";
+        # pwmenu.select = "wlogout";
         notif.select = "mako";
         input.select = "fcitx5";
         dispMgr.select = "greetd";

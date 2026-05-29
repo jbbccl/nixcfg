@@ -26,6 +26,7 @@ in
 	};
 
 	config = lib.mkIf cfg.enable {
+        programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 		home-manager.users.${username} = {
 			gtk = {
 				enable = true;

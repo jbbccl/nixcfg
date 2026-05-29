@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
 	options.modules.services.xserver.enable = lib.mkEnableOption "xserver (xkb)";
 
