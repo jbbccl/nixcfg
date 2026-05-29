@@ -10,7 +10,7 @@
 		./swaylock/swaylock.nix
 	];
 
-	config = lib.mkIf (config.desktop.lock.select == "swaylock") {
-		desktop.lock.swaylock.enable = lib.mkDefault true;
+	config = lib.mkIf (config.desktop.lock.select != null) {
+		desktop.lock.swaylock.enable = lib.mkDefault (config.desktop.lock.select == "swaylock");
 	};
 }

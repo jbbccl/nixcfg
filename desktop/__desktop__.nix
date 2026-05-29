@@ -7,6 +7,7 @@
     ./bar/__bar__.nix
     ./launcher/__launcher__.nix
     ./lock/__lock__.nix
+    ./pwmenu/__pwmenu__.nix
     ./notif/__notif__.nix
     ./input/__input__.nix
     ./wallpaper/__wallpaper__.nix
@@ -31,6 +32,7 @@
         bar.waybar.niriTaskbar = true;
         launcher.select = "fuzzel";
         lock.select = "swaylock";
+        pwmenu.select = "wlogout";
         notif.select = "mako";
         input.select = "fcitx5";
         dispMgr.select = "greetd";

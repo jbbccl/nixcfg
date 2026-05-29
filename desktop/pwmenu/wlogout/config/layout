@@ -1,15 +1,8 @@
 {
-    "label" : "lock",
-    "action" : "swaylock -f -c 000000 &",
-    "text" : "  Lock   ",
-    "keybind" : "l"
-}
-
-{
-    "label" : "logout",
-    "action" : "mmsg -q",
-    "text" : " Logout  ",
-    "keybind" : "m"
+    "label" : "suspend",
+    "action" : "swaylock -f & sleep 0.3 && systemctl suspend",
+    "text" : " Suspend ",
+    "keybind" : "s"
 }
 
 {
@@ -20,6 +13,13 @@
 }
 
 {
+    "label" : "logout",
+    "action" : "uwsm stop",
+    "text" : " Logout  ",
+    "keybind" : "m"
+}
+
+{
     "label" : "reboot",
     "action" : "reboot",
     "text" : " Reboot  ",
@@ -27,10 +27,10 @@
 }
 
 {
-    "label" : "suspend",
-    "action" : "systemctl suspend",
-    "text" : " Suspend ",
-    "keybind" : "s"
+    "label" : "lock",
+    "action" : "swaylock",
+    "text" : "  Lock",
+    "keybind" : "l"
 }
 
 {

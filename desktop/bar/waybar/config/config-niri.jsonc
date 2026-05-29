@@ -32,18 +32,18 @@
 		"ext/workspaces"
 	],
 	"modules-center": [
-		// "wlr/taskbar"
 		"cffi/niri-taskbar"
 	],
 	"modules-right": [
 		"tray",
         // "network",
         // "bluetooth",
-		// "pulseaudio#input", //TODO
         "custom/mic",
 		"pulseaudio#output",
 		"backlight",
 		"group/group-power"
+        // "custom/power-wlogout"
+        // "custom/power-menu"
 	]
 
 }

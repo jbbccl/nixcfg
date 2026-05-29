@@ -1,0 +1,38 @@
+window {
+    font-family: "Maple Mono NF CN", monospace;
+    font-size: 12pt;
+    font-weight: bold;
+    color: #cdd6f4;
+    background-color: rgba(30, 30, 46, 0.85);
+}
+
+button {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20%;
+    border: none;
+    color: transparent;
+    /* border-radius: 9999px; */
+    background-color: rgba(69, 71, 90, 0.4);
+    margin: 80px 80px;
+    min-width: 80px;
+    min-height: 80px;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: rgba(137, 180, 250, 0.3);
+    background-size: 25%;
+}
+
+button:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+#lock          { background-image: url("./icons/lock.svg"); }
+#logout        { background-image: url("./icons/logout.svg"); }
+#suspend       { background-image: url("./icons/suspend.svg"); }
+#hibernate     { background-image: url("./icons/hibernate.svg"); }
+#shutdown      { background-image: url("./icons/shutdown.svg"); }
+#reboot        { background-image: url("./icons/reboot.svg"); }
