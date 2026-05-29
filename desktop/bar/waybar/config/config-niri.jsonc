@@ -25,9 +25,11 @@
 
 	"modules-left": [
 		// "niri/window",
+        "group/group-power",
+        // "custom/power-wlogout"
+        // "custom/power-menu"
 		"memory",
 		"cpu",
-		"battery",
 		"clock",
 		"ext/workspaces"
 	],
@@ -41,9 +43,7 @@
         "custom/mic",
 		"pulseaudio#output",
 		"backlight",
-		"group/group-power"
-        // "custom/power-wlogout"
-        // "custom/power-menu"
+		"battery"
 	]
 
 }

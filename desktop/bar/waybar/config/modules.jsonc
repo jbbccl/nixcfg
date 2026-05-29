@@ -297,8 +297,9 @@
 	{
 		"format": "󰍁",
 		"tooltip": true,
-		"tooltip-format": "Lock",
-		"on-click": "bash ~/.config/waybar/scripts/power.sh --lock"
+		"tooltip-format": "left: Lock\nright: suspend",
+		"on-click": "bash ~/.config/waybar/scripts/power.sh --lock",
+        "on-click-right": "bash ~/.config/waybar/scripts/power.sh --suspend"
 	},
 
 	"custom/reboot":

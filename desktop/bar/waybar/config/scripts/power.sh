@@ -12,6 +12,9 @@ case "$1" in
 	--shutdown)
 		poweroff
 		;;
+    --suspend)
+		swaylock -f & sleep 0.3 && systemctl suspend
+		;;
 	*)
 		exit 1
 		;;
