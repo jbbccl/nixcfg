@@ -273,15 +273,15 @@
 		{
 			"transition-duration": 500,
 			"children-class": "not-power",
-			"transition-left-to-right": false,
-			"click-to-reveal": true
+			// "transition-left-to-right": false,
+			"click-to-reveal": false
 		},
 		"modules": [
-			"custom/power#1",
 			"custom/power",
+			"custom/lock",
+            // "custom/quit",
 			"custom/reboot",
-			"custom/quit",
-			"custom/lock"
+			"custom/shutdown"
 		]
 	},
 
@@ -297,8 +297,9 @@
 	{
 		"format": "󰍁",
 		"tooltip": true,
-		"tooltip-format": "left: Lock\nright: suspend",
+		"tooltip-format": "left: Lock\nmid Logout \nright: Suspend",
 		"on-click": "bash ~/.config/waybar/scripts/power.sh --lock",
+        "on-click-middle": "bash ~/.config/waybar/scripts/power.sh --logout",
         "on-click-right": "bash ~/.config/waybar/scripts/power.sh --suspend"
 	},
 
@@ -309,7 +310,7 @@
 		"tooltip-format": "Reboot",
 		"on-click-middle": "bash ~/.config/waybar/scripts/power.sh --reboot"
 	},
-	"custom/power":
+	"custom/shutdown":
 	{
 		"format": "󰐥",
 		"tooltip": true,
@@ -317,12 +318,10 @@
 		// "on-click":"swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Suspend' 'swaymsg exec systemctl suspend' -b 'shutdown' 'systemctl shutdown'"
 		"on-click-middle": "bash ~/.config/waybar/scripts/power.sh --shutdown"
 	},
-	"custom/power#1":
+	"custom/power":
 	{
 		"format": "󰐥",
 		"tooltip": true,
-		"tooltip-format": "Shutdown"
-		// "on-click":"swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Suspend' 'swaymsg exec systemctl suspend' -b 'shutdown' 'systemctl shutdown'"
-		// "on-click": "bash ~/.config/waybar/scripts/power.sh --shutdown"
+		"tooltip-format": "power"
 	}
 }

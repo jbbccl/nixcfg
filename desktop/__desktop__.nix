@@ -27,6 +27,7 @@
         winMgr.list = [ "labwc" "niri" ];
         bar.list = [ 
             "waybar" 
+            "ironbar"
             # "noctalia"
         ];
         bar.waybar.niriTaskbar = true;
