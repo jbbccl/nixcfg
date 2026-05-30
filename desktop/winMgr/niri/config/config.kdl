@@ -3,16 +3,14 @@ environment {
 }
 
 // spawn-sh-at-startup "~/.config/niri/autostart.sh"
-// 这是dm做的事,但是xwayland是此桌面托管的，所以放在这里
 // spawn-at-startup "dbus-update-activation-environment" "--systemd" "--all"
 
 // spawn-sh-at-startup "touch $XAUTHORITY; xauth generate \"$DISPLAY\""//加上trusted.sudo gparted第一次启动会变小，神奇
 // spawn-at-startup "xhost" "+SI:localuser:root"
 
-spawn-sh-at-startup "waybar -c ~/.config/waybar/config-niri.jsonc -s ~/.config/waybar/style.css"
+// spawn-sh-at-startup "waybar -c ~/.config/waybar/config-niri.jsonc -s ~/.config/waybar/style.css"
+spawn-at-startup "noctalia-shell"
 
-
-// spawn-at-startup "noctalia-shell"
 spawn-at-startup "fcitx5"
 spawn-at-startup "waypaper" "--restore"
 
@@ -76,7 +74,7 @@ input {
 	focus-follows-mouse max-scroll-amount="0%"
 }
 
-include "./output.kdl"
+
 layout {
 	gaps 4
 	background-color "#1e1e2e"
@@ -144,3 +142,4 @@ gestures {
 include "./rules.kdl"
 include "./binds.kdl"
 include "./noctalia.kdl"
+include "./output.kdl"

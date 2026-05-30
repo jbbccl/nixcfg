@@ -26,19 +26,22 @@
         base.theme = "manual";
         winMgr.list = [ "labwc" "niri" ];
         bar.list = [ 
-            "waybar" 
-            "ironbar"
-            # "noctalia"
+            # "waybar" 
+            # "ironbar"
+            "noctalia"
         ];
-        bar.waybar.niriTaskbar = true;
-        launcher.select = "fuzzel";
-        lock.select = "swaylock";
+        # ---
+        # bar.waybar.niriTaskbar = true;
+        # lock.select = "swaylock";
         # pwmenu.select = "wlogout";
-        notif.select = "mako";
-        input.select = "fcitx5";
+        # notif.select = "mako";
+        # input.select = "fcitx5";
+        # ---
+        launcher.select = "fuzzel";
         dispMgr.select = "greetd";
         term.select = "kitty";
         fileMgr.list = [ "dolphin" "thunar" ];
+        wallpaper.enable = true;
       };
     })
   ];
