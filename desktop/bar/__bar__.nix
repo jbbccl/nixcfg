@@ -6,7 +6,7 @@ in
 	imports = [
 		./waybar/waybar.nix
 		./ironbar/ironbar.nix
-		./noctalia/default.nix
+		./noctalia/noctalia.nix
 	];
 
 	options.desktop.bar.list = lib.mkOption {

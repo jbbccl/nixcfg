@@ -22,12 +22,15 @@ in
 	};
 
 	config = lib.mkIf cfg.enable {
+        services.blueman.enable = true;
 		environment.systemPackages = with pkgs; [
 			waybar-bin
 			brightnessctl
 			networkmanagerapplet
 			pwvucontrol
 		];
+        # systemd.user.services."app-nm\\x2dapplet@autostart".enable = false;
+		# systemd.user.services."app-blueman@autostart".enable = false;
 
 		home-manager.users.${username} = {
 			xdg.configFile."waybar/" = {

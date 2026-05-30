@@ -45,7 +45,6 @@ in
 				};
 			};
 
-			services.blueman.enable = true;
             environment.systemPackages = with pkgs; [ bluetuith ]; # overskride
 
             users.users.${username}.extraGroups = [ "bluetooth" ];

@@ -7,7 +7,7 @@ in
 
 	config = lib.mkIf cfg.enable {
 		environment.systemPackages = with pkgs; [
-			networkmanagerapplet
+			# networkmanagerapplet
 			inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
 		];
 

@@ -35,8 +35,8 @@
         # lock.select = "swaylock";
         # pwmenu.select = "wlogout";
         # notif.select = "mako";
-        # input.select = "fcitx5";
         # ---
+        input.select = "fcitx5";
         launcher.select = "fuzzel";
         dispMgr.select = "greetd";
         term.select = "kitty";
