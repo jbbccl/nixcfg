@@ -66,6 +66,11 @@
 			# ];
 		};
 	};
-	# swapDevices = [ { device = "/swap/swapfile"; size = 32768; } ];
+	swapDevices = [ { device = "/swap/swapfile"; size = 32768; priority = 0; } ];
+	systemd.tmpfiles.rules = [ "d /swap 0755 root root -" ];
+	zramSwap = {
+		enable = true;
+		priority = 10;
+	};
 
 }

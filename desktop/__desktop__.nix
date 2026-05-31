@@ -24,7 +24,11 @@
     (lib.mkIf config.desktop.enable {
       desktop = lib.mkDefault {
         base.theme = "manual";
-        winMgr.list = [ "labwc" "niri" ];
+        dispMgr.select = "greetd";
+        winMgr.list = [ 
+            # "labwc"
+            "niri"
+        ];
         bar.list = [ 
             # "waybar" 
             # "ironbar"
@@ -35,10 +39,9 @@
         # lock.select = "swaylock";
         # pwmenu.select = "wlogout";
         # notif.select = "mako";
+        # launcher.select = "fuzzel";
         # ---
         input.select = "fcitx5";
-        launcher.select = "fuzzel";
-        dispMgr.select = "greetd";
         term.select = "kitty";
         fileMgr.list = [ "dolphin" "thunar" ];
         wallpaper.enable = true;

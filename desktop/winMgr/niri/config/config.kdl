@@ -18,7 +18,7 @@ spawn-at-startup "waypaper" "--restore"
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"//null
 
-prefer-no-csd	//修复半透明窗口
+prefer-no-csd
 
 cursor {
 	// xcursor-theme "breeze_cursors"
@@ -90,32 +90,6 @@ layout {
 
 	default-column-width { proportion 0.5; }
 
-	focus-ring {
-		// off
-		width 2
-		// active-color "#7fc8ff"
-		// inactive-color "#505050"
-		// active-gradient from="#80c8ff" to="#c7ff7f" angle=45
-		// inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
-	}
-
-	border {
-		off
-		width 2
-		active-color "#ffc87f"
-		inactive-color "#505050"
-		urgent-color "#9b0000"
-	}
-
-	shadow {
-		// on
-		//先关着
-		softness 30
-		spread 5
-		offset x=0 y=5
-		color "#0007"
-	}
-
 	struts {
 		// left 64	// 左侧和右侧的 struts 会导致侧面的下一个窗口始终可见。
 		// right 64
@@ -125,7 +99,6 @@ layout {
 }
 
 hotkey-overlay {
-	// Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
 	skip-at-startup
 }
 
