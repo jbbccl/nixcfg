@@ -19,7 +19,7 @@
 				services.ai.opencode.enable = true;
 				services.proxy.enable       = true;
 				services.proxy.mihomo.enable = true;
-				services.ingress.enable     = false;
+				services.ingress.enable     = true;
 				services.remote-ctrl.enable = false;
 				toolkits.enable             = true;
 				game.enable                 = true;
