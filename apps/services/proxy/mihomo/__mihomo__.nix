@@ -12,6 +12,7 @@ in
 			airport01URL = { sopsFile = "${self}/secrets/token.yaml"; };
 			airport02URL = { sopsFile = "${self}/secrets/token.yaml"; };
 			airport03URL = { sopsFile = "${self}/secrets/token.yaml"; };
+            airport04URL = { sopsFile = "${self}/secrets/token.yaml"; };
 		};
 
 		sops.templates."mihomo-config.yaml" = {
@@ -22,10 +23,12 @@ in
 				"AIRPORT01_URL_PLACEHOLDER"
 				"AIRPORT02_URL_PLACEHOLDER"
 				"AIRPORT03_URL_PLACEHOLDER"
+                "AIRPORT04_URL_PLACEHOLDER"
 			] [
 				config.sops.placeholder.airport01URL
 				config.sops.placeholder.airport02URL
 				config.sops.placeholder.airport03URL
+                config.sops.placeholder.airport04URL
 			] (template);
 		};
 

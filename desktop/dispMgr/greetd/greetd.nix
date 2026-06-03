@@ -12,15 +12,15 @@ in
 			useTextGreeter = true;
 			settings = {
 				default_session = {
-					command = ''
-					${lib.getExe pkgs.tuigreet} \
-					--sessions ${sessionData}/share/wayland-sessions:${sessionData}/share/xsessions \
-					--time \
-					--time-format '%Y-%m-%d %H:%M' \
-					--asterisks \
-					--remember \
-					--remember-session
-					'';
+					command = lib.concatStringsSep " " [
+                        "${lib.getExe pkgs.tuigreet}"
+                        "--sessions ${sessionData}/share/wayland-sessions:${sessionData}/share/xsessions"
+                        "--time"
+                        "--time-format '%Y-%m-%d %H:%M'"
+                        "--asterisks"
+                        "--remember"
+                        "--remember-session"
+                    ];
 				};
 			};
 		};

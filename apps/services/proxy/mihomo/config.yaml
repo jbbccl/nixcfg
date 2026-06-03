@@ -35,6 +35,14 @@ proxy-providers:
       additional-prefix: '[ fb ]'
       skip-cert-verify: true
       udp: true
+  Airport_04:
+    <<: *PProviders
+    proxy: "故障转移"
+    url: "AIRPORT04_URL_PLACEHOLDER"
+    override:
+      additional-prefix: '[ yy ]'
+      skip-cert-verify: true
+      udp: true
 
 ##############################################
 

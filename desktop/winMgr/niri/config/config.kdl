@@ -9,7 +9,7 @@ environment {
 // spawn-at-startup "xhost" "+SI:localuser:root"
 
 // spawn-sh-at-startup "waybar -c ~/.config/waybar/config-niri.jsonc -s ~/.config/waybar/style.css"
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "noctalia"//-shell"
 
 spawn-at-startup "fcitx5"
 spawn-at-startup "waypaper" "--restore"
