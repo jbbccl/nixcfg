@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, username, ... }:
 let
 	cfg = config.desktop.bar.noctalia;
 in
@@ -15,5 +15,12 @@ in
 			upower.enable = true;
 			power-profiles-daemon.enable = true;
 		};
+        home-manager.users.${username} = {
+            xdg.configFile."noctalia" = {
+                force = true;
+                recursive = true;
+                source = ./config;
+            };
+        };
 	};
 }

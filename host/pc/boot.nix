@@ -22,7 +22,7 @@
 			# "quiet"
 			# "systemd.show_status=0"
             "fbcon=font:TER10x18"
-            "video=DP-1:1920x1080@120.000"
+            # "video=DP-1:1920x1080@120.000"
 		];
 
 		loader = {
