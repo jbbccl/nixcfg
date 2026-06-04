@@ -36,6 +36,7 @@
         ];
         # ---
         # bar.waybar.niriTaskbar = true;
+        wallpaper.enable = true;
         # lock.select = "swaylock";
         # pwmenu.select = "wlogout";
         # notif.select = "mako";
@@ -44,7 +45,6 @@
         input.select = "fcitx5";
         term.select = "kitty";
         fileMgr.list = [ "dolphin" "thunar" ];
-        wallpaper.enable = true;
       };
     })
   ];

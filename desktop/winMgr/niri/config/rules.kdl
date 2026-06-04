@@ -38,14 +38,14 @@ window-rule {
 	open-floating true
 }
 // noctalia放置在背景层内
-layer-rule {
-	match namespace="^noctalia-overview*"
-	place-within-backdrop true
-}
 // layer-rule {
-//     match namespace="^awww-daemon$"
-//     place-within-backdrop true
+// 	match namespace="^noctalia"
+// 	place-within-backdrop true
 // }
+layer-rule {
+    match namespace="^awww-daemon$"
+    place-within-backdrop true
+}
 
 /-window-rule {
     // 此正则表达式特意设置得尽可能具体，可以只使用 app-id="wezterm"。
