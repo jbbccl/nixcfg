@@ -55,6 +55,43 @@ font_family = "Maple Mono NF CN"
     open_near_click_control_center = true
     shadow = false
 
+    [[shell.session.actions]]
+    action = "logout"
+    enabled = true
+    shortcut = "2"
+    variant = "destructive"
+
+    [[shell.session.actions]]
+    action = "suspend"
+    enabled = true
+    shortcut = "3"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "lock"
+    enabled = true
+    shortcut = "1"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "reboot"
+    enabled = true
+    shortcut = "4"
+    variant = "destructive"
+
+    [[shell.session.actions]]
+    action = "shutdown"
+    enabled = true
+    shortcut = "5"
+    variant = "destructive"
+
+    [[shell.session.actions]]
+    action = "command"
+    command = "systemctl hibernate"
+    enabled = true
+    label = "hibernate"
+    variant = "secondary"
+
 [theme]
 builtin = "Catppuccin"
 
