@@ -50,6 +50,7 @@ widget_order = []
 
 [shell]
 font_family = "Maple Mono NF CN"
+ui_scale = 1.1000000089406967
 
     [shell.panel]
     open_near_click_control_center = true
@@ -89,6 +90,7 @@ font_family = "Maple Mono NF CN"
     action = "command"
     command = "systemctl hibernate"
     enabled = true
+    glyph = "hibernate"
     label = "hibernate"
     variant = "secondary"
 
@@ -113,6 +115,7 @@ format = "{:%m-%d %H:%M %a}"
 
 [widget.control-center]
 capsule = true
+glyph = "disabled-2"
 
 [widget.media]
 capsule = true
