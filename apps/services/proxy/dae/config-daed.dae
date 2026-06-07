@@ -1,0 +1,46 @@
+# dae config — proxy engine rules only
+# 订阅/节点管理走 daed 面板 (wing.db)，不走这里
+
+global {
+  tproxy_port: 7897
+  so_mark_from_dae: 0
+  log_level: info
+  disable_waiting_network: false
+  auto_config_kernel_parameter: true
+  lan_interface: []
+  wan_interface: []
+  allow_insecure: false
+  check_interval: 30s
+  check_tolerance: 50ms
+}
+
+# ── DNS ──────────────────────────────────────────────────
+dns {
+  upstream {
+    googledns: 'https://dns.google/dns-query'
+    alidns: 'udp://223.5.5.5:53'
+    dnspub: 'https://doh.pub/dns-query'
+  }
+  routing {
+    request {
+      qname(geosite:cn) -> alidns
+      qname(geosite:geolocation-!cn) -> googledns
+      fallback: alidns
+    }
+    response {
+      upstream(googledns) -> accept
+      upstream(alidns) -> accept
+      fallback: accept
+    }
+  }
+}
+
+# ── 路由 ─────────────────────────────────────────────────
+routing {
+  pname(NetworkManager, systemd-resolved, dnsmasq) -> must_direct
+  dip(geoip:private) -> direct
+  dip(geoip:cn) -> direct
+  domain(geosite:cn, geosite:private) -> direct
+  domain(geosite:geolocation-!cn) -> proxy
+  fallback: proxy
+}

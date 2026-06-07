@@ -22,6 +22,7 @@ in
 			warnings = [ "sops 密钥文件 (${ageKeyFile}) 不存在，依赖加密的服务已强制关闭" ];
 			apps.services.ai.enable           = lib.mkForce false;
 			apps.services.proxy.mihomo.enable = lib.mkForce false;
+			apps.services.proxy.dae.enable    = lib.mkForce false;
 			apps.services.ingress.enable      = lib.mkForce false;
 			apps.services.remote-ctrl.enable  = lib.mkForce false;
 			modules.services.ssh.enable       = lib.mkForce false;
