@@ -1,12 +1,12 @@
 [bar.default]
 center = [ "taskbar" ]
-end = [ "group:g4", "group:g1", "volume", "group:g3", "control-center" ]
+end = [ "group:g4", "group:g1", "volume", "control-center" ]
 margin_edge = 0
 margin_ends = 0
 padding = 1
 radius = 0
 shadow = false
-start = [ "group:g2", "clock", "wallpaper", "media" ]
+start = [ "group:g2", "group:g3", "clock", "wallpaper" ]
 
     [[bar.default.capsule_group]]
     fill = "surface_variant"
@@ -24,15 +24,15 @@ start = [ "group:g2", "clock", "wallpaper", "media" ]
 
     [[bar.default.capsule_group]]
     fill = "surface_variant"
-    id = "g3"
-    members = [ "brightness", "battery" ]
+    id = "g4"
+    members = [ "tray", "clipboard" ]
     opacity = 1.0
     padding = 6.0
 
     [[bar.default.capsule_group]]
     fill = "surface_variant"
-    id = "g4"
-    members = [ "tray", "clipboard" ]
+    id = "g3"
+    members = [ "battery", "brightness" ]
     opacity = 1.0
     padding = 6.0
 
@@ -101,13 +101,19 @@ builtin = "Catppuccin"
 directory = "/home/e/.local/share/wallpapers"
 
     [wallpaper.default]
-    path = "/home/e/.local/share/wallpapers/plasma/ScarletTree/contents/images_dark/wallhaven_mpy829.jpg"
+    path = "/home/e/.local/share/wallpapers/plasma/BytheWater/contents/images/1920x1080.jpg"
 
     [wallpaper.last]
-    path = "/home/e/.local/share/wallpapers/plasma/ScarletTree/contents/images_dark/wallhaven_mpy829.jpg"
+    path = "/home/e/.local/share/wallpapers/plasma/BytheWater/contents/images/1920x1080.jpg"
 
     [wallpaper.monitors.DP-1]
     path = "/home/e/.local/share/wallpapers/plasma/ScarletTree/contents/images_dark/wallhaven_mpy829.jpg"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/e/.local/share/wallpapers/plasma/BytheWater/contents/images/1920x1080.jpg"
+
+[widget.brightness]
+scroll_step = 1
 
 [widget.clock]
 capsule = true
