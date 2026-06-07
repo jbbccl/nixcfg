@@ -14,57 +14,49 @@ in
 
 	home-manager.users.${username} = {
 		home.packages = with pkgs; [
-			# flclash
-			# daed
-
-			kdePackages.filelight
-			# gparted
-			# partitionmanager
-			xfce4-taskmanager
-
-			localsend
-
-			# ── editor ──────────────────────────────────
-			imhex
+			# ── editor ────────────────────────────────────
 			# gimp
-			zed-editor
-			# obsidian
+            imhex
 			libreoffice-qt
+			# obsidian
+            # ocamlPackages.cpdf
+            zed-editor
 
-			# ── stream ──────────────────────────────────
+			# ── stream ────────────────────────────────────
+            # moonlight-qt
 			obs-studio
 			# showmethekey
-			# moonlight-qt
 			vlc
 
-			# 应用
-			gearlever
+			# ── apps ──────────────────────────────────────
 			# bottles
-
-			# 其他
+            gearlever
+            localsend
 			# pomodoro-gtk
 			# keepassxc
-			xeyes
 
-			# ── e ────────────────────────────────────────
-			fastfetch
-			btop
-			# ocamlPackages.cpdf
-			openssl
+            # ── 某些功能 ──────────────────────────────────
+            btop
+			kdePackages.filelight
+            xfce4-taskmanager
+
+			# ── xjb ───────────────────────────────────────
+			# fastfetch
             jq
+			openssl
+            xeyes
 
-            # ── archive ──────────────────────────────────
+            # ── archive ───────────────────────────────────
             _7zz-rar
             squashfsTools
 
-            # ── network ──────────────────────────────────
-			# zap
+            # ── network ───────────────────────────────────
 			# caido
+            dig
 			# mitmproxy
-			traceroute
-			dig
-
             nmap
+			traceroute
+            # zap
 		];
 	};
 }
