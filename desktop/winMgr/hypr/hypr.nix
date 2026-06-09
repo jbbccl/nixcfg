@@ -9,7 +9,6 @@ in
 	programs.hyprland.enable = true;
 	environment.systemPackages = with pkgs; [
 		xwayland-satellite
-		wl-clipboard
 		grim
 		slurp
 		jq

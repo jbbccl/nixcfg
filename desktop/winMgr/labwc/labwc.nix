@@ -10,7 +10,6 @@ in
         environment.systemPackages = with pkgs; [
             wlr-randr
             xwayland-satellite
-            wl-clipboard
         ];
         home-manager.users.${username} = {
             dconf.settings = {
