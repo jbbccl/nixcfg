@@ -10,6 +10,8 @@
 		zlib
 		zstd
 		stdenv.cc.cc
+        glibc
+		glibc_multi.bin
 		curl
 		openssl
 		attr
