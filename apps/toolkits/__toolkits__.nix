@@ -6,6 +6,7 @@
 		./misc.nix
 		./vm-managers.nix
 		./wireshark.nix
+        ./8091.nix
 	];
 
 	config = lib.mkIf config.apps.toolkits.enable {
