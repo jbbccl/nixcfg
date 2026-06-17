@@ -21,7 +21,7 @@ in
 			# obsidian
             # ocamlPackages.cpdf
             zed-editor
-            vscode-fhs
+            vscode#-fhs
 
 			# ── stream ────────────────────────────────────
             # moonlight-qt
