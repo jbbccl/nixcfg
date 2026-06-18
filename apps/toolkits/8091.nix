@@ -7,9 +7,7 @@ in
         sdcc
 	];
 
-    environment.variables = {
-		C_INCLUDE_PATH = [ "${pkgs.sdcc}/share/sdcc/include" "${pkgs.sdcc}/share/sdcc/include/mcs51" ];
-		CPLUS_INCLUDE_PATH = [ "${pkgs.sdcc}/share/sdcc/include" "${pkgs.sdcc}/share/sdcc/include/mcs51" ];
+    environment.sessionVariables = {
         SDCC_HOME = "${pkgs.sdcc}";
         SDCC_INCLUDE = "${pkgs.sdcc}/share/sdcc/include";
 	};

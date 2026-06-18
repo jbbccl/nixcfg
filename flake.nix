@@ -62,14 +62,15 @@
 				{
 					system.stateVersion = "25.11";
 					nixpkgs.overlays = lib.nixpkgsOverlays;
-                    home-manager.backupFileExtension = "backup";
+          home-manager.backupFileExtension = "backup";
+					home-manager.startAsUserService = true;
 					home-manager.users.${username}.home.stateVersion = "26.05";
 				}
 			] ++ [
 				sops-nix.nixosModules.sops
 				hermes-agent.nixosModules.default
 				inputs.mango.nixosModules.mango
-                stylix.nixosModules.stylix
+        stylix.nixosModules.stylix
 				{
 					home-manager.users.${username} = {
 						imports = [
