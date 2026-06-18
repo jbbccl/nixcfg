@@ -7,6 +7,7 @@ lib.mkIf (builtins.elem "c-cpp" config.modules.dev.lang) {
 		gnumake
 		cmake
 		gdb
+		lldb
 		pkg-config
 
 		openssl.dev
