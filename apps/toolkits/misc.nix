@@ -20,8 +20,6 @@ in
 			libreoffice-qt
 			# obsidian
             # ocamlPackages.cpdf
-            zed-editor
-            vscode#-fhs
 
 			# ── stream ────────────────────────────────────
             # moonlight-qt

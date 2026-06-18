@@ -4,6 +4,7 @@
 
 	imports = [
 		./misc.nix
+		./editors.nix
 		./vm-managers.nix
 		./wireshark.nix
         ./8091.nix

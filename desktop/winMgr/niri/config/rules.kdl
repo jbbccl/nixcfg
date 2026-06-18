@@ -8,6 +8,7 @@ window-rule {
 window-rule {
 	match app-id="firefox$"
 	match app-id="code"
+	match app-id="codium"
 	match app-id="dev.zed.Zed"
 	match app-id="Ablaze Floorp"
 	match app-id="brave-browser"

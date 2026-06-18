@@ -3,6 +3,7 @@ lib.mkIf (builtins.elem "c-cpp" config.modules.dev.lang) {
 
 	environment.systemPackages = with pkgs; [
 		gcc
+		clang-tools
 		gnumake
 		cmake
 		gdb

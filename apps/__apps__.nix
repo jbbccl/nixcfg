@@ -24,6 +24,7 @@
         services.ingress.enable     = false;
         services.remote-ctrl.enable = false;
         toolkits.enable             = true;
+        toolkits.editors.enable     = true;
         game.enable                 = true;
         game.steam.enable           = true;
       };
