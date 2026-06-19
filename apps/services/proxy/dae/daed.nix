@@ -1,30 +1,33 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.apps.services.proxy.daed;
 
   # dae needs geosite.dat + geoip.dat (v2ray format)
   daeAssets = pkgs.symlinkJoin {
     name = "dae-assets";
-    paths = with pkgs; [ v2ray-geoip v2ray-domain-list-community ];
+    paths = with pkgs; [v2ray-geoip v2ray-domain-list-community];
   };
-in
-{
+in {
   options.apps.services.proxy.daed.enable = lib.mkEnableOption "daed (dae + web dashboard)";
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.daed ];
+    environment.systemPackages = [pkgs.daed];
 
     networking.firewall = {
-      allowedTCPPorts = [ 7897 2023 ];
-      allowedUDPPorts = [ 7897 ];
+      allowedTCPPorts = [7897 2023];
+      allowedUDPPorts = [7897];
     };
 
     systemd.services.daed = {
       description = "daed — dae + API + web UI";
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      conflicts = [ "dae.service" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      conflicts = ["dae.service"];
 
       serviceConfig = {
         Type = "simple";

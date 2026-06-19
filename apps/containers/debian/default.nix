@@ -1,8 +1,12 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.apps.containers.debian;
 
-  context = pkgs.runCommand "debian-ctx" { } ''
+  context = pkgs.runCommand "debian-ctx" {} ''
     mkdir $out
     cp ${./Dockerfile} $out/Dockerfile
     cp ${../entrypoint.sh} $out/entrypoint.sh
@@ -57,8 +61,7 @@ let
       --ipc=private --userns=keep-id \
       localhost/debian:daily zsh -l
   '';
-in
-{
+in {
   options.apps.containers.debian = {
     enable = lib.mkEnableOption "Debian daily container";
   };
@@ -66,7 +69,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.user.services.build-debian = {
       description = "Build debian OCI image";
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -83,6 +86,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ launchCmd ];
+    environment.systemPackages = [launchCmd];
   };
 }

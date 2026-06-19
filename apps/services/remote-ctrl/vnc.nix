@@ -1,4 +1,10 @@
-{ pkgs, username, lib, config, ... }:
+{
+  pkgs,
+  username,
+  lib,
+  config,
+  ...
+}:
 lib.mkIf config.apps.services.remote-ctrl.enable {
   environment.systemPackages = with pkgs; [
     wayvnc

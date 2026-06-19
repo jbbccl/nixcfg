@@ -1,5 +1,10 @@
-{ self, config, lib, pkgs, ... }:
-let
+{
+  self,
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.apps.services.proxy.dae;
   template = builtins.readFile ./config-dae.dae;
 
@@ -19,35 +24,36 @@ let
 
   daeAssets = pkgs.symlinkJoin {
     name = "dae-assets";
-    paths = with pkgs; [ v2ray-geoip metacubex-geosite ];
+    paths = with pkgs; [v2ray-geoip metacubex-geosite];
   };
-in
-{
+in {
   options.apps.services.proxy.dae.enable = lib.mkEnableOption "dae proxy (pure, no web UI)";
 
   config = lib.mkIf cfg.enable {
     sops.secrets = {
-      airport01URL = { sopsFile = "${self}/secrets/token.yaml"; };
-      airport02URL = { sopsFile = "${self}/secrets/token.yaml"; };
-      airport03URL = { sopsFile = "${self}/secrets/token.yaml"; };
-      airport04URL = { sopsFile = "${self}/secrets/token.yaml"; };
+      airport01URL = {sopsFile = "${self}/secrets/token.yaml";};
+      airport02URL = {sopsFile = "${self}/secrets/token.yaml";};
+      airport03URL = {sopsFile = "${self}/secrets/token.yaml";};
+      airport04URL = {sopsFile = "${self}/secrets/token.yaml";};
     };
 
     sops.templates."dae-config" = {
       owner = "root";
       group = "root";
       mode = "640";
-      content = lib.replaceStrings [
-        "AIRPORT01_URL_PLACEHOLDER"
-        "AIRPORT02_URL_PLACEHOLDER"
-        "AIRPORT03_URL_PLACEHOLDER"
-        "AIRPORT04_URL_PLACEHOLDER"
-      ] [
-        config.sops.placeholder.airport01URL
-        config.sops.placeholder.airport02URL
-        config.sops.placeholder.airport03URL
-        config.sops.placeholder.airport04URL
-      ] template;
+      content =
+        lib.replaceStrings [
+          "AIRPORT01_URL_PLACEHOLDER"
+          "AIRPORT02_URL_PLACEHOLDER"
+          "AIRPORT03_URL_PLACEHOLDER"
+          "AIRPORT04_URL_PLACEHOLDER"
+        ] [
+          config.sops.placeholder.airport01URL
+          config.sops.placeholder.airport02URL
+          config.sops.placeholder.airport03URL
+          config.sops.placeholder.airport04URL
+        ]
+        template;
     };
 
     services.dae = {

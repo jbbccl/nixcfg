@@ -1,43 +1,48 @@
-{ config, lib, pkgs, username, ... }:
-let
-	cfg = config.desktop.bar.waybar;
-
-	niri-taskbar = pkgs.callPackage ./niri-taskbar.nix { inherit lib; };
-
-	waybar-bin = if cfg.niriTaskbar then
-		pkgs.runCommand "waybar-wrapped"
-			{ nativeBuildInputs = [ pkgs.makeWrapper ]; }
-			''
-			mkdir -p $out/bin
-			makeWrapper ${lib.getExe pkgs.waybar} $out/bin/waybar \
-				--prefix LD_LIBRARY_PATH : ${niri-taskbar}/lib
-			''
-	else
-		pkgs.waybar;
-in
 {
-	options.desktop.bar.waybar = {
-		enable = lib.mkEnableOption "waybar status bar";
-		niriTaskbar = lib.mkEnableOption "niri-taskbar cffi plugin";
-	};
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}: let
+  cfg = config.desktop.bar.waybar;
 
-	config = lib.mkIf cfg.enable {
-        services.blueman.enable = true;
-		environment.systemPackages = with pkgs; [
-			waybar-bin
-			brightnessctl
-			networkmanagerapplet
-			pwvucontrol
-		];
-        # systemd.user.services."app-nm\\x2dapplet@autostart".enable = false;
-		# systemd.user.services."app-blueman@autostart".enable = false;
+  niri-taskbar = pkgs.callPackage ./niri-taskbar.nix {inherit lib;};
 
-		home-manager.users.${username} = {
-			xdg.configFile."waybar/" = {
-				force = true;
-				recursive = true;
-				source = ./config;
-			};
-		};
-	};
+  waybar-bin =
+    if cfg.niriTaskbar
+    then
+      pkgs.runCommand "waybar-wrapped"
+      {nativeBuildInputs = [pkgs.makeWrapper];}
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${lib.getExe pkgs.waybar} $out/bin/waybar \
+        	--prefix LD_LIBRARY_PATH : ${niri-taskbar}/lib
+      ''
+    else pkgs.waybar;
+in {
+  options.desktop.bar.waybar = {
+    enable = lib.mkEnableOption "waybar status bar";
+    niriTaskbar = lib.mkEnableOption "niri-taskbar cffi plugin";
+  };
+
+  config = lib.mkIf cfg.enable {
+    services.blueman.enable = true;
+    environment.systemPackages = with pkgs; [
+      waybar-bin
+      brightnessctl
+      networkmanagerapplet
+      pwvucontrol
+    ];
+    # systemd.user.services."app-nm\\x2dapplet@autostart".enable = false;
+    # systemd.user.services."app-blueman@autostart".enable = false;
+
+    home-manager.users.${username} = {
+      xdg.configFile."waybar/" = {
+        force = true;
+        recursive = true;
+        source = ./config;
+      };
+    };
+  };
 }

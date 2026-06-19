@@ -1,71 +1,76 @@
-{ config, pkgs, lib, username, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  username,
+  ...
+}:
 lib.mkIf (config.desktop.term.select == "kitty") {
-	environment.systemPackages = with pkgs; [
-		kitty
-	];
+  environment.systemPackages = with pkgs; [
+    kitty
+  ];
 
-	# programs.kitty是 Home Manager option ，
-	# 需要放在home-manager.users.${username}里
-	# https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.enable
-	# https://discourse.nixos.org/t/the-option-programs-kitty-does-not-exist/39447
+  # programs.kitty是 Home Manager option ，
+  # 需要放在home-manager.users.${username}里
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.enable
+  # https://discourse.nixos.org/t/the-option-programs-kitty-does-not-exist/39447
 
-	home-manager.users.${username} = {
-		programs.kitty = lib.mkForce {
-			enable = true;
-			# settings = {};
-			extraConfig = ''
-                include	current-theme.conf
+  home-manager.users.${username} = {
+    programs.kitty = lib.mkForce {
+      enable = true;
+      # settings = {};
+      extraConfig = ''
+        include	current-theme.conf
 
-                font_size			14
-                font_family			Maple Mono NF CN ExtraLight
-                bold_font			Maple Mono NF CN Bold
-                italic_font			Maple Mono NF CN Italic
-                bold_italic_font	Maple Mono NF CN Bold Italic
-                font_features		MapleMono-NF-CN-ExtraLight +cv01 +ss02 +ss04 +ss05 +zero
-                font_features		MapleMono-NF-CN-Bold +cv01 +ss02 +ss04 +ss05 +zero
-                font_features		MapleMono-NF-CN-Italic +cv01 +ss02 +ss04 +ss05 +zero
-                font_features		MapleMono-NF-CN-BoldItalic +cv01 +ss02 +ss04 +ss05 +zero
+        font_size			14
+        font_family			Maple Mono NF CN ExtraLight
+        bold_font			Maple Mono NF CN Bold
+        italic_font			Maple Mono NF CN Italic
+        bold_italic_font	Maple Mono NF CN Bold Italic
+        font_features		MapleMono-NF-CN-ExtraLight +cv01 +ss02 +ss04 +ss05 +zero
+        font_features		MapleMono-NF-CN-Bold +cv01 +ss02 +ss04 +ss05 +zero
+        font_features		MapleMono-NF-CN-Italic +cv01 +ss02 +ss04 +ss05 +zero
+        font_features		MapleMono-NF-CN-BoldItalic +cv01 +ss02 +ss04 +ss05 +zero
 
-                # window
-                remember_window_size		yes
-                #hide_window_decorations	titlebar-only
-                window_padding_width		0
-                background_opacity			0.80
-                background_blur				32
+        # window
+        remember_window_size		yes
+        #hide_window_decorations	titlebar-only
+        window_padding_width		0
+        background_opacity			0.80
+        background_blur				32
 
-                # tab bar
-                tab_bar_edge                top
-                tab_bar_style               powerline
-                tab_powerline_style         slanted
+        # tab bar
+        tab_bar_edge                top
+        tab_bar_style               powerline
+        tab_powerline_style         slanted
 
-                #key map
-                map ctrl+s send_text all \e:w\r
-                map cmd+1 combine : send_key ctrl+space : send_key 1
-                map home send_text all \x1b[H
-                map end send_text all \x1b[F
+        #key map
+        map ctrl+s send_text all \e:w\r
+        map cmd+1 combine : send_key ctrl+space : send_key 1
+        map home send_text all \x1b[H
+        map end send_text all \x1b[F
 
-                #url
-                mouse_map left click grabbed,ungrabbed discard_event
-                mouse_map ctrl+left press grabbed discard_event
-                mouse_map ctrl+left release ungrabbed mouse_handle_click selection link prompt
-            '';
-		};
+        #url
+        mouse_map left click grabbed,ungrabbed discard_event
+        mouse_map ctrl+left press grabbed discard_event
+        mouse_map ctrl+left release ungrabbed mouse_handle_click selection link prompt
+      '';
+    };
 
-		xdg.configFile = {
-			"kitty/current-theme.conf" = {
-				force = true;
-				recursive = true;
-				source = ./config/current-theme.conf;
-			};
-		};
-	};
+    xdg.configFile = {
+      "kitty/current-theme.conf" = {
+        force = true;
+        recursive = true;
+        source = ./config/current-theme.conf;
+      };
+    };
+  };
 
-	xdg.mime.defaultApplications = {
-		"x-scheme-handler/terminal" = "kitty";
-	};
-	environment.sessionVariables={
-		TERMINAL = "kitty";
-		TERM = "xterm-kitty";
-	};
-
+  xdg.mime.defaultApplications = {
+    "x-scheme-handler/terminal" = "kitty";
+  };
+  environment.sessionVariables = {
+    TERMINAL = "kitty";
+    TERM = "xterm-kitty";
+  };
 }

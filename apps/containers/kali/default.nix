@@ -1,14 +1,18 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.apps.containers.kali;
 
-  context = pkgs.runCommand "kali-ctx" { } ''
-    mkdir $out
-    cp ${./Dockerfile} $out/Dockerfile
-    cp ${../entrypoint.sh} $out/entrypoint.sh
-    cp ${../environment} $out/environment
-    cp ${../toolkit-profile.sh} $out/toolkit-profile.sh
-	chmod +x $out/entrypoint.sh $out/toolkit-profile.sh
+  context = pkgs.runCommand "kali-ctx" {} ''
+       mkdir $out
+       cp ${./Dockerfile} $out/Dockerfile
+       cp ${../entrypoint.sh} $out/entrypoint.sh
+       cp ${../environment} $out/environment
+       cp ${../toolkit-profile.sh} $out/toolkit-profile.sh
+    chmod +x $out/entrypoint.sh $out/toolkit-profile.sh
   '';
 
   launchCmd = pkgs.writeShellScriptBin "kali" ''
@@ -56,8 +60,7 @@ let
       --ipc=private --userns=keep-id \
       localhost/kali-linux:play zsh
   '';
-in
-{
+in {
   options.apps.containers.kali = {
     enable = lib.mkEnableOption "Kali daily container";
   };
@@ -65,7 +68,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.user.services.build-kali = {
       description = "Build kali OCI image";
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -82,6 +85,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ launchCmd ];
+    environment.systemPackages = [launchCmd];
   };
 }

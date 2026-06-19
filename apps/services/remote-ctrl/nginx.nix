@@ -1,7 +1,13 @@
-{ self, config, lib, pkgs, username, ... }:
+{
+  self,
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}:
 lib.mkIf config.apps.services.remote-ctrl.enable {
-
-# nix-shell -p apacheHttpd --run 'htpasswd -B -n dabianchaoren'
+  # nix-shell -p apacheHttpd --run 'htpasswd -B -n dabianchaoren'
   sops.secrets.nginx-basic-auth-hash = {
     sopsFile = "${self}/secrets/token.yaml";
     mode = "0400";
@@ -13,9 +19,10 @@ lib.mkIf config.apps.services.remote-ctrl.enable {
     owner = "nginx";
     group = "nginx";
     mode = "0400";
-    content = lib.replaceStrings
-      [ "BASIC_AUTH_HASH_PLACEHOLDER" ]
-      [ config.sops.placeholder."nginx-basic-auth-hash" ]
+    content =
+      lib.replaceStrings
+      ["BASIC_AUTH_HASH_PLACEHOLDER"]
+      [config.sops.placeholder."nginx-basic-auth-hash"]
       "dabianchaoren:BASIC_AUTH_HASH_PLACEHOLDER";
   };
 
@@ -31,7 +38,11 @@ lib.mkIf config.apps.services.remote-ctrl.enable {
       sslCertificate = "/etc/nginx/ssl/cert.pem";
       sslCertificateKey = "/etc/nginx/ssl/key.pem";
       listen = [
-        { addr = "[::]"; port = 49514; ssl = true; }
+        {
+          addr = "[::]";
+          port = 49514;
+          ssl = true;
+        }
         # { addr = "127.0.0.1"; port = 80; }
         # { addr = "127.0.0.1"; port = 443; ssl = true; }
       ];
@@ -40,14 +51,13 @@ lib.mkIf config.apps.services.remote-ctrl.enable {
         proxyPass = "http://127.0.0.1:6080";
         proxyWebsockets = true;
         extraConfig =
-          "proxy_ssl_server_name on;" +
-          "proxy_pass_header Authorization;"
-        ;
+          "proxy_ssl_server_name on;"
+          + "proxy_pass_header Authorization;";
       };
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 49514 ];
+  networking.firewall.allowedTCPPorts = [49514];
 
   system.activationScripts.nginx-ssl-cert = ''
     if [ ! -f /etc/nginx/ssl/cert.pem ]; then

@@ -1,19 +1,23 @@
-{ config, lib, pkgs, username, ... }:
-let
-	cfg = config.desktop.launcher.fuzzel;
-in
 {
-	options.desktop.launcher.fuzzel.enable = lib.mkEnableOption "fuzzel launcher";
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}: let
+  cfg = config.desktop.launcher.fuzzel;
+in {
+  options.desktop.launcher.fuzzel.enable = lib.mkEnableOption "fuzzel launcher";
 
-	config = lib.mkIf cfg.enable {
-		environment.systemPackages = with pkgs; [ fuzzel ];
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [fuzzel];
 
-		home-manager.users.${username} = {
-			xdg.configFile."fuzzel/fuzzel.ini" = {
-				force = true;
-				recursive = true;
-				source = ./fuzzel.ini;
-			};
-		};
-	};
+    home-manager.users.${username} = {
+      xdg.configFile."fuzzel/fuzzel.ini" = {
+        force = true;
+        recursive = true;
+        source = ./fuzzel.ini;
+      };
+    };
+  };
 }

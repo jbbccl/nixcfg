@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.apps.services.proxy;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.apps.services.proxy;
+in {
   options.apps.services.proxy.enable = lib.mkEnableOption "proxy service (mihomo)";
 
   imports = [

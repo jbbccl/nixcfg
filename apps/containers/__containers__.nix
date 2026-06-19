@@ -1,9 +1,12 @@
-{ config, lib, ... }:
 {
-	options.apps.containers.enable = lib.mkEnableOption "containers";
+  config,
+  lib,
+  ...
+}: {
+  options.apps.containers.enable = lib.mkEnableOption "containers";
 
-	imports = [
-		./debian
-		./kali
-	];
+  imports = [
+    ./debian
+    ./kali
+  ];
 }

@@ -1,5 +1,8 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./base/__base__.nix
     ./dispMgr/__dispMgr__.nix
@@ -20,19 +23,19 @@
   options.desktop.enable = lib.mkEnableOption "desktop environment (WM, bar, DM, theme, etc.)";
 
   config = lib.mkMerge [
-    { desktop.enable = lib.mkDefault true; }
+    {desktop.enable = lib.mkDefault true;}
     (lib.mkIf config.desktop.enable {
       desktop = lib.mkDefault {
         base.theme = "manual";
         dispMgr.select = "greetd";
-        winMgr.list = [ 
-            # "labwc"
-            "niri"
+        winMgr.list = [
+          # "labwc"
+          "niri"
         ];
-        bar.list = [ 
-            # "waybar" 
-            # "ironbar"
-            "noctalia"
+        bar.list = [
+          # "waybar"
+          # "ironbar"
+          "noctalia"
         ];
         # ---
         # bar.waybar.niriTaskbar = true;
@@ -44,7 +47,7 @@
         # ---
         input.select = "fcitx5";
         term.select = "kitty";
-        fileMgr.list = [ "dolphin" "thunar" ];
+        fileMgr.list = ["dolphin" "thunar"];
       };
     })
   ];

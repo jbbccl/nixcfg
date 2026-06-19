@@ -1,7 +1,7 @@
-{ ... }: {
-	imports = [
-		./container.nix
-		./appimage.nix
-		./waydroid.nix
-	];
+{...}: {
+  imports = [
+    ./container.nix
+    ./appimage.nix
+    ./waydroid.nix
+  ];
 }

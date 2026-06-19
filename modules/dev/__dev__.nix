@@ -1,5 +1,9 @@
-{ config, lib, username, ... }:
 {
+  config,
+  lib,
+  username,
+  ...
+}: {
   imports = [
     ./git.nix
 
@@ -14,7 +18,12 @@
   options.modules = {
     dev.lang = lib.mkOption {
       type = lib.types.nullOr (lib.types.listOf (lib.types.enum [
-        "c-cpp" "go" "java" "javascript" "python" "rust"
+        "c-cpp"
+        "go"
+        "java"
+        "javascript"
+        "python"
+        "rust"
       ]));
       default = null;
       description = "langs";
@@ -22,6 +31,6 @@
   };
 
   config.environment.sessionVariables = {
-    PATH = [ "/home/${username}/.local/bin" ];
+    PATH = ["/home/${username}/.local/bin"];
   };
 }

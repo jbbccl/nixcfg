@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.desktop.browser.firefox;
 
   betterfox-src = pkgs.fetchFromGitHub {
@@ -11,24 +15,32 @@ let
 
   # Parse user_pref("key", value) lines from BetterFox user.js
   # Handles: bool (true/false), int (0, 60000), string ("strict", "0.15", "data:,")
-  parseUserJs = text:
-    let
-      inherit (builtins) match filter map head length elemAt isNull;
-      lines = lib.splitString "\n" text;
-      userPrefLine = line:
-        let m = match ''[[:space:]]*user_pref\("([^"]+)",[[:space:]]*(.+)\);.*'' line;
-        in if m == null then null else {
-          name = elemAt m 0;
-          value = let raw = elemAt m 1; in
-            if raw == "true" then true
-            else if raw == "false" then false
-            else if match ''-?[0-9]+'' raw != null then lib.toInt raw
-            else if match ''"(.*)"'' raw != null then
-              head (match ''"(.*)"'' raw)
-            else raw;
-        };
-      entries = filter (x: x != null) (map userPrefLine lines);
-    in builtins.listToAttrs entries;
+  parseUserJs = text: let
+    inherit (builtins) match filter map head length elemAt isNull;
+    lines = lib.splitString "\n" text;
+    userPrefLine = line: let
+      m = match ''[[:space:]]*user_pref\("([^"]+)",[[:space:]]*(.+)\);.*'' line;
+    in
+      if m == null
+      then null
+      else {
+        name = elemAt m 0;
+        value = let
+          raw = elemAt m 1;
+        in
+          if raw == "true"
+          then true
+          else if raw == "false"
+          then false
+          else if match ''-?[0-9]+'' raw != null
+          then lib.toInt raw
+          else if match ''"(.*)"'' raw != null
+          then head (match ''"(.*)"'' raw)
+          else raw;
+      };
+    entries = filter (x: x != null) (map userPrefLine lines);
+  in
+    builtins.listToAttrs entries;
 
   betterfoxPrefs = parseUserJs (builtins.readFile "${betterfox-src}/user.js");
 
@@ -73,19 +85,20 @@ let
     # Clean up bundled search engines + set default
     SearchEngines = {
       PreventInstalls = true;
-      Remove = [ "Amazon.com" "eBay" "Perplexity" ];
+      Remove = ["Amazon.com" "eBay" "Perplexity"];
       Default = "DuckDuckGo";
     };
   };
-
 in {
   config = lib.mkIf cfg.enable {
     programs.firefox = {
       enable = true;
-      preferences = betterfoxPrefs
+      preferences =
+        betterfoxPrefs
         // (lib.optionalAttrs cfg.smoothfox smoothfoxPrefs);
 
-      policies = basePolicies
+      policies =
+        basePolicies
         // (lib.optionalAttrs cfg.ublock ublockPolicy)
         // (lib.optionalAttrs cfg.searchEngines searchPolicy);
     };

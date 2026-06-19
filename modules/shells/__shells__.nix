@@ -1,20 +1,29 @@
-{ config, lib, pkgs, username, ... }:
 {
-	options.modules.shells.enable = lib.mkEnableOption "shells";
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}: {
+  options.modules.shells.enable = lib.mkEnableOption "shells";
 
-	imports = [
-		# ./bash/bash.nix
-		./fish/fish.nix
-		./zsh/zsh.nix
-	];
+  imports = [
+    # ./bash/bash.nix
+    ./fish/fish.nix
+    ./zsh/zsh.nix
+  ];
 
-	config = lib.mkIf config.modules.shells.enable {
-        users.defaultUserShell = pkgs.fish;
-		# users.users.${username}.shell = pkgs.fish;
+  config = lib.mkIf config.modules.shells.enable {
+    users.defaultUserShell = pkgs.fish;
+    # users.users.${username}.shell = pkgs.fish;
 
-        # ───── shell toolkits ─────────────────────────
-        environment.systemPackages = with pkgs; [
-            ripgrep fd fzf bat tree
-        ];
-	};
+    # ───── shell toolkits ─────────────────────────
+    environment.systemPackages = with pkgs; [
+      ripgrep
+      fd
+      fzf
+      bat
+      tree
+    ];
+  };
 }

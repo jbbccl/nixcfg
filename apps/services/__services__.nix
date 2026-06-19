@@ -1,11 +1,14 @@
-{ config, lib, ... }:
 {
-	options.apps.services.enable = lib.mkEnableOption "services";
+  config,
+  lib,
+  ...
+}: {
+  options.apps.services.enable = lib.mkEnableOption "services";
 
-	imports = [
-		./ai/__ai__.nix
-		./proxy/__proxy__.nix
-		./ingress/__ingress__.nix
-		./remote-ctrl/__remote-ctrl__.nix
-	];
+  imports = [
+    ./ai/__ai__.nix
+    ./proxy/__proxy__.nix
+    ./ingress/__ingress__.nix
+    ./remote-ctrl/__remote-ctrl__.nix
+  ];
 }

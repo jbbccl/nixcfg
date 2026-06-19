@@ -1,11 +1,14 @@
-{ config, lib, ... }:
 {
-	options.modules.services.enable = lib.mkEnableOption "system services";
+  config,
+  lib,
+  ...
+}: {
+  options.modules.services.enable = lib.mkEnableOption "system services";
 
-	imports = [
-		./audio.nix
-		./ssh.nix
-		./xserver.nix
-		./kmscon.nix
-	];
+  imports = [
+    ./audio.nix
+    ./ssh.nix
+    ./xserver.nix
+    ./kmscon.nix
+  ];
 }

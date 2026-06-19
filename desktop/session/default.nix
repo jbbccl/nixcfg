@@ -1,6 +1,6 @@
 {
-	imports = [
-		# ./plasma
-		./xfce
+  imports = [
+    # ./plasma
+    ./xfce
   ];
 }

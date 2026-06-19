@@ -3,8 +3,10 @@
 # Usage in flake.nix:
 #   lib = import ./lib { inherit inputs system; };
 #   # then: pkgs = import nixpkgs { inherit system; overlays = lib.nixpkgsOverlays; }
-
-{ inputs, system, lib ? inputs.nixpkgs.lib }:
 {
-	nixpkgsOverlays = import ./overlays.nix { inherit inputs system; };
+  inputs,
+  system,
+  lib ? inputs.nixpkgs.lib,
+}: {
+  nixpkgsOverlays = import ./overlays.nix {inherit inputs system;};
 }

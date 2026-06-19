@@ -1,5 +1,9 @@
-{ lib, pkgs, username, ... }:
 {
+  lib,
+  pkgs,
+  username,
+  ...
+}: {
   programs.bash.enable = true;
   programs.bash.interactiveShellInit = ''
     if [ -f ~/.config/bash/bashrc ]; then
@@ -8,9 +12,9 @@
   '';
   home-manager.users.${username} = {
     home.file.".config/bash" = {
-		force = true;
-		recursive = true;
-		source = ./config;
-	};
+      force = true;
+      recursive = true;
+      source = ./config;
+    };
   };
 }

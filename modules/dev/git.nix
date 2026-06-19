@@ -1,14 +1,17 @@
-{ config, lib, ... }:
 {
-	programs.git = {
-		enable = true;
+  config,
+  lib,
+  ...
+}: {
+  programs.git = {
+    enable = true;
 
-		config = {
-			user = {
-				name  = "lccbbj";
-				email = "lccbbj@example.com";
-			};
-			init.defaultBranch = "main";
-		};
-	};
+    config = {
+      user = {
+        name = "lccbbj";
+        email = "lccbbj@example.com";
+      };
+      init.defaultBranch = "main";
+    };
+  };
 }

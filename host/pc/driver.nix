@@ -1,10 +1,14 @@
-{ config, pkgs, ... }:{
-	hardware.enableRedistributableFirmware = true;
-	hardware.graphics = {
-		enable = true;
-		# enable32Bit = true;
-		extraPackages = with pkgs; [
-			#amdvlk
-		];
-	};
+{
+  config,
+  pkgs,
+  ...
+}: {
+  hardware.enableRedistributableFirmware = true;
+  hardware.graphics = {
+    enable = true;
+    # enable32Bit = true;
+    extraPackages = with pkgs; [
+      #amdvlk
+    ];
+  };
 }

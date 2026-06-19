@@ -1,5 +1,9 @@
-{ lib, stdenvNoCC, v2ray-geoip, v2ray-domain-list-community }:
-
+{
+  lib,
+  stdenvNoCC,
+  v2ray-geoip,
+  v2ray-domain-list-community,
+}:
 stdenvNoCC.mkDerivation {
   name = "mihomo-geodata";
 
