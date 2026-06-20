@@ -3,7 +3,6 @@
   username,
   ...
 }: let
-  #   myClashVerge = pkgs.callPackage ./clash-verge/package.nix { };
 in {
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
@@ -49,6 +48,7 @@ in {
 
       # ── archive ───────────────────────────────────
       _7zz-rar
+      peazip
       squashfsTools
 
       # ── network ───────────────────────────────────
