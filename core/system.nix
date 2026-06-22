@@ -44,6 +44,10 @@
             command = "/run/current-system/sw/bin/podman";
             options = ["NOPASSWD"];
           }
+          {
+            command = "/run/current-system/sw/bin/nixos-rebuild";
+            options = ["NOPASSWD"];
+          }
         ];
       }
     ];

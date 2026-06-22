@@ -20,6 +20,7 @@
         services.ai.hermes.enable = true;
         services.ai.litellm.enable = true;
         services.ai.opencode.enable = true;
+        services.ai.pi.enable = true;
         services.proxy.enable = true;
         services.proxy.mihomo.enable = true;
         # services.proxy.daed.enable = true;# TODO WPI

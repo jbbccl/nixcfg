@@ -13,6 +13,7 @@ in {
     ./litellm/litellm.nix
     ./hermes/hermes.nix
     ./opencode/opencode.nix
+    ./pi/pi.nix
   ];
 
   config = lib.mkIf cfg.enable {
