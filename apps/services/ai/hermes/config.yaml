@@ -32,3 +32,8 @@ terminal:
   timeout: 180
 toolsets:
 - all
+
+plugins:
+  enabled:
+    - ponytail
+    - super-hermes

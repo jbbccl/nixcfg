@@ -29,6 +29,8 @@
         services.remote-ctrl.enable = false;
         toolkits.enable = true;
         toolkits.editors.enable = true;
+        toolkits.mcu.enable = true;
+        toolkits.fpga.enable = true;
         game.enable = true;
         game.steam.enable = true;
       };

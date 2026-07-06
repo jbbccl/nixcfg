@@ -12,7 +12,9 @@
     ./editors.nix
     ./vm-managers.nix
     ./wireshark.nix
-    ./8091.nix
+    ./mcu.nix
+    ./rs.nix
+    ./fpga.nix
   ];
 
   config = lib.mkIf config.apps.toolkits.enable {

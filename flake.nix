@@ -54,7 +54,6 @@
     lib = import ./lib {inherit inputs system;};
 
     pkgs = import nixpkgs {inherit system;};
-    flakeSrc = self;
 
     mkSystem = {
       hostName,
