@@ -70,6 +70,17 @@ in {
         libsForQt5.qtstyleplugin-kvantum
         qt6Packages.qtstyleplugin-kvantum
       ];
+
+      xdg.configFile."kdeglobals" = {
+        force = true;
+        text = ''
+          [Icons]
+          Theme=${base.iconThemeName}
+          
+          [UiSettings]
+          ColorScheme=BreezeDark
+        '';
+      };
     };
   };
 }

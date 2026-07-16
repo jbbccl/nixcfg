@@ -9,7 +9,7 @@
 
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";
-    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitchExternalPower = "suspend";
   };
 
   apps.game.steam.enable = false;

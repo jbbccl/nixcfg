@@ -32,17 +32,44 @@ in {
     environment.etc."xdg/menus/applications.menu".source = "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
     home-manager.users.${username} = {
-      xdg.configFile."kdeglobals" = {
-        force = true;
-        text = ''
-          [General]
-          TerminalApplication=xterm
-          TerminalService=false
+      # xdg.configFile."dolphinrc" = {
+      #   force = false;
+      #   text = ''
+      #     MenuBar=Disabled
 
-          [Icons]
-          Theme=Papirus-Dark
-        '';
-      };
+      #     [ContextMenu]
+      #     ShowCopyToOtherSplitView=false
+      #     ShowDuplicateHere=false
+      #     ShowMoveToOtherSplitView=false
+      #     ShowSortBy=false
+      #     ShowViewMode=false
+
+      #     [DetailsMode]
+      #     PreviewSize=22
+
+      #     [General]
+      #     Version=202
+      #     ViewPropsTimestamp=2026,2,9,20,51,21.019
+      #     TerminalApplication=xterm
+      #     TerminalService=false
+
+      #     [KFileDialog Settings]
+      #     Places Icons Auto-resize=false
+      #     Places Icons Static Size=22
+
+      #     [MainWindow]
+      #     MenuBar=Disabled
+
+      #     [PreviewSettings]
+      #     Plugins=appimagethumbnail,audiothumbnail,comicbookthumbnail,cursorthumbnail,directorythumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,opendocumentthumbnail,svgthumbnail,windowsexethumbnail,windowsimagethumbnail
+          
+      #     [Icons]
+      #     Theme=Papirus-Dark
+
+      #     [UiSettings]
+      #     ColorScheme=BreezeDark
+      #   '';
+      # };
 
       xdg.dataFile = {
         "kio/servicemenus/vscode-open.desktop" = {
