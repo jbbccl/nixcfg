@@ -53,8 +53,6 @@
 
     lib = import ./lib {inherit inputs system;};
 
-    pkgs = import nixpkgs {inherit system;};
-
     mkSystem = {
       hostName,
       extraModules ? [],
@@ -114,6 +112,11 @@
             ];
           }
         ];
+      };
+
+      install-iso = import ./lib/install-iso.nix {
+        inherit self inputs system;
+        cfgLib = lib;
       };
     };
   };
