@@ -27,7 +27,7 @@
     (lib.mkIf config.desktop.enable {
       desktop = lib.mkDefault {
         base.theme = "manual";
-        dispMgr.select = "greetd";
+        dispMgr.select = "noctalia-greeter";
         winMgr.list = [
           # "labwc"
           "niri"

@@ -77,10 +77,11 @@
               home-manager.users.${username}.home.stateVersion = "26.05";
             }
             inputs.sops-nix.nixosModules.sops
+            inputs.noctalia.nixosModules.default
+            inputs.noctalia-greeter.nixosModules.default
             inputs.hermes-agent.nixosModules.default
             inputs.mango.nixosModules.mango
             inputs.stylix.nixosModules.stylix
-            inputs.noctalia.nixosModules.default
           ]
           ++ extraModules;
       };

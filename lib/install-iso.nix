@@ -37,6 +37,7 @@ in
       inputs.mango.nixosModules.mango
       inputs.stylix.nixosModules.stylix
       inputs.noctalia.nixosModules.default
+      inputs.noctalia-greeter.nixosModules.default
       ({
         config,
         pkgs,
