@@ -23,6 +23,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,10 +47,6 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    home-manager,
-    sops-nix,
-    hermes-agent,
-    stylix,
     ...
   }: let
     username = "e";
@@ -67,7 +68,7 @@
         modules =
           [
             ./host/${hostName}/configuration.nix
-            home-manager.nixosModules.home-manager
+            inputs.home-manager.nixosModules.home-manager
             {
               system.stateVersion = "25.11";
               nixpkgs.overlays = lib.nixpkgsOverlays;
@@ -75,19 +76,10 @@
               home-manager.startAsUserService = true;
               home-manager.users.${username}.home.stateVersion = "26.05";
             }
-          ]
-          ++ [
-            sops-nix.nixosModules.sops
-            hermes-agent.nixosModules.default
+            inputs.sops-nix.nixosModules.sops
+            inputs.hermes-agent.nixosModules.default
             inputs.mango.nixosModules.mango
-            stylix.nixosModules.stylix
-            {
-              home-manager.users.${username} = {
-                imports = [
-                  inputs.mango.hmModules.mango
-                ];
-              };
-            }
+            inputs.stylix.nixosModules.stylix
           ]
           ++ extraModules;
       };
@@ -96,22 +88,12 @@
     nixosConfigurations = {
       lap = mkSystem {
         hostName = "lap";
-        extraModules = [
-          {
-            home-manager.users.${username}.imports = [
-            ];
-          }
-        ];
+        extraModules = [];
       };
 
       pc = mkSystem {
         hostName = "pc";
-        extraModules = [
-          {
-            home-manager.users.${username}.imports = [
-            ];
-          }
-        ];
+        extraModules = [];
       };
 
       install-iso = import ./lib/install-iso.nix {

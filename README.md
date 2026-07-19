@@ -1,12 +1,7 @@
-# 非常模块化的nixos 配置
+# 模块化的nixos 配置
 
-赛博积木这一块    
-目录可以摘出去用, 例如fcitx输入法配置和WM配置.
-```
-desktop/input
-desktop/winMgr
-```
-可以直接import到你的config里
+赛博积木这一块   
+
 ```nix
 # 如果模块需要的参数不在flake specialArg里
 _module.args.username = "your_user_name";
