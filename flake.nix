@@ -80,6 +80,7 @@
             inputs.hermes-agent.nixosModules.default
             inputs.mango.nixosModules.mango
             inputs.stylix.nixosModules.stylix
+            inputs.noctalia.nixosModules.default
           ]
           ++ extraModules;
       };

@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  pkgs,
-  inputs,
   username,
   ...
 }: let
@@ -11,9 +9,8 @@ in {
   options.desktop.bar.noctalia.enable = lib.mkEnableOption "noctalia status bar";
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      # networkmanagerapplet
-      inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    environment.systemPackages = [
+      config.programs.noctalia.package
     ];
 
     services = {
