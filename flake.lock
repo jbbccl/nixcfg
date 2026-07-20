@@ -68,6 +68,27 @@
         "type": "github"
       }
     },
+    "fcitx5-vinput": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "sherpa-onnx": "sherpa-onnx"
+      },
+      "locked": {
+        "lastModified": 1783190070,
+        "narHash": "sha256-7Q+Bgv3Jixid/3HJIHjCmkmZnMTf+CgMKg2FmYmYU1M=",
+        "owner": "xifan2333",
+        "repo": "fcitx5-vinput",
+        "rev": "f8bb6beaf2a3f1da1b4aa5d22ae081a970d5113a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xifan2333",
+        "repo": "fcitx5-vinput",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -483,6 +504,7 @@
     },
     "root": {
       "inputs": {
+        "fcitx5-vinput": "fcitx5-vinput",
         "hermes-agent": "hermes-agent",
         "home-manager": "home-manager",
         "mango": "mango",
@@ -516,6 +538,27 @@
       "original": {
         "owner": "wlrfx",
         "repo": "scenefx",
+        "type": "github"
+      }
+    },
+    "sherpa-onnx": {
+      "inputs": {
+        "nixpkgs": [
+          "fcitx5-vinput",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779626950,
+        "narHash": "sha256-28bn6+ZBP9MKXWedndNZ5CSudFyf+EGWkCTPQClSCj0=",
+        "owner": "xifan2333",
+        "repo": "sherpa-onnx-flake",
+        "rev": "21db94ab4c0f5421fd3363f50e1e68e54e7106f4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xifan2333",
+        "repo": "sherpa-onnx-flake",
         "type": "github"
       }
     },

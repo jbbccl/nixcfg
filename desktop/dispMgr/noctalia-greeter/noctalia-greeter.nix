@@ -17,7 +17,7 @@ in {
         };
         cursor = {
           theme = "breeze_cursors";
-          size = 12;
+          size = 24;
         };
         keyboard = {
           layout = "us";

@@ -18,6 +18,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    fcitx5-vinput = {
+      url = "github:xifan2333/fcitx5-vinput";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     noctalia = {
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
