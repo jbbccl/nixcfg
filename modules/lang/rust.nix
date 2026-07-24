@@ -5,7 +5,7 @@
   username,
   ...
 }:
-lib.mkIf (builtins.elem "rust" config.modules.dev.lang) {
+lib.mkIf (builtins.elem "rust" config.modules.lang.list) {
   home-manager.users.${username} = {
     home.packages = with pkgs; [
       rustup

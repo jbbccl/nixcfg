@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  browser = "firefox.desktop";
+  browser = "brave-browser.desktop";
 in {
   options.desktop.browser.firefox = {
     enable = lib.mkEnableOption "BetterFox privacy & performance tweaks for Firefox";

@@ -13,6 +13,7 @@ in {
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
       home.pointerCursor = {
+        enable = true;
         gtk.enable = true;
         name = base.cursorName;
         package = base.cursorPackage;

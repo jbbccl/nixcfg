@@ -20,6 +20,11 @@
     auto-optimise-store = true;
   };
 
+  nix.optimise = {
+    automatic = true;
+    dates = [ "03:45" ];
+  };
+
   nix.gc = {
     automatic = true;
     dates = "03:15";

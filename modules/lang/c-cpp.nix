@@ -5,7 +5,7 @@
   username,
   ...
 }:
-lib.mkIf (builtins.elem "c-cpp" config.modules.dev.lang) {
+lib.mkIf (builtins.elem "c-cpp" config.modules.lang.list) {
   environment.systemPackages = with pkgs; [
     gcc
     clang-tools

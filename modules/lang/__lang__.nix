@@ -5,8 +5,6 @@
   ...
 }: {
   imports = [
-    ./git.nix
-
     ./c-cpp.nix
     ./javascript.nix
     ./python.nix
@@ -16,7 +14,7 @@
   ];
 
   options.modules = {
-    dev.lang = lib.mkOption {
+    lang.list = lib.mkOption {
       type = lib.types.nullOr (lib.types.listOf (lib.types.enum [
         "c-cpp"
         "go"
@@ -26,7 +24,7 @@
         "rust"
       ]));
       default = null;
-      description = "langs";
+      description = "programming languages toolchains";
     };
   };
 

@@ -10,12 +10,25 @@
     programs.firejail.enable = true;
 
     environment.systemPackages = with pkgs; [
-      glib
+      # glib
       wget
       curl
       pciutils
       vim
       file
     ];
+
+    programs.git = {
+      enable = true;
+
+      config = {
+        user = {
+          name = "lccbbj";
+          email = "lccbbj@example.com";
+        };
+        init.defaultBranch = "main";
+      };
+    };
+
   };
 }

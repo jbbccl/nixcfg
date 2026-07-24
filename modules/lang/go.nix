@@ -5,7 +5,7 @@
   username,
   ...
 }:
-lib.mkIf (builtins.elem "go" config.modules.dev.lang) {
+lib.mkIf (builtins.elem "go" config.modules.lang.list) {
   home-manager.users.${username} = {
     home.packages = with pkgs; [
       go
