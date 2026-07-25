@@ -106,6 +106,8 @@ nix run nixpkgs#alejandra -- .
 
 5. **上层覆盖，不需反向**：上层可以覆盖下层引用的 NixOS option（例如 `services.xserver.xkb`），上层移除后下层降级到默认行为，不影响正常运行。
 
+6. **模块路径与选项路径一致**：移动目录或重命名文件时，模块内 `cfg = config.<ns>.<name>` 的选项路径也必须同步更改。如 `desktop/shell/bar/xxx/` 移到 `desktop/shell/xxx/`，选项从 `config.desktop.bar.xxx` 改为 `config.desktop.shell.xxx`。
+
 
 ### 桌面组件
 
@@ -147,10 +149,9 @@ nixcfg/
 │
 ├── modules/            # Layer 1: NixOS 模块扩展
 │   ├── __modules__.nix     # enable 开关 + imports + lib.mkDefault 默认值
-│   ├── development/        # 开发工具链
-│   │   ├── __development__.nix  # languages option + imports
+│   ├── lang/               # 语言工具链
+│   │   ├── __lang__.nix    # languages option + imports
 │   │   ├── c-cpp.nix
-│   │   ├── git.nix
 │   │   ├── go.nix
 │   │   ├── java.nix
 │   │   ├── javascript.nix
@@ -183,23 +184,30 @@ nixcfg/
 │       └── basic-tools.nix
 │
 ├── desktop/            # Layer 2: 桌面环境
-│   ├── __desktop__.nix # enable 开关 + imports + lib.mkDefault 默认值
-│   ├── base/           # 基础配置
-│   │   ├── __base__.nix
-│   │   ├── theme.nix   # 主题 (GTK/Qt/光标)
-│   │   └── fonts.nix   # 字体 (fontconfig)
-│   ├── dispMgr/        # greetd / sddm
-│   ├── session/        # 桌面会话 (plasma / xfce)
-│   ├── winMgr/         # niri / hypr / labwc / mangowc
-│   ├── bar/            # waybar / noctalia
-│   ├── launcher/       # fuzzel / rofi / wofi
-│   ├── lock/           # swaylock / wlogout
-│   ├── notif/          # mako / swaync
-│   ├── term/           # kitty / alacritty
-│   ├── fileMgr/        # dolphin / thunar
-│   ├── browser/        # firefox / other
-│   ├── input/          # fcitx5 / rime
-│   └── wallpaper/      # waypaper
+│   ├── __desktop__.nix     # enable 开关 + imports + lib.mkDefault 默认值
+│   ├── base/               # 基础配置 (GTK/Qt/光标/字体/Stylix)
+│   │   └── __base__.nix
+│   ├── dispMgr/            # sddm / greetd / noctalia-greeter
+│   │   └── __dispMgr__.nix
+│   ├── winMgr/             # niri / hypr / labwc / mangowc
+│   │   └── __winMgr__.nix
+│   ├── shell/              # 桌面外壳层 (bar/launcher/lock/notif/pwmenu/wall)
+│   │   ├── __shell__.nix
+│   │   ├── bar/            # waybar / ironbar
+│   │   ├── noctalia/        # 独立 shell (bar+launcher+wallpaper 一体)
+│   │   ├── launcher/       # wofi / rofi / fuzzel
+│   │   ├── lock/           # swaylock
+│   │   ├── notif/          # swaync / mako
+│   │   ├── pwmenu/         # wlogout
+│   │   └── wall/           # waypaper / awww
+│   ├── input/              # fcitx5 / rime / ibus
+│   │   └── __input__.nix
+│   ├── term/               # kitty
+│   │   └── __term__.nix
+│   ├── fileMgr/            # dolphin / thunar
+│   │   └── __fileMgr__.nix
+│   └── browser/            # firefox
+│       └── __browser__.nix
 │
 ├── apps/               # Layer 3: 用户应用
 │   ├── __apps__.nix    # enable 开关 + imports + lib.mkDefault 默认值

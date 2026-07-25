@@ -7,13 +7,8 @@
     ./base/__base__.nix
     ./dispMgr/__dispMgr__.nix
     ./winMgr/__winMgr__.nix
-    ./bar/__bar__.nix
-    ./launcher/__launcher__.nix
-    ./lock/__lock__.nix
-    ./pwmenu/__pwmenu__.nix
-    ./notif/__notif__.nix
+    ./shell/__shell__.nix
     ./input/__input__.nix
-    ./wallpaper/__wallpaper__.nix
     ./term/__term__.nix
     ./fileMgr/__fileMgr__.nix
     ./browser/__browser__.nix
@@ -32,19 +27,21 @@
           # "labwc"
           "niri"
         ];
-        bar.list = [
-          # "waybar"
-          # "ironbar"
-          "noctalia"
-        ];
-        # ---
-        # bar.waybar.niriTaskbar = true;
-        wallpaper.enable = true;
-        # lock.select = "swaylock";
-        # pwmenu.select = "wlogout";
-        # notif.select = "mako";
-        # launcher.select = "fuzzel";
-        # ---
+        shell = {
+          bar.list = [
+            # "waybar"
+            # "ironbar"
+          ];
+          bar.waybar.niriTaskbar = true;
+
+          noctalia.enable = true;
+          wall.enable = true;
+
+          # lock.select = "swaylock";
+          # pwmenu.select = "wlogout";
+          # notif.select = "mako";
+          # launcher.select = "fuzzel";
+        };
         input.select = "fcitx5";
         term.select = "kitty";
         fileMgr.list = ["dolphin" "thunar"];
