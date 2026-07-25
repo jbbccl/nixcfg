@@ -108,6 +108,8 @@ nix run nixpkgs#alejandra -- .
 
 6. **模块路径与选项路径一致**：移动目录或重命名文件时，模块内 `cfg = config.<ns>.<name>` 的选项路径也必须同步更改。如 `desktop/shell/bar/xxx/` 移到 `desktop/shell/xxx/`，选项从 `config.desktop.bar.xxx` 改为 `config.desktop.shell.xxx`。
 
+7. **`_` 前缀表示完整实现（全家桶）**：`_xxx/` 目录和父目录平级，选项路径也包含 `_`。
+
 
 ### 桌面组件
 
@@ -194,7 +196,7 @@ nixcfg/
 │   ├── shell/              # 桌面外壳层 (bar/launcher/lock/notif/pwmenu/wall)
 │   │   ├── __shell__.nix
 │   │   ├── bar/            # waybar / ironbar
-│   │   ├── noctalia/        # 独立 shell (bar+launcher+wallpaper 一体)
+│   │   ├── _noctalia/      # 完整 shell（替换 shell/ 下全部碎片） (bar+launcher+wallpaper 一体)
 │   │   ├── launcher/       # wofi / rofi / fuzzel
 │   │   ├── lock/           # swaylock
 │   │   ├── notif/          # swaync / mako

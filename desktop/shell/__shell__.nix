@@ -6,6 +6,6 @@
     ./notif/__notif__.nix
     ./pwmenu/__pwmenu__.nix
     ./wall/__wall__.nix
-    ./noctalia/noctalia.nix
+    ./_noctalia/noctalia.nix
   ];
 }

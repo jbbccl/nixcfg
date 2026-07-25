@@ -34,7 +34,7 @@
           ];
           bar.waybar.niriTaskbar = true;
 
-          noctalia.enable = true;
+          _noctalia.enable = true;
           wall.enable = true;
 
           # lock.select = "swaylock";

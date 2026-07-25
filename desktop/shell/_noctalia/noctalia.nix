@@ -4,9 +4,9 @@
   username,
   ...
 }: let
-  cfg = config.desktop.shell.noctalia;
+  cfg = config.desktop.shell._noctalia;
 in {
-  options.desktop.shell.noctalia.enable = lib.mkEnableOption "noctalia shell (bar, launcher, wallpaper, lock, notif)";
+  options.desktop.shell._noctalia.enable = lib.mkEnableOption "noctalia shell (bar, launcher, wallpaper, lock, notif)";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
