@@ -27,7 +27,7 @@ in {
         source = ./config;
       };
       # ── theme ────────────────────────────────────
-      xdg.dataFile."fcitx5/themes/plasma" = {
+      xdg.dataFile."fcitx5/themes/custom" = {
         force = true;
         recursive = true;
         source = ./plasma-theme;
@@ -43,7 +43,7 @@ in {
           addons = with pkgs; [
             fcitx5-rime
             librime-lua
-            inputs.fcitx5-vinput.packages.${pkgs.stdenv.hostPlatform.system}.default
+            # inputs.fcitx5-vinput.packages.${pkgs.stdenv.hostPlatform.system}.default
           ];
         };
       };
