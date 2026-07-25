@@ -10,6 +10,8 @@ in {
   config = lib.mkIf cfg.enable {
     virtualisation.waydroid.enable = true;
 
+    systemd.services.waydroid-container.wantedBy = lib.mkForce [];
+
     networking.firewall.trustedInterfaces = ["waydroid0"];
   };
 }

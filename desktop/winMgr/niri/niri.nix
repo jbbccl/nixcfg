@@ -75,7 +75,7 @@ in {
     xdg.portal = {
       extraPortals = with pkgs; [xdg-desktop-portal-gnome];
       config.niri = {
-        default = ["gnome" "gtk"];
+        default = lib.mkForce ["gnome"];
         "org.freedesktop.impl.portal.FileChooser" = "gnome";
         "org.freedesktop.impl.portal.AppChooser" = "gnome";
       };
