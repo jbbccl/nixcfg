@@ -10,7 +10,6 @@
     ./services/__services__.nix
     ./shells/__shells__.nix
     ./virtual/__virtual__.nix
-    ./utilities/__utilities__.nix
   ];
 
   config = lib.mkMerge [
@@ -32,10 +31,6 @@
         virtual.container.waydroid.enable = true;
         virtual.container.appimage.enable = true;
         virtual.hardware.kvm.enable = true;
-        utilities.enable = true;
-        utilities.neovim.enable = true;
-        utilities.yazi.enable = true;
-        utilities.basic-tools.enable = true;
       };
     })
   ];

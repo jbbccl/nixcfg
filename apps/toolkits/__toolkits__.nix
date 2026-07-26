@@ -10,6 +10,8 @@
   imports = [
     ./misc.nix
     ./editors.nix
+    ./neovim.nix
+    ./yazi/yazi.nix
     ./vm-managers.nix
     ./wireshark.nix
     ./mcu.nix
@@ -18,9 +20,9 @@
   ];
 
   config = lib.mkIf config.apps.toolkits.enable {
-    environment.sessionVariables = rec {
-      PATH = ["/opt/toolkit/ass/bin"];
-      XDG_DATA_DIRS = ["/opt/toolkit/ass/"];
-    };
+    # environment.sessionVariables = rec {
+    #   PATH = ["/opt/toolkit/ass/bin"];
+    #   XDG_DATA_DIRS = ["/opt/toolkit/ass/"];
+    # };
   };
 }

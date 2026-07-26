@@ -28,15 +28,11 @@
           "niri"
         ];
         shell = {
-          bar.list = [
-            # "waybar"
-            # "ironbar"
-          ];
-          bar.waybar.niriTaskbar = true;
-
           _noctalia.enable = true;
-          wall.enable = true;
 
+          # bar.list = [ "waybar" # "ironbar"];
+          # bar.waybar.niriTaskbar = true;
+          # wall.enable = true;
           # lock.select = "swaylock";
           # pwmenu.select = "wlogout";
           # notif.select = "mako";

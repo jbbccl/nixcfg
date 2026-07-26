@@ -29,6 +29,8 @@
         services.remote-ctrl.enable = false;
         toolkits.enable = true;
         toolkits.editors.enable = true;
+        toolkits.neovim.enable = true;
+        toolkits.yazi.enable = true;
         # toolkits.mcu.enable = true;
         # toolkits.fpga.enable = true;
         game.enable = true;

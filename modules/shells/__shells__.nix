@@ -24,6 +24,11 @@
       fzf
       bat
       tree
+      wget
+      curl
+      pciutils
+      vim
+      file
     ];
   };
 }
