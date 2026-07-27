@@ -18,7 +18,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     sops.secrets.api-key-env = {
-      sopsFile = "${self}/secrets/api_keys.yaml";
+      sopsFile = config.secrets.path + "/api_keys.yaml";
       owner = "${username}";
       group = "users";
       mode = "0400";

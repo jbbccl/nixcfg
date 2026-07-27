@@ -32,7 +32,7 @@
 
           # bar.list = [ "waybar" # "ironbar"];
           # bar.waybar.niriTaskbar = true;
-          # wall.enable = true;
+          wall.enable = true;
           # lock.select = "swaylock";
           # pwmenu.select = "wlogout";
           # notif.select = "mako";

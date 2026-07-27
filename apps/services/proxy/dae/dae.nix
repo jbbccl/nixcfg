@@ -31,10 +31,10 @@ in {
 
   config = lib.mkIf cfg.enable {
     sops.secrets = {
-      airport01URL = {sopsFile = "${self}/secrets/token.yaml";};
-      airport02URL = {sopsFile = "${self}/secrets/token.yaml";};
-      airport03URL = {sopsFile = "${self}/secrets/token.yaml";};
-      airport04URL = {sopsFile = "${self}/secrets/token.yaml";};
+      airport01URL = {sopsFile = config.secrets.path + "/token.yaml";};
+      airport02URL = {sopsFile = config.secrets.path + "/token.yaml";};
+      airport03URL = {sopsFile = config.secrets.path + "/token.yaml";};
+      airport04URL = {sopsFile = config.secrets.path + "/token.yaml";};
     };
 
     sops.templates."dae-config" = {

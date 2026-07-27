@@ -18,10 +18,11 @@ in {
       # ── editor ────────────────────────────────────
       # gimp
       imhex
-      libreoffice-qt
+      # libreoffice-qt
       # obsidian
       # ocamlPackages.cpdf
-
+      krita
+      blender
       # ── stream ────────────────────────────────────
       # moonlight-qt
       obs-studio

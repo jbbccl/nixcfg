@@ -9,7 +9,7 @@
 
   config = lib.mkIf config.modules.services.ssh.enable {
     sops.secrets.github = {
-      sopsFile = "${self}/secrets/ssh_keys.yaml";
+      sopsFile = config.secrets.path + "/ssh_keys.yaml";
       mode = "0600";
       owner = "${username}";
       group = "users";

@@ -29,7 +29,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     sops.secrets.cloudflared-sh-tunnel = {
-      sopsFile = "${self}/secrets/token.yaml";
+      sopsFile = config.secrets.path + "/token.yaml";
     };
   };
 }

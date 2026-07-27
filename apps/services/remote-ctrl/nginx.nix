@@ -9,7 +9,7 @@
 lib.mkIf config.apps.services.remote-ctrl.enable {
   # nix-shell -p apacheHttpd --run 'htpasswd -B -n dabianchaoren'
   sops.secrets.nginx-basic-auth-hash = {
-    sopsFile = "${self}/secrets/token.yaml";
+    sopsFile = config.secrets.path + "/token.yaml";
     mode = "0400";
     owner = "nginx";
     group = "nginx";
