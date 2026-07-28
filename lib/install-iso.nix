@@ -27,8 +27,7 @@ in
 
       ../desktop/__desktop__.nix
 
-      ../apps/toolkits/editors.nix
-      ../apps/toolkits/neovim.nix
+      ../apps/cli/__cli__.nix
       ../apps/services/proxy/__proxy__.nix
       ../apps/services/ai/__ai__.nix
 
@@ -50,8 +49,6 @@ in
 
         users.users.${username}.initialPassword = lib.mkForce "nixos";
 
-        apps.toolkits.editors.enable = true;
-        apps.toolkits.neovim.enable = true;
         apps.services.proxy.enable = true;
         apps.services.ai.enable = true;
         apps.services.ai.hermes.enable = lib.mkForce false;

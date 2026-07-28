@@ -12,6 +12,7 @@
     ./term/__term__.nix
     ./fileMgr/__fileMgr__.nix
     ./browser/__browser__.nix
+    ./editor/__editor__.nix
     # ./session/__session__.nix  # plasma/xfce full DE, conflicts with WM
   ];
 
@@ -41,6 +42,7 @@
         input.select = "fcitx5";
         term.select = "kitty";
         fileMgr.list = ["dolphin" "thunar"];
+        editor.list = ["vscodium"];
       };
     })
   ];

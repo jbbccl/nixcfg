@@ -9,9 +9,6 @@
 
   imports = [
     ./misc.nix
-    ./editors.nix
-    ./neovim.nix
-    ./yazi/yazi.nix
     ./vm-managers.nix
     ./wireshark.nix
     ./mcu.nix

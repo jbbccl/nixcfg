@@ -3,10 +3,12 @@
   lib,
   pkgs,
   ...
-}: {
-  options.apps.toolkits.neovim.enable = lib.mkEnableOption "neovim CLI editor";
+}: let
+  cfg = config.apps.cli.neovim;
+in {
+  options.apps.cli.neovim.enable = lib.mkEnableOption "Neovim CLI editor";
 
-  config = lib.mkIf config.apps.toolkits.neovim.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = [ pkgs.neovim ];
     environment.sessionVariables = {
       VISUAL = "nvim";

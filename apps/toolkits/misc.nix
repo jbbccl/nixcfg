@@ -19,6 +19,7 @@ in {
       # gimp
       imhex
       # libreoffice-qt
+      onlyoffice-desktopeditors
       # obsidian
       # ocamlPackages.cpdf
       krita

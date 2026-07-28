@@ -5,9 +5,9 @@
   username,
   ...
 }: {
-  options.apps.toolkits.yazi.enable = lib.mkEnableOption "yazi file manager";
+  options.apps.cli.yazi.enable = lib.mkEnableOption "yazi file manager";
 
-  config = lib.mkIf config.apps.toolkits.yazi.enable {
+  config = lib.mkIf config.apps.cli.yazi.enable {
     environment.systemPackages = with pkgs; [
       (yazi.override {
         _7zz = _7zz-rar;

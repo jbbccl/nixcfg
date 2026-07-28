@@ -8,6 +8,7 @@
   imports = [
     ./services/__services__.nix
     ./toolkits/__toolkits__.nix
+    ./cli/__cli__.nix
     # ./containers/__containers__.nix
     ./game/__game__.nix
   ];
@@ -28,9 +29,6 @@
         services.ingress.enable = false;
         services.remote-ctrl.enable = false;
         toolkits.enable = true;
-        toolkits.editors.enable = true;
-        toolkits.neovim.enable = true;
-        toolkits.yazi.enable = true;
         # toolkits.mcu.enable = true;
         # toolkits.fpga.enable = true;
         game.enable = true;
