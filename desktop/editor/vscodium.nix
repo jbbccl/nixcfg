@@ -54,7 +54,7 @@ in {
         echo "$merged" > "$settings"
         chmod 644 "$settings"
       '';
-      home.packages = [ codium-with-code ];
+      home.packages = [codium-with-code];
     };
   };
 }

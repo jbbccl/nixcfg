@@ -2,32 +2,7 @@
 
 赛博积木这一块   
 
-```nix
-# 如果模块需要的参数不在flake specialArg里
-_module.args.username = "your_user_name";
-imports = [ 
-	./input/__input__.nix
-	./winMgr/__winMgr__.nix
-];
-# 选择启用的输入法和桌面
-desktop.input.select = "fcitx5";
-desktop.winMgr.list = [ "niri" ];
-```
-
 ## 使用整个配置
-备忘
-```sh
-sudo nixos-rebuild switch --flake ~/nixcfg#lap --option substitute false
-nix flake check ~/nixcfg
-nix flake update
-nix flake lock --update-input noctalia
-
-nix profile wipe-history --profile /home/e/.local/state/nix/profiles/profile --older-than 1d
-sudo systemctl restart nix-daemon
-sudo nix-collect-garbage -d
-
-nix run nixpkgs#alejandra -- .
-```
 
 原configuration存放在`/nixcfg/host`下  
 

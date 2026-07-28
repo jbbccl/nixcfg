@@ -76,7 +76,11 @@ in {
         text = ''
           [Icons]
           Theme=${base.iconThemeName}
-          
+
+          [General]
+          TerminalApplication=xterm
+          TerminalService=false
+
           [UiSettings]
           ColorScheme=BreezeDark
         '';

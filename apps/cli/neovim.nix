@@ -9,7 +9,7 @@ in {
   options.apps.cli.neovim.enable = lib.mkEnableOption "Neovim CLI editor";
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.neovim ];
+    environment.systemPackages = [pkgs.neovim];
     environment.sessionVariables = {
       VISUAL = "nvim";
       EDITOR = "nvim";

@@ -60,7 +60,7 @@ in {
 
       #     [PreviewSettings]
       #     Plugins=appimagethumbnail,audiothumbnail,comicbookthumbnail,cursorthumbnail,directorythumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,opendocumentthumbnail,svgthumbnail,windowsexethumbnail,windowsimagethumbnail
-          
+
       #     [Icons]
       #     Theme=Papirus-Dark
 

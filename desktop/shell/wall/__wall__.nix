@@ -21,7 +21,7 @@ in {
   options.desktop.shell.wall.enable = lib.mkEnableOption "wallpaper";
 
   config = lib.mkIf cfg.enable {
-      desktop.shell.wall = lib.mkDefault {
+    desktop.shell.wall = lib.mkDefault {
       awww.enable = true;
       waypaper.enable = true;
     };

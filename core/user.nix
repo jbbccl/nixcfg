@@ -7,7 +7,7 @@
     # packages = with pkgs; [tree];
     linger = true;
   };
-    
+
   programs.git = {
     enable = true;
     config = {
