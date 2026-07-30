@@ -2,6 +2,7 @@
   config,
   lib,
   username,
+  pkg,
   ...
 }: let
   cfg = config.desktop.shell._noctalia;
@@ -9,9 +10,7 @@ in {
   options.desktop.shell._noctalia.enable = lib.mkEnableOption "noctalia shell (bar, launcher, wallpaper, lock, notif)";
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      config.programs.noctalia.package
-    ];
+    programs.noctalia.enable = true;
 
     services = {
       upower.enable = true;
