@@ -234,11 +234,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1785431196,
-        "narHash": "sha256-vB82jBIxRCcZL4FoJ41Rsj6QiCJKkNDTIARDLIgT50I=",
+        "lastModified": 1785438511,
+        "narHash": "sha256-DIRdYf1K0xBKIqPVYZPiE6xYny8PW0oa+QX6+B6xrfA=",
         "owner": "NousResearch",
         "repo": "hermes-agent",
-        "rev": "8defb9fd60bebe2802eaab7c57fa2ee6a4ff6281",
+        "rev": "c9de69c6d5ed602059f5e9c9950c150e07b89212",
         "type": "github"
       },
       "original": {
@@ -306,11 +306,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1785433804,
-        "narHash": "sha256-KwqXc2ba9Gxp8Gv8ePPFIRuYLSTm342gdAS6/eguQXI=",
+        "lastModified": 1785439967,
+        "narHash": "sha256-/9/mCOwNsniMTAuctnuXR+Aa8rrkdyI6OtNtIeKwMwA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "de357df1792ab8956b11085ea664d0935be9d9fc",
+        "rev": "7f05100879d17184a40cf3839ffb256510861074",
         "type": "github"
       },
       "original": {
@@ -349,26 +349,6 @@
         "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785434378,
-        "narHash": "sha256-oItBcuhKoIp/em15m9kezcI2sJAPsIQBZ5R0WpmKjT4=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia",
-        "rev": "37a161437350a4cfcfedc0a3d46d6850d2731b53",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia",
         "type": "github"
       }
     },
@@ -500,7 +480,6 @@
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
         "sops-nix": "sops-nix",
         "stylix": "stylix"
