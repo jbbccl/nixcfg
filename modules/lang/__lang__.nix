@@ -23,7 +23,7 @@
         "python"
         "rust"
       ]));
-      default = null;
+      default = [];
       description = "programming languages toolchains";
     };
   };

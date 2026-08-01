@@ -1,10 +1,16 @@
 {
   pkgs,
   username,
+  lib,
+  config,
   ...
 }: let
+  cfg = config.apps.toolkits.misc;
 in {
-  environment.systemPackages = with pkgs; [
+  options.apps.toolkits.misc.enable = lib.mkEnableOption "misc desktop apps";
+
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
   ];
   # locosend
@@ -61,5 +67,6 @@ in {
       traceroute
       # zap
     ];
+  };
   };
 }

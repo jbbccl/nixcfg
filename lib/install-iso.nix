@@ -6,7 +6,6 @@
   self,
   inputs,
   system,
-  cfgLib,
 }: let
   username = "e";
 in
@@ -22,6 +21,8 @@ in
       ../core/console.nix
       ../core/user.nix
       ../core/networking.nix
+
+      ../secrets/__secrets__.nix
 
       ../modules/shells/__shells__.nix
 
@@ -43,7 +44,7 @@ in
         lib,
         ...
       }: {
-        nixpkgs.overlays = cfgLib.nixpkgsOverlays;
+        nixpkgs.overlays = import ./overlays.nix {inherit inputs system;};;
         system.stateVersion = "25.11";
 
         users.users.${username}.initialPassword = lib.mkForce "nixos";

@@ -17,9 +17,10 @@
   ];
 
   config = lib.mkIf config.apps.toolkits.enable {
-    # environment.sessionVariables = rec {
-    #   PATH = ["/opt/toolkit/ass/bin"];
-    #   XDG_DATA_DIRS = ["/opt/toolkit/ass/"];
-    # };
+    apps.toolkits = lib.mkDefault {
+      misc.enable = true;
+      wireshark.enable = true;
+      vm-managers.enable = true;
+    };
   };
 }

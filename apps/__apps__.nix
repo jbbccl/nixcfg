@@ -19,7 +19,7 @@
       apps = lib.mkDefault {
         services.ai.enable = true;
         services.ai.hermes.enable = true;
-        services.ai.litellm.enable = true;
+        services.ai.litellm.enable = false;
         services.ai.opencode.enable = true;
         services.ai.pi.enable = true;
         services.proxy.enable = true;

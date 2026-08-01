@@ -52,8 +52,6 @@
     username = "e";
     system = "x86_64-linux";
 
-    lib = import ./lib {inherit inputs system;};
-
     mkSystem = {
       hostName,
       extraModules ? [],
@@ -71,7 +69,7 @@
             inputs.home-manager.nixosModules.home-manager
             {
               system.stateVersion = "25.11";
-              nixpkgs.overlays = lib.nixpkgsOverlays;
+              nixpkgs.overlays = import lib/overlays.nix {inherit inputs system;};
               home-manager.backupFileExtension = "backup";
               home-manager.startAsUserService = true;
               home-manager.users.${username}.home.stateVersion = "26.05";
@@ -99,7 +97,6 @@
 
       install-iso = import ./lib/install-iso.nix {
         inherit self inputs system;
-        cfgLib = lib;
       };
     };
   };

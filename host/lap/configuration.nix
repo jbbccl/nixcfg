@@ -15,5 +15,4 @@
   };
 
   apps.game.steam.enable = false;
-  apps.services.ai.hermes.enable = false;
 }

@@ -2,11 +2,18 @@
   config,
   pkgs,
   username,
+  lib,
   ...
-}: {
-  programs.wireshark.enable = true;
+}: let
+  cfg = config.apps.toolkits.wireshark;
+in {
+  options.apps.toolkits.wireshark.enable = lib.mkEnableOption "wireshark";
 
-  programs.wireshark.package = pkgs.wireshark;
+  config = lib.mkIf cfg.enable {
+    programs.wireshark.enable = true;
 
-  users.users.${username}.extraGroups = ["wireshark"];
+    programs.wireshark.package = pkgs.wireshark;
+
+    users.users.${username}.extraGroups = ["wireshark"];
+  };
 }

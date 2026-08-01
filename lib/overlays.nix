@@ -31,13 +31,13 @@
   # Downside: pkgs.stable.X vs pkgs.X may be the same derivation
   # if the package hasn't changed between branches. This is usually
   # desired (fewer rebuilds) but can mask version differences.
-  # lazy = [
-  # 	(final: prev: {
-  # 		stable = prev.extend (import "${inputs.nixpkgs-stable}/pkgs/top-level/impure.nix" {
-  # 			inherit system;
-  # 			config.allowUnfree = true;
-  # 		}).overlays or (_: _: {});
-  # 	})
-  # ];
+  lazy = [
+  	(final: prev: {
+  		stable = prev.extend (import "${inputs.nixpkgs-stable}/pkgs/top-level/impure.nix" {
+  			inherit system;
+  			config.allowUnfree = true;
+  		}).overlays or (_: _: {});
+  	})
+  ];
 in
-  eager
+  lazy
