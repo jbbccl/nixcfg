@@ -44,7 +44,8 @@ in
         lib,
         ...
       }: {
-        nixpkgs.overlays = import ./overlays.nix {inherit inputs system;};;
+        nixpkgs.config.allowUnfree = true;
+        nixpkgs.overlays = import ./overlays.nix {inherit inputs system;};
         system.stateVersion = "25.11";
 
         users.users.${username}.initialPassword = lib.mkForce "nixos";

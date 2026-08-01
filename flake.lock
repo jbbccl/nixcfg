@@ -304,22 +304,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-master": {
-      "locked": {
-        "lastModified": 1785439967,
-        "narHash": "sha256-/9/mCOwNsniMTAuctnuXR+Aa8rrkdyI6OtNtIeKwMwA=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "7f05100879d17184a40cf3839ffb256510861074",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1785386831,
@@ -477,7 +461,6 @@
         "nixpkgs": [
           "nixpkgs-unstable"
         ],
-        "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "noctalia-greeter": "noctalia-greeter",
