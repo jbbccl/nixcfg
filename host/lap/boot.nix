@@ -20,7 +20,11 @@
     ];
 
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 5;
+      };
+      timeout = 1;
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot/efi";
@@ -41,6 +45,7 @@
         "compress=zstd"
         "noatime"
         "subvol=@VM"
+        "discard=async"
       ];
     };
     "/home/VMS" = {
@@ -48,7 +53,14 @@
       fsType = "xfs";
       options = [
         "noatime"
+        "discard"
       ];
     };
+  };
+
+  # 压缩内存优先于 13G 磁盘 swap
+  zramSwap = {
+    enable = true;
+    priority = 10;
   };
 }

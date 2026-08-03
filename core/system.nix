@@ -3,6 +3,7 @@
   i18n.defaultLocale = "zh_CN.UTF-8";
 
   nixpkgs.config.allowUnfree = true;
+  boot.zfs.forceImportRoot = false; # 无 ZFS, 按 26.11 推荐关闭强制导入
 
   # services.logind.settings.Login = {
   #     KillUserProcesses = true;
@@ -47,10 +48,6 @@
         commands = [
           {
             command = "/run/current-system/sw/bin/podman";
-            options = ["NOPASSWD"];
-          }
-          {
-            command = "/run/current-system/sw/bin/nixos-rebuild";
             options = ["NOPASSWD"];
           }
         ];

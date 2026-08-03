@@ -26,8 +26,8 @@
       "kernel.perf_event_paranoid" = 0;
     };
     kernelParams = [
-      # "quiet"
-      # "systemd.show_status=0"
+      "quiet"
+      "systemd.show_status=0"
       "fbcon=font:TER10x18"
       # "video=DP-1:1920x1080@120.000"
     ];
@@ -42,6 +42,7 @@
         efiSupport = true;
         useOSProber = true;
         device = "nodev";
+        configurationLimit = 5;
       };
     };
   };
@@ -54,6 +55,7 @@
         "compress=zstd"
         "noatime"
         "subvol=dockers"
+        "discard=async"
       ];
     };
     "/home/backup" = {

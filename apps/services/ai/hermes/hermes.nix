@@ -45,8 +45,11 @@ in {
     };
 
     systemd.services.hermes-agent = {
-      after = ["user@${uid}.service"];
+      # 不阻塞开机: 脱离 network-online/multi-user 关键链, 网络就绪后容器自行重连
+      after = lib.mkForce ["user@${uid}.service" "network.target" "podman.service"];
       requires = ["user@${uid}.service"];
+      wants = lib.mkForce [];
+      before = lib.mkForce [];
       unitConfig.Wants = lib.mkForce "";
     };
 

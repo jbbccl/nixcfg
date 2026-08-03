@@ -2,7 +2,6 @@
   config,
   lib,
   username,
-  pkg,
   ...
 }: let
   cfg = config.desktop.shell._noctalia;

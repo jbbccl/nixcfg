@@ -46,9 +46,14 @@ in {
     };
     networking.firewall.trustedInterfaces = ["Meta"];
 
-    systemd.services.mihomo.serviceConfig.BindReadOnlyPaths = [
-      "${geodata}/GeoSite.dat:/var/lib/private/mihomo/GeoSite.dat"
-      "${geodata}/GeoIP.dat:/var/lib/private/mihomo/GeoIP.dat"
-    ];
+    systemd.services.mihomo = {
+      # 不阻塞开机: 脱离 network-online 关键链, 上游连接失败会自动重试
+      after = lib.mkForce ["network.target"];
+      requires = lib.mkForce [];
+      serviceConfig.BindReadOnlyPaths = [
+        "${geodata}/GeoSite.dat:/var/lib/private/mihomo/GeoSite.dat"
+        "${geodata}/GeoIP.dat:/var/lib/private/mihomo/GeoIP.dat"
+      ];
+    };
   };
 }

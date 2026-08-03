@@ -31,6 +31,7 @@
         "compress=zstd"
         "noatime"
         "subvol=@nixos"
+        "discard=async"
       ];
     };
   };
