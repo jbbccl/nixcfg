@@ -33,6 +33,7 @@
         # toolkits.fpga.enable = true;
         game.enable = true;
         game.steam.enable = true;
+        game.wine.enable = true;
       };
     })
   ];

@@ -5,6 +5,18 @@
   nixpkgs.config.allowUnfree = true;
   boot.zfs.forceImportRoot = false; # 无 ZFS, 按 26.11 推荐关闭强制导入
 
+  # zram
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 180;
+    "vm.page-cluster" = 0;
+    "vm.watermark_boost_factor" = 0;
+    "vm.watermark_scale_factor" = 125;
+  };
+
+  # 大构建时让出 CPU/IO, 保持桌面响应
+  nix.daemonCPUSchedPolicy = "batch";
+  nix.daemonIOSchedClass = "idle";
+
   # services.logind.settings.Login = {
   #     KillUserProcesses = true;
   # };

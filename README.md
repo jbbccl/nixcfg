@@ -121,8 +121,7 @@ nixcfg/
 │   ├── console.nix     # 控制台 (TTY 字体/键盘)
 │   ├── networking.nix  # 网络 (防火墙/NetworkManager)
 │   ├── system.nix      # 时区/语言/nix 设置/sudo
-│   ├── user.nix        # 用户账户
-│   └── nix-ld.nix      # 非 Nix 二进制兼容
+│   └── user.nix        # 用户账户
 │
 ├── modules/            # Layer 1: NixOS 模块扩展
 │   ├── __modules__.nix     # enable 开关 + imports + lib.mkDefault 默认值
@@ -145,15 +144,13 @@ nixcfg/
 │   │   ├── bash/
 │   │   ├── fish/
 │   │   └── zsh/
-│   ├── virtual/            # 虚拟化
+│   ├── virtual/            # 虚拟化/兼容运行时
 │   │   ├── __virtual__.nix     # enable 开关 + imports
-│   │   ├── container/          # 容器运行时
-│   │   │   ├── default.nix
-│   │   │   ├── appimage.nix
-│   │   │   └── container.nix
-│   │   └── hardware/           # 硬件加速虚拟化
-│   │       ├── default.nix
-│   │       └── kvm.nix
+│   │   ├── nix-ld.nix          # 非 Nix 二进制兼容 (FHS)
+│   │   ├── container.nix       # podman + distrobox
+│   │   ├── appimage.nix        # flatpak + appimage binfmt
+│   │   ├── waydroid.nix        # Android 容器
+│   │   └── kvm.nix             # libvirtd + qemu
 │   └── utilities/          # 系统工具
 │       ├── __utilities__.nix   # enable 开关 + imports
 │       ├── neovim/

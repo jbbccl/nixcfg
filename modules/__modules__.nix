@@ -27,6 +27,7 @@
         shells.fish.enable = true;
         shells.zsh.enable = true;
         virtual.enable = true;
+        virtual.nix-ld.enable = true;
         virtual.container.enable = true;
         virtual.container.waydroid.enable = true;
         virtual.container.appimage.enable = true;
