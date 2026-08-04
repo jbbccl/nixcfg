@@ -8,7 +8,7 @@
   imports = [
     ./audio.nix
     ./ssh.nix
-    ./xserver.nix
+    ./xkb.nix
     ./kmscon.nix
   ];
 }

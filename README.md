@@ -138,7 +138,7 @@ nixcfg/
 │   │   ├── audio.nix           # PipeWire (自声明 enable)
 │   │   ├── kmscon.nix          # kmscon 虚拟终端
 │   │   ├── ssh.nix             # SSH + GitHub 密钥
-│   │   └── xserver.nix         # X11 xkb
+│   │   └── xkb.nix             # xkb 键盘布局 (us + caps:swapescape)
 │   ├── shells/             # Shell 配置
 │   │   ├── __shells__.nix      # enable 开关 + imports + 默认 shell
 │   │   ├── bash/
@@ -151,11 +151,6 @@ nixcfg/
 │   │   ├── appimage.nix        # flatpak + appimage binfmt
 │   │   ├── waydroid.nix        # Android 容器
 │   │   └── kvm.nix             # libvirtd + qemu
-│   └── utilities/          # 系统工具
-│       ├── __utilities__.nix   # enable 开关 + imports
-│       ├── neovim/
-│       ├── yazi/
-│       └── basic-tools.nix
 │
 ├── desktop/            # Layer 2: 桌面环境
 │   ├── __desktop__.nix     # enable 开关 + imports + lib.mkDefault 默认值
@@ -180,14 +175,16 @@ nixcfg/
 │   │   └── __term__.nix
 │   ├── fileMgr/            # dolphin / thunar
 │   │   └── __fileMgr__.nix
-│   └── browser/            # firefox
-│       └── __browser__.nix
+│   ├── browser/            # firefox / brave
+│   │   └── __browser__.nix
+│   └── editor/             # vscodium / zed
+│       └── __editor__.nix
 │
 ├── apps/               # Layer 3: 用户应用
 │   ├── __apps__.nix    # enable 开关 + imports + lib.mkDefault 默认值
 │   ├── services/       # 后台守护进程
 │   │   ├── __services__.nix # enable 开关 + imports
-│   │   ├── ai/             # litellm + hermes-agent + opencode
+│   │   ├── ai/             # hermes-agent + opencode + pi (litellm 可选)
 │   │   │   └── __ai__.nix  # enable 开关 + sops 密钥 + 子模块默认值
 │   │   ├── proxy/          # mihomo
 │   │   │   └── __proxy__.nix   # enable 开关 + imports
@@ -202,11 +199,13 @@ nixcfg/
 │   │   └── wireshark.nix      # 网络分析
 │   ├── game/           # 游戏
 │   │   ├── __game__.nix      # enable 开关 + imports
-│   │   └── steam.nix         # Steam (自声明 enable)
-│   └── containers/     # 容器化应用
-│       ├── __containers__.nix    # enable 开关 + imports
-│       ├── debian/
-│       └── kali/
+│   │   ├── steam.nix         # Steam (自声明 enable)
+│   │   └── wine.nix          # wine (wayland) + winetricks + umu
+│   └── cli/            # 命令行工具
+│       ├── __cli__.nix       # enable 开关 + imports + 默认值
+│       ├── git.nix           # git 身份/配置
+│       ├── neovim.nix        # 编辑器 (EDITOR/VISUAL)
+│       └── yazi/             # 终端文件管理
 │
 └── secrets/            # SOPS 加密密钥 (__secrets__.nix)
 ```

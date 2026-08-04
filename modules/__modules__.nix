@@ -21,7 +21,7 @@
         services.audio.enable = true;
         services.audio.bluetooth = true;
         services.ssh.enable = true;
-        services.xserver.enable = true;
+        services.xkb.enable = true;
         services.kmscon.enable = true;
         shells.enable = true;
         shells.fish.enable = true;
