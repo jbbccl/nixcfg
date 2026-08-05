@@ -100,9 +100,6 @@ nixcfg/
 ├── flake.nix           # 入口
 ├── flake.lock
 ├── .sops.yaml
-├── lib/                # 工具库
-│   ├── default.nix     # 聚合导出 (nixpkgsOverlays)
-│   └── overlays.nix    # 三分支 nixpkgs overlay (stable/unstable/master)
 ├── host/               # 主机配置
 │   ├── common.nix      # 共享配置聚合
 │   ├── lap/
@@ -110,11 +107,13 @@ nixcfg/
 │   │   ├── hardware-configuration.nix
 │   │   ├── boot.nix
 │   │   └── driver.nix        # 主机差异驱动
-│   └── pc/
-│       ├── configuration.nix
-│       ├── hardware-configuration.nix
-│       ├── boot.nix
-│       └── driver.nix
+│   ├── pc/
+│   │   ├── configuration.nix
+│   │   ├── hardware-configuration.nix
+│   │   ├── boot.nix
+│   │   └── driver.nix
+│   └── install-iso/      # 安装镜像 (offline installer, 独立精选 imports)
+│       └── configuration.nix
 │
 ├── core/               # Layer 0: NixOS 内核
 │   ├── __core__.nix    # enable 开关 + imports + 默认值

@@ -43,7 +43,6 @@ in {
           addons = with pkgs; [
             fcitx5-rime
             librime-lua
-            # inputs.fcitx5-vinput.packages.${pkgs.stdenv.hostPlatform.system}.default
           ];
         };
       };

@@ -13,7 +13,6 @@
     ./fileMgr/__fileMgr__.nix
     ./browser/__browser__.nix
     ./editor/__editor__.nix
-    # ./session/__session__.nix  # plasma/xfce full DE, conflicts with WM
   ];
 
   options.desktop.enable = lib.mkEnableOption "desktop environment (WM, bar, DM, theme, etc.)";

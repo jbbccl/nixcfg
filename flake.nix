@@ -17,11 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    fcitx5-vinput = {
-      url = "github:xifan2333/fcitx5-vinput";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,52 +46,43 @@
     username = "e";
     system = "x86_64-linux";
 
-    mkSystem = {
-      hostName,
-      extraModules ? [],
-    }:
+    # 所有主机共享: flake 模块 + 基础默认值
+    # 主机间有意差异 (如 install-iso 的 home-manager.startAsUserService=false) 写在各自 host 文件
+    sharedModules = [
+      inputs.home-manager.nixosModules.home-manager
+      inputs.sops-nix.nixosModules.sops
+      inputs.noctalia-greeter.nixosModules.default
+      inputs.hermes-agent.nixosModules.default
+      inputs.mango.nixosModules.mango
+      inputs.stylix.nixosModules.stylix
+      {
+        system.stateVersion = "25.11";
+        # pkgs.stable (26.05) 与默认 unstable 并存
+        nixpkgs.overlays = [
+          (final: prev: {
+            stable = import inputs.nixpkgs-stable {
+              inherit system;
+              config.allowUnfree = true;
+            };
+          })
+        ];
+        home-manager.backupFileExtension = "backup";
+        home-manager.startAsUserService = nixpkgs.lib.mkDefault true;
+        home-manager.users.${username}.home.stateVersion = "26.05";
+      }
+    ];
+
+    mkSystem = hostName: modules:
       nixpkgs.lib.nixosSystem {
         inherit system;
-
-        specialArgs = {
-          inherit self inputs username hostName;
-        };
-
-        modules =
-          [
-            ./host/${hostName}/configuration.nix
-            inputs.home-manager.nixosModules.home-manager
-            {
-              system.stateVersion = "25.11";
-              nixpkgs.overlays = import lib/overlays.nix {inherit inputs system;};
-              home-manager.backupFileExtension = "backup";
-              home-manager.startAsUserService = true;
-              home-manager.users.${username}.home.stateVersion = "26.05";
-            }
-            inputs.sops-nix.nixosModules.sops
-            inputs.noctalia-greeter.nixosModules.default
-            inputs.hermes-agent.nixosModules.default
-            inputs.mango.nixosModules.mango
-            inputs.stylix.nixosModules.stylix
-          ]
-          ++ extraModules;
+        specialArgs = {inherit self inputs username hostName;};
+        modules = sharedModules ++ modules;
       };
   in {
-    # ── NixOS configurations ────────────────────────────────────
     nixosConfigurations = {
-      lap = mkSystem {
-        hostName = "lap";
-        extraModules = [];
-      };
-
-      pc = mkSystem {
-        hostName = "pc";
-        extraModules = [];
-      };
-
-      install-iso = import ./lib/install-iso.nix {
-        inherit self inputs system;
-      };
+      lap = mkSystem "lap" [./host/lap/configuration.nix];
+      pc = mkSystem "pc" [./host/pc/configuration.nix];
+      install-iso = mkSystem "iso-installer" [./host/install-iso/configuration.nix];
     };
   };
 }

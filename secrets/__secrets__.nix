@@ -19,13 +19,8 @@ in {
       sops = lib.mkIf hasKey {
         age.keyFile = ageKeyFile;
       };
-      environment.systemPackages = [
-        (pkgs.writeShellScriptBin "sops" ''
-          export SOPS_EDITOR="vim --clean"
-          exec ${pkgs.sops}/bin/sops "$@"
-        '')
-        pkgs.age
-      ];
+      environment.systemPackages = [pkgs.sops pkgs.age];
+      environment.sessionVariables.SOPS_EDITOR = "vim --clean";
     }
   ];
 }
