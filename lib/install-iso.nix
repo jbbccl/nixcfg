@@ -1,7 +1,7 @@
 # lib/install-iso.nix — offline installer ISO with full desktop
 #
 # Build: nix build .#nixosConfigurations.install-iso.config.system.build.isoImage
-# Usage: dd to USB → boot → tuigreet login → niri → partitionmanager → install
+# 安装步骤: ISO 内 /etc/nixos/INSTALL.txt
 {
   self,
   inputs,
@@ -18,9 +18,7 @@ in
     };
     modules = [
       "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
-      ../core/console.nix
-      ../core/user.nix
-      ../core/networking.nix
+      ../core/__core__.nix
 
       ../secrets/__secrets__.nix
 
@@ -29,7 +27,6 @@ in
       ../desktop/__desktop__.nix
 
       ../apps/cli/__cli__.nix
-      ../apps/services/proxy/__proxy__.nix
       ../apps/services/ai/__ai__.nix
 
       inputs.home-manager.nixosModules.home-manager
@@ -44,33 +41,34 @@ in
         lib,
         ...
       }: {
-        nixpkgs.config.allowUnfree = true;
-        nixpkgs.overlays = import ./overlays.nix {inherit inputs system;};
         system.stateVersion = "25.11";
+        nixpkgs.overlays = import ./overlays.nix {inherit inputs system;};
+        nixpkgs.config.allowUnfree = true;
+        
 
-        users.users.${username}.initialPassword = lib.mkForce "nixos";
+        home-manager= {
+          startAsUserService = false;
+          backupFileExtension = "backup";
+          users.${username}.home.stateVersion = "26.05";
+        };
 
-        apps.services.proxy.enable = true;
-        apps.services.ai.enable = true;
-        apps.services.ai.hermes.enable = lib.mkForce false;
-        apps.services.ai.litellm.enable = lib.mkForce false;
-        apps.services.ai.pi.enable = lib.mkForce false;
-        apps.services.ai.opencode.enable = true;
+        users.users.${username}.initialPassword = lib.mkForce "pass";
+
         modules.shells.enable = true;
         modules.shells.fish.enable = true;
 
-        # system-level: activates hm at boot, before user sessions start
-        # ensures ~/.config/environment.d/ exists when systemd --user reads it
-        home-manager.startAsUserService = false;
-        home-manager.backupFileExtension = "backup";
-        home-manager.users.${username}.home.stateVersion = "26.05";
+        desktop.browser.firefox.enable = false;
 
-        environment.systemPackages = [
-          pkgs.kdePackages.partitionmanager
+        apps.services.ai.enable = true;
+        apps.services.ai.opencode.enable = true;
+
+        environment.systemPackages = with pkgs; [
+          kdePackages.partitionmanager
+          flclash
         ];
 
         environment.etc."nixos/flake".source = self;
-        environment.etc."TEST".text = ''
+        environment.etc."nixos/INSTALL.txt".text = ''
           mount /dev/xx /mnt
           cp -r /etc/nixos/flake /mnt/etc/nixos
           nixos-generate-config --root /mnt

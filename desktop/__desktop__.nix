@@ -43,6 +43,16 @@
         term.select = "kitty";
         fileMgr.list = ["dolphin" "thunar"];
         editor.list = ["vscodium"];
+        browser = {
+          select = "brave";
+          firefox = {
+            enable = true;
+            smoothfox = true;
+            searchEngines = true;
+            ublock = true;
+          };
+          brave.enable = true;
+        };
       };
     })
   ];

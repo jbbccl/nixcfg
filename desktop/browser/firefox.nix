@@ -217,6 +217,13 @@
     };
   };
 in {
+  options.desktop.browser.firefox = {
+    enable = lib.mkEnableOption "BetterFox privacy & performance tweaks for Firefox";
+    smoothfox = lib.mkEnableOption "Smoothfox (Edge-like smooth scrolling, 90hz+)";
+    searchEngines = lib.mkEnableOption "clean up bundled search engines (Amazon, eBay, Perplexity) and set DuckDuckGo as default";
+    ublock = lib.mkEnableOption "auto-install uBlock Origin via enterprise policy";
+  };
+
   config = lib.mkIf cfg.enable {
     programs.firefox = {
       enable = true;
