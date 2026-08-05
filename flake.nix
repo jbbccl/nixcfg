@@ -43,11 +43,8 @@
     nixpkgs,
     ...
   }: let
-    username = "e";
     system = "x86_64-linux";
 
-    # 所有主机共享: flake 模块 + 基础默认值
-    # 主机间有意差异 (如 install-iso 的 home-manager.startAsUserService=false) 写在各自 host 文件
     sharedModules = [
       inputs.home-manager.nixosModules.home-manager
       inputs.sops-nix.nixosModules.sops
@@ -55,7 +52,7 @@
       inputs.hermes-agent.nixosModules.default
       inputs.mango.nixosModules.mango
       inputs.stylix.nixosModules.stylix
-      {
+      ({username, ...}: {
         system.stateVersion = "25.11";
         # pkgs.stable (26.05) 与默认 unstable 并存
         nixpkgs.overlays = [
@@ -69,13 +66,13 @@
         home-manager.backupFileExtension = "backup";
         home-manager.startAsUserService = nixpkgs.lib.mkDefault true;
         home-manager.users.${username}.home.stateVersion = "26.05";
-      }
+      })
     ];
 
     mkSystem = hostName: modules:
       nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit self inputs username hostName;};
+        specialArgs = {inherit self inputs hostName;};
         modules = sharedModules ++ modules;
       };
   in {

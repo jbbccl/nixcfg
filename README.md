@@ -85,6 +85,8 @@
 
 7. **`_` 前缀表示完整实现（全家桶）**：`_xxx/` 目录和父目录平级，选项路径也包含 `_`。
 
+8. **username 是有优先级的全局变量**：`core/user.nix` 声明 `core.user.username`（`default = "e"`，最低优先级），并桥接进 `_module.args`，所有模块头 `{ username, ... }` 保持零改动。主机覆盖：`configuration.nix` 里写 `core.user.username = "foo";`（普通赋值即可，`mkForce` 兜底）。`specialArgs` 不传 username，避免与 `_module.args` 的优先级纠缠。新增主机：复制 `host/lap` 为 `host/xx`，在 `nixosConfigurations` 登记一行，其余改动全部留在 `host/xx/` 内。
+
 
 ### 桌面组件
 
