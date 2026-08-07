@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: {
-  options.modules.enable = lib.mkEnableOption "system modules";
-
+{lib, ...}: {
   imports = [
     ./lang/__lang__.nix
     ./services/__services__.nix
@@ -12,27 +6,22 @@
     ./virtual/__virtual__.nix
   ];
 
-  config = lib.mkMerge [
-    {modules.enable = lib.mkDefault true;}
-    (lib.mkIf config.modules.enable {
-      modules = lib.mkDefault {
-        lang.list = ["c-cpp" "javascript" "python" "rust"];
-        services.enable = true;
-        services.audio.enable = true;
-        services.audio.bluetooth = true;
-        services.ssh.enable = true;
-        services.xkb.enable = true;
-        services.kmscon.enable = true;
-        shells.enable = true;
-        shells.fish.enable = true;
-        shells.zsh.enable = true;
-        virtual.enable = true;
-        virtual.nix-ld.enable = true;
-        virtual.container.enable = true;
-        virtual.container.waydroid.enable = true;
-        virtual.container.appimage.enable = true;
-        virtual.hardware.kvm.enable = true;
-      };
-    })
-  ];
+  config.modules = lib.mkDefault {
+    lang.list = ["c-cpp" "javascript" "python" "rust"];
+    services.enable = true;
+    services.audio.enable = true;
+    services.audio.bluetooth = true;
+    services.ssh.enable = true;
+    services.xkb.enable = true;
+    services.kmscon.enable = true;
+    shells.enable = true;
+    shells.fish.enable = true;
+    shells.zsh.enable = true;
+    virtual.enable = true;
+    virtual.nix-ld.enable = true;
+    virtual.container.enable = true;
+    virtual.container.waydroid.enable = true;
+    virtual.container.appimage.enable = true;
+    virtual.hardware.kvm.enable = true;
+  };
 }

@@ -19,7 +19,7 @@ in {
     ./brave.nix
   ];
 
-  config = lib.mkIf config.desktop.enable {
+  config = {
     xdg.mime.defaultApplications = {
       "text/html" = selected;
       "x-scheme-handler/http" = selected;

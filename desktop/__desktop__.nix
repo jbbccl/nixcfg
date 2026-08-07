@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   imports = [
     ./base/__base__.nix
     ./dispMgr/__dispMgr__.nix
@@ -15,44 +11,37 @@
     ./editor/__editor__.nix
   ];
 
-  options.desktop.enable = lib.mkEnableOption "desktop environment (WM, bar, DM, theme, etc.)";
+  config.desktop = lib.mkDefault {
+    base.theme = "manual";
+    dispMgr.select = "noctalia-greeter";
+    winMgr.list = [
+      # "labwc"
+      "niri"
+    ];
+    shell = {
+      _noctalia.enable = true;
 
-  config = lib.mkMerge [
-    {desktop.enable = lib.mkDefault true;}
-    (lib.mkIf config.desktop.enable {
-      desktop = lib.mkDefault {
-        base.theme = "manual";
-        dispMgr.select = "noctalia-greeter";
-        winMgr.list = [
-          # "labwc"
-          "niri"
-        ];
-        shell = {
-          _noctalia.enable = true;
-
-          # bar.list = [ "waybar" # "ironbar"];
-          # bar.waybar.niriTaskbar = true;
-          wall.enable = true;
-          # lock.select = "swaylock";
-          # pwmenu.select = "wlogout";
-          # notif.select = "mako";
-          # launcher.select = "fuzzel";
-        };
-        input.select = "fcitx5";
-        term.select = "kitty";
-        fileMgr.list = ["dolphin" "thunar"];
-        editor.list = ["vscodium"];
-        browser = {
-          select = "brave";
-          firefox = {
-            enable = true;
-            smoothfox = true;
-            searchEngines = true;
-            ublock = true;
-          };
-          brave.enable = true;
-        };
+      # bar.list = [ "waybar" # "ironbar"];
+      # bar.waybar.niriTaskbar = true;
+      wall.enable = true;
+      # lock.swaylock.enable = true;
+      # pwmenu.wlogout.enable = true;
+      # notif.select = "mako";
+      # launcher.select = "fuzzel";
+    };
+    input.select = "fcitx5";
+    term.select = "kitty";
+    fileMgr.list = ["dolphin" "thunar"];
+    editor.list = ["vscodium"];
+    browser = {
+      select = "brave";
+      firefox = {
+        enable = true;
+        smoothfox = true;
+        searchEngines = true;
+        ublock = true;
       };
-    })
-  ];
+      brave.enable = true;
+    };
+  };
 }

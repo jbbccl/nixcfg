@@ -25,6 +25,7 @@
   # 有意为之: hm 在开机激活阶段执行, 确保 systemd --user 读取 environment.d 前文件已就绪
   home-manager.startAsUserService = false;
 
+  core.user.username = "nixos";
   users.users.${username}.initialPassword = lib.mkForce "pass";
 
   modules.shells.enable = true;
