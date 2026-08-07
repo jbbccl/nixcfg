@@ -11,7 +11,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.noctalia.enable = true;
 
-    services = {
+    services = lib.mkDefault {
       upower.enable = true;
       power-profiles-daemon.enable = true;
     };

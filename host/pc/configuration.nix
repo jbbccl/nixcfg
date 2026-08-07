@@ -6,6 +6,11 @@
     ../common.nix
   ];
 
+  services = lib.mkDefault {
+    upower.enable = false;
+    # power-profiles-daemon.enable = false;
+  };
+
   desktop.winMgr.niri.outputs = {
     "eDP-1" = {
       mode = "3414x2134@60.0";
