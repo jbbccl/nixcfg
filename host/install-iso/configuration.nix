@@ -39,7 +39,7 @@
 
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
-    flclash
+    stable.flclash
   ];
 
   environment.etc."nixos/flake".source = self;

@@ -1,4 +1,7 @@
-{...}: {
+{
+  lib,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./driver.nix
@@ -6,10 +9,8 @@
     ../common.nix
   ];
 
-  services = lib.mkDefault {
-    upower.enable = false;
-    # power-profiles-daemon.enable = false;
-  };
+  # pc 无电池: 压过 noctalia 的默认 true
+  services.upower.enable = lib.mkForce false;
 
   desktop.winMgr.niri.outputs = {
     "eDP-1" = {
