@@ -8,5 +8,6 @@
   imports = [
     ./steam.nix
     ./wine.nix
+    ./misc.nix
   ];
 }

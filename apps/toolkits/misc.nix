@@ -24,8 +24,8 @@ in {
       # ── editor ────────────────────────────────────
       # gimp
       imhex
-      # libreoffice-qt
-      onlyoffice-desktopeditors
+      libreoffice-qt
+      # onlyoffice-desktopeditors
       # obsidian
       # ocamlPackages.cpdf
       krita

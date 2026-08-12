@@ -128,7 +128,7 @@
       <action name="Execute" command="kitty" />
     </keybind>
     <keybind key="W-r">
-      <action name="Execute" command="fuzzel" />
+      <action name="Execute" command="noctalia msg panel-toggle launcher" />
     </keybind>
     <keybind key="W-b">
       <action name="Execute" command="brave" />
