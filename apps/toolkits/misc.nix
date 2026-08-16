@@ -38,7 +38,7 @@ in {
 
       # ── apps ──────────────────────────────────────
       # bottles
-      gearlever
+      stable.gearlever
       localsend
       # pomodoro-gtk
       # keepassxc
