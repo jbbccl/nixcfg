@@ -21,6 +21,7 @@
     toolkits.enable = true;
     # toolkits.mcu.enable = true;
     # toolkits.fpga.enable = true;
+    toolkits.pwndbg.enable = true;
     game.enable = true;
     game.steam.enable = true;
     game.wine.enable = true;

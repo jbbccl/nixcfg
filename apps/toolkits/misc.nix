@@ -66,6 +66,13 @@ in {
       nmap
       traceroute
       # zap
+
+      bubblewrap
+      subfinder
+      amass
+
+      dnsx
+      httpx
     ];
   };
   };

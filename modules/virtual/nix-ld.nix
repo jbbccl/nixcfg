@@ -13,6 +13,8 @@ in {
     programs.nix-ld = {
       enable = true;
       libraries = with pkgs; [
+        libusb1
+        
         stdenv.cc.cc
         zlib
         zstd

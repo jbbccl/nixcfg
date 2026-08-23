@@ -14,6 +14,7 @@
     ./mcu.nix
     ./rs.nix
     ./fpga.nix
+    ./pwndbg.nix
   ];
 
   config = lib.mkIf config.apps.toolkits.enable {

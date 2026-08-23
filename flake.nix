@@ -1,11 +1,23 @@
 {
   description = "Optimized NixOS Flake Configuration";
 
+  nixConfig = {
+    extra-substituters = ["https://pwndbg.cachix.org"];
+    extra-trusted-public-keys = [
+      "pwndbg.cachix.org-1:HhtIpP7j73SnuzLgobqqa8LVTng5Qi36sQtNt79cD3k="
+    ];
+  };
+
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     nixpkgs.follows = "nixpkgs-unstable";
+
+    pwndbg = {
+      url = "github:pwndbg/pwndbg";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
