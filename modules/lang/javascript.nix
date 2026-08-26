@@ -16,6 +16,6 @@ lib.mkIf (builtins.elem "javascript" config.modules.lang.list) {
     home.sessionVariables = {
       PNPM_HOME = "/home/${username}/.local/share/pnpm";
     };
-    home.sessionPath = ["/home/${username}/.local/share/pnpm"];
+    home.sessionPath = ["/home/${username}/.local/share/pnpm/bin"];
   };
 }

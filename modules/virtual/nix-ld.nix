@@ -14,6 +14,9 @@ in {
       enable = true;
       libraries = with pkgs; [
         libusb1
+        cups # libcups.so.2 (playwright chromium)
+        mesa # libgbm.so.1
+        libgbm
         
         stdenv.cc.cc
         zlib

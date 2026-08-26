@@ -73,6 +73,8 @@ in {
 
       dnsx
       httpx
+
+      hashcat
     ];
   };
   };

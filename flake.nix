@@ -93,5 +93,9 @@
       pc = mkSystem "pc" [./host/pc/configuration.nix];
       install-iso = mkSystem "iso-installer" [./host/install-iso/configuration.nix];
     };
+
+    # 便于独立构建/验证：nix build ~/nixcfg#yakit
+    packages.x86_64-linux.yakit =
+      nixpkgs.legacyPackages.x86_64-linux.callPackage ./apps/toolkits/yakit-package.nix {};
   };
 }

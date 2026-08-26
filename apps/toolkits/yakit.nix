@@ -1,0 +1,29 @@
+{
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}: let
+  cfg = config.apps.toolkits.yakit;
+in {
+  options.apps.toolkits.yakit.enable = lib.mkEnableOption "Yakit（Wayland 原生构建，新版 Electron 运行时）";
+
+  options.apps.toolkits.yakit.chromePath = lib.mkOption {
+    type = lib.types.nullOr lib.types.str;
+    default = null;
+    description = ''
+      覆盖 Chrome/Chromium 可执行文件路径（Yakit 浏览器调试 / MITM 抓包依赖 chrome-launcher）。
+      为 null 时默认捆绑 nixpkgs ungoogled-chromium 并自动设置 CHROME_PATH；
+      也可设为其它路径，例如 google-chrome / brave 的可执行文件（如 /run/current-system/sw/bin/google-chrome-stable）。
+    '';
+  };
+
+  config = lib.mkIf cfg.enable {
+    home-manager.users.${username}.home.packages = [
+      (pkgs.callPackage ./yakit-package.nix {
+        inherit (cfg) chromePath;
+      })
+    ];
+  };
+}

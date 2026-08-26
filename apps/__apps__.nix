@@ -22,6 +22,8 @@
     # toolkits.mcu.enable = true;
     # toolkits.fpga.enable = true;
     toolkits.pwndbg.enable = true;
+    toolkits.yakit.enable = true;
+    # toolkits.yakit.chromePath = "/run/current-system/sw/bin/brave";
     game.enable = true;
     game.steam.enable = true;
     game.wine.enable = true;

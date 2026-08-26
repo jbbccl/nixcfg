@@ -15,6 +15,7 @@
     ./rs.nix
     ./fpga.nix
     ./pwndbg.nix
+    ./yakit.nix
   ];
 
   config = lib.mkIf config.apps.toolkits.enable {
@@ -22,6 +23,7 @@
       misc.enable = true;
       wireshark.enable = true;
       vm-managers.enable = true;
+      yakit.enable = true;
     };
   };
 }
