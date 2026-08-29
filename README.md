@@ -196,8 +196,13 @@ nixcfg/
 │   ├── toolkits/       # /opt/toolkit 工具集
 │   │   ├── __toolkits__.nix    # enable 开关 + imports
 │   │   ├── misc.nix           # 杂项工具
-│   │   ├── vm-managers.nix    # 虚拟机管理
-│   │   └── wireshark.nix      # 网络分析
+│   │   └── vm-managers.nix    # 虚拟机管理
+│   ├── pentest/        # 渗透测试工具
+│   │   ├── __pentest__.nix    # enable 开关 + imports
+│   │   ├── misc.nix           # 网络/逆向/移动安全工具
+│   │   ├── pwndbg.nix         # gdb 调试插件
+│   │   ├── wireshark.nix      # 网络分析
+│   │   └── yakit.nix          # Yakit (Wayland)
 │   ├── game/           # 游戏
 │   │   ├── __game__.nix      # enable 开关 + imports
 │   │   ├── steam.nix         # Steam (自声明 enable)

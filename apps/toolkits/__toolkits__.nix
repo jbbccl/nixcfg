@@ -10,20 +10,15 @@
   imports = [
     ./misc.nix
     ./vm-managers.nix
-    ./wireshark.nix
     ./mcu.nix
     ./rs.nix
     ./fpga.nix
-    ./pwndbg.nix
-    ./yakit.nix
   ];
 
   config = lib.mkIf config.apps.toolkits.enable {
     apps.toolkits = lib.mkDefault {
       misc.enable = true;
-      wireshark.enable = true;
       vm-managers.enable = true;
-      yakit.enable = true;
     };
   };
 }

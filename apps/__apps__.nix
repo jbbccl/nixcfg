@@ -2,6 +2,7 @@
   imports = [
     ./services/__services__.nix
     ./toolkits/__toolkits__.nix
+    ./pentest/__pentest__.nix
     ./cli/__cli__.nix
     ./game/__game__.nix
   ];
@@ -21,9 +22,8 @@
     toolkits.enable = true;
     # toolkits.mcu.enable = true;
     # toolkits.fpga.enable = true;
-    toolkits.pwndbg.enable = true;
-    toolkits.yakit.enable = true;
-    # toolkits.yakit.chromePath = "/run/current-system/sw/bin/brave";
+    pentest.enable = true;
+    # pentest.yakit.chromePath = "/run/current-system/sw/bin/brave";
     game.enable = true;
     game.steam.enable = true;
     game.wine.enable = true;
