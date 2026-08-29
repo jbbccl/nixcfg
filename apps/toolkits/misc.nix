@@ -59,7 +59,10 @@ in {
       peazip
       squashfsTools
 
+      bubblewrap
+
       # ── network ───────────────────────────────────
+      socat
       # caido
       dig
       # mitmproxy
@@ -67,14 +70,27 @@ in {
       traceroute
       # zap
 
-      bubblewrap
       subfinder
       amass
 
       dnsx
       httpx
+      nuclei
+      ffuf
+      katana
+
+      sqlmap
 
       hashcat
+      thc-hydra
+      fscan
+
+      android-tools
+      apktool
+      apksigner
+      javaPackages.compiler.temurin-bin.jdk-25
+
+      jadx
     ];
   };
   };

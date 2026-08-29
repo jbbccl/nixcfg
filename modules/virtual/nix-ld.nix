@@ -17,6 +17,9 @@ in {
         cups # libcups.so.2 (playwright chromium)
         mesa # libgbm.so.1
         libgbm
+        libXScrnSaver
+
+        gsettings-desktop-schemas
         
         stdenv.cc.cc
         zlib

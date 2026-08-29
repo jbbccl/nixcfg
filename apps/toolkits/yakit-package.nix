@@ -74,8 +74,10 @@ in
       cp -a "$src"/resources/* $out/lib/yakit/resources/
       cp -a "$src"/bins "$src"/report $out/lib/yakit/
 
-      # 图标
-      install -Dm644 "$src"/yakit.png $out/share/icons/hicolor/800x800/apps/yakit.png
+      # 图标：安装到多个标准尺寸目录（部分启动器只扫描 128/256/512 等标准尺寸）
+      for s in 128 256 512 800; do
+        install -Dm644 "$src"/yakit.png $out/share/icons/hicolor/''${s}x''${s}/apps/yakit.png
+      done
 
       # 启动脚本：复用 nixpkgs electron 包装脚本的环境（GIO/GTK 模块、XDG_DATA_DIRS、
       # CHROME_DEVEL_SANDBOX 等），追加 Wayland 参数后 exec 打包布局的二进制

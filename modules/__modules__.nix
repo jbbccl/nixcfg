@@ -7,7 +7,7 @@
   ];
 
   config.modules = lib.mkDefault {
-    lang.list = ["c-cpp" "javascript" "python" "rust"];
+    lang.list = ["c-cpp" "javascript" "python" "rust" "go"];
     services.enable = true;
     services.audio.enable = true;
     services.audio.bluetooth = true;
