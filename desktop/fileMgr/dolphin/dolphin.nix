@@ -10,7 +10,7 @@ in {
   options.desktop.fileMgr.dolphin.enable = lib.mkEnableOption "dolphin file manager";
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs.stable; [
       kdePackages.dolphin
       kdePackages.kio
       kdePackages.kio-extras

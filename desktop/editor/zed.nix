@@ -10,6 +10,10 @@ in {
   options.desktop.editor.zed.enable = lib.mkEnableOption "Zed GUI editor";
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${username}.home.packages = [pkgs.zed-editor];
+    home-manager.users.${username}.home.packages =with pkgs; [
+      # zed-editor
+      fresh-editor
+      mousepad
+    ];
   };
 }

@@ -18,6 +18,7 @@ in {
         mesa # libgbm.so.1
         libgbm
         libXScrnSaver
+        vulkan-loader
 
         gsettings-desktop-schemas
         

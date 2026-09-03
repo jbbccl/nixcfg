@@ -25,6 +25,7 @@
     pentest.enable = true;
     # pentest.yakit.chromePath = "/run/current-system/sw/bin/brave";
     game.enable = true;
+    # game.denuvo.enable = true;
     game.steam.enable = true;
     game.wine.enable = true;
   };

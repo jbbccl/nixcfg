@@ -206,7 +206,11 @@ nixcfg/
 │   ├── game/           # 游戏
 │   │   ├── __game__.nix      # enable 开关 + imports
 │   │   ├── steam.nix         # Steam (自声明 enable)
-│   │   └── wine.nix          # wine (wayland) + winetricks + umu
+│   │   ├── wine.nix          # wine (wayland) + winetricks + umu
+│   │   └── denuvo/              # Denuvo/Proton 支持 + cpuid_fault_emulation 内核模块
+│   │       ├── __denuvo__.nix
+│   │       ├── cpuid-fault-emulation.nix
+│   │       └── cpuid_fault_emulation/
 │   └── cli/            # 命令行工具
 │       ├── __cli__.nix       # enable 开关 + imports + 默认值
 │       ├── git.nix           # git 身份/配置

@@ -32,7 +32,7 @@
     input.select = "fcitx5";
     term.select = "kitty";
     fileMgr.list = ["dolphin" "thunar"];
-    editor.list = ["vscodium"];
+    editor.list = ["vscodium" "zed"];
     browser = {
       select = "brave";
       firefox = {

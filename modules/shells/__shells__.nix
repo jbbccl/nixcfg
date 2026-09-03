@@ -27,7 +27,7 @@
       wget
       curl
       pciutils
-      vim
+      # vim
       file
     ];
   };

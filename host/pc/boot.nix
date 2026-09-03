@@ -87,4 +87,8 @@
     enable = true;
     priority = 10;
   };
+
+  # x86_64 不需要 device tree；显式关闭可避免某些内核包
+  # （例如 pkgs.stable.linuxPackages_zen）缺少 buildDTBs 时评估失败。
+  hardware.deviceTree.enable = false;
 }

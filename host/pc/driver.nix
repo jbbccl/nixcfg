@@ -10,6 +10,7 @@
     extraPackages = with pkgs; [
       rocmPackages.clr.icd # AMD OpenCL (Navi 24 / RX 6500 XT)
       pocl # CPU OpenCL 兜底
+      vulkan-tools
     ];
   };
 
