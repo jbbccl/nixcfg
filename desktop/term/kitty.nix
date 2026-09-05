@@ -45,7 +45,17 @@ lib.mkIf (config.desktop.term.select == "kitty") {
         tab_powerline_style         slanted
 
         #key map
-        map ctrl+s send_text all \e:w\r
+        map ctrl+shift+\  launch --location=hsplit --cwd=current
+        map ctrl+shift+'  launch --location=vsplit --cwd=current
+        map ctrl+shift+;  launch --location=split --cwd=current
+        # map ctrl+shift+r  layout_action rotate
+
+        # map ctrl+left   neighboring_window left
+        # map ctrl+right  neighboring_window right
+        # map ctrl+up     neighboring_window up
+        # map ctrl+down   neighboring_window down
+
+        #map ctrl+s send_text all \e:w\r
         map cmd+1 combine : send_key ctrl+space : send_key 1
         map home send_text all \x1b[H
         map end send_text all \x1b[F

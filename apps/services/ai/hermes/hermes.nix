@@ -28,6 +28,9 @@ in {
           "/home/${username}/nixcfg:/home/${username}/nixcfg:rw"
           "/home/${username}/Desktop:/home/${username}/Desktop:rw"
           "/run/user/${uid}/podman/podman.sock:/run/user/${uid}/podman/podman.sock:rw"
+          # --network=host 不注入 DNS, 容器用镜像自带的空 /etc/resolv.conf 导致
+          # "Temporary failure in name resolution" → 挂载宿主机 resolv.conf
+          "/etc/resolv.conf:/etc/resolv.conf:ro"
         ];
       };
 

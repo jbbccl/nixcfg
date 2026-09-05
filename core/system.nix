@@ -36,12 +36,15 @@
   nix.optimise = {
     automatic = true;
     dates = ["03:45"];
+    randomizedDelaySec = "1h";
   };
 
   nix.gc = {
     automatic = true;
     dates = "03:15";
     options = "--delete-older-than 7d";
+    # 错过计划时间(关机)时,开机延迟随机 0-1h 补跑,避免阻塞启动
+    randomizedDelaySec = "1h";
   };
 
   documentation.enable = false;

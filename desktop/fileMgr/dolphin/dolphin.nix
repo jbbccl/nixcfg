@@ -21,6 +21,7 @@ in {
       kdePackages.qtwayland
       # kdePackages.breeze-icons
       shared-mime-info
+      kdePackages.kde-cli-tools
     ];
 
     xdg.portal.extraPortals = [
