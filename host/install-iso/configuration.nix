@@ -18,7 +18,7 @@
     ../../secrets/__secrets__.nix
     ../../modules/shells/__shells__.nix
     ../../desktop/__desktop__.nix
-    ../../apps/cli/__cli__.nix
+    ../../apps/toolkits/__toolkits__.nix
     ../../apps/services/ai/__ai__.nix
   ];
 
@@ -36,6 +36,11 @@
   # ISO 无 age key: sops 渲染报 failed unit 但不影响运行, opencode 用免费额度应急
   apps.services.ai.enable = true;
   apps.services.ai.opencode.enable = true;
+
+  # 原 cli 模块并入 toolkits 后, 此处保持 ISO 内 CLI 工具可用
+  apps.toolkits.git.enable = true;
+  apps.toolkits.neovim.enable = true;
+  apps.toolkits.yazi.enable = true;
 
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager

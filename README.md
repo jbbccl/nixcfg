@@ -195,6 +195,10 @@ nixcfg/
 │   │       └── __remote-ctrl__.nix  # enable 开关 + imports
 │   ├── toolkits/       # /opt/toolkit 工具集
 │   │   ├── __toolkits__.nix    # enable 开关 + imports
+│   │   ├── git.nix             # git 身份/配置
+│   │   ├── neovim.nix          # nixvim 编辑器 (EDITOR/VISUAL)
+│   │   ├── yazi/               # 终端文件管理
+│   │   │   └── yazi.nix
 │   │   ├── misc.nix           # 杂项工具
 │   │   └── vm-managers.nix    # 虚拟机管理
 │   ├── pentest/        # 渗透测试工具
@@ -203,19 +207,14 @@ nixcfg/
 │   │   ├── pwndbg.nix         # gdb 调试插件
 │   │   ├── wireshark.nix      # 网络分析
 │   │   └── yakit.nix          # Yakit (Wayland)
-│   ├── game/           # 游戏
-│   │   ├── __game__.nix      # enable 开关 + imports
-│   │   ├── steam.nix         # Steam (自声明 enable)
-│   │   ├── wine.nix          # wine (wayland) + winetricks + umu
-│   │   └── denuvo/              # Denuvo/Proton 支持 + cpuid_fault_emulation 内核模块
-│   │       ├── __denuvo__.nix
-│   │       ├── cpuid-fault-emulation.nix
-│   │       └── cpuid_fault_emulation/
-│   └── cli/            # 命令行工具
-│       ├── __cli__.nix       # enable 开关 + imports + 默认值
-│       ├── git.nix           # git 身份/配置
-│       ├── neovim.nix        # 编辑器 (EDITOR/VISUAL)
-│       └── yazi/             # 终端文件管理
+│   └── game/           # 游戏
+│       ├── __game__.nix      # enable 开关 + imports
+│       ├── steam.nix         # Steam (自声明 enable)
+│       ├── wine.nix          # wine (wayland) + winetricks + umu
+│       └── denuvo/              # Denuvo/Proton 支持 + cpuid_fault_emulation 内核模块
+│           ├── __denuvo__.nix
+│           ├── cpuid-fault-emulation.nix
+│           └── cpuid_fault_emulation/
 │
 └── secrets/            # SOPS 加密密钥 (__secrets__.nix)
 ```

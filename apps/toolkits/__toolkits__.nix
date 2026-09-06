@@ -5,20 +5,14 @@
   username,
   ...
 }: {
-  options.apps.toolkits.enable = lib.mkEnableOption "toolkits";
-
   imports = [
+    ./git.nix
+    ./neovim.nix
+    ./yazi/yazi.nix
     ./misc.nix
     ./vm-managers.nix
     ./mcu.nix
     ./rs.nix
     ./fpga.nix
   ];
-
-  config = lib.mkIf config.apps.toolkits.enable {
-    apps.toolkits = lib.mkDefault {
-      misc.enable = true;
-      vm-managers.enable = true;
-    };
-  };
 }

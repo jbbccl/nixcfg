@@ -24,6 +24,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     mango = {
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,6 +53,11 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    linuwowo = {
+      url = "github:loystonpais/linuwowo";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -59,14 +69,15 @@
 
     sharedModules = [
       inputs.home-manager.nixosModules.home-manager
+      inputs.nixvim.nixosModules.nixvim
       inputs.sops-nix.nixosModules.sops
       inputs.noctalia-greeter.nixosModules.default
       inputs.hermes-agent.nixosModules.default
       inputs.mango.nixosModules.mango
       inputs.stylix.nixosModules.stylix
+      inputs.linuwowo.nixosModules.default
       ({username, ...}: {
         system.stateVersion = "25.11";
-        # pkgs.stable (26.05) 与默认 unstable 并存
         nixpkgs.overlays = [
           (final: prev: {
             stable = import inputs.nixpkgs-stable {

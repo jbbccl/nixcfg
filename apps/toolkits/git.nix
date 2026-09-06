@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.apps.cli.git;
+  cfg = config.apps.toolkits.git;
 in {
-  options.apps.cli.git.enable = lib.mkEnableOption "git";
+  options.apps.toolkits.git.enable = lib.mkEnableOption "git";
 
   config = lib.mkIf cfg.enable {
     programs.git = {

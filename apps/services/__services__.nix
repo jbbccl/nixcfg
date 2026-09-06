@@ -3,8 +3,6 @@
   lib,
   ...
 }: {
-  options.apps.services.enable = lib.mkEnableOption "services";
-
   imports = [
     ./ai/__ai__.nix
     ./proxy/__proxy__.nix

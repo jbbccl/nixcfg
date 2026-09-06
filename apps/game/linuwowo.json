@@ -1,0 +1,12 @@
+{
+  "cpuVendor": "amd",
+  "cpuFamily": 25,
+  "cpuModel": 33,
+  "modelName": "AMD Ryzen 5 5600 6-Core Processor",
+  "amdZenGen": 3,
+  "intelGen": 0,
+  "isSteamDeck": false,
+  "disableUmip": true,
+  "cpuidFaultEmulation": true,
+  "dmiProduct": "System Product Name"
+}

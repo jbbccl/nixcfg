@@ -3,30 +3,46 @@
     ./services/__services__.nix
     ./toolkits/__toolkits__.nix
     ./pentest/__pentest__.nix
-    ./cli/__cli__.nix
     ./game/__game__.nix
   ];
 
   config.apps = lib.mkDefault {
-    services.ai.enable = true;
-    services.ai.hermes.enable = true;
-    services.ai.litellm.enable = false;
-    services.ai.opencode.enable = true;
-    services.ai.pi.enable = true;
-    services.proxy.enable = true;
-    services.proxy.mihomo.enable = true;
-    # services.proxy.daed.enable = true;# TODO WPI
-    # services.proxy.dae.enable  = true;
-    services.ingress.enable = false;
-    services.remote-ctrl.enable = false;
-    toolkits.enable = true;
-    # toolkits.mcu.enable = true;
-    # toolkits.fpga.enable = true;
-    pentest.enable = true;
-    # pentest.yakit.chromePath = "/run/current-system/sw/bin/brave";
-    game.enable = true;
-    # game.denuvo.enable = true;
-    game.steam.enable = true;
-    game.wine.enable = true;
+    toolkits ={
+      # mcu.enable = true;
+      # fpga.enable = true;
+      misc.enable = true;
+      vm-managers.enable = true;
+      git.enable = true;
+      neovim.enable = true;
+      yazi.enable = true;
+    };
+
+    services = {
+      ai.enable = true;
+      ai.hermes.enable = true;
+      ai.litellm.enable = false;
+      ai.opencode.enable = true;
+      ai.pi.enable = true;
+      proxy.enable = true;
+      proxy.mihomo.enable = true;
+      # proxy.daed.enable = true;# TODO WPI
+      # proxy.dae.enable  = true;
+      ingress.enable = false;
+      remote-ctrl.enable = false;
+    };
+
+    pentest = {
+      misc.enable = true;
+      pwndbg.enable = true;
+      wireshark.enable = true;
+      yakit.enable = true;
+      # yakit.chromePath = "/run/current-system/sw/bin/brave";
+    };
+
+    game={
+      steam.enable = true;
+      wine.enable = true;
+      # linuwowo.enable
+    };
   };
 }
