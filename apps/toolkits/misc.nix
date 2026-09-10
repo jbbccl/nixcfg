@@ -25,6 +25,7 @@ in {
         # gimp
         imhex
         libreoffice-qt
+        # kdePackages.calligra
         # onlyoffice-desktopeditors
         # obsidian
         # ocamlPackages.cpdf
