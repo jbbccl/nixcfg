@@ -22,6 +22,7 @@ in {
     home-manager.users.${username} = {
       home.packages = with pkgs; [
         # ── editor ────────────────────────────────────
+        zathura
         # gimp
         imhex
         libreoffice-qt
