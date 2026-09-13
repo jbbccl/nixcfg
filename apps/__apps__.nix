@@ -11,6 +11,8 @@
       # mcu.enable = true;
       # fpga.enable = true;
       misc.enable = true;
+      typst.enable = true;
+      latex.enable = true;
       vm-managers.enable = true;
       git.enable = true;
       neovim.enable = true;

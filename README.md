@@ -200,6 +200,8 @@ nixcfg/
 │   │   ├── yazi/               # 终端文件管理
 │   │   │   └── yazi.nix
 │   │   ├── misc.nix           # 杂项工具
+│   │   ├── typst.nix          # Typst 工具链 (typst/tinymist)
+│   │   ├── latex.nix          # LaTeX 工具链 (tectonic)
 │   │   └── vm-managers.nix    # 虚拟机管理
 │   ├── pentest/        # 渗透测试工具
 │   │   ├── __pentest__.nix    # enable 开关 + imports
