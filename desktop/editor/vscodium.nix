@@ -18,6 +18,25 @@
     "window.zoomLevel" = 1;
     "editor.fontFamily" = "'Maple Mono NF CN', Maple Mono NF CN";
     "workbench.colorTheme" = "Catppuccin Macchiato";
+    # tectonic 按需拉取宏包，直连 data1.fullyjustified.net 不通，走 mihomo mixed-port
+    "latex-workshop.latex.tools" = [
+      {
+        name = "tectonic";
+        command = "tectonic";
+        args = ["--synctex" "--keep-logs" "--print" "%DOC%.tex"];
+        env = {
+          HTTP_PROXY = "http://127.0.0.1:7897";
+          HTTPS_PROXY = "http://127.0.0.1:7897";
+        };
+      }
+    ];
+    "latex-workshop.latex.recipes" = [
+      {
+        name = "tectonic";
+        tools = ["tectonic"];
+      }
+    ];
+    "latex-workshop.latex.recipe.default" = "tectonic";
   };
   declarativeSettingsFile =
     pkgs.writeText "vscode-declarative-settings.json"
@@ -38,6 +57,8 @@ in {
             ms-python.vscode-python-envs
             ms-python.debugpy
             jnoortheen.nix-ide
+            myriad-dreamin.tinymist
+            james-yu.latex-workshop
           ];
           userSettings = {};
         };
