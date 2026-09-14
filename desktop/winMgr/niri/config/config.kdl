@@ -11,7 +11,7 @@ environment {
 // spawn-sh-at-startup "waybar -c ~/.config/waybar/config-niri.jsonc -s ~/.config/waybar/style.css"
 spawn-at-startup "noctalia"//-shell"
 
-spawn-at-startup "fcitx5"
+spawn-at-startup "fcitx5" "--replace"
 spawn-at-startup "waypaper" "--restore"
 
 //spawn-at-startup "nm-applet"
