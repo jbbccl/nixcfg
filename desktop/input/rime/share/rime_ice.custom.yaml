@@ -1,4 +1,15 @@
 patch:
+  # 显式补一份带 Lock 修饰键的绑定即可让这些键在 CapsLock 打开时照常工作。
+  # editor/bindings/Lock+BackSpace: revert
+  # editor/bindings/Lock+Control+BackSpace: back_syllable
+  # editor/bindings/Lock+space: confirm
+  # editor/bindings/Lock+Return: commit_raw_input
+  # editor/bindings/Lock+Control+Return: commit_script_text
+  # editor/bindings/Lock+Control+Shift+Return: commit_comment
+  # editor/bindings/Lock+Delete: delete
+  # editor/bindings/Lock+Control+Delete: delete_candidate
+  # editor/bindings/Lock+Escape: cancel
+
   # grammar:
   #   language: wanxiang-lts-zh-hans
   #   collocation_max_length: 8
