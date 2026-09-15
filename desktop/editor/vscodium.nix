@@ -56,6 +56,8 @@ in {
             ms-python.python
             ms-python.vscode-python-envs
             ms-python.debugpy
+            # ms-pyright.pyright
+            detachhead.basedpyright
             jnoortheen.nix-ide
             myriad-dreamin.tinymist
             james-yu.latex-workshop
