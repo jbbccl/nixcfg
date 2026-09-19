@@ -30,7 +30,7 @@ in {
         # onlyoffice-desktopeditors
         # obsidian
         # ocamlPackages.cpdf
-        # krita
+        krita
         blender
         # ── stream ────────────────────────────────────
         # moonlight-qt

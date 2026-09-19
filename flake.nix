@@ -33,11 +33,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia-greeter = {
-      url = "github:noctalia-dev/noctalia-greeter";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -70,7 +65,6 @@
       inputs.home-manager.nixosModules.home-manager
       inputs.nixvim.nixosModules.nixvim
       inputs.sops-nix.nixosModules.sops
-      inputs.noctalia-greeter.nixosModules.default
       inputs.hermes-agent.nixosModules.default
       inputs.mango.nixosModules.mango
       inputs.stylix.nixosModules.stylix

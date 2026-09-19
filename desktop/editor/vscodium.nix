@@ -45,6 +45,8 @@ in {
   options.desktop.editor.vscodium.enable = lib.mkEnableOption "VSCodium GUI editor";
 
   config = lib.mkIf cfg.enable {
+    programs.direnv.enable = true;
+    
     home-manager.users.${username} = {
       programs.vscodium = {
         enable = true;
@@ -61,6 +63,7 @@ in {
             jnoortheen.nix-ide
             myriad-dreamin.tinymist
             james-yu.latex-workshop
+            mkhl.direnv
           ];
           userSettings = {};
         };
