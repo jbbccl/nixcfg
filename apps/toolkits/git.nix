@@ -12,8 +12,8 @@ in {
       enable = true;
       config = {
         user = {
-          name = "lccbbj";
-          email = "lccbbj@example.com";
+          name = "jbbccl";
+          email = "184189677+jbbccl@users.noreply.github.com";
         };
         init.defaultBranch = "main";
       };
