@@ -50,6 +50,8 @@ in {
     home-manager.users.${username} = {
       programs.vscodium = {
         enable = true;
+        # workaround 更新后插件安装流程变化，会把不可变扩展标记成已移除
+        mutableExtensionsDir = false;
         profiles.default = {
           extensions = with pkgs.vscode-extensions; [
             catppuccin.catppuccin-vsc
