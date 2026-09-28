@@ -1,0 +1,10 @@
+[models]
+default = "grok-latest"
+
+[model.grok-latest]
+model = "x-ai/grok-latest"
+base_url = "https://openrouter.ai/api/v1"
+name = "Grok Latest"
+env_key = "OPENROUTER_API_KEY"
+api_backend = "chat_completions"
+context_window = 500000

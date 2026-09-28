@@ -25,6 +25,7 @@
       ai.litellm.enable = false;
       ai.opencode.enable = true;
       ai.pi.enable = true;
+      ai.grok.enable = true;
       proxy.enable = true;
       proxy.mihomo.enable = true;
       # proxy.daed.enable = true;# TODO WPI
@@ -35,6 +36,7 @@
 
     pentest = {
       misc.enable = true;
+      c2.enable = true;
       pwndbg.enable = true;
       wireshark.enable = true;
       yakit.enable = true;

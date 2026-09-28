@@ -28,13 +28,14 @@
     esac
   '';
 in {
-  options.apps.services.ai.enable = lib.mkEnableOption "AI services (litellm, hermes, opencode)";
+  options.apps.services.ai.enable = lib.mkEnableOption "AI services (litellm, hermes, opencode, grok)";
 
   imports = [
     ./litellm/litellm.nix
     ./hermes/hermes.nix
     ./opencode/opencode.nix
     ./pi/pi.nix
+    ./grok/grok.nix
   ];
 
   config = lib.mkIf cfg.enable {
