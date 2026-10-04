@@ -36,6 +36,7 @@ in {
     ./opencode/opencode.nix
     ./pi/pi.nix
     ./grok/grok.nix
+    ./dsh/dsh.nix
   ];
 
   config = lib.mkIf cfg.enable {

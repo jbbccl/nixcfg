@@ -8,7 +8,6 @@
 
   config.modules = lib.mkDefault {
     lang.list = ["c-cpp" "javascript" "python" "rust" "go" "java"];
-    services.enable = true;
     services.audio.enable = true;
     services.audio.bluetooth = true;
     services.ssh.enable = true;
@@ -17,11 +16,10 @@
     shells.enable = true;
     shells.fish.enable = true;
     shells.zsh.enable = true;
-    virtual.enable = true;
     virtual.nix-ld.enable = true;
     virtual.container.enable = true;
-    virtual.container.waydroid.enable = true;
-    virtual.container.appimage.enable = true;
-    virtual.hardware.kvm.enable = true;
+    virtual.waydroid.enable = true;
+    virtual.appimage.enable = true;
+    virtual.kvm.enable = true;
   };
 }

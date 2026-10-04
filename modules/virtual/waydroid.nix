@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.modules.virtual.container.waydroid;
+  cfg = config.modules.virtual.waydroid;
 in {
-  options.modules.virtual.container.waydroid.enable = lib.mkEnableOption "waydroid (Android container)";
+  options.modules.virtual.waydroid.enable = lib.mkEnableOption "waydroid (Android container)";
 
   config = lib.mkIf cfg.enable {
     virtualisation.waydroid.enable = true;

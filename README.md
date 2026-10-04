@@ -94,6 +94,7 @@
 - `desktop.winMgr.list` 是列表类型：可同时启用多个 WM，登录界面切换，无需重构
 - 各 WM 自带的 portal 依赖只在该 WM 启用时安装
 - `desktop/__desktop__.nix` 设有公共默认值，减少 lap/pc 之间的重复
+- **「打开文件所在位置」不是 `xdg.portal` 管的**：浏览器（Chromium/Brave 的 `ShowItems`）走 D-Bus 名 `org.freedesktop.FileManager1`，`xdg.portal` 的 `xdgOpenUsePortal` 只影响 `xdg-open`/OpenURI 那条路。系统里 dolphin / thunar / nautilus 会同时注册该名字，dbus-broker 按 `$XDG_RUNTIME_DIR` → `$XDG_DATA_HOME` → `$XDG_DATA_DIRS` → 配置内 `<servicedir>` 的顺序取先扫到的那个（重名直接 `Ignoring duplicate name` 跳过）。因此 `desktop/fileMgr/thunar/thunar.nix` 在用户级 `~/.local/share/dbus-1/services` 放一份同名 service，启用 thunar 即稳定接管；目录的 `inode/directory` 关联也在同一处用 `xdg.mimeApps` 设到 `thunar.desktop`。
 
 ## 项目结构树
 
@@ -115,19 +116,19 @@ nixcfg/
 │   │   ├── boot.nix
 │   │   └── driver.nix
 │   └── install-iso/      # 安装镜像 (offline installer, 独立精选 imports)
-│       └── configuration.nix
+│       └── configuration.nix  # 生成 /etc/nixos/INSTALL.txt
 │
 ├── core/               # Layer 0: NixOS 内核
-│   ├── __core__.nix    # enable 开关 + imports + 默认值
+│   ├── __core__.nix    # imports
 │   ├── console.nix     # 控制台 (TTY 字体/键盘)
 │   ├── networking.nix  # 网络 (防火墙/NetworkManager)
 │   ├── system.nix      # 时区/语言/nix 设置/sudo
-│   └── user.nix        # 用户账户
+│   └── user.nix        # 用户账户 (core.user.username → _module.args.username)
 │
 ├── modules/            # Layer 1: NixOS 模块扩展
-│   ├── __modules__.nix     # enable 开关 + imports + lib.mkDefault 默认值
+│   ├── __modules__.nix     # imports + lib.mkDefault 默认值
 │   ├── lang/               # 语言工具链
-│   │   ├── __lang__.nix    # languages option + imports
+│   │   ├── __lang__.nix    # modules.lang.list option + imports
 │   │   ├── c-cpp.nix
 │   │   ├── go.nix
 │   │   ├── java.nix
@@ -135,7 +136,7 @@ nixcfg/
 │   │   ├── python.nix
 │   │   └── rust.nix
 │   ├── services/           # 系统服务
-│   │   ├── __services__.nix    # enable 开关 + imports
+│   │   ├── __services__.nix    # imports
 │   │   ├── audio.nix           # PipeWire (自声明 enable)
 │   │   ├── kmscon.nix          # kmscon 虚拟终端
 │   │   ├── ssh.nix             # SSH + GitHub 密钥
@@ -146,7 +147,7 @@ nixcfg/
 │   │   ├── fish/
 │   │   └── zsh/
 │   ├── virtual/            # 虚拟化/兼容运行时
-│   │   ├── __virtual__.nix     # enable 开关 + imports
+│   │   ├── __virtual__.nix     # imports
 │   │   ├── nix-ld.nix          # 非 Nix 二进制兼容 (FHS)
 │   │   ├── container.nix       # podman + distrobox
 │   │   ├── appimage.nix        # flatpak + appimage binfmt
@@ -154,16 +155,32 @@ nixcfg/
 │   │   └── kvm.nix             # libvirtd + qemu
 │
 ├── desktop/            # Layer 2: 桌面环境
-│   ├── __desktop__.nix     # enable 开关 + imports + lib.mkDefault 默认值
-│   ├── base/               # 基础配置 (GTK/Qt/光标/字体/Stylix)
-│   │   └── __base__.nix
+│   ├── __desktop__.nix     # list/select 选项 + lib.mkDefault 默认值
+│   ├── base/               # 基础外观 (GTK/Qt/光标/字体/Stylix)
+│   │   ├── __base__.nix    # desktop.base.theme
+│   │   ├── cursor.nix
+│   │   ├── fonts.nix
+│   │   ├── gtk.nix
+│   │   ├── qt.nix
+│   │   └── stylix.nix
 │   ├── dispMgr/            # sddm / greetd / noctalia-greeter
-│   │   └── __dispMgr__.nix
+│   │   ├── __dispMgr__.nix # desktop.dispMgr.select
+│   │   ├── greetd/
+│   │   ├── noctalia-greeter/
+│   │   └── sddm/
 │   ├── winMgr/             # niri / hypr / labwc / mangowc
-│   │   └── __winMgr__.nix
+│   │   ├── __winMgr__.nix  # desktop.winMgr.list
+│   │   ├── base/           # 各 WM 共用
+│   │   │   ├── __base__.nix
+│   │   │   ├── polkit.nix
+│   │   │   └── xdg.nix     # xdg.portal / xdg.mime / xdg.menus
+│   │   ├── hypr/
+│   │   ├── labwc/
+│   │   ├── mangowc/
+│   │   └── niri/
 │   ├── shell/              # 桌面外壳层 (bar/launcher/lock/notif/pwmenu/wall)
 │   │   ├── __shell__.nix
-│   │   ├── bar/            # waybar / ironbar
+│   │   ├── bar/            # waybar (含 niri-taskbar) / ironbar
 │   │   ├── _noctalia/      # 完整 shell（替换 shell/ 下全部碎片） (bar+launcher+wallpaper 一体)
 │   │   ├── launcher/       # wofi / rofi / fuzzel
 │   │   ├── lock/           # swaylock
@@ -171,52 +188,84 @@ nixcfg/
 │   │   ├── pwmenu/         # wlogout
 │   │   └── wall/           # waypaper / awww
 │   ├── input/              # fcitx5 / rime / ibus
-│   │   └── __input__.nix
-│   ├── term/               # kitty
-│   │   └── __term__.nix
+│   │   └── __input__.nix   # desktop.input.select
+│   ├── term/               # kitty / alacritty
+│   │   └── __term__.nix    # desktop.term.select
 │   ├── fileMgr/            # dolphin / thunar
-│   │   └── __fileMgr__.nix
+│   │   ├── __fileMgr__.nix # desktop.fileMgr.list
+│   │   ├── dolphin/
+│   │   └── thunar/         # 内含用户级 FileManager1 D-Bus 覆盖 + inode/directory 关联
 │   ├── browser/            # firefox / brave
-│   │   └── __browser__.nix
+│   │   ├── __browser__.nix # desktop.browser.select
+│   │   ├── brave.nix
+│   │   ├── firefox.nix
+│   │   ├── betterfox.user.js
+│   │   └── smoothfox.user.js
 │   └── editor/             # vscodium / zed
-│       └── __editor__.nix
+│       └── __editor__.nix  # desktop.editor.list
 │
 ├── apps/               # Layer 3: 用户应用
-│   ├── __apps__.nix    # enable 开关 + imports + lib.mkDefault 默认值
+│   ├── __apps__.nix    # imports + lib.mkDefault 默认值
 │   ├── services/       # 后台守护进程
-│   │   ├── __services__.nix # enable 开关 + imports
-│   │   ├── ai/             # hermes-agent + opencode + pi (litellm 可选)
-│   │   │   └── __ai__.nix  # enable 开关 + sops 密钥 + 子模块默认值
-│   │   ├── proxy/          # mihomo
-│   │   │   └── __proxy__.nix   # enable 开关 + imports
-│   │   ├── ingress/        # cloudflared + nginx
-│   │   │   └── __ingress__.nix # enable/domain/port 选项 + sops 密钥
-│   │   └── remote-ctrl/    # nginx + wayvnc
-│   │       └── __remote-ctrl__.nix  # enable 开关 + imports
+│   │   ├── __services__.nix    # imports
+│   │   ├── ai/                 # hermes-agent + opencode + pi + grok + dsh (litellm 可选)
+│   │   │   ├── __ai__.nix      # enable 开关 + sops 密钥 + 子模块默认值
+│   │   │   ├── dsh/            # DeepSeek Harness
+│   │   │   │   ├── dsh.nix         # enable 开关 + api-key 注入
+│   │   │   │   └── dsh-package.nix # GitHub 源码 + pnpm 构建; 运行期固定官方 node 24.18.1
+│   │   │   ├── grok/
+│   │   │   ├── hermes/
+│   │   │   ├── litellm/
+│   │   │   ├── opencode/
+│   │   │   └── pi/
+│   │   ├── proxy/              # mihomo + dae/daed
+│   │   │   ├── __proxy__.nix   # enable 开关 + imports
+│   │   │   ├── mihomo/
+│   │   │   └── dae/
+│   │   ├── ingress/            # cloudflared + nginx
+│   │   │   ├── __ingress__.nix # enable/domain/port 选项 + sops 密钥
+│   │   │   ├── cloudflared.nix
+│   │   │   └── nginx.nix
+│   │   └── remote-ctrl/        # nginx + wayvnc
+│   │       ├── __remote-ctrl__.nix  # enable 开关 + imports
+│   │       ├── nginx.nix
+│   │       └── vnc.nix
 │   ├── toolkits/       # /opt/toolkit 工具集
-│   │   ├── __toolkits__.nix    # enable 开关 + imports
+│   │   ├── __toolkits__.nix    # imports
 │   │   ├── git.nix             # git 身份/配置
 │   │   ├── neovim.nix          # nixvim 编辑器 (EDITOR/VISUAL)
 │   │   ├── yazi/               # 终端文件管理
 │   │   │   └── yazi.nix
-│   │   ├── misc.nix           # 杂项工具
-│   │   ├── typst.nix          # Typst 工具链 (typst/tinymist)
-│   │   ├── latex.nix          # LaTeX 工具链 (tectonic)
-│   │   └── vm-managers.nix    # 虚拟机管理
+│   │   ├── misc.nix            # 杂项工具
+│   │   ├── typst.nix           # Typst 工具链 (typst/tinymist)
+│   │   ├── latex.nix           # LaTeX 工具链 (tectonic)
+│   │   ├── vm-managers.nix     # 虚拟机管理
+│   │   ├── mcu.nix             # 单片机工具链
+│   │   ├── fpga.nix            # FPGA 工具链
+│   │   └── rs.nix              # 逆向/底层工具链
 │   ├── pentest/        # 渗透测试工具
-│   │   ├── __pentest__.nix    # enable 开关 + imports
-│   │   ├── misc.nix           # 网络/逆向/移动安全工具
-│   │   ├── pwndbg.nix         # gdb 调试插件
-│   │   ├── wireshark.nix      # 网络分析
-│   │   └── yakit.nix          # Yakit (Wayland)
+│   │   ├── __pentest__.nix     # imports
+│   │   ├── misc.nix            # 网络/逆向/移动安全工具
+│   │   ├── c2.nix              # Sliver C2
+│   │   ├── pwndbg.nix          # gdb 调试插件
+│   │   ├── wireshark.nix       # 网络分析
+│   │   ├── yakit.nix           # Yakit (Wayland)
+│   │   ├── amass-package.nix     # 本地改写: amass
+│   │   ├── dirsearch-package.nix # 本地改写: dirsearch
+│   │   ├── sliver-package.nix    # 本地改写: sliver
+│   │   └── yakit-package.nix     # 本地改写: yakit
 │   └── game/           # 游戏
-│       ├── __game__.nix      # enable 开关 + imports
+│       ├── __game__.nix      # imports
 │       ├── steam.nix         # Steam (自声明 enable)
 │       ├── wine.nix          # wine (wayland) + winetricks + umu
-│       └── denuvo/              # Denuvo/Proton 支持 + cpuid_fault_emulation 内核模块
-│           ├── __denuvo__.nix
-│           ├── cpuid-fault-emulation.nix
-│           └── cpuid_fault_emulation/
+│       ├── linuwowo.nix      # LinUwUx Denuvo 运行时
+│       │                     # (patched GE-Proton + cpuid_fault_emulation, AMD only)
+│       ├── linuwowo.json
+│       └── misc.nix
 │
-└── secrets/            # SOPS 加密密钥 (__secrets__.nix)
+└── secrets/            # SOPS 加密密钥
+    ├── __secrets__.nix
+    ├── api_keys.yaml
+    ├── ssh_keys.yaml
+    └── token.yaml
 ```

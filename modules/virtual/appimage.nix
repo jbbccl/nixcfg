@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.modules.virtual.container.appimage;
+  cfg = config.modules.virtual.appimage;
 in {
-  options.modules.virtual.container.appimage.enable = lib.mkEnableOption "Flatpak & AppImage support";
+  options.modules.virtual.appimage.enable = lib.mkEnableOption "Flatpak & AppImage support";
 
   config = lib.mkIf cfg.enable {
     services.flatpak.enable = true;

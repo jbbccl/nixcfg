@@ -5,9 +5,9 @@
   username,
   ...
 }: let
-  cfg = config.modules.virtual.hardware.kvm;
+  cfg = config.modules.virtual.kvm;
 in {
-  options.modules.virtual.hardware.kvm.enable = lib.mkEnableOption "KVM virtualization (libvirtd)";
+  options.modules.virtual.kvm.enable = lib.mkEnableOption "KVM virtualization (libvirtd)";
 
   config = lib.mkIf cfg.enable {
     virtualisation.libvirtd = {
