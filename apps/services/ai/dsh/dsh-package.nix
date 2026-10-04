@@ -9,14 +9,11 @@
   autoPatchelfHook,
   python3,
   makeWrapper,
-  zlib,
 }:
 let
-  # node-addon-require-builtin 靠扫描 node/V8 的机器码来定位 V8 内部字段, 只认
-  # nodejs.org 官方构建产物。nixpkgs 自编译的 node (24.21.0 / 22.23.3) 会被判成
-  #   "x64 sysv getter is not a recognized this->field accessor"
-  # 导致 dsh 一引导 profile 就 "host preparation failed"。实测 V8 版本相同
-  # (13.6.233.17), 差别在构建产物本身, 所以只能固定用官方二进制。
+  # 必须用 nodejs.org 官方二进制: node-addon-require-builtin 扫描 node/V8 的机器码,
+  # nixpkgs 自编译的 node 会被判成 "x64 sysv getter is not a recognized this->field
+  # accessor" 而直接启动失败 (实测 24.21.0 / 22.23.3 均如此)。
   nodejs = stdenv.mkDerivation {
     pname = "nodejs-official";
     version = "24.18.1";
@@ -27,17 +24,10 @@ let
     };
 
     nativeBuildInputs = [autoPatchelfHook];
-    buildInputs = [stdenv.cc.cc.lib zlib];
-
+    buildInputs = [stdenv.cc.cc.lib];
     dontConfigure = true;
     dontBuild = true;
-
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out
-      cp -a . $out/
-      runHook postInstall
-    '';
+    installPhase = "mkdir -p $out; cp -a . $out/";
 
     meta = {
       description = "Node.js official Linux x64 build (dsh runtime requirement)";
@@ -52,8 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "dsh";
   version = "0.2.0-rc.2";
 
-  # 上游是 pnpm monorepo 且不提供 flake, 只能 fetchFromGitHub 后自行构建。
-  # rev 对应发行 tag dsh-v0.2.0-rc.2。
+  # rev = 发行 tag dsh-v0.2.0-rc.2
   src = fetchFromGitHub {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
@@ -68,23 +57,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-+7jFaROKpN8XHFpulloK2lb0GsYXbEdMs/V7ZO9leKE=";
   };
 
-  nativeBuildInputs = [
-    nodejs
-    pnpm_11
-    pnpmConfigHook
-    python3
-    makeWrapper
-  ];
+  nativeBuildInputs = [nodejs pnpm_11 pnpmConfigHook python3 makeWrapper];
 
   env = {
-    # 构建过程不得联网: electron / playwright 的二进制下载一律跳过
+    # 构建期不联网
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
     PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
-    # node-gyp 用 Nix 的 node 头文件, 不联网下载
     npm_config_nodedir = nodejs;
     CI = "1";
-    # fetchFromGitHub 的源码树没有 .git, 而 scripts/build.ts 默认要 `git rev-parse HEAD`;
-    # 上游为这种非 Git 构建环境留了这个显式覆盖变量。
+    # 源码树没有 .git, 而 scripts/build.ts 默认要 `git rev-parse HEAD`
     DSH_CLIENT_COMMIT_HASH = "639ed015397290b3745d163aafe02ffee4aa3f84";
   };
 
@@ -94,8 +75,10 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postBuild
   '';
 
-  # 运行期 bin/ 的 bundle 以裸模块名解析 workspace 包 (apps/cli/node_modules →
-  # ../../packages/...), 故整棵源码树连同 node_modules 一起安装。
+  # 运行期不能走构建产物 apps/cli/lib/bin.js: 它会让第三方 agent preset 的组合挂不起来
+  # (子行模块解析失败 → preset 永远 broken → UI 里选不到), 改用上游 package.json 的
+  # `dsh` script (node --import tsx/esm src/bin.ts)。store 只读, 所以必须关掉 pnpm 的
+  # deps 检查, 否则它会试图 `pnpm install` 写 _tmp_*; 另外不能加 `--`, 会被原样透传。
   installPhase = ''
     runHook preInstall
 
@@ -103,8 +86,11 @@ stdenv.mkDerivation (finalAttrs: {
     cp -a . $out/lib/dsh/
 
     mkdir -p $out/bin
-    makeWrapper ${nodejs}/bin/node $out/bin/dsh \
-      --add-flags "$out/lib/dsh/apps/cli/lib/bin.js" \
+    makeWrapper ${pnpm_11}/bin/pnpm $out/bin/dsh \
+      --add-flags "run dsh" \
+      --set pnpm_config_verify_deps_before_run false \
+      --set pnpm_config_pm_on_fail ignore \
+      --run "cd $out/lib/dsh" \
       --prefix PATH : ${lib.makeBinPath [nodejs pnpm_11]}
 
     runHook postInstall
