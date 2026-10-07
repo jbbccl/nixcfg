@@ -11,8 +11,22 @@ function opy
   set -gx all_proxy $ALL_PROXY
 end
 
+function ypy
+  set -l hostIP 127.0.0.1
+  set -l port 8083
+  set -gx http_proxy "http://$hostIP:$port"
+  set -gx HTTP_PROXY $http_proxy
+  set -gx https_proxy $http_proxy
+  set -gx HTTPS_PROXY $http_proxy
+  set -gx ftp_proxy $http_proxy
+  set -gx FTP_PROXY $http_proxy
+  set -gx ALL_PROXY "http://$hostIP:$port"
+  set -gx all_proxy $ALL_PROXY
+  set -gx no_proxy localhost,127.0.0.0/8,::1
+end
+
 function upy
-  set -e http_proxy HTTP_PROXY https_proxy HTTPS_PROXY ftp_proxy FTP_PROXY ALL_PROXY all_proxy
+  set -e http_proxy HTTP_PROXY https_proxy HTTPS_PROXY ftp_proxy FTP_PROXY ALL_PROXY all_proxy no_proxy
 end
 
 function __setGit
@@ -36,6 +50,8 @@ function poy
   switch $argv[1]
     case o
       opy
+    case y
+      ypy
     case u
       upy
     case g
@@ -45,6 +61,6 @@ function poy
     case s
       pys
     case '*'
-      echo "poy o|u|g|f|s"
+      echo "poy o|y|u|g|f|s"
   end
 end
