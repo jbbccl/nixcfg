@@ -22,7 +22,7 @@ function ypy
   set -gx FTP_PROXY $http_proxy
   set -gx ALL_PROXY "http://$hostIP:$port"
   set -gx all_proxy $ALL_PROXY
-  set -gx no_proxy localhost,127.0.0.0/8,::1
+  # set -gx no_proxy localhost,127.0.0.0/8,::1
 end
 
 function upy

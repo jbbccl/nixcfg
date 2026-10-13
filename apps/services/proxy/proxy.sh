@@ -24,7 +24,7 @@ ypy() {
   export FTP_PROXY="$http_proxy"
   export ALL_PROXY="$http_proxy"
   export all_proxy="$ALL_PROXY"
-  export no_proxy=localhost,127.0.0.0/8,::1
+  # export no_proxy=localhost,127.0.0.0/8,::1
 }
 
 upy() {
