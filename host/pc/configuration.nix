@@ -12,9 +12,6 @@
   # pc 无电池: 压过 noctalia 的默认 true
   services.upower.enable = lib.mkForce false;
 
-  # AMD (Ryzen 5 5600): Denuvo/LinUwUx 运行时按需启用
-  # cpuid-fault-emulation 服务默认不自启, 玩前 systemctl start, 完事/开 VM 前 stop
-  apps.game.linuwowo.enable = true;
 
   desktop.winMgr.niri.outputs = {
     "eDP-1" = {
