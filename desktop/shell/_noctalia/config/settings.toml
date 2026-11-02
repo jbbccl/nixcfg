@@ -9,28 +9,28 @@ shadow = false
 start = [ "group:g2", "group:g3", "clock", "wallpaper" ]
 
     [[bar.default.capsule_group]]
-    fill = "surface_variant"
+    fill = "surface_container"
     id = "g1"
     members = [ "network", "bluetooth" ]
     opacity = 1.0
     padding = 6.0
 
     [[bar.default.capsule_group]]
-    fill = "surface_variant"
+    fill = "surface_container"
     id = "g2"
     members = [ "cpu", "ram" ]
     opacity = 1.0
     padding = 6.0
 
     [[bar.default.capsule_group]]
-    fill = "surface_variant"
+    fill = "surface_container"
     id = "g4"
     members = [ "tray", "clipboard" ]
     opacity = 1.0
     padding = 6.0
 
     [[bar.default.capsule_group]]
-    fill = "surface_variant"
+    fill = "surface_container"
     id = "g3"
     members = [ "battery", "brightness" ]
     opacity = 1.0
@@ -51,12 +51,39 @@ widget_order = []
 [lockscreen_widgets]
 enabled = false
 schema_version = 2
-widget_order = [ "lockscreen-login-box@eDP-1" ]
+widget_order = [ "lockscreen-login-box@DP-1" ]
 
     [lockscreen_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 957.0
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 0.0
@@ -68,16 +95,32 @@ widget_order = [ "lockscreen-login-box@eDP-1" ]
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         input_opacity = 1.0
         input_radius = 6.0
         show_login_button = true
 
+[notification]
+position = "bottom_right"
+
+[osd]
+background_opacity = 0.99999997764825821
+hide_delay_ms = 950
+position = "top_right"
+position_vertical = "top_right"
+
+[plugins]
+enabled = []
+
 [shell]
 font_family = "Maple Mono NF CN"
 ui_scale = 1.1000000089406967
+
+    [shell.launcher]
+    app_grid = true
+    width = 640
 
     [shell.panel]
     open_near_click_control_center = true
@@ -125,6 +168,10 @@ ui_scale = 1.1000000089406967
 
 [theme]
 builtin = "Catppuccin"
+community_palette = "Oxocarbon"
+mode = "dark"
+source = "builtin"
+wallpaper_scheme = "m3-content"
 
 [wallpaper]
 directory = "~/.local/share/wallpapers"
@@ -133,7 +180,7 @@ directory = "~/.local/share/wallpapers"
     path = "~/.local/share/wallpapers/plasma/BytheWater/contents/images/1280x1024.jpg"
 
     [wallpaper.last]
-    path = "~/.local/share/wallpapers/plasma/BytheWater/contents/images/1280x1024.jpg"
+    path = "~/.local/share/wallpapers/plasma/ScarletTree/contents/images_dark/wallhaven_mpy829.jpg"
 
     [wallpaper.monitors.DP-1]
     path = "~/.local/share/wallpapers/plasma/ScarletTree/contents/images_dark/wallhaven_mpy829.jpg"
@@ -144,6 +191,9 @@ directory = "~/.local/share/wallpapers"
 [widget.brightness.actions]
 scroll_down = "brightness-down 1%"
 scroll_up = "brightness-up 1%"
+
+[widget.cat]
+type = "noctalia/bongocat:cat"
 
 [widget.clock]
 capsule = true

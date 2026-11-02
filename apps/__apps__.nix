@@ -32,6 +32,7 @@
       # proxy.dae.enable  = true;
       ingress.enable = false;
       remote-ctrl.enable = false;
+      monitoring.enable = false;
     };
 
     pentest = {
@@ -46,7 +47,7 @@
     game={
       steam.enable = true;
       wine.enable = true;
-      # linuwowo.enable
+      linuwowo.enable = false;
     };
   };
 }

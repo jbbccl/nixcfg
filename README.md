@@ -226,10 +226,14 @@ nixcfg/
 │   │   │   ├── __ingress__.nix # enable/domain/port 选项 + sops 密钥
 │   │   │   ├── cloudflared.nix
 │   │   │   └── nginx.nix
-│   │   └── remote-ctrl/        # nginx + wayvnc
-│   │       ├── __remote-ctrl__.nix  # enable 开关 + imports
-│   │       ├── nginx.nix
-│   │       └── vnc.nix
+│   │   ├── remote-ctrl/        # nginx + wayvnc
+│   │   │   ├── __remote-ctrl__.nix  # enable 开关 + imports
+│   │   │   ├── nginx.nix
+│   │   │   └── vnc.nix
+│   │   └── monitoring/         # k3s + kube-prometheus-stack
+│   │       ├── __monitoring__.nix  # enable 开关 + imports
+│   │       ├── k3s.nix
+│   │       └── prometheus.nix
 │   ├── toolkits/       # /opt/toolkit 工具集
 │   │   ├── __toolkits__.nix    # imports
 │   │   ├── git.nix             # git 身份/配置
