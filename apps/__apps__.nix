@@ -13,6 +13,7 @@
       misc.enable = true;
       typst.enable = true;
       latex.enable = true;
+      hive.enable = true;
       vm-managers.enable = true;
       git.enable = true;
       neovim.enable = true;

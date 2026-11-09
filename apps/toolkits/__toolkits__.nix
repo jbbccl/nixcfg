@@ -16,5 +16,6 @@
     ./mcu.nix
     ./rs.nix
     ./fpga.nix
+    ./hive.nix
   ];
 }
