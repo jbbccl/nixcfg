@@ -6,14 +6,10 @@
   ...
 }:
 lib.mkIf (builtins.elem "java" config.modules.lang.list) {
-  # JBR 是唯一带 Wayland 后端的 JDK, 但它不会自动选用, 需显式指定;
-  # 该属性对非 JBR 的 JDK 无害(忽略后回退 X11), 所以放全局 session 变量
-  environment.sessionVariables = {
-    JAVA_HOME = "${pkgs.jetbrains.jdk-no-jcef.home}";
-    JDK_JAVA_OPTIONS = "-Dawt.toolkit.name=WLToolkit";
-  };
-
+  # 回退到经典 JDK: Java 8 + 自带 JavaFX(Zulu FX)。
+  # 之前的 JBR 没有 JavaFX, 跑 JavaFX 应用会 NoClassDefFoundError: javafx/application/Application;
+  # 普通 OpenJDK(含 pkgs.jdk)同样不带 JavaFX, 所以这里用 zulu8 的 FX 构建。
   home-manager.users.${username}.home.packages = with pkgs; [
-    jetbrains.jdk-no-jcef
+    (zulu8.override {enableJavaFX = true;})
   ];
 }

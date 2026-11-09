@@ -62,6 +62,8 @@ in {
         squashfsTools
 
         bubblewrap
+
+        mariadb
       ];
     };
   };
