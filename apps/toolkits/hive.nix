@@ -33,6 +33,7 @@
       wrapProgram $out/bin/hive \
         --set-default JAVA_HOME ${pkgs.jdk21_headless.home} \
         --set-default HADOOP_HOME ${pkgs.hadoop} \
+        --set-default HADOOP_HEAPSIZE 1024 \
         --run 'export HIVE_CONF_DIR="''${HIVE_CONF_DIR:-$HOME/.config/hive}"' \
         --run 'mkdir -p "$HIVE_CONF_DIR" "$HOME/.local/share/hive" "$HOME/.local/state/hive"' \
         --run 'export HADOOP_CLIENT_OPTS="''${HADOOP_CLIENT_OPTS:-} -Dderby.stream.error.file=$HOME/.local/state/hive/derby.log"' \
