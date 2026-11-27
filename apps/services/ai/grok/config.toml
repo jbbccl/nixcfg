@@ -1,10 +1,12 @@
+# 首次创建使用，去home目录更改配置
 [models]
 default = "grok-latest"
 
 [model.grok-latest]
-model = "x-ai/grok-latest"
+model = "~x-ai/grok-latest"          # 正确写法（带 ~）
 base_url = "https://openrouter.ai/api/v1"
 name = "Grok Latest"
 env_key = "OPENROUTER_API_KEY"
 api_backend = "chat_completions"
 context_window = 500000
+max_completion_tokens = 8192
