@@ -25,26 +25,24 @@
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot/efi";
       };
+      
       grub = {
         efiSupport = true;
         useOSProber = true;
-        device = "nodev";
         configurationLimit = 5;
+        mirroredBoots = [
+          {
+            path = "/boot";
+            devices = ["nodev"];
+            efiSysMountPoint = "/boot/efi";
+            efiBootloaderId = "NixOS-xfs";
+          }
+        ];
       };
     };
   };
 
   fileSystems = {
-    "/home/VMS" = {
-      device = "/dev/disk/by-uuid/097135e3-2cfd-4630-9157-221aff11102a";
-      fsType = "btrfs";
-      options = [
-        "compress=zstd"
-        "noatime"
-        "subvol=dockers"
-        "discard=async"
-      ];
-    };
     "/home/backup" = {
       device = "/dev/disk/by-uuid/BE0C1FAE4B33B9A6";
       fsType = "ntfs";

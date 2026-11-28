@@ -9,11 +9,10 @@
     ../common.nix
   ];
 
-  # pc 无电池: 压过 noctalia 的默认 true
   services.upower.enable = lib.mkForce false;
  
   apps.services = {
-    monitoring.enable = true;
+    # monitoring.enable = true;
     remote.private = {
       vnc.enable = true;
       streaming.enable = true;

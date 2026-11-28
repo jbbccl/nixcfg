@@ -8,17 +8,18 @@
 
   config.apps = lib.mkDefault {
     toolkits ={
+      disk.enable = true;
       # mcu.enable = true;
       # fpga.enable = true;
       misc.enable = true;
       typst.enable = true;
-      # latex.enable = true;
-      # hive.enable = true;
-      vm-managers.enable = true;
+      # # latex.enable = true;
+      # # hive.enable = true;
+      # vm-managers.enable = true;
       git.enable = true;
-      neovim.enable = true;
+      # neovim.enable = true;
       yazi.enable = true;
-      # devops.enable = true;
+      # # devops.enable = true;
     };
 
     services = {
@@ -45,8 +46,8 @@
 
     pentest = {
       misc.enable = true;
-      c2.enable = true;
-      pwndbg.enable = true;
+      # c2.enable = true;
+      # pwndbg.enable = true;
       wireshark.enable = true;
       yakit.enable = true;
       # yakit.chromePath = "/run/current-system/sw/bin/brave";
@@ -54,7 +55,7 @@
 
     game={
       # steam.enable = true;
-      wine.enable = true;
+      # wine.enable = true;
       # linuwowo.enable = true;
       # misc.enable = true;
     };

@@ -10,9 +10,6 @@ in {
   options.apps.toolkits.misc.enable = lib.mkEnableOption "misc desktop apps";
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      kdePackages.partitionmanager
-    ];
     # locosend
     networking.firewall = {
       allowedTCPPorts = [53317];
@@ -56,13 +53,8 @@ in {
         openssl
         xeyes
 
-        # ── archive ───────────────────────────────────
-        _7zz-rar
-        peazip
-        squashfsTools
-
+        # ── misc ───────────────────────────────────
         bubblewrap
-
         mariadb.client
       ];
     };
