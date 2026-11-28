@@ -12,9 +12,9 @@ in {
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
       home.packages = with pkgs; [
-        # zed-editor
+        zed-editor
         # fresh-editor
-        mousepad
+        # mousepad
       ];
       # xdg.desktopEntries.fresh-editor = {
       #   name = "Fresh Editor";

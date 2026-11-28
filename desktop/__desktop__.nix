@@ -61,7 +61,7 @@
     };
 
     fileMgr = {
-      dolphin.enable = true;
+      # dolphin.enable = true;
       thunar.enable = true;
     };
 
@@ -73,7 +73,7 @@
     browser = {
       default = "brave";
       firefox = {
-        enable = true;
+        # enable = true;
         smoothfox = true;
         searchEngines = true;
         ublock = true;
